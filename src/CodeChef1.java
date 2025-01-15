@@ -23,42 +23,54 @@ public class CodeChef1
     }
 }
 
-
 /*
-This line is printing the multiplication table. Here's how it works:
 
 n is the number you input (e.g., 5).
+
 i is the loop variable that goes from 1 to 10.
+
 n + " x " + i + " = " + n*i is a string concatenation:
+
 n is the number (e.g., 5).
+
         " x " is the string " x " (multiplication symbol).
+
 i is the current loop value (e.g., 1, 2, 3, etc.).
+
         " = " is the string " = ".
+
 n*i is the result of multiplying n by i.
-        So, for example, when n = 5 and i = 2, the output will be:
 
-        5 x 2 = 10
-This is how the multiplication table is generated dynamically using the loop. Let me know if you need further clarification!
+        So, for example, when n = 5 and i = 2, the output will be: 5 x 2 = 10
 
-Is the response helpful?
-You
-what is this
-AI
+This is how the multiplication table is generated dynamically using the loop.
+
+what is this?
+
 The + symbol in this context is used for string concatenation in Java. It combines strings and variables into a single string.
 
 For example:
 
         System.out.println(n + " x " + i + " = " + n*i);
+
 Here’s how it works step by step:
 
 n is a variable (e.g., 5).
+
         " x " is a string literal (the text " x ").
+
 i is another variable (e.g., 2).
+
         " = " is another string literal (the text " = ").
+
 n*i is the result of multiplying n and i (e.g., 5 * 2 = 10).
+
 When you use + between these, Java combines them into a single string:
 
 n + " x " becomes "5 x ".
+
 Then "5 x " + i becomes "5 x 2".
+
 Then "5 x 2" + " = " becomes "5 x 2 = ".
+
 Finally, "5 x 2 = " + (n*i) becomes "5 x 2 = 10"*/

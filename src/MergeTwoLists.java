@@ -3,8 +3,8 @@
 
         Read the sizes of List 1 (N) and List 2 (X).
         Read the elements of List 1 and List 2.
-        Merge:
 
+        Merge:
         Create a new list (mergedList).
         Add all elements of List 1 to mergedList.
         Add all elements of List 2 to mergedList.
@@ -12,7 +12,7 @@
         Output:
 
         Print the elements of mergedList.
-        Java Code Logic
+
 */
 import java.util.ArrayList;
 import java.util.Scanner;

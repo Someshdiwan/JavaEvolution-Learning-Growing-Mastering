@@ -29,8 +29,16 @@ Parameters are part of the method definition (what the method expects).
 Arguments are the actual values you provide when calling the method.*/
 
 
-public class ParametersArguments {
-    public static void main(String[] args) {
-
+public class ParametersArguments
+{
+    public static void main(String[] args)
+    {
+        int result = addNumbers(3, 5);
+        System.out.println("Sum: " + result);
+    }
+    // User-defined method to add two numbers//
+    public static int addNumbers(int a, int b)
+    {
+                return a + b;
     }
 }

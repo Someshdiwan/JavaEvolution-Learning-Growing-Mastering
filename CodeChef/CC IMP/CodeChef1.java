@@ -1,5 +1,5 @@
 //Write a program which does the following:
-//
+
 //Create a variable n and store the user defined input from console in n.
 //Output to the console the multiplication table for n up to 10:
 //In the previous module we manually entered each row of the table.

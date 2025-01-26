@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class StudentChallengeAB {
     public static void main(String[] args) {
 

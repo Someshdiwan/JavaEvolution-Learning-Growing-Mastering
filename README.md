@@ -1,1 +1,1 @@
-![Daily Java Codes](banner.svg)
+![Daily Java Codes](Others/banner.svg)

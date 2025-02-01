@@ -1,3 +1,4 @@
+/*
 public class RotateTheArrayTwopointer
 {
     public static ReverseTheArray(int[] arr)
@@ -14,3 +15,4 @@ public class RotateTheArrayTwopointer
         }
     }
 }
+*/

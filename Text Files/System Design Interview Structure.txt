@@ -1,0 +1,19 @@
+1. System Design Interview Structure:
+  
+A system design interview usually follows this format:  
+✅ Clarify Requirements – Ask questions to understand functional & non-functional requirements.  
+✅ High-Level Design – Identify core components and how they interact.  
+✅ Detailed Design – Discuss database schema, APIs, scaling strategies, etc.  
+✅ Scalability & Optimizations – Address load balancing, caching, partitioning, etc.  
+
+---
+
+2. Common System Design Questions:
+
+Here are a few system design problems frequently asked in interviews:  
+
+🔹 Design a URL Shortener (like Bit.ly)  
+🔹 Design an E-commerce System (like Amazon)  
+🔹 Design a Ride-Sharing Service (like Uber)  
+🔹 Design a Social Media Platform (like Twitter)  
+🔹 Design a Distributed Cache (like Redis)

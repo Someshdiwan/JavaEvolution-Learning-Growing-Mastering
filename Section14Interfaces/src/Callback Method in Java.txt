@@ -1,0 +1,86 @@
+Callback Method in Java:
+
+A callback method in Java is a method that is passed as an argument to another method, and it gets executed at a later time when a certain event occurs or a condition is met.
+
+How Callbacks Work in Java
+
+Since Java does not support passing functions directly (like JavaScript or Python), **callback methods are typically implemented using interfaces, anonymous classes, or lambda expressions.
+
+---
+
+Example 1: Using an Interface (Traditional Way):
+
+A common way to implement callbacks in Java is by using an interface.
+
+Step 1: Define a Callback Interface:
+
+interface Callback {
+    void onComplete(String message);
+}
+
+```
+
+Step 2: Implement the Callback Interface:
+
+class Worker {
+    void doWork(Callback callback) {
+        System.out.println("Working...");
+        
+        // Simulating work completion
+        try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        // Calling the callback method when work is done
+        callback.onComplete("Work is done!");
+    }
+}
+```
+
+Step 3: Use the Callback:
+
+public class CallbackExample {
+    public static void main(String[] args) {
+        Worker worker = new Worker();
+        
+        // Implementing callback using an anonymous class
+        worker.doWork(new Callback() {
+            @Override
+            public void onComplete(String message) {
+                System.out.println("Callback received: " + message);
+            }
+        });
+    }
+}
+```
+Output:
+```
+Working...Callback received: Work is done!
+```
+
+---
+Example 2: Using Lambda Expressions (Modern Java Approach):
+
+If you're using Java 8+, you can simplify the callback implementation using lambda expressions.
+
+public class LambdaCallbackExample 
+{
+    public static void main(String[] args) {
+        Worker worker = new Worker();
+
+        // Using lambda to pass the callback method
+        worker.doWork(message -> System.out.println("Callback received: " + message));
+    }
+}
+```
+
+Output:
+```
+
+Working...Callback received: Work is done!
+```
+
+---
+Real-World Use Cases of Callbacks in Java:
+
+1. Event Handling: Used in GUI applications like Swing (`ActionListener`).
+2. Asynchronous Programming: Used in multi-threading (`Runnable`, `Callable`).
+3. API Calls & Background Tasks: Used in web services, networking, etc.

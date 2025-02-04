@@ -1,0 +1,66 @@
+Code Logic Explanation for Interview:
+
+Your program demonstrates inheritance in Java, specifically:
+
+- Encapsulation (private variables with getters and setters).
+- Method Overriding (different implementations of deposit, withdraw, and repay).
+- Polymorphism (SavingsAccount and LoanAccount extending Account).
+
+---
+
+1. Base Class: `Account`
+     
+     - This is a superclass containing attributes for:
+     - Account number (`accNo`)
+     - Name (`name`)
+     - Address (`address`)
+     - Phone number (`phno`)
+     - Date of Birth (`dob`)
+     - Balance (`balance`, protected so subclasses can modify it)
+     - It has a constructor to initialize all these attributes.
+     - It provides getter methods for account details.
+     - Setter methods allow updating `address` and `phno`.
+
+2.  Subclass: `SavingsAccount` (Regular Bank Account):
+
+   - Extends `Account`, meaning it inherits all properties of `Account`.
+   - Implements deposit() and withdraw() methods.
+   - Withdrawal is restricted (prevents overdrawing).
+
+3. Subclass: `LoanAccount` (Credit/Debt System):
+   
+   - Also extends `Account`, but balance here represents debt.
+   - Implements payEMI() and repay():
+   - `payEMI()` reduces debt partially.
+   - `repay()` allows paying off the entire loan.
+   - Ensures debt does not go negative.
+
+4. Main Class (`InheritanceIMP`):
+   
+   - Creates a `SavingsAccount` and `LoanAccount` object.
+   - Tests `deposit()`, `withdraw()`, `payEMI()`, and `repay()`.
+   - Prints results to verify the implementation.
+
+---
+
+How to Explain System Design in Interviews:
+
+System design focuses on scalability, performance, and reliability. Interviewers expect you to:
+1. Understand requirements (functional & non-functional).
+2. Break down components (databases, APIs, microservices, etc.).
+3. Consider trade-offs (scalability vs. consistency).
+4. Optimize for performance (caching, load balancing).
+
+---
+
+Basic Concepts to Cover:
+
+✅ OOP Principles: Encapsulation, Inheritance, Polymorphism, Abstraction.  
+✅ SOLID Principles: Ensuring scalable and maintainable code.  
+✅ Multithreading & Concurrency: Handling multiple processes efficiently.  
+✅ Design Patterns: Factory, Singleton, Observer, etc.  
+✅ Database Design: Normalization, Indexing, SQL vs NoSQL.  
+✅ Microservices & REST APIs: How to design scalable web applications.  
+✅ Caching & Load Balancing: Redis, CDN, and other optimizations.  
+
+---

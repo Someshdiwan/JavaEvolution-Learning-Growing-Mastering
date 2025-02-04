@@ -1,0 +1,127 @@
+Local Variable vs Global (Instance) Variable
+
+In Java, the distinction between local and global (or instance)** variables is essential to understanding how variables are used within a class.
+
+Local Variables:
+
+- Definition: A local variable is declared inside a method or block (like a constructor) and is only accessible within that method or block.
+- Scope: It is only available within the method or block where it is declared.
+- Lifetime: It exists only during the execution of the method/block and is destroyed once the method/block finishes executing.
+
+- Example:
+
+public class Example {
+    public void myMethod() {
+        int localVar = 10;  // local variable
+        System.out.println(localVar); // Can be accessed within the method
+    }
+    
+    // localVar cannot be accessed here, outside the method
+}
+
+```
+
+- Key Points:
+  - Declared inside a method.
+  - Cannot be accessed outside that method.
+  - Typically used for temporary calculations or as method-specific parameters.
+
+Global Variables (Instance Variables):**
+
+- Definition: A global variable is usually referred to as an instance variable in Java. It is declared inside a class but outside any methods. It is associated with an object and can be accessed by all methods in the class.
+- Scope: The scope is the entire class.
+- Lifetime: It exists as long as the object is alive and is destroyed when the object is garbage collected.
+
+- Example:
+
+public class Example 
+{
+    private int globalVar = 5;  // instance variable (global to the class)
+
+    public void myMethod() {
+        System.out.println(globalVar);  // Can access the global variable in any method
+    }
+    
+    public void anotherMethod() {
+        globalVar = 10;  // Can modify the global variable
+        System.out.println(globalVar);  // Can access the updated global variable
+    }
+}
+```
+
+- Key Points:
+  - Declared outside of any method, typically at the top of the class.
+  - Accessible by all methods in the class.
+  - Its value can persist across multiple method calls and instances of the class.
+
+Static Variables (Class Variables):
+- Definition: A static variable is a variable declared with the `static` keyword. It belongs to the class, not instances of the class.
+- Scope: Its scope is the entire class, but it is shared by all instances of the class.
+- Lifetime: It exists for the lifetime of the program.
+
+- Example:
+
+public class Example {
+    static int staticVar = 100;  // static variable
+
+    public void myMethod() {
+        System.out.println(staticVar);  // Can access static variable
+    }
+
+    public static void main(String[] args) {
+        System.out.println(staticVar);  // Static variable can be accessed directly in static method
+    }
+}
+```
+
+- Key Points:
+
+  - Declared with the `static` keyword.
+  - Shared across all instances of the class (same value for all objects of that class).
+  - Can be accessed directly from the `main` method (since `main` is static).
+
+Summary Comparison:
+
+|   Property                | Local Variable                               | Global (Instance) Variable                    | Static Variable                                              |
+|---------------------------|----------------------------------------------|-----------------------------------------------|--------------------------------------------------------------|
+|   Declaration             | Inside methods or blocks                     | Inside the class but outside methods          |  Inside the class with `static`                              |
+|   Scope                   | Only within the method/block                 | Throughout the class                          | Throughout the class (shared by all instances)               |
+|   Lifetime                | Exists only during method execution          | As long as the object exists                  | As long as the program runs                                  |
+|   Access                  | Accessible only within its method/block      | Accessible by any method in the class         |  Accessible by any method in the class or directly in `main` |
+|   Default Value           | No default value (must be initialized)       | Default to `null` (objects), `0` (primitives) | Default to `0` (if not initialized)                          |
+
+Example of All Types in One Class:
+
+public class Example {
+    private int instanceVar = 10;  // Instance variable (global variable)
+    static int staticVar = 20;     // Static variable (global to class)
+
+    public void method() {
+        int localVar = 30;  // Local variable (only inside this method)
+        System.out.println("Local Variable: " + localVar);
+        System.out.println("Instance Variable: " + instanceVar);
+        System.out.println("Static Variable: " + staticVar);
+    }
+
+    public static void main(String[] args) {
+        Example obj = new Example();
+        obj.method();  // Accessing instance and static variables
+        System.out.println("Static Variable (from main): " + staticVar);
+    }
+}
+```
+Output:
+```
+Local Variable: 30
+Instance Variable: 10
+Static Variable: 20
+Static Variable (from main): 20
+```
+
+---
+
+Key Takeaways:
+
+1. Local variables are temporary and limited to the method/block where they are declared.
+2. Global (instance) variables** are available throughout the class and persist with the object.
+3. Static variables are shared across all instances of a class and remain for the lifetime of the program.

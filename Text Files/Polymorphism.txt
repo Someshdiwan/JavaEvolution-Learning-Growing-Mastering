@@ -1,0 +1,67 @@
+Polymorphism is a core concept in Object-Oriented Programming (OOP) that refers to the ability of a single function, method, or object to behave in multiple ways. 
+
+The term polymorphism comes from Greek, where "poly" means "many" and "morph" means "form." Essentially, polymorphism allows different classes to be treated as instances of the same class through inheritance, while allowing for different behaviors depending on the specific class type that is being referenced.
+
+
+What is Polymorphism?
+
+Polymorphism is a core concept in Object-Oriented Programming (OOP) that refers to the ability of a single function, method, or object to behave in multiple ways. 
+
+The term polymorphism comes from Greek, where "poly" means "many" and "morph" means "form." Essentially, polymorphism allows different classes to be treated as instances of the same class through inheritance, while allowing for different behaviors depending on the specific class type that is being referenced.
+
+There are two main types of polymorphism:
+
+1. Compile-Time Polymorphism (Static Polymorphism)
+
+Compile-time polymorphism is resolved during the compilation process, before the program runs. This type of polymorphism is typically achieved through method overloading or operator overloading.
+
+Method Overloading: When multiple methods have the same name but differ in the number or type of parameters.
+
+Operator Overloading: It allows operators to be redefined to work with user-defined types (although this is not supported in all programming languages like Java).
+
+Key characteristics:
+
+Occurs at compile time.
+The decision about which method or function to call is made during the compilation, based on the method signature or operator.
+Often used to improve program efficiency by providing method customization without the overhead of runtime checks.
+
+2. Run-Time Polymorphism (Dynamic Polymorphism)
+
+Run-time polymorphism is resolved at runtime, meaning the decision of which method to invoke happens while the program is executing. This is typically achieved through method overriding, where a subclass provides a specific implementation of a method that is already defined in the superclass.
+
+Key characteristics:
+Occurs at runtime.
+The method call is determined dynamically based on the object's actual type, not the type of the reference variable.
+It allows subclasses to define their own version of a method that is already defined in a superclass.
+This is the core idea behind dynamic method dispatch (or method overriding).
+
+Summary of Key Differences:
+
+| Aspect                    | Compile-Time Polymorphism                                                | Run-Time Polymorphism                                                      |
+|---------------------------|--------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| When Resolved             | During compilation (before runtime )                                     | During program execution (runtime)                                         |
+| Type of Polymorphism      | Method Overloading, Operator Overloading                                 | Method Overriding                                                          |
+| Method Selection          | Based on method signatures (compile time)                                | Based on the actual object type (runtime)                                  |
+| Flexibility               | Less flexible, since it depends on the method signatures at compile time | More flexible, as it allows behavior based on the actual object at runtime |
+
+---
+
+Real-World Example of Polymorphism:
+
+Think of a vehicle in the real world:
+
+- A Vehicle class could have a method called `move()`.
+- Different types of vehicles (Car, Bike, Truck) may override the `move()` method to implement how they move.
+- At runtime, if you have a reference to a `Vehicle` object, you might not know whether it is a `Car`, `Bike`, or `Truck`, but when you call `move()`, the correct method for the actual object type will be executed (this is dynamic polymorphism).
+
+---
+
+Why is Polymorphism Important?
+
+- Code Reusability: Polymorphism allows you to write more general and reusable code. For instance, a function can be written to work with objects of a superclass type, and it will automatically work with any subclass objects.
+
+- Flexibility and Extensibility: It provides flexibility to change or extend the system without modifying existing code, which is a core principle of open/closed principle in software design.
+
+- Simplified Code Maintenance: Using polymorphism can reduce the complexity of your code and make it easier to maintain, as you don't need to know the exact type of an object when you invoke its methods.
+
+In summary, polymorphism makes it easier to extend and maintain your code while enabling more flexible and dynamic behavior at runtime.

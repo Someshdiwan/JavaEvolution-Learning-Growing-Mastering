@@ -52,5 +52,4 @@ public class PrintHelloSimulteneously //implements Runnable //extends Thread
         }
 
     }
-
 }

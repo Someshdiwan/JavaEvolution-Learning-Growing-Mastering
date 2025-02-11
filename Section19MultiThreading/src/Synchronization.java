@@ -2,7 +2,7 @@ class MyData
 {
     synchronized public void display(String str)
 
-            //Entire method is synchronized
+    //Entire method is synchronized
     {
         //Also allow to do this.
         synchronized (this)

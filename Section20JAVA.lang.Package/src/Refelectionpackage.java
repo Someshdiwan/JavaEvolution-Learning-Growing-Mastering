@@ -1,4 +1,4 @@
-//solve it pending. Solve it again.
+//https://www.geeksforgeeks.org/reflection-in-java/
 
 import java.lang.reflect.*;
 
@@ -22,7 +22,12 @@ public class Refelectionpackage
 {
     public static void main(String[] args)
     {
-        Class c=My.class;
+        Class c=My.class; //Getting defination by assign ing .class file
+        /* Or you also use
+        ReflectionJAVA m=new ReflectionJAVA();
+        Class c1=m.getClass();
+        */
+        System.out.println(c.getName());
 
         Field field[]=c.getDeclaredFields();
 
@@ -31,8 +36,18 @@ public class Refelectionpackage
         for(Method m:meth)
             System.out.println(m);
 
-        Parameter param[]=meth[0].getParameters();
+        //Getting a detail of the constructer in class.
+        Constructor con[] = c.getConstructors();
+        for(Constructor ct:con)
+            System.out.println(ct);
 
+        /*
+        O/p:
+        public My()
+        public My(int,int)
+        */
+
+        Parameter param[]=meth[0].getParameters();
         for(Parameter p:param)
         {
             System.out.println(p);

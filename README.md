@@ -1,3 +1,3 @@
 ![Daily Java Codes](Others/banner.svg)
 
-![Hands-on in JAVA](<img src="https://raw.githubusercontent.com/elciidsouza/elciidsouza/main/coding.gif" width="500" />)
+![Hands-on in JAVA](<img src="https://raw.githubusercontent.com/elciidsouza/elciidsouza/main/coding.gif" height="300" />)

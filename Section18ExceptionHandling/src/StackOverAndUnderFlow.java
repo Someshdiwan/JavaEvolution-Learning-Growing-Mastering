@@ -1,5 +1,4 @@
-//Pending solv e it
-
+//Pending solve it
 class StackOverFlow extends Exception
 {
     public String toString()
@@ -70,3 +69,50 @@ public class StackOverAndUnderFlow
 
     }
 }
+
+/*
+class StackOverFlow extends IllegalStateException {
+
+    @Override
+    public String toString() {
+        return "Stack is Full";
+    }
+}
+
+class StackUnderFlow extends IllegalStateException {
+
+    @Override
+    public String toString() {
+        return "Stack is Empty";
+    }
+}
+
+class Stack {
+
+    private final int[] values;
+    private int count = 0;
+
+    public Stack(int capacity) {
+        values = new int[capacity];
+    }
+
+    public int getCapacity() {
+        return values.length;
+    }
+
+    public void push(int x) throws StackOverFlow {
+        if (count == values.length) {
+            throw new StackOverFlow();
+        }
+        values[count] = x;
+        ++count;
+    }
+
+    public int pop() throws StackUnderFlow {
+        if (count == 0) {
+            throw new StackUnderFlow();
+        }
+        --count;
+        return values[count];
+    }
+}*/

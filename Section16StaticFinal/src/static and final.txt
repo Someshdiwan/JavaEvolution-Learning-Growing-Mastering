@@ -1,0 +1,66 @@
+The keywords `static` and `final` in Java are both used to define certain characteristics for variables, methods, and classes, but they have different purposes:
+
+1. `static`:
+
+   -   Applies to: Variables, Methods, and Inner Classes
+   -   Purpose: It means that the variable or method belongs to the class, rather than instances of the class (i.e., it is shared by all instances of that class).
+   
+   - Key Points:
+
+     - A `static` variable is shared across all instances of the class. If one instance changes the value of a static variable, it is reflected in all other instances.
+     - A `static` method can be called without creating an object of the class. It can only access other static members (variables and methods) of the class.
+     - A `static` block is used for initialization of static variables and is executed when the class is loaded.
+
+  Example:
+  
+  class Example {
+       static int count = 0;  // static variable
+       
+       static void incrementCount() {  // static method
+           count++;
+       }
+   }
+
+2. `final`:
+   
+     - Applies to: Variables, Methods, and Classes
+     - Purpose: It is used to indicate that something cannot be modified.
+     
+     - Key Points:
+     - A `final` variable's value cannot be changed once it is initialized (constant).
+     - A `final` method cannot be overridden by subclasses.
+     - A `final` class cannot be subclassed (i.e., it cannot have subclasses).
+   
+   Example:
+   
+   final int MAX_VALUE = 100;  // final variable (constant)
+   
+   final void display() {  // final method (cannot be overridden)
+       System.out.println("This is a final method");
+   }
+   
+   final class MyClass {  // final class (cannot be subclassed)
+       // Class implementation
+   }
+  
+Differences:
+
+1. Purpose:
+   
+   - `static` is used to indicate that something belongs to the class, not to instances.
+   - `final` is used to make something constant or immutable (cannot be changed).
+   
+2. Effect on Variables:
+
+   - A `static` variable is shared among all instances of the class.
+   - A `final` variable cannot be reassigned once its value is set.
+
+3. Effect on Methods:
+
+   - A `static` method can be called without creating an instance of the class and can only access other static members.
+   - A `final` method cannot be overridden by any subclass.
+
+4. Effect on Classes:
+
+   - A `static` class is a nested class inside a class that can be accessed without an instance of the enclosing class.
+   - A `final` class cannot be extended or subclassed.

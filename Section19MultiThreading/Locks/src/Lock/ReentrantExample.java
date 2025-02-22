@@ -34,5 +34,5 @@ public static void main(String[] args) {
     R.outermethod();
 }
 
-//Reentrant lock: 1. Lock 2. Unlock 3.Try/Lock types: without time and with time. 4. DeadLock(Reentrant lock).
-//5.lock.Interruptibly();
+//Reentrant lock:
+// 1. Lock 2.Unlock 3.Try/Lock types: without time and with time. 4. DeadLock(Reentrant lock). 5.lock.Interruptibly();

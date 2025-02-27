@@ -5,7 +5,7 @@ public class StringAB2 {
         String str3 = str.replace('u', 'M');
         System.out.println(str3);
 
-        String str2 = str.substring(3,5);
+        String str2 = str.substring(3,5).trim();
         System.out.println(str2);
     }
 }

@@ -1,10 +1,11 @@
-//Remove Special Characters from a String
+/*
+Remove Special Characters from a String
 
-//Logic: String str = "a!B@c#1$2%3";
-//Only alphabates and capitals letters and numbers are allowed
-//method called str.replace() and str.replaceAll()
-
-//what is allowed is [^a-zA-Z0-9] use symbole not ^ if not among this.
+Logic: String str = "a!B@c#1$2%3";
+Only alphabets and capital letters and numbers are allowed
+method called str.replace() and str.replaceAll()
+what is allowed is [^a-zA-Z0-9] use symbol not ^ if not among this.
+*/
 
 class RegularExpressionChallange3
 {

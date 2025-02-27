@@ -5,7 +5,7 @@ public class RegularExpressionStringAB
         String str2 = "8";
         String str3 = "%";
         String str4 = "abc";
-        String str5 = "A";
+        String str5 = "a";
 
 
 
@@ -16,7 +16,7 @@ public class RegularExpressionStringAB
         System.out.println(str4.matches("b"));
         System.out.println(str5.matches("ab"));
         System.out.println(str5.matches("^abc"));
-        System.out.println(str5.matches("[a-z0-9]"));
+        System.out.println("Hmm " + str5.matches("[a-z0-9]"));
 
         String str6="a"; //b,c
         System.out.println(str6.matches("[abc]"));

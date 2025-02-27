@@ -1,18 +1,18 @@
-class Animal{
+class Animal {
     String name;
 
-    public void makenoise(){
+    public void makenoise() {
         System.out.println("I am Just an animal");
     }
 }
 
 class Dog extends Animal {
     @Override
-    public void makenoise(){
+    public void makenoise() {
         System.out.println("Woof woof!");
     }
 
-    public void growl(){
+    public void growl() {
         System.out.println("Grrrrrr");
     }
 }
@@ -20,11 +20,26 @@ class Dog extends Animal {
 public class UpcastingandDowncasting {
     public static void main(String[] args) {
         Animal myAnimal = new Dog();
-        //Automatically upcasting Dog to Animal.
+        myAnimal.makenoise();
+        /*Automatically upcasting Dog to Animal.*/
 
-    }
+        /*
+        Dog d = new Dog();
+        d.makenoise();
+        d.growl();
+       */
 
-    public static void doANimalStuff(Animal animal){
-        animal.makenoise();
+        /*Unsafe Down-casting (Incorrect)*/
+        /*
+        Dog dd = (Dog) new Animal();
+        dd.growl();
+        */
+
+        if (myAnimal instanceof Dog) {
+            Dog dd = ( Dog ) myAnimal; //Safe Downcasting
+            dd.growl();
+        } else {
+            System.out.println("Downcasting is not possible.");
+        }
     }
 }

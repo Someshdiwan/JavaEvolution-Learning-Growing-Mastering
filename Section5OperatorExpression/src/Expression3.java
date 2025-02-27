@@ -17,8 +17,7 @@ public class Expression3 {
 
         volume=length*breadth*height;
 
-        System.out.println("Total area "+ totalArea);
-        System.out.println("Volume "+volume);
-
+        System.out.println("Total area: "+ totalArea);
+        System.out.println("Volume: "+volume);
     }
 }

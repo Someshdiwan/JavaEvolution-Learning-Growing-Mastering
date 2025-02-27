@@ -8,7 +8,6 @@ public class Bitwise2
         int z;
 
         z = x | y;
-
         //or Operation
 
         System.out.println(z);

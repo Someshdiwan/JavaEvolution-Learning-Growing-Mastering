@@ -4,7 +4,7 @@ public class Bitwise4
         int x = 0b100; //10;
 
         int y;
-        y =x<<2;
+        y = x<<2;
         System.out.println(y);
     }
 }

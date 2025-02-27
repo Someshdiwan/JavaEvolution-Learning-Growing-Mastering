@@ -1,4 +1,4 @@
-public class bitwise3
+public class Bitwise3
 {
     public static void main(String[] args) {
         int x = 0b1010; //10;
@@ -8,7 +8,6 @@ public class bitwise3
         int z;
 
         z = x ^ y;
-
         //XOR Operation
 
         System.out.println(z);

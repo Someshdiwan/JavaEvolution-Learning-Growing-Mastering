@@ -3,8 +3,8 @@ public class TestString {
         String name ="Ram";
         int length  = name.length();
         System.out.println(length);
-        //name.length();
-        //o se leker length - 1;
+
+        /* name.length(); o se leker length - 1; */
 
         String name1 = "Virat Kohli";
         char c = name1.charAt(6);

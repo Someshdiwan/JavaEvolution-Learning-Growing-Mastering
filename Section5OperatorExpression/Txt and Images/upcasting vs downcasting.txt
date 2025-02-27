@@ -1,0 +1,47 @@
+Types of Casting in Java:
+
+1. Upcasting (Implicit)
+The process of converting a subclass reference into a superclass reference. It is done automatically and ensures
+that only the superclass methods and fields are accessible.
+
+2. Down-casting (Explicit)
+The process of converting a superclass reference back into a subclass reference.
+This requires explicit typecasting and is unsafe if the object was not originally upcast,
+potentially leading to a ClassCastException.
+
+3. Widening (Primitive Casting)
+A conversion where a smaller primitive data type is automatically converted into a larger data type.
+It occurs implicitly and does not cause data loss.
+
+4. Narrowing (Primitive Casting)
+A conversion where a larger primitive data type is explicitly converted into a smaller data type.
+This requires explicit casting and may result in data loss.
+
+Example: Let there be a parent class. There can be many children of a parent.
+
+Let’s take one of the children into consideration.
+
+The child inherits the properties of the parent.
+Therefore, there is an “is-a” relationship between the child and parent.
+Therefore, the child can be implicitly upcasted to the parent.
+
+However, a parent may or may not inherits the child’s properties.
+However, we can forcefully cast a parent to a child which is known as down-casting.
+
+After we define this type of casting explicitly, the compiler checks in the background
+if this type of casting is possible or not. If it’s not possible, the compiler throws a ClassCastException.
+
+Syntax of Up_casting: Parent p = new Child();
+
+Upcasting will be done internally-and due to upcasting the object is allowed to access only parent class members and
+child class specified members (overridden methods, etc.) but not all members.
+ 
+This variable is not accessible
+
+p.id = 1;
+
+Syntax of Down_casting: Child c = (Child)p;
+
+Down-casting has to be done externally and due to down-casting a child object can acquire the properties of the parent object.
+ 
+c.name = p.name;

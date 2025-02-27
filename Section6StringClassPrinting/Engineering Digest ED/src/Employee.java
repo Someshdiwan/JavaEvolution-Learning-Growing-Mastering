@@ -8,7 +8,6 @@ If you want to represent any object as a string, toString() method comes into ex
 public class Employee {
     //are instance variables (also known as fields or attributes) in the Employee class.
     //They represent the state or data of an object of the class.
-
     private int id;
     private String name;
 

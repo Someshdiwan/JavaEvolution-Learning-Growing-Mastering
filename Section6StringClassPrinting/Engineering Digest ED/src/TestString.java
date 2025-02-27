@@ -22,7 +22,6 @@ public class TestString {
         int i = str1.compareTo(str2);
         System.out.println(i);
 
-
         //check ASCII Value
         System.out.println('r'+0);
         System.out.println('c'+0); //114-99=15

@@ -8,7 +8,6 @@ class student
         this.studentID =studentID;
         this.name =name;
     }
-
    /*
     public String toString()
     {
@@ -30,7 +29,6 @@ class student
     would be returned if neither the toString nor hashCode methods were overridden by the object's class.
     */
 }
-
 public class toStringMethod
 {
     public static void main(String[] args)

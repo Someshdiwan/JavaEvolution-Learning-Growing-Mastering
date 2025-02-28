@@ -28,7 +28,7 @@ public class ConditionalStatementsAB5 {
             System.out.println("You have obtain garde B");
         } else if (avg>=50 && avg <60) {
             System.out.println("You have obtain garde C");
-        } else if (avg>=40 & avg < 50) {
+        } else if (avg>=40 && avg < 50) {
             System.out.println("You have obtain grade D");
         }
         else {

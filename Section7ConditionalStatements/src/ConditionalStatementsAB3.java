@@ -1,6 +1,8 @@
-//Find num is odd or even
-//How check even or odd exactly divisible by 2. remainder is zero means Even and
-// remainder is one then its odd.
+/*
+Find num is odd or even
+How check even or odd exactly divisible by 2.
+Remainder is zero means Even and Remainder is one then-its odd.
+*/
 
 import java.util.Scanner;
 

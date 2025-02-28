@@ -15,10 +15,10 @@ public class ConditionalStatementsAB4 {
 
         if(age >=14 && age <=55)
         {
-            System.out.println("Person is young ");
+            System.out.println("Person is young");
         }
         else {
-            System.out.println("Person is nto a young: ");
+            System.out.println("Person is not a young");
         }
     }
 }

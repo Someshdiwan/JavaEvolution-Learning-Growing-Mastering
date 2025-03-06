@@ -1,0 +1,8 @@
+The syntax for a generic type is:
+
+class ClassName<T> {
+    // Class body
+}
+
+Where T is the type parameter, which can be any valid identifier.
+Conventionally, single-letter names are used for type parameters, such as T for Type, E for Element, K for Key, V for Value, etc.

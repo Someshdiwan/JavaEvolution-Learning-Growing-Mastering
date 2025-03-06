@@ -1,0 +1,12 @@
+Wildcards with Generic Interfaces:
+
+You can use wildcards when dealing with generic interfaces to allow for more flexibility with the types used at runtime.
+
+Wildcards allow an implementation to be more permissive about the types of parameters it accepts.
+
+class WildcardExample {
+    public static void printContainer(Container<?> container) {
+        System.out.println(container.get());
+    }
+}
+Here, the wildcard ? is used, meaning that printContainer can accept a Container of any type.

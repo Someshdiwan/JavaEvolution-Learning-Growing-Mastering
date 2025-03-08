@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>
+        Person Properties New File For reading using JAVA Program.
+        How to read XML file using Properties in JAVA program.
+    </comment>
+    <entry key="Name: ">Donald</entry>
+    <entry key="Age: ">99</entry>
+    <entry key="Address: ">LA</entry>
+    <entry key="Country: ">USA</entry>
+</properties>

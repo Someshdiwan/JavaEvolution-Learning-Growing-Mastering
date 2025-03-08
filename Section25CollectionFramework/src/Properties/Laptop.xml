@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Properties XML File</comment>
+<entry key="Processor: ">i7</entry>
+<entry key="Model: ">Latitude</entry>
+<entry key="Brand Name: ">Dell</entry>
+<entry key="OS: ">Windows</entry>
+</properties>

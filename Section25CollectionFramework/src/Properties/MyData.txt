@@ -1,0 +1,6 @@
+#laptop
+#Sun Mar 09 01:26:18 IST 2025
+Brand\ Name\:\ =Dell
+Model\:\ =Latitude
+OS\:\ =Windows
+Processor\:\ =i7

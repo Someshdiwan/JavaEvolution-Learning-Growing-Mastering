@@ -1,0 +1,4 @@
+Name=Coke
+Type=Drink
+Brand=Coca-Cola
+Qty=1 Liter package

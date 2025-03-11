@@ -1,0 +1,27 @@
+Definition
+
+- Array: A fixed-size, contiguous memory data structure that stores elements of the same type. 
+
+  It provides constant-time (O(1)) access to elements via an index.  
+
+- List (ArrayList/LinkedList): A dynamic collection that can grow or shrink in size. 
+
+  It is part of Java’s `java.util` package and allows flexible manipulation of elements. 
+ 
+ `ArrayList` provides fast access, while `LinkedList` is optimized for frequent insertions/deletions.
+
+
+Array vs. List in Java (Short Theory):
+
+| Feature               |  Array                                    |  List (ArrayList/LinkedList)                                               |
+|-----------------------|-------------------------------------------|----------------------------------------------------------------------------|
+| Size                  | Fixed                                     |  Dynamic (can grow/shrink)                                                 |
+| Performance           | Fast access (O(1) indexing)               |  Slower than arrays for indexing (O(1) for ArrayList, O(n) for LinkedList) |
+| Memory                | Continuous memory allocation              |  Dynamic memory allocation                                                 |
+| Flexibility           | Cannot change size after creation         |  Can dynamically add/remove elements                                       |
+| Implementation        | int[] arr = new int[5];                   |  List<Integer> list = new ArrayList<>();                                   |
+| Best For              | When size is known & fixed                |  When frequent insertions/deletions are needed                             |
+
+👉  Use Array when performance & fixed size matter. 
+ 
+👉  Use List when flexibility & dynamic resizing are needed.

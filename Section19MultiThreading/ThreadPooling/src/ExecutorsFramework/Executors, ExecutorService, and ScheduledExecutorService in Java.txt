@@ -1,0 +1,156 @@
+Understanding Executors, ExecutorService, and ScheduledExecutorService in Java
+
+The Executors Framework in Java provides a high-level API to manage threads efficiently.
+Instead of manually creating and managing threads, we use executors to handle task execution in a thread pool.
+
+1️⃣ Executors
+🔹 Executors is a utility class that provides factory methods to create various types of ExecutorService implementations.
+🔹 It simplifies thread pool management.
+
+Common Methods in Executors
+
+| Method                      | Description                                                      |
+|-----------------------------|------------------------------------------------------------------|
+|  newFixedThreadPool(n)      | Creates a pool with a fixed number of threads.                   |
+|  newCachedThreadPool()      | Creates a pool with dynamic thread count, removing idle threads. |
+|  newSingleThreadExecutor()` | Creates a pool with a single worker thread.                      |
+|  newScheduledThreadPool(n)` | Creates a pool for scheduled tasks.                              |
+
+Example: Using Executors to Create a Thread Pool
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ExecutorsExample {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        Runnable task = () -> System.out.println("Task executed by: " + Thread.currentThread().getName());
+
+        for (int i = 0; i < 5; i++) {
+            executor.execute(task);
+        }
+
+        executor.shutdown();
+    }
+}
+
+Expected Output:
+
+Task executed by: pool-1-thread-1
+Task executed by: pool-1-thread-2
+Task executed by: pool-1-thread-3
+Task executed by: pool-1-thread-1
+Task executed by: pool-1-thread-2
+
+✅ Explanation:
+
+- The thread pool has 3 threads.
+- It reuses them to run 5 tasks.
+
+2️⃣ ExecutorService (Interface)
+🔹 ExecutorService extends Executor and adds methods to manage thread lifecycle & task execution.
+
+
+Key Methods in `ExecutorService`]
+
+| Method                                     | Description |
+|------------------------------------------- |-----------------------------------------------------------------|
+|  execute(Runnable command)                 | Executes a task but doesn’t return a result.                    |
+|  submit(Callable/Void task)                | Executes a task and returns a Future for result retrieval.    |
+|  invokeAll(Collection<Callable<T>> tasks)  | Executes multiple tasks and waits for all to finish.            |
+|  invokeAny(Collection<Callable<T>> tasks)  | Executes multiple tasks and returns the first completed result. |
+|  shutdown()                                | Initiates an orderly shutdown (waits for running tasks).        |
+|  shutdownNow()                             | Attempts to stop all running tasks immediately.                 |
+
+
+Example: Using submit() with Callable
+
+import java.util.concurrent.*;
+
+public class ExecutorServiceExample {
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        Callable<Integer> task = () -> {
+            System.out.println("Computing...");
+            return 42;
+        };
+
+        Future<Integer> future = executor.submit(task);
+
+        System.out.println("Task submitted...");
+        System.out.println("Result: " + future.get()); // Blocks until result is available
+
+        executor.shutdown();
+    }
+}
+```
+
+Output:
+
+Task submitted...
+Computing...
+Result: 42
+
+✅ Explanation:
+
+- submit() is used instead of `execute()` because it returns a `Future<Integer>` to get the result.
+
+3️⃣ ScheduledExecutorService (Interface) and ScheduledExecutorService extends ExecutorService and provides
+methods to schedule tasks with delays or fixed intervals.
+
+Key Methods in ScheduledExecutorService
+
+| Method                                                            | Description |
+|-------------------------------------------------------------------|-------------------------------------------------|
+|  schedule(Runnable, delay, TimeUnit)                              | Runs task once after a delay.                   |
+|  scheduleAtFixedRate(Runnable, initialDelay, period, TimeUnit)    | Runs task repeatedly at a fixed rate.           |
+|  scheduleWithFixedDelay(Runnable, initialDelay, delay, TimeUnit)  | Runs task repeatedly with a                     |
+                                                                      fixed delay between completions.                |
+
+Example: Using scheduleAtFixedRate();
+
+import java.util.concurrent.*;
+
+public class ScheduledExecutorServiceExample {
+    public static void main(String[] args) throws InterruptedException {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+
+        Runnable task = () -> System.out.println("Running at: " + System.currentTimeMillis());
+
+        scheduler.scheduleAtFixedRate(task, 1, 3, TimeUnit.SECONDS); // Runs every 3 seconds
+
+        Thread.sleep(10000); // Let it run for 10 seconds
+        scheduler.shutdown();
+    }
+}
+
+Expected Output:
+
+Running at: 1700000000000
+Running at: 1700000003000
+Running at: 1700000006000
+Running at: 1700000009000
+
+✅ Explanation:
+
+The task starts after 1 second and then runs every 3 seconds.
+
+Comparing Executors, ExecutorService, and ScheduledExecutorService**
+
+| Feature                 | Executors            | ExecutorService        | ScheduledExecutorService |
+|-------------------------|----------------------|------------------------|--------------------------|
+| Type                    | Utility class        | Interface              | Interface                |
+| Purpose                 | Creates thread pools | Manages task execution | Manages scheduled tasks  |
+| Supports scheduling?    | ❌ No                | ❌ No                  | ✅ Yes                   |
+| Manages shutdown?       | ❌ No                | ✅ Yes                 | ✅ Yes                   |
+| Handles Futures?        | ❌ No                | ✅ Yes                 | ✅ Yes                   |
+
+
+🔥 When to Use What?
+
+✔ Use  Executors when you need a simple way to create a thread pool.
+✔ Use  ExecutorService when you need advanced task management (like Future).
+✔ Use  ScheduledExecutorService when you need periodic task execution.
+

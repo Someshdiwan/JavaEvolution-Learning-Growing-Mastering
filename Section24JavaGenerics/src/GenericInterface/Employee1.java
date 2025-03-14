@@ -6,7 +6,7 @@ Real-World Example of Generic Interfaces
 A common example of a generic interface in Java is the Comparable<T> interface, which is used to impose a natural ordering on objects.
 */
 
-public class Employee1 implements Comparable<Employee> {
+/*public class Employee1 implements Comparable<Employee> {
     private String name;
     private int age;
 
@@ -19,7 +19,7 @@ public class Employee1 implements Comparable<Employee> {
     public int compareTo(Employee other) {
         return Integer.compare(this.age, other.age);
     }
-}
+}*/
 
 
 /*

@@ -1,0 +1,12 @@
+The load factor is a measure that determines how full a hash table
+(like Java’s HashMap) is allowed to get before its capacity is automatically increased.
+
+It is defined as the ratio of the number of stored entries to the total capacity of the table.
+
+For example, a load factor of 0.75 means that when the hash table is 75% full,
+it will resize (typically doubling its capacity) to maintain efficient performance
+and reduce the likelihood of collisions.
+
+Balancing the load factor is important because:
+- A lower load factor decreases the chance of collisions but increases memory usage.
+- A higher load factor uses memory more efficiently but may lead to more collisions and slower performance.

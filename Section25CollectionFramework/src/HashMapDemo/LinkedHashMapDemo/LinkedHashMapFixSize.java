@@ -1,4 +1,4 @@
-package LinkedHashMapDemo;
+package HashMapDemo.LinkedHashMapDemo;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -9,7 +9,6 @@ public class LinkedHashMapFixSize
     {
         // Create an anonymous subclass of LinkedHashMap that overrides removeEldestEntry
         LinkedHashMap<Integer, String> LHM = new LinkedHashMap<>(5, 0.75F, true)
-
         {
             @Override
             protected boolean removeEldestEntry(Map.Entry<Integer, String> eldest)
@@ -18,6 +17,7 @@ public class LinkedHashMapFixSize
                 return size() > 7;
             }
         };
+
         //Suppose you want to limit the size of the Linked-Hash Map then you need to override the method
         //inside Class and anonymous class must be...protected boolean ....
 
@@ -32,7 +32,6 @@ public class LinkedHashMapFixSize
         String s = LHM.get(2);
         s = LHM.get(5);
         s= LHM.get(1);
-
         LHM.put(8,"Least access element removed and here this is the new element added");
         LHM.forEach((k,v)->System.out.println(k+" "+v));
     }

@@ -1,0 +1,31 @@
+1?? Basic Understanding:
+
+Can you explain how your LRUCache works?
+
+Why did you extend LinkedHashMap instead of using HashMap?
+What does super(capacity, 0.75f, true); do in the constructor?
+What is the role of removeEldestEntry?
+
+2?? Edge Cases & Behavior:
+
+What happens if I add more than the defined capacity?
+What if I reinsert an existing key? How does it affect the order?
+How does accessOrder=true impact element eviction?
+
+3?? Performance Analysis:
+
+What is the time complexity of put() and get() in your implementation?
+How does LinkedHashMap internally maintain the access order?
+Would your LRU cache work efficiently for large-scale data?
+
+4?? Alternative Implementations:
+
+Can you implement LRU without LinkedHashMap?
+How would you design an LRU cache using a doubly linked list + HashMap?
+What are the trade-offs between your approach and using a Deque + HashMap?
+
+5?? Code Improvements & Optimization:
+
+How would you make your cache thread-safe?
+What if you wanted to store a large number of elements efficiently?
+How can we improve memory management in your implementation?

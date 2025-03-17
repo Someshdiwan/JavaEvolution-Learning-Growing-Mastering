@@ -1,0 +1,141 @@
+1?? Basic Understanding Questions:
+
+Q1: Can you explain how your LRUCache works?
+
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+This LRUCache extends LinkedHashMap, which maintains insertion order by default.
+By setting accessOrder=true, the map reorders elements based on access, ensuring the least recently
+used (LRU) entry is at the front.
+The removeEldestEntry() method automatically removes the oldest entry when the cache exceeds capacity.
+
+Q2: Why did you extend LinkedHashMap instead of using HashMap?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+HashMap does not maintain order, whereas LinkedHashMap maintains access order when accessOrder=true.
+LinkedHashMap provides a simple way to implement LRU eviction without extra data structures like a doubly linked list.
+
+Q3: What does super(capacity, 0.75f, true); do in the constructor?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+capacity: Initial size of the cache.
+0.75f: Default load factor.
+true: Enables access-order mode, meaning the most recently accessed entry moves to the end.
+
+Q4: What is the role of removeEldestEntry?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+It ensures the cache never exceeds the specified capacity.
+When size() > capacity, the eldest (least recently used) entry is removed automatically.
+
+2?? Edge Cases & Behavior
+
+Q5: What happens if I add more than the defined capacity?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+The least recently used (LRU) entry gets removed automatically when a new entry is added.
+
+Q6: What if I reinsert an existing key? How does it affect the order?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+Since accessOrder=true, updating an existing key moves it to the most recently used position.
+
+Q7: How does accessOrder=true impact element eviction?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+The most recently accessed elements move to the end, and the least recently used ones stay at the front.
+When eviction occurs, the oldest (least accessed) entry is removed.
+
+3?? Performance Analysis
+
+Q8: What is the time complexity of put() and get()?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+Both put() and get() operate in O(1) time on average, as LinkedHashMap internally uses a hash table.
+
+Q9: How does LinkedHashMap internally maintain the access order?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+It maintains a doubly linked list internally, linking all entries in the order of insertion or access.
+When accessOrder=true, accessed elements move to the end.
+
+Q10: Would your LRU cache work efficiently for large-scale data?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+It works well for moderate-sized caches.
+For large-scale data, additional optimizations like custom data structures or distributed caching may be needed.
+
+4?? Alternative Implementations
+
+Q11: Can you implement LRU without LinkedHashMap?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+Yes! We can use a HashMap + Doubly Linked List:
+HashMap stores key-node mappings for O(1) lookup.
+Doubly Linked List maintains order and allows quick insertion/deletion.
+
+Q12: How would you design an LRU cache using a Deque + HashMap?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+Use Deque (Double-ended queue) to track access order.
+Use HashMap for O(1) lookups.
+On access/update, move elements in the deque accordingly.
+
+Q13: What are the trade-offs between your approach and a HashMap + Doubly Linked List?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+
+| Approach      | Pros                                          |   Cons                     |
+|---------------|-----------------------------------------------|----------------------------|
+| LinkedHashMap | Simple, built-in ordering, automatic eviction | Less control over behavior |
+| HashMap + DLL | Fine-tuned control, explicit LRU handling     | More code complexity       |
+
+5?? Code Improvements & Optimization
+
+Q14: How would you make your cache thread-safe?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+Use synchronized blocks or ConcurrentHashMap + ConcurrentLinkedDeque for multi-threading.
+
+Q15: What if you wanted to store a large number of elements efficiently?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+Use SoftReferences/WeakReferences to allow automatic garbage collection of old items.
+
+Q16: How can we improve memory management in your implementation?
+? Your Answer:
+(Your response here)
+
+? Ideal Answer:
+Tune cache size dynamically based on system resources.
+Use LRU eviction policies with external storage (like Redis) for large datasets.

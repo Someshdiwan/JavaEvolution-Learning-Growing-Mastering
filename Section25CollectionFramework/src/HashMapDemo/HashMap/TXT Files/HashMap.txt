@@ -1,0 +1,92 @@
+Overview
+
+Implementation:
+HashMap is a hash table–based implementation of the Map interface.
+It stores key-value pairs and allows one null key along with multiple null values.
+
+Usage:
+It’s widely used for fast data retrieval when ordering isn’t important.
+
+Key Features and Performance
+
+Constant-Time Operations:
+Under ideal conditions (i.e., a well-distributed hash function), the basic operations such as get() and put() execute
+in constant time (O(1)).
+
+Initial Capacity & Load Factor:
+
+Initial Capacity: Determines the number of buckets. The default is 16.
+Load Factor: Default value is 0.75, balancing time efficiency and space overhead.
+When the number of entries exceeds the product of the capacity and load factor, rehashing occurs (typically doubling the number of buckets).
+
+Iteration Cost:
+Iterating over a HashMap takes time proportional to the number of buckets plus the number of key-value mappings.
+Setting the initial capacity appropriately can help avoid unnecessary overhead.
+
+Constructors and Initialization
+
+Constructors:
+
+HashMap provides multiple constructors:
+
+Default Constructor: Creates an empty map with a default capacity (16) and load factor (0.75).
+Capacity-Specified Constructor: Allows setting an initial capacity.
+Capacity and Load Factor Constructor: Enables tuning both parameters.
+Copy Constructor: Initializes a HashMap with the mappings from another Map.
+
+Collision Handling and Rehashing
+
+Collision Resolution:
+HashMap uses a hash function to determine the bucket for each key. When multiple keys have the same hash code, collisions occur, which are handled internally.
+
+Enhanced Collision Management:
+Since Java 8, when a bucket becomes too full (many collisions),
+it may be transformed into a balanced tree (instead of a linked list) to improve worst-case performance.
+
+Rehashing:
+As the map grows, once the threshold (capacity × load factor) is exceeded, the table is rehashed,
+i.e., the internal structure is rebuilt with roughly twice the number of buckets.
+
+Concurrency and Fail-Fast Behavior
+
+Thread-Safety:
+HashMap is not synchronized. In multi-threaded environments where concurrent modifications occur,
+you must use external synchronization (or consider using ConcurrentHashMap).
+
+Fail-Fast Iterators:
+The iterators provided by HashMap’s collection views (like keySet() or entrySet()) are fail-fast.
+They throw a ConcurrentModificationException if the map is structurally modified after the iterator is created (except via the iterator’s own remove method).
+
+Common Methods
+
+Basic Operations:
+
+put(K key, V value) – Associates a value with a key.
+get(Object key) – Retrieves the value associated with a key.
+remove(Object key) – Removes the mapping for a key.
+containsKey(Object key) and containsValue(Object value) – Check for existence of keys or values.
+putAll(Map<? extends K,? extends V> m) – Copies mappings from another map.
+clear() – Removes all mappings.
+
+Advanced Operations:
+
+compute(), computeIfAbsent(), computeIfPresent(), and merge() – Provide functional-style operations for updating mappings.
+clone() – Creates a shallow copy of the HashMap.
+
+Interview Points to Remember:
+
+Null Handling:
+HashMap permits one null key and multiple null values.
+
+Performance Considerations:
+Choosing the right initial capacity and load factor can minimize rehashing overhead and optimize iteration performance.
+
+Concurrency:
+Since HashMap is unsynchronized, explain how you’d handle concurrent modifications or opt for
+alternatives like ConcurrentHashMap when necessary.
+
+Fail-Fast Behavior:
+Be ready to discuss why iterators throw ConcurrentModificationException and what “fail-fast” means.
+
+Collision Resolution Improvements:
+Understand how Java 8 improved performance by converting heavily-collided buckets into balanced trees.

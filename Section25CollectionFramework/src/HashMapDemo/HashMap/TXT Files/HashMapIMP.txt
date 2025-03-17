@@ -1,0 +1,117 @@
+Additional Important Methods:
+
+Functional-Style Updates (Java 8+):
+
+compute(K key, BiFunction remappingFunction):
+Updates the mapping for the given key using its current value (or null if absent). If the function returns null, the key is removed.
+
+computeIfAbsent(K key, Function mappingFunction):
+Inserts a mapping only if the key is absent or mapped to null. Ideal for lazy initialization.
+
+computeIfPresent(K key, BiFunction remappingFunction):
+Updates the mapping only if the key is already associated with a non-null value.
+
+merge(K key, V value, BiFunction remappingFunction):
+Combines an existing value with a new value. If the key isn’t already present, it simply inserts the provided value; otherwise, it computes a new value.
+
+Use case: Combining or accumulating values.
+
+Bulk and Conditional Operations:
+
+replace(K key, V value) and replace(K key, V oldValue, V newValue):
+Replace the value for a key, optionally checking if the current value matches an expected value.
+
+replaceAll(BiFunction function):
+Applies a transformation function to every mapping in the map, replacing the existing value with the function’s result.
+forEach(BiConsumer action):
+
+Iterates through each key-value pair in the map, allowing you to perform an action on every entry.
+
+Clone:
+
+clone():
+Creates a shallow copy of the HashMap, meaning that the keys and values are not deep-copied.
+
+Interview Perspectives
+
+Thread Safety and Concurrency:
+
+Non-synchronized Nature:
+
+HashMap is not thread-safe. If multiple threads modify the map concurrently (without proper synchronization),
+unexpected behavior can occur.
+
+Alternatives for Concurrency:
+
+When thread safety is required, consider using ConcurrentHashMap or wrapping the HashMap with Collections.synchronizedMap.
+
+Fail-Fast Iterators:
+
+Definition and Behavior:
+The iterators for HashMap’s collection views (e.g., keySet, entrySet) are fail-fast.
+If the map is structurally modified (other than through the iterator's own remove method) during iteration,
+a ConcurrentModificationException is thrown.
+
+Interview Tip:
+
+Be prepared to explain why fail-fast behavior is useful for detecting concurrent modification bugs rather than ensuring safe concurrency.
+
+Hash Function and Collision Handling:
+
+Importance of a Good hashCode():
+
+The performance of HashMap depends on how well keys are distributed among buckets. Poorly implemented hash functions can lead to excessive collisions.
+
+Collision Resolution:
+Initially, collisions are handled using linked lists. Since Java 8, when the number of collisions in a bucket exceeds a threshold,
+the bucket is converted into a balanced tree, enhancing worst-case performance.
+
+Discussion Point:
+Expect questions on why a good hash function is crucial and how collision handling impacts performance.
+
+
+Capacity, Load Factor, and Rehashing:
+
+Initial Capacity and Load Factor:
+These parameters determine when rehashing occurs. The default load factor (0.75) is a compromise between time and space efficiency.
+
+Rehashing Mechanics:
+When the number of entries exceeds (capacity × load factor), the internal data structure is rebuilt (rehashing) with an increased number of buckets.
+
+Interview Insight:
+You may be asked to discuss the trade-offs in choosing initial capacity and load factor, especially in scenarios with a known number of elements.
+
+Null Keys and Values:
+
+Null Handling:
+HashMap permits one null key and multiple null values, which differentiates it from legacy classes like Hashtable.
+
+Interview Angle:
+Be ready to contrast HashMap with other Map implementations (e.g., Hashtable, TreeMap) regarding null support and ordering.
+Shallow Copy vs. Deep Copy:
+
+
+Cloning:
+The clone method provides a shallow copy. In an interview, you might need to explain the difference and
+implications of shallow versus deep copying, especially when mutable objects are involved.
+
+Memory Considerations:
+
+Bucket Overhead:
+The internal structure (array of buckets) may have memory implications if the initial capacity is set too high.
+
+Interview Consideration:
+Be prepared to discuss how improper sizing can lead to wasted memory or performance hits due to rehashing.
+Final Interview Preparation Tips
+
+Practical Use Cases:
+Understand scenarios where you’d choose HashMap over other implementations (e.g., when order is not important, and you need fast lookups).
+
+Code Examples:
+Review code snippets that utilize advanced methods like computeIfAbsent for caching or memoization, and practice writing thread-safe modifications.
+
+Conceptual Questions:
+Prepare to explain internal workings, such as how the hashCode of an object influences bucket placement, and what happens during rehashing.
+
+Comparative Analysis:
+Be ready to compare HashMap with other map implementations like TreeMap (ordered by keys) and ConcurrentHashMap (for thread safety).

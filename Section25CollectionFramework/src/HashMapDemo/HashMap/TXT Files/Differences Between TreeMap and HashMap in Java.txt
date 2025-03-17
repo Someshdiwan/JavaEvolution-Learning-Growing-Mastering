@@ -1,0 +1,65 @@
+Differences Between TreeMap and HashMap in Java:
+
+Both TreeMap and HashMap are implementations of the Map interface in Java, but they have significant differences in terms of ordering, performance, and usage.
+
+| Feature               | TreeMap 🏡                                                                     | HashMap ⚡                                                                      |
+|-----------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| Ordering              | Maintains keys in sorted order (natural order or custom Comparator).            | No ordering of keys; entries are stored in an unordered manner.               |
+| Implementation        | Uses a Red-Black Tree (self-balancing binary search tree).                      | Uses a Hash Table and hashing mechanism.                                      |
+| Performance           | Slower than HashMap. Operations like put(), get(), remove() take O(log n) time. | Faster than TreeMap.                                                          |
+|                       |                                                                                 | Operations like put(), get(), remove() take O(1) time (on average).           |  
+|                       |                                                                                 |                                                                               |
+|                       | (You have to insert at least one key)                                           | (At least one null key allowed)                                               |
+| Null Keys             | Does NOT allow null keys. Allows multiple null values.                          | Allows one null key and multiple null values.                                 |
+| Best Use Case         | When sorted data retrieval is needed (e.g., navigable maps, range queries).     | When fast lookups and insertions are required.                                |
+| Memory Usage          | Uses more memory due to tree structure overhead.                                | Uses less memory because it only stores hash-based mappings.                  |
+| Iterator Behavior     | Iterates in ascending key order (sorted order).                                 | Iterates in an unpredictable order.                                           |
+
+---
+When to Use What?
+
+✅ Use TreeMap when:
+- You need sorted key-value pairs.
+- You need functions like higherKey(), lowerKey(), ceilingKey(), floorKey(), etc.
+
+✅ Use HashMap when:
+- You need fast lookups and insertions.
+- The order of elements doesn't matter.
+
+---
+Example Code Comparison
+
+TreeMap Example (Sorted Order)
+
+import java.util.TreeMap;
+
+public class TreeMapExample {
+    public static void main(String[] args) {
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
+        treeMap.put(3, "C");
+        treeMap.put(1, "A");
+        treeMap.put(2, "B");
+
+        System.out.println(treeMap); // Output: {1=A, 2=B, 3=C} (Sorted Order)
+    }
+}
+
+HashMap Example (Unordered):
+
+import java.util.HashMap;
+
+public class HashMapExample {
+    public static void main(String[] args) {
+        HashMap<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(3, "C");
+        hashMap.put(1, "A");
+        hashMap.put(2, "B");
+
+        System.out.println(hashMap); // Output: {3=C, 1=A, 2=B} (Unordered)
+    }
+}
+```
+Final Takeaway:
+
+If you need a sorted structure, go with TreeMap.  
+If you need high-speed performance with no ordering constraints, choose HashMap. 🚀

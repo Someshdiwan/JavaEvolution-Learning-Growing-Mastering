@@ -29,7 +29,7 @@ When to Use What?
 ---
 Example Code Comparison
 
-TreeMap Example (Sorted Order)
+TreeMap Example (Sorted Order):
 
 import java.util.TreeMap;
 

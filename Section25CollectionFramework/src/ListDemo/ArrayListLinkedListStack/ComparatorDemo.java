@@ -1,7 +1,6 @@
-package ListDemo;
+package ListDemo.ArrayListLinkedListStack;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 class Student{
@@ -48,7 +47,7 @@ public class ComparatorDemo {
                // If o2 has a higher GPA, it should come before o1.
                return 1;
            }
-           else if (o2.getGpa() - o1.getGpa() <0)
+           else if (o2.getGpa() - o1.getGpa() < 0)
            {
                // If o1 has a higher GPA, it should come before o2.
                return -1;

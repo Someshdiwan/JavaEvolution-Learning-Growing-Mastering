@@ -1,4 +1,4 @@
-package ListDemo;
+package ListDemo.ArrayListLinkedListStack;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -45,6 +45,7 @@ public class ComparatorDemo2 {
         //The students.sort(comparator) call sorts the list in ascending order based on GPA.
 
         // Printing the sorted list of students (by ascending GPA)
+        System.out.println("Printing the sorted list of students (by ascending GPA)\n");
         for (Student2 student : students)
         {
             System.out.println(student.getName() + ": " + student.getGpa());
@@ -53,7 +54,8 @@ public class ComparatorDemo2 {
         //reverse method add keya hai.
         Comparator<Student2> comparator2 = Comparator.comparing(Student2::getGpa).reversed();
         students.sort(comparator2);
-        System.out.println("\n");
+
+        System.out.println("\nreverse method add keya hai.");
         for (Student2 student : students)
         {
             System.out.println(student.getName() + ": " + student.getGpa());
@@ -61,11 +63,11 @@ public class ComparatorDemo2 {
 
         //THis is using sort by their name.
         Comparator<Student2> comparator3 = Comparator.comparing(Student2::getGpa).reversed().thenComparing(Student2::getName);
-        System.out.println("\n");
+
+        System.out.println("\nTHis is using sort by their name.");
         for (Student2 student : students)
         {
             System.out.println(student.getName() + ": " + student.getGpa());
         }
-
     }
 }

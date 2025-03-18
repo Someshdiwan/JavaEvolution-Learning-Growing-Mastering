@@ -1,0 +1,106 @@
+Overview
+The Deque<E> interface (short for Double-Ended Queue, pronounced "deck") extends Queue<E> and SequencedCollection<E>.
+It represents a linear collection that allows insertion and removal of elements from both ends.
+
+Most implementations of Deque do not impose a fixed size limit, but capacity-restricted deques can be implemented as well.
+
+Operations
+This interface provides methods for insertion, removal, and examination of elements at both ends of the deque. Each operation comes in two forms:
+
+Throws an exception if the operation fails.
+Returns a special value (null or false) if the operation fails.
+
+### **Deque<E> (java.util)**
+
+#### **Overview**
+The `Deque<E>` interface (short for **Double-Ended Queue**, pronounced "deck") extends `Queue<E>` and `SequencedCollection<E>`. It represents a **linear collection** that allows **insertion and removal of elements from both ends**.
+
+Most implementations of `Deque` **do not impose a fixed size limit**, but capacity-restricted deques can be implemented as well.
+
+---
+
+##### Summary of Deque Methods
+
+| Operation    | First Element (Head)                   | Last Element (Tail)                  |
+|--------------|----------------------------------------|--------------------------------------|
+| Insert       |  addFirst(e) (Throws exception)        | addLast(e) (Throws exception)        |
+|              |  offerFirst(e) (Returns special value) | offerLast(e) (Returns special value) |
+| Remove       |  removeFirst() (Throws exception)      | removeLast() (Throws exception)      |
+|              |  pollFirst() (Returns special value)   | pollLast() (Returns special value)   |
+| Examine      |  getFirst() (Throws exception)         | getLast() (Throws exception)         |
+|              |  peekFirst() (Returns special value)   | peekLast() (Returns special value)   |
+
+---
+
+#### FIFO Behavior (Queue Mode)
+
+When used as a queue, Deque follows FIFO (First-In-First-Out) behavior:
+
+- Elements are added at the end (offerLast(e)).
+- Elements are removed from the front (pollFirst()).
+
+##### Comparison of Queue and Deque Methods
+
+| Queue Method** | **Equivalent Deque Method** |
+|----------------|-----------------------------|
+| add(e)         | addLast(e)                  |
+| offer(e)       | offerLast(e)                |
+| remove()       | removeFirst()               |
+| poll()         | pollFirst()                 |
+| element()      | getFirst()                  |
+| peek()         | peekFirst()                |
+
+---
+
+#### LIFO Behavior (Stack Mode)
+
+A Deque can also function as a LIFO (Last-In-First-Out) stack**, serving as a modern replacement for the legacy Stack class.
+- Elements are pushed to the front (addFirst(e)).
+- Elements are popped from the front (removeFirst()).
+
+# Comparison of Stack and Deque Methods
+
+| Stack Method** | Equivalent Deque Method    |
+|----------------|----------------------------|
+|  push(e)       | addFirst(e)                |
+|  pop()         | removeFirst()              |
+|  peek()        | getFirst()                 |
+
+? Note: The peek() method is consistent for both **Queue and Stack usage, always retrieving the first element.
+
+---
+
+# Additional Functionalities
+
+- Removing Interior Elements:
+
+  - removeFirstOccurrence(Object o): Removes the first occurrence of a specified element.
+  - removeLastOccurrence(Object o): Removes the  last occurrence of a specified element.
+
+  - No Indexed Access: Unlike List<E>, Deque<E> does not support indexed element access.
+
+- Null Elements:
+- Deque implementations are **not strictly required** to prohibit null elements.
+- However, using null is discouraged because it conflicts with methods that return null to indicate an empty deque**.
+
+- Equality & Hashing:
+
+- Deque implementations do not override** equals() and hashCode().
+- Instead, they inherit identity-based implementations from Object.
+
+---
+
+#Additional Information:
+
+- Part of the Java Collections Framework
+- Introduced in Java 1.6
+- Designed by Doug Lea & Josh Bloch
+- Generic Type <E> represents the element type stored in the deque.
+
+---
+
+Conclusion:
+
+The Deque<E> interface is a versatile data structure that can function as both **a queue (FIFO) and a stack (LIFO).
+It provides efficient insertion and removal operations at both ends,
+making it well-suited for double-ended processing scenarios.

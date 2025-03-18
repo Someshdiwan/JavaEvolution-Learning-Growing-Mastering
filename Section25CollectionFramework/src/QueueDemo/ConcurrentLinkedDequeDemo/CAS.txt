@@ -1,0 +1,38 @@
+CAS (Compare-And-Swap) is an atomic operation used in concurrent programming to achieve lock-free synchronization.
+It allows multiple threads to update a shared variable without using locks, improving performance in high-concurrency scenarios.
+
+How CAS Works?
+
+CAS involves three key components:
+
+Expected Value – The current value of a variable.
+New Value – The value we want to update to.
+Memory Location – The address of the variable being updated.
+
+Process:
+
+The CAS operation checks if the current value at a memory location matches the expected value.
+If it matches, the value is atomically updated to the new value.
+If it doesn’t match (i.e., another thread modified the value), the update fails, and the thread can retry.
+
+CAS in ConcurrentLinkedDeque:
+
+ConcurrentLinkedDeque is a non-blocking, thread-safe, double-ended queue.
+It relies on CAS operations to update nodes without locking.
+CAS ensures that operations like addFirst(), addLast(), removeFirst(), and removeLast() work concurrently without race conditions.
+
+Advantages of CAS:
+
+? Lock-free and non-blocking – Improves scalability in multithreaded environments.
+? Avoids thread contention – Unlike synchronized locks, CAS allows multiple threads to attempt updates without blocking.
+? Used in Java’s concurrent utilities – Found in AtomicInteger, AtomicReference, ConcurrentLinkedQueue, and more.
+
+Limitations of CAS:
+
+? ABA Problem – If a value changes from A ? B ? A, CAS might mistakenly assume no change occurred. Solution: Use AtomicStampedReference.
+? Spin-waiting overhead – If many threads repeatedly fail CAS, performance may degrade.
+
+
+CAS is a fundamental concept in concurrent programming, enabling efficient, lock-free updates.
+It plays a crucial role in Java’s concurrent collections like ConcurrentLinkedDeque, making them highly
+scalable and performant in multithreaded applications.

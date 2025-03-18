@@ -1,4 +1,4 @@
-package ListDemo;
+package QueueDemo.ArrayDeque;
 
 import java.util.ArrayDeque;
 
@@ -12,8 +12,8 @@ public class ArrayDequeDemo {
 
     DQ.offerLast(10);
     DQ.offerLast(20);
-    DQ.offerLast(30);
     DQ.offerLast(40);
+    DQ.offerLast(30);
 
     //DQ.pollFirst(); //Inserting from last and deleting from first.Acting like a Queue.
     //DQ.pollLast();  //Stack delete and insert from last.

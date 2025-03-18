@@ -8,6 +8,7 @@ public class QueueDemo {
         list.add(3);
         list.add(2);
         list.add(1);
+
         System.out.println(list);
         System.out.println("Removed First: "+list.removeFirst());
 

@@ -10,6 +10,7 @@ public class QueueInterface {
         queue1.add(1);
         queue1.add(3);
         queue1.add(2);
+
         System.out.println(queue1);
         System.out.println(queue1.size());
 

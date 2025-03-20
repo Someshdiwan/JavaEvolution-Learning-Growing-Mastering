@@ -1,0 +1,18 @@
+1. Why new API?
+
+2. LocalDate
+You can not change the date.
+
+3. LocalTime
+
+4. LocalDateTime:
+Represent the time in the form of seconds and nano-seconds.
+
+
+1. Date d = new Date();
+//Storing date from millis 1 Jan 1970
+
+2. Date & Time
+
+3. This is mutable. we can change it by using set method.
+d.set

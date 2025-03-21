@@ -67,5 +67,3 @@ You're using ForkJoinPool for parallel processing, but performance doesn’t sca
 
 💡 Scenario:
 Your application requires fast concurrent reads and occasional writes.
-
-👉 Would you use ConcurrentHashMap , CopyOnWriteArrayList, or another data structure? Why?

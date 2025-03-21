@@ -34,7 +34,6 @@ public class UnfairLock {
                 example.accessResource();
             }
         };
-
         Thread thread1 = new Thread(task,"Thrad 1");
         Thread thread2 = new Thread(task,"Thread 2");
         Thread thread3 = new Thread(task,"Thread 3");

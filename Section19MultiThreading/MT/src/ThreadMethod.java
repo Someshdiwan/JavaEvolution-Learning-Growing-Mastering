@@ -5,7 +5,6 @@ public class ThreadMethod extends Thread
     {
         super(name);
     }
-
         // Thread class ka overridden method. Thread class Methods.
         public void run () {
             for (int i = 1; i <= 5; i++)
@@ -17,6 +16,7 @@ public class ThreadMethod extends Thread
                         a += "a";
                     }
                 }*/
+
                 System.out.println(Thread.currentThread().getName() + " - Priority: " + Thread.currentThread().getPriority() + "- count: " + i);
                 try
                 {
@@ -42,5 +42,4 @@ public class ThreadMethod extends Thread
             //t1.start();
         }
 }
-
 // Start run sleep join setPriority

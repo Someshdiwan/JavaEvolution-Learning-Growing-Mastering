@@ -15,7 +15,6 @@ class SharedObject{
     }
 }
 
-
 public class VolatileExample {
     public static void main(String[] args) {
         SharedObject obj1 = new SharedObject();

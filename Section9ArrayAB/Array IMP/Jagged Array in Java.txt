@@ -1,0 +1,48 @@
+Jagged Array in Java:
+
+A Jagged Array is a multidimensional array where the rows can have different lengths.
+
+Unlike a regular 2D array, where each row has the same number of columns, a jagged array allows each row to have a
+different number of elements.
+
+Key Points:
+  
+- Declared as an array of arrays.  
+- Each row can have a different length.  
+- Useful when dealing with data structures like triangular matrices.  
+
+---
+
+Code Example
+
+public class JaggedArrayExample {
+    public static void main(String[] args) {
+        // Declaring a jagged array
+        int[][] jaggedArray = new int[3][]; 
+
+        // Initializing rows with different lengths
+        jaggedArray[0] = new int[]{1, 2, 3};  
+        jaggedArray[1] = new int[]{4, 5};     
+        jaggedArray[2] = new int[]{6, 7, 8, 9}; 
+
+        // Printing the jagged array
+        for (int i = 0; i < jaggedArray.length; i++) {
+            for (int j = 0; j < jaggedArray[i].length; j++) {
+                System.out.print(jaggedArray[i][j] + " ");
+            }
+            System.out.println();  // New line for each row
+        }
+    }
+}
+
+Output:
+  
+1 2 3  
+4 5  
+6 7 8 9 
+
+When to Use Jagged Arrays?
+
+- When each row requires a different number of elements.  
+- Optimizing memory usage when working with uneven datasets.  
+- Storing hierarchical or triangular structures.

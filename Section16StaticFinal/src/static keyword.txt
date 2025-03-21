@@ -1,0 +1,164 @@
+Below is the generated theory and code exactly as discussed:
+
+---
+
+### 1) What is use static keyword in Java?
+
+**Use of static keyword:**  
+When we are using the static keyword with a variable, block, or method, it becomes independent of the object.  
+For example:
+```java
+class Example {
+    static int a = 5;
+}
+```
+Here, `a` is not dependent on any object. If we have two objects (e.g., `obj1` and `obj2`), both objects are able to access this variable. When we use static, it becomes independent of the object.
+
+---
+
+### 2) At which place we can use static keyword
+
+Four places where we can use the static keyword:
+
+a) **Before variable declaration**  
+```java
+class Calc {
+    static int s;
+}
+```
+
+b) **Before a block**  
+```java
+class Calc {
+    static {
+        System.out.println("this is static block");
+    }
+}
+```
+
+c) **During method creation**  
+```java
+class Calc {
+    public static void add(int num1, int num2) { }
+}
+```
+
+d) **With the concept of inner class** *(It is not discussed in this lecture)*  
+```java
+class OuterClass {
+    int x = 10;
+    static class InnerClass {
+        int y = 5;
+    }
+}
+```
+
+---
+
+### 3) When memory get allocated
+
+For that we need to know some terms:  
+a) Stack area  
+b) Heap area  
+c) Class loader system  
+
+**Step 1:** When you compile the code you get a `.class` file.  
+**Step 2:** When you execute (using `java MainClass`), the class is loaded by the Class Loader System.  
+**Step 3:** During class loading, static variables are initialized and static blocks get executed.  
+**Step 4:** Since static variables get memory in the heap before object creation, they are independent of the object.
+
+---
+
+### 4) Static variable vs instance variable
+
+```java
+class Calc {
+    static int stA = 100; // independent of object; can be used by class name as well as object
+    int inB = 100;        // dependent on object; can only be used by object
+
+    public static void main(String[] args) {
+        Calc obj1 = new Calc(); 
+        Calc obj2 = new Calc();
+        
+        // For static variable
+        System.out.println(Calc.stA); // use with class name
+        System.out.println(obj1.stA);   // use by object name
+
+        // For instance variable
+        // System.out.println(Calc.inB); // error: Cannot make a static reference to the non-static
+        System.out.println(obj1.inB);   // used by object name reference 
+
+        obj1.inB = 1000;
+        obj1.stA = 2000;
+
+        // Static variable
+        System.out.println(obj1.stA); // output: 2000
+        System.out.println(obj2.stA); // output: 2000 (value changed for both obj1 and obj2)
+
+        // Instance variable
+        System.out.println(obj1.inB); // output: 1000
+        System.out.println(obj2.inB); // output: 100 (no change in obj2)
+    }
+}
+```
+
+---
+
+### 5) Static block vs non static block
+
+- **Static block:** Executed before the execution of the `main` method.
+- **Non static block:** Executed when you create an object and is executed before the constructor is called.
+
+```java
+class Calc {
+    static {
+        System.out.println("Static Block");
+        System.out.println("Executed before main");
+    }
+
+    {
+        // Non static block
+        System.out.println("Non static block executed before the execution of constructor");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("main method");
+        Calc c = new Calc(); // Non static block executed when we create an object 
+        // Help h;         -- this will not execute static block of Help class
+        // Help h = new Help(); -- this will execute static block of Help class
+        Help.wish();         // This will execute static block of Help class
+    }
+}
+
+class Help {
+    static {
+        System.out.println("Static block of Help class");
+    }
+    static void wish() {
+        System.out.println("Hello");
+    }
+}
+
+/*
+Output:
+Static Block
+Executed before main
+main method
+Non static block executed before the execution of constructor
+Static block of Help class
+Hello
+*/
+```
+
+---
+
+### 6) Static method vs non static method
+
+- **Static methods** can be called with an object reference or class name, e.g., `ClassName.staticMethod()` or `objReference.staticMethod()`.
+- **Non static methods** are dependent on the object and can be called only by the object reference, e.g., `objReference.nonStaticMethod()`.
+
+**Remember one thing:**
+i) We can use static properties or members inside non static blocks or methods without object creation.  
+ii) But we cannot use non static properties or methods inside static blocks or methods without object creation.
+
+---

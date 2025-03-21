@@ -1,5 +1,3 @@
-import com.sun.source.doctree.EscapeTree;
-
 import java.io.FileInputStream;
 import java.util.Scanner;
 
@@ -10,7 +8,7 @@ public class TryWithResources {
 
     static void Divide() throws Exception
     {
-        fi=new FileInputStream("C:\\Users\\somes\\Downloads\\JAVA SE\\Section18ExceptionHandling\\src\\Test.txt");
+        fi=new FileInputStream("C:\\Users\\somes\\Downloads\\JAVA Love\\JavaEvolution-Learning-Growing-Mastering\\Section18ExceptionHandling\\src\\Test.txt");
 
         try
         {

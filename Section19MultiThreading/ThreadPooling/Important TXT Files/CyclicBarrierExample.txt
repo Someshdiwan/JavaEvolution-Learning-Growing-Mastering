@@ -1,0 +1,101 @@
+import java.util.concurrent.*;
+
+public class CyclicBarrierExample {
+    private CyclicBarrier barrier;
+
+    public CyclicBarrierExample(int numberofServices) {
+        this.barrier = new CyclicBarrier(numberofServices, 
+            () -> System.out.println("All services are up, proceeding with execution!"));
+    }
+
+    public void await() throws InterruptedException, BrokenBarrierException {
+        barrier.await();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        int numberofServices = 3;
+        ExecutorService executorService = Executors.newFixedThreadPool(numberofServices);
+
+        CyclicBarrierExample barrierExample = new CyclicBarrierExample(numberofServices);
+
+        executorService.submit(new DependentService(barrierExample));
+        executorService.submit(new DependentService(barrierExample));
+        executorService.submit(new DependentService(barrierExample));
+
+        executorService.shutdown();
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
+        System.out.println("Main thread execution completed.");
+    }
+
+    static class DependentService implements Runnable {
+        private CyclicBarrierExample barrierExample;
+
+        public DependentService(CyclicBarrierExample barrierExample) {
+            this.barrierExample = barrierExample;
+        }
+
+        @Override
+        public void run() {
+            try {
+                System.out.println(Thread.currentThread().getName() + " service started.");
+                Thread.sleep(6000);
+                System.out.println(Thread.currentThread().getName() + " service completed.");
+                barrierExample.await();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+
+Now, when you run this code, it will ensure that all dependent services finish their work before proceeding further. 🚀
+
+CyclicBarrier in Java (Theory):
+
+A CyclicBarrier is a synchronization mechanism that allows multiple threads to wait at a
+common barrier point before proceeding. It is part of `java.util.concurrent` and is useful
+when a group of threads must reach a common execution point before continuing.
+
+Key Concepts:
+
+1. Barrier Synchronization:
+   - All participating threads must reach the barrier before any can proceed.  
+2. Reusable (`Cyclic` Nature):
+   - Unlike CountDownLatch, which can only be used once, CyclicBarrier can be reused after threads cross the barrier.
+3. Runnable Barrier Action (Optional):
+   - A custom action can execute when the last thread reaches the barrier.  
+4. Blocking & Exception Handling:
+   - await() blocks threads until all required threads reach the barrier.
+   - Throws BrokenBarrierException if any thread breaks the barrier.
+
+
+import java.util.concurrent.*;
+public class CyclicBarrierDemo {
+    public static void main(String[] args) {
+        CyclicBarrier barrier = new CyclicBarrier(3, () -> System.out.println("All threads reached the barrier!"));
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        for (int i = 0; i < 3; i++) {
+            executor.submit(() -> {
+                try {
+                    System.out.println(Thread.currentThread().getName() + " waiting...");
+                    barrier.await();
+                    System.out.println(Thread.currentThread().getName() + " passed the barrier!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+        executor.shutdown();
+    }
+}
+```
+
+---
+
+Key Takeaways:
+✅ Threads wait at `barrier.await()` until all arrive.
+✅ Once all arrive, barrier action executes (`Runnable`).
+✅ Barrier resets and can be reused.
+✅ Useful for phased parallel tasks (e.g., game levels, simulations, or data processing).

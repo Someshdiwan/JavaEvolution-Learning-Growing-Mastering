@@ -1,0 +1,24 @@
+Thread Pooling - Why Use It?
+
+Thread pooling is a technique where a collection of pre-initialized threads is maintained to execute tasks efficiently.
+Instead of creating and destroying threads repeatedly, thread pooling manages a fixed number of threads that are reused
+for different tasks.
+
+1. Resource Management
+- Creating and destroying threads repeatedly is resource-intensive.  
+- A thread pool manages the lifecycle of threads efficiently, reducing CPU and memory overhead.  
+
+2. Faster Response Time
+- Since threads are pre-created, tasks do not have to wait for thread initialization.  
+- This reduces latency, making applications more responsive.  
+
+3. Control Over Thread Count
+- Prevents excessive thread creation, which can lead to resource exhaustion.  
+- Developers can configure the pool size based on available system resources.  
+
+4. Avoids Thread Overhead
+- Reduces context switching and excessive CPU usage from too many active threads.  
+- Ensures optimal CPU utilization by reusing existing threads.  
+
+5. Useful in High-Concurrency Environments
+- Ideal for web servers, database connections, and real-time applications where multiple tasks need execution without delay.

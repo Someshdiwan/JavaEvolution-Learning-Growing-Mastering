@@ -1,0 +1,283 @@
+Advanced Java Lambda Expressions Cheat Sheet
+
+
+✅ 1. Return Complex Objects
+
+You can return objects from lambda expressions.
+
+import java.util.function.*;
+
+class Person {
+    String name;
+    Person(String name) {
+        this.name = name;
+    }
+    public String toString() {
+        return name;
+    }
+}
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        Supplier<Person> personSupplier = () -> new Person("Alice");
+        System.out.println(personSupplier.get());
+    }
+}
+
+✅ Output:
+
+Alice
+
+✅ 2. Using Comparator for Custom Sorting
+
+Sort custom objects using lambdas with the Comparator interface.
+
+import java.util.*;
+
+class Person {
+    String name;
+    int age;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String toString() {
+        return name + " (" + age + ")";
+    }
+}
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+            new Person("Alice", 30),
+            new Person("Bob", 25),
+            new Person("Charlie", 35)
+        );
+
+        // Sort by age (ascending)
+        people.sort((p1, p2) -> Integer.compare(p1.age, p2.age));
+
+        System.out.println(people);
+    }
+}
+
+✅ Output:
+
+[Bob (25), Alice (30), Charlie (35)]
+
+✅ 3. Chaining Predicates
+
+Use multiple conditions with and(), or(), and negate().
+
+
+import java.util.function.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        Predicate<Integer> isEven = n -> n % 2 == 0;
+        Predicate<Integer> isPositive = n -> n > 0;
+
+        // Combine conditions
+        Predicate<Integer> isEvenAndPositive = isEven.and(isPositive);
+
+        System.out.println(isEvenAndPositive.test(4));  // true
+        System.out.println(isEvenAndPositive.test(-4)); // false
+    }
+}
+```
+
+✅ Output:
+
+true  
+false
+
+✅ 4. Function Chaining
+
+Chain transformations using andThen() and compose().
+
+import java.util.function.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        Function<Integer, Integer> square = x -> x * x;
+        Function<Integer, Integer> doubleIt = x -> x * 2;
+
+        // First square, then double
+        Function<Integer, Integer> squareAndDouble = square.andThen(doubleIt);
+
+        System.out.println(squareAndDouble.apply(3));  // (3 * 3) * 2 = 18
+    }
+}
+
+
+✅ Output:
+
+18
+
+✅ 5. Handling Exceptions in Lambda
+
+Use try-catch inside lambdas for error handling.
+
+
+import java.util.function.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        Function<String, Integer> safeParse = s -> {
+            try {
+                return Integer.parseInt(s);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        };
+
+        System.out.println(safeParse.apply("42"));   // 42
+        System.out.println(safeParse.apply("abc"));  // 0 (fallback)
+    }
+}
+
+✅ Output:
+
+42  
+0
+
+✅ 6. Parallel Streams with Lambda
+
+Use parallel streams for faster execution on large datasets.
+
+import java.util.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+        // Parallel processing
+        numbers.parallelStream()
+               .map(n -> n * 2)
+               .forEach(System.out::println);
+    }
+}
+
+✅ Output: (Order may vary)
+
+2  
+4  
+6  
+8  
+10  
+12
+
+✅ 7. Custom Functional Interface
+
+You can define your own functional interface.
+
+@FunctionalInterface
+interface MathOperation {
+    int operate(int a, int b);
+}
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        MathOperation add = (a, b) -> a + b;
+        System.out.println("Sum: " + add.operate(5, 7));
+    }
+}
+
+
+✅ Output:
+
+Sum: 12
+
+✅ 8. Stream.collect() for Grouping Data
+
+Group elements using Collectors.groupingBy().
+
+import java.util.*;
+import java.util.stream.*;
+
+class Person {
+    String name;
+    String city;
+
+    Person(String name, String city) {
+        this.name = name;
+        this.city = city;
+    }
+}
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+            new Person("Alice", "NY"),
+            new Person("Bob", "LA"),
+            new Person("Charlie", "NY")
+        );
+
+        // Group by city
+        Map<String, List<Person>> peopleByCity = people.stream()
+            .collect(Collectors.groupingBy(p -> p.city));
+
+        System.out.println(peopleByCity);
+    }
+}
+
+✅ Output:
+
+{NY=[Alice, Charlie], LA=[Bob]}
+
+✅ 9. Use Lambdas with Optional
+
+Handle null values safely with Optional.
+
+import java.util.Optional;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        Optional<String> name = Optional.ofNullable(null);
+
+        // If present, print
+        name.ifPresentOrElse(
+            n -> System.out.println("Hello, " + n),
+            () -> System.out.println("Name not found")
+        );
+    }
+}
+
+✅ Output:
+
+Name not found
+
+✅ 10. Combining Streams and Lambdas
+
+Example of map, filter, and reduce together:
+
+import java.util.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+        // Sum of even numbers doubled
+        int result = numbers.stream()
+                            .filter(n -> n % 2 == 0)  // Filter even numbers
+                            .map(n -> n * 2)          // Double them
+                            .reduce(0, Integer::sum); // Sum them
+
+        System.out.println("Result: " + result);  // 24
+    }
+}
+
+✅ Output:
+
+Result: 24
+
+🎯 Quick Recap:
+
+1. Chain operations with andThen() and compose().  
+2. Handle exceptions using try-catch inside lambdas.  
+3. Parallel streams improve performance.  
+4. Create custom functional interfaces using @FunctionalInterface.  
+5. Group data** with Collectors.groupingBy().  
+6. Use Optional to avoid NullPointerException.

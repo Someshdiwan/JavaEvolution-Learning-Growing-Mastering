@@ -1,0 +1,81 @@
+Advanced Thread Safety Concepts: Deadlocks, Optimistic Locking & Distributed Locking
+
+Now, let’s dive into three critical multi-threading concepts used in high-performance systems:
+
+1. Deadlocks – Why they happen & how to prevent them
+2. Optimistic Locking – A lightweight alternative to traditional locking
+3. Distributed Locking – How cloud systems manage thread safety across multiple servers
+
+---
+
+1. Deadlocks – The Multi-Threading Trap
+
+What is a Deadlock?
+
+A deadlock occurs when two or more threads are waiting for each other to release a resource,
+but none can proceed because they are stuck in a circular wait.
+
+Example: Deadlock in a Ticket Booking System
+
+- Thread A locks Seat 1 and wants to book Seat 2.
+- Thread B locks Seat 2 and wants to book Seat 1.
+- Both threads are waiting for each other to release the seat,
+leading to a deadlock where no booking is completed.
+
+How to Prevent Deadlocks?
+
+1. Acquire Locks in a Fixed Order
+   - Always lock Seat 1 → Seat 2, never the other way around.
+   - This ensures that **no two threads hold opposite locks simultaneously**.
+
+2. Use a Timeout for Locks
+   - If a thread cannot acquire a lock within a certain time, it should release all locks and retry later.
+   - Example: Uber cancels a ride request if the driver doesn’t accept in 30 seconds.
+
+3. Detect Deadlocks & Recover:
+   - Systems can track locked resources** and forcibly release locks if a deadlock is detected.
+
+Real-world Example: When you try to book a ticket and see "Your session has expired",
+the system probably detected a potential deadlock and reset the process.
+
+
+2. Optimistic Locking – The Lightweight Lock Alternative
+
+Why is Traditional Locking Expensive?
+
+- If multiple users try to update the same record, normal locking prevents others from reading the
+data until the lock is released.
+
+- This slows down performance in high-traffic systems like stock markets,
+e-commerce sites, and social media platforms.
+
+What is Optimistic Locking?
+
+Instead of locking data, optimistic locking allows multiple threads to read and modify data simultaneously.
+However, before saving the changes, it checks if the data was modified by another thread.
+
+How Does It Work?
+
+1. Each database row has a version number (or timestamp).
+2. When a user fetches a record, they also read its version number.
+3. Before updating, the system checks if the version is still the same.
+4. If another thread updated the record, the system **rejects the update and asks the user to retry.
+
+Where is Optimistic Locking Used?
+
+- Stock Market – Ensures that stock prices update correctly when multiple trades happen at once.
+- Online Shopping – Prevents multiple users from checking out the same product when only one is left.
+- Social Media (Likes & Comments) – Ensures that multiple users can like or comment at the same time without
+conflicts.
+
+Real-world Example: If you try to update your profile on a website but get a message saying
+
+"Data has changed, please refresh and try again," that’s optimistic locking in action!
+
+3. Distributed Locking – Handling Multi-Server Concurrency
+
+Why Do We Need Distributed Locks?
+
+In cloud-based applications, multiple servers** handle user requests simultaneously.
+
+If two servers try to modify the same data at the same time, we need a locking mechanism to prevent conflicts.

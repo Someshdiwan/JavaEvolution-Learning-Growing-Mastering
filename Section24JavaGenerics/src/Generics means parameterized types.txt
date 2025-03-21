@@ -1,0 +1,63 @@
+Generics means parameterized types. The idea is to allow a type (like Integer, String, etc., or user-defined types) to be a parameter to methods, classes, and interfaces. Using Generics, it is possible to create classes that work with different data types. An entity such as a class, interface, or method that operates on a parameterized type is a generic entity.
+
+Or 
+
+Generics in Java introduce parameterized types, allowing classes, interfaces, and methods to operate on different data types while ensuring type safety at compile time.
+
+** Generics in Java are similar to templates in C++. For example, classes like HashSet, ArrayList, HashMap, etc., use generics very well. 
+
+
+Type Parameters in Java Generics:
+
+The type parameters naming conventions are important to learn generics thoroughly. 
+
+The common type parameters are as follows:
+
+T – Type
+E – Element
+K – Key
+N – Number
+V – Value
+
+
+
+Types of Java Generics
+
+Generic Method: Generic Java method takes a parameter and returns some value after performing a task. It is exactly like a normal function, however, a generic method has type parameters that are cited by actual type. This allows the generic method to be used in a more general way.
+
+Generic Classes: A generic class is implemented exactly like a non-generic class. The only difference is that it contains a type parameter section. There can be more than one type of parameter, separated by a comma. 
+
+
+
+** Generic Class 
+Like C++, we use <> to specify parameter types in generic class creation. To create objects of a generic class, we use the following syntax. 
+
+// To create an instance of generic class 
+BaseType <Type> obj = new BaseType <Type>()
+
+Note: In Parameter type we can not use primitives like ‘int’,’char’ or ‘double’.
+
+
+Advantages of Generics:
+
+Code Reusability: You can write a method, class, or interface once and use it with any type.
+Type Safety: Generics ensure that errors are detected at compile time rather than runtime, promoting safer code.
+No Need for Type Casting: The compiler automatically handles casting, removing the need for explicit type casting when retrieving data.
+Code Readability and Maintenance: By specifying types, code becomes easier to read and maintain.
+Generic Algorithms: Generics allow for the implementation of algorithms that work across various types, promoting efficient coding practices.
+
+Disadvantages of Generics:
+
+Complexity: For beginners, understanding concepts like wildcards (? extends, ? super) can be difficult.
+Performance Overhead: Type erasure causes some overhead as generic types are converted to Object during runtime.
+No Support for Primitive Types: Generics only work with reference types, requiring the use of wrapper classes like Integer or Double for primitives.
+Limited Reflection: Type erasure limits how much you can use reflection with generics since type information is not available at runtime.
+Programs that use Generics has got many benefits over non-generic code. 
+
+1. Code Reuse: We can write a method/class/interface once and use it for any type we want.
+
+2. Type Safety: Generics make errors to appear compile time than at run time (It’s always better to know problems in your code at compile time rather than making your code fail at run time). 
+
+Suppose you want to create an ArrayList that store name of students, and if by mistake the programmer adds an integer object instead of a string, the compiler allows it. But, when we retrieve this data from ArrayList, it causes problems at runtime.
+
+

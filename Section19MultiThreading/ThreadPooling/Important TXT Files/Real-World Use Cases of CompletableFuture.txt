@@ -1,0 +1,232 @@
+Real-World Use Cases of CompletableFuture
+
+In real-world applications, CompletableFuture is commonly used for:
+
+1. Calling multiple APIs in parallel (e.g., fetching user details and order history at the same time).
+2. Asynchronous database queries** (e.g., fetching data without blocking the main thread).
+3. Performing CPU/IO-intensive tasks asynchronously (e.g., processing large datasets).
+
+1️⃣ Parallel API Calls using CompletableFuture
+
+Imagine we need to fetch user details and order history from two different APIs.
+
+import java.util.concurrent.CompletableFuture;
+
+public class ParallelApiCalls {
+    public static void main(String[] args) {
+        CompletableFuture<String> userDetails = CompletableFuture.supplyAsync(() -> {
+            simulateApiCall("Fetching user details...");
+            return "User: John Doe";
+        });
+
+        CompletableFuture<String> orderHistory = CompletableFuture.supplyAsync(() -> {
+            simulateApiCall("Fetching order history...");
+            return "Orders: [Laptop, Phone]";
+        });
+
+        // Combine results
+        CompletableFuture<String> combinedResult = userDetails.thenCombine(orderHistory, 
+            (user, orders) -> user + "\n" + orders);
+
+        System.out.println(combinedResult.join()); // Blocking only for demonstration
+    }
+
+    private static void simulateApiCall(String message) {
+        try {
+            System.out.println(message);
+            Thread.sleep(2000); // Simulate network delay
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+✅Output:
+
+Fetching user details...
+Fetching order history...
+User: John Doe
+Orders: [Laptop, Phone]
+
+Explanation:
+
+- The two API calls run in parallel, reducing total execution time.
+- .thenCombine() merges results once both tasks are complete.
+
+2️⃣ Asynchronous Database Query
+
+Imagine we are fetching a user’s profile **and** recent transactions from a database **concurrently.
+
+import java.util.concurrent.CompletableFuture;
+
+public class AsyncDatabaseQuery {
+    public static void main(String[] args) {
+        CompletableFuture<String> userProfile = CompletableFuture.supplyAsync(() -> {
+            simulateDatabaseQuery("Fetching user profile...");
+            return "Profile: [Name: Alice, Age: 30]";
+        });
+
+        CompletableFuture<String> transactions = CompletableFuture.supplyAsync(() -> {
+            simulateDatabaseQuery("Fetching transactions...");
+            return "Transactions: [$100, $250, $50]";
+        });
+
+        // Combine database results
+        CompletableFuture<String> result = userProfile.thenCombine(transactions, 
+            (profile, trans) -> profile + "\n" + trans);
+
+        System.out.println(result.join()); // Blocking only for demo
+    }
+
+    private static void simulateDatabaseQuery(String message) {
+        try {
+            System.out.println(message);
+            Thread.sleep(3000); // Simulate DB query delay
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+✅ Output:
+
+Fetching user profile...
+Fetching transactions...
+Profile: [Name: Alice, Age: 30]
+Transactions: [$100, $250, $50]
+
+
+Why use CompletableFuture?
+
+- The database calls execute simultaneously, reducing response time.
+
+3️⃣ Handling Timeouts with orTimeout():
+
+In real-world applications, APIs or database queries may take too long. We can **set a timeout** to prevent waiting indefinitely.
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
+public class TimeoutExample {
+    public static void main(String[] args) {
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(5000); // Simulating long-running task
+                return "Success!";
+            } catch (InterruptedException e) {
+                return "Interrupted!";
+            }
+        }).orTimeout(3, TimeUnit.SECONDS) // Timeout after 3 seconds
+          .exceptionally(ex -> "Timeout occurred: " + ex.getMessage());
+
+        System.out.println(future.join());
+    }
+}
+
+✅Output:
+
+Timeout occurred: java.util.concurrent.TimeoutException
+
+Key Takeaways:
+
+- .orTimeout(3, TimeUnit.SECONDS) stops execution if it exceeds 3 seconds.
+- .exceptionally() handles errors, preventing app crashes.
+
+
+4️⃣ Running Multiple Independent Tasks (allOf())
+
+If we need to run multiple independent background tasks:
+
+import java.util.concurrent.CompletableFuture;
+
+public class RunMultipleTasks {
+    public static void main(String[] args) {
+        CompletableFuture<Void> allTasks = CompletableFuture.allOf(
+            CompletableFuture.runAsync(() -> simulateTask("Task 1")),
+            CompletableFuture.runAsync(() -> simulateTask("Task 2")),
+            CompletableFuture.runAsync(() -> simulateTask("Task 3"))
+        );
+
+        allTasks.join(); // Wait for all tasks to complete
+        System.out.println("All tasks completed!");
+    }
+
+    private static void simulateTask(String taskName) {
+        try {
+            System.out.println(taskName + " started.");
+            Thread.sleep(2000);
+            System.out.println(taskName + " completed.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+✅ Output:
+
+Task 1 started.
+Task 2 started.
+Task 3 started.
+Task 1 completed.
+Task 2 completed.
+Task 3 completed.
+All tasks completed!
+
+
+Why use allOf()?
+
+- It waits for **all** independent tasks to finish **before moving forward.
+
+5️⃣ Exception Handling with handle()
+
+Unlike .exceptionally(), .handle() lets us process both successful and failed executions.
+
+
+import java.util.concurrent.CompletableFuture;
+
+public class HandleExceptions {
+    public static void main(String[] args) {
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            if (Math.random() > 0.5) throw new RuntimeException("Something went wrong!");
+            return "Task Completed Successfully!";
+        }).handle((result, ex) -> {
+            if (ex != null) {
+                return "Handled Error: " + ex.getMessage();
+            }
+            return result;
+        });
+
+        System.out.println(future.join());
+    }
+}
+
+Output (Randomly)
+
+Task Completed Successfully!
+
+OR
+
+Handled Error: Something went wrong!
+
+Why use .handle()?
+
+It processes both success and failure cases in one place.
+
+Final Summary
+
+| Use Case                       |  CompletableFuture Feature Used  |
+|--------------------------------|----------------------------------|
+| Parallel API Calls             |  supplyAsync(), .thenCombine()   |
+| Database Queries (Async)       |  supplyAsync(), .thenCombine()   |
+| Timeout Handling               |  orTimeout()                     |
+| Running Multiple Tasks         | .allOf()                         |
+| Error Handling                 | .exceptionally(), .handle()      |
+
+
+Final Thoughts:
+
+✅ CompletableFuture improves performance by running tasks asynchronously.
+✅ It's great for parallel API calls, database queries, and handling errors.
+✅ Use .thenCombine() for dependent tasks and .allOf() for independent tasks.
+✅ Handle timeouts and exceptions properly to prevent blocking issues.

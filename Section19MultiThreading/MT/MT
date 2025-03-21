@@ -1,0 +1,8 @@
+Context Switching:
+
+Definition: Context switching is the process of saving the state of a currently running process or thread and loading the state of the next one to be executed.
+Function: When a process or thread’s time slice expires, the OS scheduler performs a context switch to move the CPU’s focus to another process or thread.
+Purpose: This allows multiple processes and threads to share the CPU, giving the appearance of simultaneous execution on a single-core CPU or improving parallelism on multi-core CPUs.
+Multitasking can be achieved through multithreading where each task is divided into threads that are managed concurrently.
+
+While multitasking typically refers to the running of multiple applications, multithreading is more granular, dealing with multiple threads within the same application or process.

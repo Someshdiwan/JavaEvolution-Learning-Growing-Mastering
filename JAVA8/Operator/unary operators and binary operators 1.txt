@@ -1,0 +1,73 @@
+In Java, unary operators and binary operators are special kinds of functions:
+
+- Unary Operator:
+  Takes a single argument and returns a value of the same type.  
+  Java provides the UnaryOperator<T> interface, which is essentially a specialized version of Function<T, T>.
+
+- Binary Operator:
+  Takes two arguments of the same type and returns a result of that type.  
+  Java provides the BinaryOperator<T> interface, which is a specialized version of BiFunction<T, T, T>.
+
+Below are simple examples demonstrating how to use both with lambda expressions.
+
+---
+
+Unary Operator Example
+
+Imagine you want to increment an integer by 
+
+1. With a lambda expression, you can implement this using UnaryOperator<Integer>:
+
+import java.util.function.UnaryOperator;
+
+public class UnaryOperatorDemo {
+    public static void main(String[] args) {
+        // Define a unary operator that increments its input by 1
+        UnaryOperator<Integer> increment = x -> x + 1;
+
+        // Use the operator by calling apply method
+        int result = increment.apply(5);
+        System.out.println("Increment 5: " + result);  // Output: Increment 5: 6
+    }
+}
+
+Explanation:
+
+- UnaryOperator<Integer> increment: Defines a function that takes an Integer and returns an Integer.
+- Lambda Expression x -> x + 1: For any integer x, it returns x + 1.
+- increment.apply(5): Applies the lambda to the input 5, producing 6.
+
+---
+
+### Binary Operator Example
+
+Suppose you want to add two integers. 
+
+You can implement this with BinaryOperator<Integer>:
+
+import java.util.function.BinaryOperator;
+
+public class BinaryOperatorDemo {
+    public static void main(String[] args) {
+        // Define a binary operator that adds two integers
+        BinaryOperator<Integer> add = (x, y) -> x + y;
+
+        // Use the operator by calling apply method
+        int result = add.apply(5, 10);
+        System.out.println("Add 5 and 10: " + result);  // Output: Add 5 and 10: 15
+    }
+}
+
+Explanation:
+- BinaryOperator<Integer> add: Defines a function that takes two Integer inputs and returns an Integer.
+- Lambda Expression (x, y) -> x + y: For any two integers x and y, it returns their sum.
+- add.apply(5, 10): Applies the lambda to inputs 5 and 10, producing 15.
+
+
+### When to Use These Operators
+
+- UnaryOperator:  
+  Use it when you need to perform an operation on a single object and return an object of the same type. Examples include modifying or transforming values in streams.
+
+- BinaryOperator:  
+  Use it when you need to combine two objects of the same type. Examples include reducing a list of elements into a single result (like summing numbers).

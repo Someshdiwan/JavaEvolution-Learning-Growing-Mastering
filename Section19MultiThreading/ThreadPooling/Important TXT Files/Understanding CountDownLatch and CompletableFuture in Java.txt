@@ -1,0 +1,101 @@
+Understanding CountDownLatch and CompletableFuture in Java:
+
+Both CountDownLatch and CompletableFuture help manage concurrent tasks in Java but serve different purposes.
+
+1️⃣ CountDownLatch:
+
+CountDownLatch is used for synchronization between multiple threads.
+
+It allows one or more threads to wait until other threads complete their tasks.
+
+Key Features:
+
+- Starts with a count (number of tasks to wait for).
+- Each time a task completes, the count decreases.
+- Once the count reaches zero, waiting threads are released.
+
+Example: Waiting for Multiple Tasks to Finish
+
+import java.util.concurrent.CountDownLatch;
+
+public class CountDownLatchExample {
+    public static void main(String[] args) throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(3); // We need to wait for 3 tasks
+
+        Runnable task = () -> {
+            System.out.println(Thread.currentThread().getName() + " completed task.");
+            latch.countDown(); // Reduce count by 1
+        };
+
+        new Thread(task).start();
+        new Thread(task).start();
+        new Thread(task).start();
+
+        latch.await(); // Main thread waits here until count reaches zero
+        System.out.println("All tasks completed. Main thread resumes.");
+    }
+}
+
+Expected Output:
+
+Thread-0 completed task.
+Thread-1 completed task.
+Thread-2 completed task.
+All tasks completed. Main thread resumes.
+
+✅ Use Case: Waiting for multiple tasks to finish before proceeding
+(e.g., batch processing, service startup dependencies).
+
+2️⃣ CompletableFuture:
+
+CompletableFuture` is an advanced tool for asynchronous programming.
+It allows running tasks in the background, chaining operations, and handling results or exceptions.
+
+Key Features:
+
+- Runs tasks asynchronously without blocking the main thread.
+- Supports chaining (thenApply, thenAccept, etc.).
+- Supports combining multiple futures (thenCombine, allOf, etc.).
+- Provides exception handling (exceptionally, handle).
+
+Example: Asynchronous Computation:
+
+import java.util.concurrent.CompletableFuture;
+
+public class CompletableFutureExample {
+    public static void main(String[] args) throws Exception {
+        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+            System.out.println("Running async task...");
+            return 42;
+        });
+
+        System.out.println("Doing something else...");
+
+        Integer result = future.get(); // Blocking call (waits for result)
+        System.out.println("Result: " + result);
+    }
+}
+
+Expected Output:
+
+Doing something else...
+Running async task...
+Result: 42
+
+✅Use Case: Performing long-running tasks asynchronously (e.g., API calls, database queries).
+
+Comparison Table:
+
+| Feature              | CountDownLatch        | CompletableFuture           |
+|----------------------|-----------------------|-----------------------------|
+|  Type                |  Synchronization tool | Async computation           |
+|  Blocking?           |  Yes (await())        | No (Non-blocking)           |
+|  Parallel Execution? |  No                   | Yes                         |
+|  Result Handling?    |  No | Yes             | (chaining & combining)      |
+|  Exception Handling? |  No | Yes             | (exceptionally(), handle()) |
+
+
+When to Use Which?
+
+- Use CountDownLatch when you need to wait for multiple threads to complete before proceeding.
+- Use CompletableFuture when you need to perform non-blocking async operations and chain results.

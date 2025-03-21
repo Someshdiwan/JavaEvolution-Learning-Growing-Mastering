@@ -1,0 +1,129 @@
+✅ Understanding Terminal Operations in Java Streams
+
+In Java Streams, operations are classified into two categories:  
+
+1.  Intermediate Operations – Return a new stream and are lazy (not executed until a terminal operation is called).  
+2.  Terminal Operations     – Produce a result or a side effect, consuming the stream in the process. 
+                              After a terminal operation, the stream cannot be reused.
+
+---
+
+📌 Explanation of Your Code
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class EvaluationStreams {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+
+        Stream<String> stream = names.stream()
+                .filter(name -> {
+                    System.out.println("Filtering: " + name);
+                    return name.length() > 3;
+                });
+
+        System.out.println("Before terminal operation");
+
+        List<String> result = stream.collect(Collectors.toList());
+
+        System.out.println("After terminal operation");
+        System.out.println(result);
+    }
+}
+```
+
+---
+
+📊 Step-by-Step Execution Flow:
+
+1.Creating the Stream:
+
+Stream<String> stream = names.stream().filter(name -> { ... });
+
+- The stream is created from the names list.
+- filter() is an intermediate operation – it sets up a filtering condition but does not execute immediately (lazy evaluation).
+- No output appears yet because intermediate operations are not executed until a terminal operation is called.
+
+---
+
+2. Before Terminal Operation
+
+System.out.println("Before terminal operation");
+
+👉 Outputs:
+
+Before terminal operation
+
+- Since the stream is lazy, no filtering has happened yet.
+
+---
+
+3. Triggering the Terminal Operation:
+
+List<String> result = stream.collect(Collectors.toList());
+
+- collect() is a terminal operation 
+– it forces the stream to be processed.
+- Now, the filtering happens, and the condition (name.length() > 3) is applied.
+
+👉 Outputs during filtering:
+
+Filtering: Alice
+Filtering: Bob
+Filtering: Charlie
+Filtering: David
+
+Filtered values: "Alice"`, "Charlie", "David" (length > 3)
+
+---
+
+4. After Terminal Operation:
+
+System.out.println("After terminal operation");
+System.out.println(result);
+
+👉 Outputs:
+
+After terminal operation
+[Alice, Charlie, David]
+
+- The stream is consumed – you cannot reuse it.
+
+---
+
+📌 Key Characteristics of Terminal Operations:
+
+1. Trigger Stream Processing: Without a terminal operation, intermediate operations (like filter(), map()) will not execute.
+
+2. Consume the Stream: Once a terminal operation is called, the stream is closed and cannot be reused.
+
+3. Return a Result or Side Effect: Produce a value (e.g., collect(), count()) or a side effect (e.g., forEach()).
+
+---
+
+📋 Common Terminal Operations:
+
+| Operation             | Description                                     | Example                                                       |
+|-----------------------|-------------------------------------------------|---------------------------------------------------------------|
+| collect()             | Collects elements into a collection (List, Set) | List<Integer> list = stream.collect(Collectors.toList());     |
+| forEach()             | Iterates through each element (side effect)     | stream.forEach(System.out::println);                          |
+| reduce()              | Combines elements into a single value           | int sum = stream.reduce(0, Integer::sum);                     |
+| count()               | Counts the number of elements                   | long count = stream.count();                                  |
+| anyMatch()            | Checks if any element matches a condition       | boolean result = stream.anyMatch(x -> x > 5);                 |
+| allMatch()            | Checks if all elements match a condition        | boolean result = stream.allMatch(x -> x > 0);                 |
+| noneMatch()           | Checks if no elements match a condition         | boolean result = stream.noneMatch(x -> x < 0);                |
+| findFirst()           | Returns the first element (if present)          | Optional<Integer> first = stream.findFirst();                 |
+| findAny()             | Returns any element (useful in parallel)        | Optional<Integer> any = stream.findAny();                     |
+| min() / max()         | Returns the smallest or largest value           | int min = stream.min(Integer::compareTo).get();               |
+| toArray()             | Collects elements into an array                 | Integer[] arr = stream.toArray(Integer[]::new);               |
+
+---
+
+Key Takeaways:
+
+- Intermediate operations are lazy – they set up a pipeline.
+- Terminal operations trigger processing and consume the stream.
+- Once a terminal operation is called, the stream cannot be reused.

@@ -1,0 +1,213 @@
+explore lambda expressions with collections in Java 8. Here are some practical examples:
+
+
+✅1. Using Lambda with forEach()
+
+You can loop through a collection in a concise way using *forEach().
+
+import java.util.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Traditional for-loop
+        for (String name : names) {
+            System.out.println(name);
+        }
+
+        // Using lambda with forEach()
+        names.forEach(name -> System.out.println(name));
+    }
+}
+
+Output: 
+
+Alice  
+Bob  
+Charlie
+
+
+💡 Shortcut: If your lambda only calls a method, use **method reference**:
+
+names.forEach(System.out::println);
+
+✅ 2. Using map() to Transform a List
+
+You can modify each element using map().
+
+import java.util.*;
+import java.util.stream.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
+
+        // Double each number
+        List<Integer> doubled = numbers.stream()
+                                       .map(n -> n * 2)
+                                       .collect(Collectors.toList());
+
+        System.out.println(doubled);
+    }
+}
+
+Output:
+
+[2, 4, 6, 8]
+
+✅ 3. Using filter() to Select Specific Items
+
+You can filter elements that match a condition.
+
+import java.util.*;
+import java.util.stream.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(10, 25, 33, 40);
+
+        // Filter even numbers
+        List<Integer> evenNumbers = numbers.stream()
+                                           .filter(n -> n % 2 == 0)
+                                           .collect(Collectors.toList());
+
+        System.out.println(evenNumbers);
+    }
+}
+
+Output:
+
+[10, 40]
+
+✅ 4. Using sorted() to Sort a Collection
+
+You can sort elements in ascending or custom order.
+
+
+import java.util.*;
+import java.util.stream.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("Charlie", "Alice", "Bob");
+
+        // Sort alphabetically
+        List<String> sortedNames = names.stream()
+                                        .sorted()
+                                        .collect(Collectors.toList());
+
+        System.out.println(sortedNames);
+    }
+}
+
+Output:
+
+[Alice, Bob, Charlie]
+
+Custom Sorting (Descending Order):
+
+List<Integer> numbers = Arrays.asList(5, 1, 8, 3);
+List<Integer> sortedDesc = numbers.stream()
+                                  .sorted((a, b) -> b - a) // Comparator
+                                  .collect(Collectors.toList());
+
+System.out.println(sortedDesc);
+
+Output:
+
+[8, 5, 3, 1]
+
+
+✅ 5. Using reduce() for Aggregation
+
+You can use reduce() to perform calculations like sum or product.
+
+
+import java.util.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Sum of numbers
+        int sum = numbers.stream()
+                         .reduce(0, (a, b) -> a + b);
+
+        System.out.println("Sum: " + sum);
+    }
+}
+
+
+Output:
+
+Sum: 15
+
+✅ 6. Using removeIf() to Modify Collections
+
+You can remove elements that match a condition directly from a collection.
+
+import java.util.*;
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<String> names = new ArrayList<>(Arrays.asList("Alice", "Bob", "Charlie"));
+
+        // Remove names starting with "A"
+        names.removeIf(name -> name.startsWith("A"));
+
+        System.out.println(names);
+    }
+}
+
+Output:
+
+[Bob, Charlie]
+
+✅ 7. Using `Comparator` with Lambda
+
+You can sort custom objects easily using a lambda expression.
+
+import java.util.*;
+
+class Person {
+    String name;
+    int age;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String toString() {
+        return name + " (" + age + ")";
+    }
+}
+
+public class LambdaDemo {
+    public static void main(String[] args) {
+        List<Person> people = Arrays.asList(
+            new Person("Alice", 30),
+            new Person("Bob", 25),
+            new Person("Charlie", 35)
+        );
+
+        // Sort by age
+        people.sort((p1, p2) -> p1.age - p2.age);
+
+        System.out.println(people);
+    }
+}
+
+Output:
+
+[Bob (25), Alice (30), Charlie (35)]
+
+💡 Summary:
+
+- forEach() – Perform actions on each element.
+- map() – Transform elements.
+- filter() – Select elements matching a condition.
+- sorted() – Sort elements.
+- reduce() – Combine elements (sum, max, etc.).
+- removeIf() – Remove elements from a collection.

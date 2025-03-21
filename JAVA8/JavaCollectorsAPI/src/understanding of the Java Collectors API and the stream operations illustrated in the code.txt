@@ -1,0 +1,101 @@
+list of questions that you can use to test your understanding of the Java Collectors API and the stream operations illustrated in the code:
+
+1. Collecting to a List: 
+   - What is the purpose of using Collectors.toList() in the following snippet?  
+    
+     List<String> res = names.stream()
+             .filter(name -> name.startsWith("A"))
+             .collect(Collectors.toList());
+  
+   - How does filtering and then collecting into a list work in this context?
+
+2. Collecting to a Set:
+  
+   - How does `Collectors.toSet()` differ from `toList()` in terms of handling duplicates and ordering?  
+    
+     Set<Integer> set = nums.stream().collect(Collectors.toSet());    
+
+3. Collecting to a Specific Collection:
+
+   - Explain the use of Collectors.toCollection(() -> new ArrayDeque<>()).  
+   - In what scenarios might you choose to collect stream elements into an ArrayDeque instead of a List or Set?
+
+4. Joining Strings: 
+    
+  - How does the Collectors.joining(", ") method operate in this example?  
+    
+     String concatenatedNames = names.stream()
+             .map(String::toUpperCase)
+             .collect(Collectors.joining(", "));
+    
+   - What would be the output if the input list is `["Alice", "Bob", "Charlie"]`?
+
+5. Summarizing Data:
+    
+  - What information does `Collectors.summarizingInt(x -> x) provide?  
+    
+    IntSummaryStatistics stats = numbers.stream().collect(Collectors.summarizingInt(x -> x));
+     
+   - What are the main statistical measures available from the IntSummaryStatistics object?
+
+6. Calculating Averages:
+
+   - How does Collectors.averagingInt(x -> x) work compared to summarizingInt?
+  
+   - Why might you choose one over the other when processing numerical data?
+
+7. Counting Elements:
+
+   - What is the role of Collectors.counting() in stream processing, and how is it used in this example?  
+     
+     Long count = numbers.stream().collect(Collectors.counting());
+     
+8. Grouping Elements: 
+ 
+   - Explain how Collectors.groupingBy(String::length) groups elements from the stream.  
+ 
+   - What is the difference between these variations:  
+     - groupingBy(String::length)
+     - groupingBy(String::length, Collectors.joining(", "))
+     - groupingBy(String::length, Collectors.counting())
+
+     - How does using a specific map type, as in groupingBy(String::length, TreeMap::new, Collectors.counting()), affect the result?
+
+9. Partitioning Elements:
+  
+   - What is the difference between grouping and partitioning in the context of stream collectors?  
+   - How does Collectors.partitioningBy(x -> x.length() > 5) split the stream into two groups?
+
+10. Mapping and Collecting:
+
+    - Describe how Collectors.mapping(x -> x.toUpperCase(), Collectors.toList()) modifies the stream before collecting.  
+    - Why might you use a mapping collector instead of applying a mapping function directly on the stream?
+
+11. Creating Maps with Collectors.toMap:
+    
+    - In Example 5, how does Collectors.toMap(x -> x.toUpperCase(), x -> x.length()) construct a map from a stream of strings?  
+    - What will be the keys and values in the resulting map?
+
+12. Handling Duplicate Keys with toMap:
+
+    - In Example 6, explain the purpose of the merge function (x, y) -> x + y in:  
+  
+      words2.stream().collect(Collectors.toMap(k -> k, v -> 1, (x, y) -> x + y))
+     
+    - What issue does this merge function address when creating a map from elements with duplicate keys?
+
+13. Reduction vs. Summing Collector:
+    
+    - Compare the two approaches used to sum values in a collection:  
+     
+      items.values().stream().reduce(Integer::sum)
+      
+      versus  
+      
+      items.values().stream().collect(Collectors.summingInt(x -> x))
+      
+    - What are the differences in terms of the return type and usage?
+
+These questions cover a range of topics from basic collection to more advanced grouping, partitioning, and mapping techniques using the Java Collectors API. 
+
+They should serve as a solid foundation for understanding and discussing the concepts demonstrated in the provided code.

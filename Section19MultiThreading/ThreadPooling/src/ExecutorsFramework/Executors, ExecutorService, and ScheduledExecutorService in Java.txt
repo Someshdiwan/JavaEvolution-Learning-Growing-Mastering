@@ -153,4 +153,3 @@ Comparing Executors, ExecutorService, and ScheduledExecutorService**
 ✔ Use  Executors when you need a simple way to create a thread pool.
 ✔ Use  ExecutorService when you need advanced task management (like Future).
 ✔ Use  ScheduledExecutorService when you need periodic task execution.
-

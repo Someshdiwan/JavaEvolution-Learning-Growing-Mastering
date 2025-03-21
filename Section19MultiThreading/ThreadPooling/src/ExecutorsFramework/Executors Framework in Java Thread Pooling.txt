@@ -1,0 +1,83 @@
+Executors Framework in Java (Thread Pooling)
+
+The Executors framework in Java (introduced in Java 5) provides a high-level API for managing thread pools efficiently.
+It is part of the java.util.concurrent package.
+
+Why Use Executors?
+
+- Manages Thread Pooling Efficiently 🏭
+- Reduces Thread Creation Overhead 🚀
+- Provides Different Pooling Strategies 🎯
+- Automatically Handles Thread Lifecycle 🔄
+
+---
+
+Key Components of the Executors Framework:
+
+1. Executor Interface → A simple interface with execute(Runnable command).
+2. ExecutorService Interface → Provides methods for managing threads.
+3. Executors Class → Factory methods for creating different thread pools.
+4. Future Interface → Handles asynchronous computation results.
+
+
+Types of Thread Pools in Executors Framework
+
+| Thread Pool Type              | Description                                          |
+|-------------------------------|------------------------------------------------------|
+| newFixedThreadPool(int n)     | A pool with a fixed number of threads.               |
+| newCachedThreadPool()         | Creates threads as needed and reuses idle threads.   |
+| newSingleThreadExecutor()     | A pool with a single thread (sequential execution).  |
+| newScheduledThreadPool(int n) | A pool for scheduling tasks with delays.             |
+
+
+Example: Fixed Thread Pool:
+
+import java.util.concurrent.*;
+
+public class ThreadPoolExample {
+    public static void main(String[] args) {
+        // Create a thread pool of 3 threads
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        for (int i = 1; i <= 5; i++) {
+            int taskId = i;
+            executor.execute(() -> {
+                System.out.println("Executing Task " + taskId + " on thread: " + Thread.currentThread().getName());
+            });
+        }
+
+        executor.shutdown(); // Shutdown the executor after tasks are completed
+    }
+}
+
+Output (Example):
+
+Executing Task 1 on thread: pool-1-thread-1
+Executing Task 2 on thread: pool-1-thread-2
+Executing Task 3 on thread: pool-1-thread-3
+Executing Task 4 on thread: pool-1-thread-1
+Executing Task 5 on thread: pool-1-thread-2
+
+Example: Scheduled Thread Pool**
+
+import java.util.concurrent.*;
+
+public class ScheduledExecutorExample {
+    public static void main(String[] args) {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+
+        Runnable task = () -> System.out.println("Task executed at: " + System.currentTimeMillis());
+        
+        // Schedule a task to run after 3 seconds
+        scheduler.schedule(task, 3, TimeUnit.SECONDS);
+        
+        scheduler.shutdown();
+    }
+}
+
+Advantages of Executors Framework:
+
+✅ Efficient Thread Management
+✅ Avoids Manual Thread Creation & Destruction
+✅ Provides Thread Pooling Strategies
+✅ Handles Concurrency Smoothly

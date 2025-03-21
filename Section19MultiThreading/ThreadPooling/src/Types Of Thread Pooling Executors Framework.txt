@@ -1,0 +1,51 @@
+Executors Framework in Java (Thread Pooling):
+
+The Executors framework in Java (introduced in Java 5) provides a high-level API for managing thread pools efficiently. 
+It is part of the java.util.concurrent package.
+
+Why Use Executors?
+
+Manages Thread Pooling Efficiently 🏭
+Reduces Thread Creation Overhead 🚀
+Provides Different Pooling Strategies 🎯
+Automatically Handles Thread Lifecycle 🔄
+
+Key Components of the Executors Framework
+
+Executor Interface → A simple interface with execute(Runnable command).
+ExecutorService Interface → Provides methods for managing threads.
+Executors Class → Factory methods for creating different thread pools.
+Future Interface → Handles asynchronous computation results.
+
+Types of Thread Pools in Executors Framework
+
+| Thread Pool Type             | Description                                          |
+|------------------------------|------------------------------------------------------|
+| newFixedThreadPool(int n)    | A pool with a fixed number of threads.               |
+| newCachedThreadPool()        | Creates threads as needed and reuses idle threads.   |
+| newSingleThreadExecutor()    | A pool with a single thread (sequential execution).  |
+| newScheduledThreadPool(int n)| A pool for scheduling tasks with delays.             |
+
+
+Types of Thread Pools in Executors Framework
+
+| Thread Pool Type                                       | Description                                                  | Use Case                                                          |
+|--------------------------------------------------------|--------------------------------------------------------------|-------------------------------------------------------------------|
+|   Fixed Thread Pool  (newFixedThreadPool(n))           | A pool with a fixed number of threads.                       | Best for executing a fixed number of tasks concurrently.          |
+|   Cached Thread Pool (newCachedThreadPool())           | Creates new threads as needed and reuses idle ones.          |  Suitable for short-lived tasks with unpredictable loads.         |
+|   Single Thread Executor (newSingleThreadExecutor())   | A pool with a single thread executing tasks sequentially.    | Ensures tasks execute in order, useful for sequential processing. |
+|   Scheduled Thread Pool (newScheduledThreadPool(n))    | Executes tasks after a fixed delay or periodically.          | Ideal for scheduled and recurring tasks.                          |
+
+Advantages of Executors Framework
+✅ Efficient Thread Management
+✅ Avoids Manual Thread Creation & Destruction
+✅ Provides Thread Pooling Strategies
+✅ Handles Concurrency Smoothly
+
+Advantages of the Executors Framework
+
+✔ Improved Performance – Reduces thread creation overhead by reusing existing threads.
+✔ Better Resource Management – Limits thread count to prevent excessive CPU and memory usage.
+✔ Simplifies Thread Management – Eliminates the need for manual thread handling.
+✔ Scalability – Adapts to workload demands efficiently.
+✔ Flexibility – Provides different thread pool strategies for various use cases.

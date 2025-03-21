@@ -1,0 +1,12 @@
+Disadvantages of `synchronized` in Java
+
+1. Unfair Locking (No Fairness) ⚖️ – Threads may not get the lock in order, causing starvation.
+2. Thread Blocking 🚦 – Even read-only operations must wait, reducing efficiency.
+3. No Interruptibility ⏸️ – Waiting threads cannot be interrupted, leading to possible deadlocks.
+4. No Read-Write Locking 📖✍️ – Doesn't allow multiple readers, causing unnecessary waiting.
+5. Performance Overhead 🐢 – Only one thread runs at a time, slowing down execution.
+6. Increased Deadlock Risk 🔗 – If two threads hold locks and wait for each other, they get stuck.
+7. No Timeout Handling ⏳ – Cannot set a time limit for acquiring locks.
+8. Less Flexibility 🎛️ – No way to check if a lock is already held or try acquiring it conditionally.
+
+✅ Alternatives: Use `ReentrantLock` or `ReadWriteLock` for better control and performance!

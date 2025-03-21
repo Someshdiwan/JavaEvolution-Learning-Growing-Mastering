@@ -1,0 +1,126 @@
+Disadvantages of Synchronization in Java:
+
+Synchronization in Java (`synchronized` keyword) is useful for preventing race conditions, but it has several downsides:
+
+1. Performance Overhead
+
+- Why? Synchronization forces **one thread at a time to access a synchronized method/block.
+
+- Impact:
+  - It slows down execution in multi-threaded applications.  
+  - If multiple threads are waiting, they get blocked, reducing efficiency.
+
+  - Example:
+ public synchronized void method() {
+      // Only one thread can access this method at a time
+  }
+
+- Even if two threads are reading data (which doesn't require modification), they still wait for each other.
+
+✅ Alternative: Use ReentrantLock for better performance with tryLock().
+
+2. Deadlocks 🛑
+
+- Why? If two or more threads hold locks and wait for each other to release, they get stuck forever (deadlock).
+
+- Example:
+
+  class A {
+      synchronized void methodA(B b) {
+          b.last();  // Thread-1 waiting for B
+      }
+      synchronized void last() { }
+  }
+
+  class B {
+      synchronized void methodB(A a) {
+          a.last();  // Thread-2 waiting for A
+      }
+      synchronized void last() { }
+  }
+
+Thread-1 locks A and waits for B, while Thread-2 locks B and waits for A → Deadlock!
+
+✅ Alternative: Use tryLock() with timeouts** instead of synchronized.
+
+3. Reduced Scalability
+- Why? Since only one thread can enter a synchronized block at a time,
+  it doesn't scale well for high-performance applications.
+
+- Example:
+  - If 1000 threads want to read a variable, only one thread at a time can access it.
+  - Other threads waste CPU time waiting.
+  - Better Approach: Use ReadWriteLock:
+
+  ReadWriteLock lock = new ReentrantReadWriteLock();
+  lock.readLock().lock();
+  try {
+      // Multiple threads can read simultaneously
+  } finally {
+      lock.readLock().unlock();
+  }
+
+4. Causes Thread Contention (Blocking Other Threads) 🏋️
+
+- Why? When one thread is inside a synchronized block, other threads **must wait.
+
+- Example: If thread T1 is in a synchronized method, thread T2 can't access it, even if it's just reading data.
+
+✅ Alternative: Use Concurrent Collections  (e.g., ConcurrentHashMap, CopyOnWriteArrayList) instead of synchronized methods.
+
+5. No Flexibility Compared to ReentrantLock 🛠️
+
+| Feature               | synchronized    |  ReentrantLock             |
+|-----------------------|-----------------|----------------------------|
+| Explicit Locking      | ❌ No          | ✅ Yes                     |
+| Interruptible Lock    | ❌ No          | ✅ Yes (lockInterruptibly) |
+| Try to Lock (Timeout) | ❌ No          | ✅ Yes (tryLock)           |
+| Fairness Option       | ❌ No          | ✅ Yes (Fair Lock)         |
+| Condition Variables   | ❌ No          | ✅ Yes (await/signal)      |
+
+Example: Using tryLock() to avoid waiting indefinitely:
+
+  ReentrantLock lock = new ReentrantLock();
+  if (lock.tryLock(1000, TimeUnit.MILLISECONDS)) {
+      try {
+          // Critical section
+      } finally {
+          lock.unlock();
+      }
+  } else {
+      System.out.println("Could not acquire lock, skipping execution.");
+  }
+  ```
+
+---
+
+### **6. Cannot Control Locking Behavior** 🎛️  
+- `synchronized` **cannot check if a lock is already held**.  
+- It **cannot allow multiple threads** to read while restricting writes.  
+- **Example of an issue:**  
+  ```java
+  public synchronized void methodA() {
+      System.out.println("Thread A");
+  }
+  public synchronized void methodB() {
+      System.out.println("Thread B");
+  }
+
+- Even if methodA and methodB don’t access shared data, they still block each other.
+
+✅ Better Approach: Use **`ReentrantLock` with `tryLock()` to check if a lock is available before entering.
+
+Conclusion: When to Use `synchronized` vs `ReentrantLock`?
+
+| **Use  synchronized  when:    | Use  ReentrantLock  when:                    |
+|-------------------------------|----------------------------------------------|
+| Simple critical sections      | Need fine-grained control                    |
+| No need for timeout handling  | Need to try acquiring locks with timeout     |
+| No need for interruptibility  | Need to interrupt waiting threads            |
+| Performance isn't critical    | Need better performance & concurrency        |
+
+
+- synchronized is easy to use but has performance issues and risk of deadlocks.
+
+- ReentrantLock is more flexible and powerful, offering features like tryLock(), lockInterruptibly(),
+and fairness settings.

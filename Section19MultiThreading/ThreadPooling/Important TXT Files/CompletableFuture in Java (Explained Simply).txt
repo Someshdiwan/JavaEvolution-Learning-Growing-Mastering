@@ -1,0 +1,126 @@
+CompletableFuture in Java (Explained Simply):
+
+CompletableFuture is part of Java's concurrency framework (introduced in Java 8).
+
+It provides an asynchronous programming model to execute tasks in the background without blocking the main thread.
+
+---
+
+Why Use CompletableFuture?
+
+1. Non-blocking execution → Unlike Future, you don’t need to call .get() and wait for completion.
+2. Chaining multiple tasks → Easily run multiple dependent tasks.
+3. Handling errors gracefully → Built-in exception handling.
+4. Combining multiple futures → Run parallel tasks and combine results.
+
+---
+
+Basic Example:
+
+Let's start with a simple example:
+
+import java.util.concurrent.CompletableFuture;
+
+public class CompletableFutureExample {
+    public static void main(String[] args) {
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            System.out.println("Running async task in: " + Thread.currentThread().getName());
+        });
+
+        // Wait for the task to complete (only for demo purposes)
+        future.join();
+    }
+}
+
+✅ Output:
+
+Running async task in: ForkJoinPool.commonPool-worker-1
+
+Common Use Cases & Methods**
+
+1️⃣ Run a Task & Return a Value**
+
+CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+    return "Hello, World!";
+});
+
+System.out.println(future.join()); // Output: Hello, World!
+
+🟢 .supplyAsync() runs in the background and returns a value.
+
+2️⃣ Chaining Tasks (`thenApply()`)
+
+If you want to **transform** the result of a future:
+
+CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> "Java")
+    .thenApply(name -> "Hello, " + name);
+
+System.out.println(future.join()); // Output: Hello, Java
+
+🟢 .thenApply() is used to process and transform the result.
+
+3️⃣ Running a Task After Another (`thenRun()`)
+
+If the second task doesn’t need the result from the first task:
+
+CompletableFuture.supplyAsync(() -> "Task 1 Completed")
+    .thenRun(() -> System.out.println("Task 2 Started"))
+    .join();
+
+✅ The second task runs after the first task but doesn’t take input.
+
+4️⃣ Combining Two `CompletableFuture` (`thenCombine()`)**
+
+Run two async tasks and combine their results:
+
+CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> "Hello");
+CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> "World");
+
+CompletableFuture<String> result = future1.thenCombine(future2, (res1, res2) -> res1 + " " + res2);
+System.out.println(result.join()); // Output: Hello World
+
+🟢 .thenCombine() takes results from two async tasks and merges them.
+
+5️⃣ Handling Errors (exceptionally())
+
+Handle errors without crashing the application:
+
+CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+    if (true) throw new RuntimeException("Something went wrong!");
+    return 10;
+}).exceptionally(ex -> {
+    System.out.println("Error: " + ex.getMessage());
+    return 0; // Fallback value
+});
+
+System.out.println(future.join()); // Output: 0
+
+🟢 .exceptionally() allows fallback values when an exception occurs.
+
+Using CompletableFuture for Parallel Execution
+
+If you want to run multiple tasks in parallel:
+
+CompletableFuture<Void> future = CompletableFuture.allOf(
+    CompletableFuture.runAsync(() -> System.out.println("Task 1")),
+    CompletableFuture.runAsync(() -> System.out.println("Task 2")),
+    CompletableFuture.runAsync(() -> System.out.println("Task 3"))
+);
+
+future.join();
+
+✅ All tasks execute in parallel.
+
+CompletableFuture vs Future:
+
+| Feature             | Future                           | CompletableFuture                    |
+|---------------------|----------------------------------|--------------------------------------|
+| Blocking Call       | ✅ Yes (needs .get())            | ❌ No (async methods)                |
+| Chaining Tasks      | ❌ No                            | ✅ Yes (thenApply(), thenRun())      |
+| Exception Handling  | ❌ No                            | ✅ Yes (exceptionally())             |
+| Combining Results   | ❌ No                            | ✅ Yes (thenCombine(), allOf())      |
+
+
+✅ CompletableFuture makes asynchronous programming easy in Java.
+✅ It's non-blocking, supports chaining, and parallel execution.
+✅ Use it to improve performance in applications with I/O operations, network calls, or database queries.

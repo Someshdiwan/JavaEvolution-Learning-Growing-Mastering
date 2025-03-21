@@ -1,11 +1,20 @@
-/*
-https://www.educba.com/java-callback-function/
-
-Java program to demonstrate callback mechanism
-using interface is Java
-Create interface
-*/
 import java.util.Scanner;
+/**
+ * Java Program to Demonstrate Callback Mechanism Using an Interface
+ *
+ * This program showcases how to implement a callback mechanism in Java
+ * using interfaces. Callbacks allow one piece of code to notify another
+ * when an event occurs or a task completes.
+ *
+ * For more details, visit:
+ * <a href="https://www.educba.com/java-callback-function/">Java Callback Function</a>
+ *
+ * Key Concepts:
+ * - Interfaces for callback structure
+ * - Implementing and invoking callbacks
+ * - Simulating asynchronous task execution
+ */
+
 interface STax {
     double stateTax();
 }
@@ -45,7 +54,7 @@ class CallBackJAVA {
 		and pass interface reference - this is callback .
 		Here, ref may refer to stateTax() of Punjab or HP classes
 		depending on the class for which the object is created
-		in the previous step
+		in the previous step.
 		*/
 
         calculateTax(ref);

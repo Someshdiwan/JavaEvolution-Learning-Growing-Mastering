@@ -1,0 +1,25 @@
+Differences Between Local and Global Variables
+
+- Scope:
+  • Local Variables:* Declared inside a method, constructor, or block; accessible only within that specific region.
+  • Global Variables:* Declared at the class level (as instance or static variables in Java);
+    accessible by all methods within the class.
+
+- Lifetime:
+  • Local Variables: Exist only during the execution of the method or block in which they are declared.
+  • Global Variables: Exist for the lifetime of the object (instance variables) or the entire program run (static variables).
+
+- Initialization:
+  • Local Variables: Do not have default values; must be explicitly initialized before use.
+  • Global Variables: Automatically assigned default values if not explicitly initialized.
+
+- Memory Allocation:
+  • Local Variables: Stored in the stack memory; created when the method is called and destroyed when the method finishes.
+  • Global Variables: Stored in the heap (for instance variables) or in a special static memory area
+    (for static variables) and persist as long as the object exists or the program runs.
+
+- Usage:
+  • Local Variables: Ideal for temporary storage and operations confined to a specific block or method.
+  • Global Variables: Suitable for data that needs to be shared among multiple methods within a class.
+
+These distinctions are crucial in understanding variable management and memory optimization within a program.

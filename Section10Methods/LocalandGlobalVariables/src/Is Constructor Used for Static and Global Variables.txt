@@ -1,0 +1,60 @@
+Is a Constructor Used for Static and Global Variables?
+
+No, constructors are not used to initialize static (global) variables.
+
+They are only used for instance variables. Here's why:
+
+1. Static (Global) Variables Are Shared Across All Objects
+Static variables belong to the class, not to individual objects.
+Since a constructor runs only when an object is created, it cannot be relied on for initializing static variables.
+Instead, static variables are initialized when the class is loaded into memory.
+
+Example:
+
+class Company {
+    static String companyName = "Tech Corp"; // Initialized directly
+}
+
+The value of companyName is assigned once and shared by all instances.
+If we try to modify it using a constructor, it would still be the same for all objects.
+
+2. Static Variables Should Be Initialized in a Static Block (if needed)
+A static block runs once when the class is loaded and is used for complex initialization.
+
+Example:
+class Company {
+    static String companyName;
+
+    // Static block to initialize static variable
+    static {
+        companyName = "Tech Corp";
+        System.out.println("Static block executed");
+    }
+}
+This ensures companyName is set before any object is created.
+
+3. Constructor Only Initializes Instance Variables
+A constructor runs when an object is created and initializes only instance variables, which belong to that object.
+Static variables already exist before objects are created, so there’s no need to initialize them in a constructor.
+
+Example:
+
+class Company {
+    private String employeeName;
+    private double salary;
+
+    static String companyName = "Tech Corp"; // Static variable
+
+    // Constructor initializes only instance variables
+    public Company(String employeeName, double salary) {
+        this.employeeName = employeeName;
+        this.salary = salary;
+    }
+}
+
+companyName is initialized outside the constructor because it does not belong to an object.
+
+Conclusion
+✅ Constructors are used for initializing instance variables because they belong to objects.
+❌ Constructors are NOT used for static (global) variables because static variables belong to
+the class and are initialized when the class is loaded. Instead, direct assignment or a static block is used.

@@ -1,0 +1,26 @@
+1 Applications of Instance Variables:
+
+Instance variables are used when each object needs its own unique data.
+
+Example Use Cases:
+
+1. Object-Oriented Data Storage (Unique Data per Object)
+Example: Storing student records, employee details, bank accounts
+
+Each student has a different name and GPA.
+
+2. Modeling Real-World Objects
+Example: Car, Book, Animal
+
+Each object has unique properties (e.g., Car has different colors and speeds).
+
+3. Game Development (Player Objects)
+Example: Player in a game has health, score, level, etc.
+
+Each player object stores unique stats.
+
+4. E-commerce Systems (Orders and Customers)
+Example: Each Order object has different order IDs, customer names, and payment statuses.
+
+5. Banking Systems (Accounts and Transactions)
+Example: Each BankAccount object has different account numbers, balances, and holders.

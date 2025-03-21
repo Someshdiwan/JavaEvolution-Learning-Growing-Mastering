@@ -1,0 +1,45 @@
+┌───────────────────────────────┐  
+│        Local Variables        │  
+├───────────────────────────────┤  
+│ • Scope:** Declared inside a method,  │  
+│   constructor, or block; accessible only │  
+│   within that region.                      │  
+│ • **Lifetime:** Exists only during the    │  
+│   execution of that method or block.       │  
+│ • **Initialization:** Not auto-initialized; │  
+│   must be explicitly assigned a value.     │  
+│ • **Memory Allocation:** Stored in the      │  
+│   stack.                                   │  
+│ • **Usage:** Ideal for temporary data within│  
+│   a confined scope.                        │  
+└───────────────────────────────┘  
+
+┌───────────────────────────────┐  
+│    Instance Variables         │  
+├───────────────────────────────┤  
+│ • **Scope:** Declared at the class level;  │  
+│   accessed via object references.          │  
+│ • **Lifetime:** Exists as long as the object│  
+│   exists.                                  │  
+│ • **Initialization:** Automatically       │  
+│   assigned default values if not set.       │  
+│ • **Memory Allocation:** Stored in the heap.│  
+│ • **Usage:** Represent properties unique to  │  
+│   each instance.                           │  
+└───────────────────────────────┘  
+
+┌───────────────────────────────┐  
+│      Static Variables         │  
+├───────────────────────────────┤  
+│ • **Scope:** Declared at the class level   │  
+│   with the `static` keyword; accessible via │  
+│   class name or object reference.           │  
+│ • **Lifetime:** Exists for the duration of   │  
+│   the program (as long as the class is loaded).│  
+│ • **Initialization:** Automatically         │  
+│   assigned default values if not set.         │  
+│ • **Memory Allocation:** Stored in a special   │  
+│   static memory area.                         │  
+│ • **Usage:** Shared across all instances of the│  
+│   class.                                      │  
+└───────────────────────────────┘

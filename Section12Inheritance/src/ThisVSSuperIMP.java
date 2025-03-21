@@ -1,7 +1,6 @@
 //Need Practice the same thing again.
 //Solve Again Revise This.
 
-import org.w3c.dom.css.Rect;
 class RectangleSuper{
     int length;
     int breadth;

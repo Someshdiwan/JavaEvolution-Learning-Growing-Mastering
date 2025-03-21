@@ -1,0 +1,135 @@
+Generics in Java
+
+---
+
+Java Generics – A Comprehensive Guide
+
+Introduction to Generics
+
+Generics in Java introduce parameterized types, allowing classes, interfaces, and methods to operate on different data types while ensuring type safety at compile time.
+
+For example, Java Collections like ArrayList, HashSet, and HashMap use generics to allow flexible and safe data storage.
+
+Key Benefits:
+✔ Code Reusability – Write once, use for any type.  
+✔ Type Safety – Errors detected at compile time, reducing runtime issues.  
+✔ No Type Casting Needed – Avoids explicit type casting when retrieving values.  
+✔ Improved Code Readability & Maintainability – Clearer intent and structure.  
+
+
+Common Type Parameters in Generics
+
+Java uses naming conventions for generic type parameters:
+
+| Parameter | Meaning                       |
+|-----------|-------------------------------|
+|     T     | Type                          |
+|     E     | Element (used in collections) |
+|     K     | Key (used in maps)            |
+|     V     | Value (used in maps)          |
+|     N     | Number                        |
+
+
+
+class GenericClass<T> {
+    T obj;  
+    GenericClass(T obj) { this.obj = obj; }
+    void showType() { System.out.println("Type: " + obj.getClass().getName()); }
+}
+
+Types of Java Generics
+
+1. Generic Classes
+
+A generic class allows defining a class that can operate on any data type.  
+
+Syntax:
+
+class MyGenericClass<T> {
+    T data;
+    MyGenericClass(T data) { this.data = data; }
+}
+
+Example Usage:
+
+MyGenericClass<String> obj1 = new MyGenericClass<>("Hello");
+MyGenericClass<Integer> obj2 = new MyGenericClass<>(100);
+
+2. Generic Methods
+
+A generic method allows a method to work with different data types.  
+
+Syntax:
+
+class GenericMethodExample {
+    static <T> void printArray(T[] arr) {
+        for (T item : arr) System.out.println(item);
+    }
+}
+
+
+Usage:
+
+String[] words = {"Apple", "Banana", "Cherry"};
+Integer[] numbers = {1, 2, 3};
+
+GenericMethodExample.printArray(words);
+GenericMethodExample.printArray(numbers);
+
+
+3. Generic Interfaces:
+
+An interface can also be generic.
+
+
+interface GenericInterface<T> {
+    void display(T value);
+}
+
+class GenericImpl<T> implements GenericInterface<T> {
+    public void display(T value) {
+        System.out.println("Value: " + value);
+    }
+}
+
+GenericImpl<Integer> obj = new GenericImpl<>();
+
+obj.display(50);
+
+Advantages of Generics
+
+✅ Code Reusability – Works with multiple types without rewriting code.  
+✅ Type Safety – Compile-time checks prevent errors.  
+✅ No Need for Type Casting – Reduces redundant casting operations.  
+✅ Readability & Maintainability – Code becomes more structured.  
+✅ Generic Algorithms – Algorithms can be implemented flexibly.
+
+
+Disadvantages of Generics
+
+❌ Complexity – Wildcards (`? extends`, `? super`) can be tricky.  
+❌ Performance Overhead – Type erasure at runtime can cause inefficiency.  
+❌ No Primitive Types – Generics work only with objects (e.g., `Integer`, not `int`).  
+❌ Limited Reflection – Type information is lost due to type erasure.  
+
+
+Example: Generics in Collections
+
+Without Generics (older Java versions):  
+
+ArrayList list = new ArrayList();
+list.add("John");
+list.add(10);  // Compiler allows, but may cause runtime error
+String name = (String) list.get(1);  // Error at runtime
+
+With Generics:  
+
+ArrayList<String> list = new ArrayList<>();
+list.add("John");
+// list.add(10);  // Compiler error prevents this mistake
+String name = list.get(0); // No need for casting
+
+
+Conclusion:
+
+Generics in Java provide flexibility, type safety, and reusability, making them a crucial part of modern Java programming. While they introduce some complexity, mastering generics significantly improves code quality.

@@ -1,0 +1,282 @@
+Java Generics: Wildcards, Generic Methods, and Super Bounds
+
+Java Generics provides flexibility and type safety. 
+
+Important concepts include:
+
+- Wildcards (?)
+- Generic Methods
+- Bounded Types (extends and super)
+- Type Erasure
+- Type Inference
+- Generic Interfaces and Classes
+
+
+1️⃣ Wildcards in Generics (?)
+
+Wildcards (?) represent an unknown type and provide flexibility when working with different generic types.
+
+Types of Wildcards
+
+
+| Wildcard      | Meaning             | Example                                                |
+|---------------|---------------------|--------------------------------------------------------|
+| ?             | Any type            | List<?> list                                           |
+| ? extends T   | Any subclass of T   | List<? extends Number> (Integer, Double, Float, etc.)  |
+| ? super T     | Any superclass of T | List<? super Integer>  (Integer, Number, Object)       |
+
+Example: Wildcards in Method Arguments
+
+import java.util.List;
+
+class WildcardExample {
+    // Unbounded wildcard
+    static void printList(List<?> list) {
+        for (Object obj : list) {
+            System.out.println(obj);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<String> stringList = List.of("Apple", "Banana", "Cherry");
+        List<Integer> intList = List.of(1, 2, 3);
+        
+        printList(stringList);
+        printList(intList);
+    }
+}
+
+✅ Output:
+Apple
+Banana
+Cherry
+1
+2
+3
+
+
+2️⃣ Generic Methods
+
+A  generic method  defines its type parameter  <T>  within the method signature.
+
+Example: Generic Method
+
+class GenericMethodExample {
+    // Generic method with type parameter <T>
+    static <T> void display(T value) {
+        System.out.println(value);
+    }
+
+    public static void main(String[] args) {
+        display(100);          // Integer
+        display("Hello");      // String
+        display(10.5);         // Double
+    }
+}
+✅ Output:
+
+100
+Hello
+10.5
+
+✅ Key Points:
+
+- <T> before return type means T is a generic type.
+- The method can be called with any type.
+
+
+3️⃣ Upper Bounded Wildcard (? extends T)
+
+Used when we only want to read from a collection but not modify it.
+
+Example: Sum of Numbers
+
+import java.util.List;
+
+class UpperBoundExample {
+    static double sumOfNumbers(List<? extends Number> list) {
+        double sum = 0;
+        for (Number num : list) {
+            sum += num.doubleValue();
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> intList = List.of(1, 2, 3);
+        List<Double> doubleList = List.of(1.1, 2.2, 3.3);
+
+        System.out.println(sumOfNumbers(intList));  // ✅ Works
+        System.out.println(sumOfNumbers(doubleList)); // ✅ Works
+    }
+}
+
+✅ Output:
+
+6.0
+6.6
+
+✅ Key Points:
+
+- ? extends Number means the method works with Integer, Double, Float, etc.
+- We cannot add elements to list (except null).
+
+4️⃣ Lower Bounded Wildcard (? super T)
+
+Used when we only want to add elements but not read specific types.
+
+Example: Adding Integers:
+
+import java.util.List;
+import java.util.ArrayList;
+
+class LowerBoundExample {
+    static void addNumbers(List<? super Integer> list) {
+        list.add(10);
+        list.add(20);
+        list.add(30);
+    }
+
+    public static void main(String[] args) {
+        List<Number> numList = new ArrayList<>();
+        addNumbers(numList);  // ✅ Works because Number is a superclass of Integer
+        System.out.println(numList);
+    }
+}
+
+✅ Output:
+
+[10, 20, 30]
+
+✅ Key Points:
+
+- ? super Integer means we can add Integer, but reading requires casting.
+- We cannot add Double, Float, etc.
+
+5️⃣ Bounded Type Parameters (<T extends X>)
+
+Restricts the type parameter to be a subclass of X.
+
+Example: Bounded Type with Comparable
+
+class BoundedExample<T extends Number> {
+    T num;
+
+    BoundedExample(T num) {
+        this.num = num;
+    }
+
+    void showType() {
+        System.out.println("Type: " + num.getClass().getName());
+    }
+
+    public static void main(String[] args) {
+        BoundedExample<Integer> obj = new BoundedExample<>(10);
+        obj.showType(); // Output: Type: java.lang.Integer
+    }
+}
+
+✅ Key Points:
+
+- <T extends Number> means T can be Integer, Double, Float, etc.
+- Cannot use non-subclasses of Number (like String).
+
+6️⃣ Type Erasure
+
+Java  removes generic type parameters at runtime.
+
+Example: Proof of Type Erasure
+
+import java.util.ArrayList;
+
+class TypeErasureExample {
+    public static void main(String[] args) {
+        ArrayList<String> list1 = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+
+        System.out.println(list1.getClass() == list2.getClass()); // ✅ True
+    }
+}
+✅ Output:
+
+true
+
+✅ Key Points:
+
+- Java removes type parameters and treats all generic classes as Object at runtime.
+- Generic information only exists at compile-time.
+
+7️⃣ Generic Interfaces
+
+Interfaces can also be generic.
+
+Example: Generic Interface
+
+
+interface GenericInterface<T> {
+    void show(T value);
+}
+
+class GenericClass<T> implements GenericInterface<T> {
+    public void show(T value) {
+        System.out.println("Value: " + value);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        GenericClass<Integer> obj = new GenericClass<>();
+        obj.show(100);
+    }
+}
+
+✅ Key Points:
+
+- GenericInterface<T> allows different types to implement it.
+
+8️⃣ Generic Constructors:
+
+A constructor can also be generic.
+
+Example: Generic Constructor:
+
+class GenericConstructor {
+    <T> GenericConstructor(T value) {
+        System.out.println("Value: " + value);
+    }
+
+    public static void main(String[] args) {
+        new GenericConstructor(10);    // Integer
+        new GenericConstructor("Java"); // String
+    }
+}
+
+✅ Output:
+
+Value: 10
+Value: Java
+
+✅ Key Points:
+
+- <T> in a constructor allows it to accept different types.
+
+📌 Summary Table
+
+| Concept                     | Syntax                      | Use Case                                      |
+|-----------------------------|-----------------------------|-----------------------------------------------|
+| Generic Class               | class Box<T>                | Used for defining classes with flexible types |
+| Generic Method              | <T> void method(T t)        | Allows methods to work with different types   |
+| Unbounded Wildcard          | ?                           | Accepts any type (List<?>)                    |
+| Upper Bounded Wildcard      | ? extends T                 | Reading (List<? extends Number>)              |
+| Lower Bounded Wildcard      | ? super T                   | Writing  (List<? super Integer>)              |
+| Bounded Type Parameters     | <T extends Number>          | Restricts generic types to a certain hierarchy|
+| Type Erasure                | Removes generics at runtime | Ensures backward compatibility                |
+
+🚀 Conclusion
+
+- Generics provide type safety and reusability.
+- Use wildcards for flexibility (? extends for reading, ? super for writing).
+- Use bounded type parameters (<T extends X>) for constraints.
+- Type erasure removes generics at runtime.
+
+generic collections or custom data structures

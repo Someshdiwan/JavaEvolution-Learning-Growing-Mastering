@@ -1,8 +1,6 @@
 package GenericInterface;
 
-import java.awt.*;
-
-class StringContainer implements Container<String> {
+class StringContainer1 implements Container<String> {
     private String item;
 
     public void add(String item) {
@@ -14,7 +12,6 @@ class StringContainer implements Container<String> {
     }
 }
 //In this example, StringContainer implements the Container interface with String as the specified type parameter.
-
 
 
 /*

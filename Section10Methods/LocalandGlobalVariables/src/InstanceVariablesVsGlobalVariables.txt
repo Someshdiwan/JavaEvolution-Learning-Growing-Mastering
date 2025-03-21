@@ -1,0 +1,10 @@
+An instance variable is a variable that belongs to an object (instance) of a class.
+It is declared inside a class but outside any method, constructor, or block.
+
+Summary:
+
+Instance variables store data that belongs to an object.
+They are declared inside a class but outside methods.
+Each object has its own copy of instance variables.
+They have default values if not initialized.
+They can be accessed using getters and setters if private.

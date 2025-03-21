@@ -1,0 +1,16 @@
+This example simulates a School Management System, where:
+
+Instance variables store unique student data.
+Global (static) variables track the total number of students and school name.
+
+Key Features:
+Instance Variables: Each student has a unique name and roll number.
+Global Variables: schoolName is shared by all students, and totalStudents keeps track of student count.
+Static Method (displayTotalStudents()) prints the total students enrolled.
+
+## Conclusion
+| Type                      | Application Example                                                                   |
+|---------------------------|---------------------------------------------------------------------------------------|
+| Instance Variables        | Storing unique data like Student Names, Account Balances, Game Player Stats           |
+| Global (Static) Variables | Shared values like Company Name, Interest Rates, Logging Levels, Total User Count     |
+| Both Combined             | Tracking Enrollments in Schools, Shared Game Scores, Singleton Database Connections   |

@@ -1,0 +1,6 @@
+Tree Map = Red Black Tree self balanced binary search tree.
+
+
+HashMap mai Time com = O(1)
+
+TreeMap mai Time Com = log(n).

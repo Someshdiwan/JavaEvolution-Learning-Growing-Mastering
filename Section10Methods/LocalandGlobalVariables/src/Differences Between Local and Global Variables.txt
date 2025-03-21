@@ -1,8 +1,8 @@
 Differences Between Local and Global Variables
 
 - Scope:
-  • Local Variables:* Declared inside a method, constructor, or block; accessible only within that specific region.
-  • Global Variables:* Declared at the class level (as instance or static variables in Java);
+  • Local Variables: Declared inside a method, constructor, or block; accessible only within that specific region.
+  • Global Variables: Declared at the class level (as instance or static variables in Java);
     accessible by all methods within the class.
 
 - Lifetime:

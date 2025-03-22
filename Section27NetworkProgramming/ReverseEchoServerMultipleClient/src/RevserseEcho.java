@@ -79,7 +79,7 @@ class ReverseEcho extends Thread {
         public static void main(String[] args) throws Exception {
             //Input and output stream for socket Connection.
             //Use "localhost" if running on the same machine, or the correct IP if remote.
-            Socket stk = new Socket("Add Your IP Address, Go CMD type ipconfig", 3000);
+            Socket stk = new Socket("192.168.167.54", 3000);
             System.out.println("Connected to the server.");
 
             //KeyBoard Stream

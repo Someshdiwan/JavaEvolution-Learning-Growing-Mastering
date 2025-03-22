@@ -8,8 +8,8 @@ public class DatagramClient {
         String msg = "Hello Server: ";
 
         //Array of Bytes. That you want to send using a datagram packets.
-        DatagramPacket dp = new DatagramPacket(msg.getBytes(),msg.length(),InetAddress.getByName("localhost"),2000);
-        //msg.length = What is the length of the array of the bytes that is msg.length.\
+        DatagramPacket dp = new DatagramPacket(msg.getBytes(),msg.length(),InetAddress.getByName("localHost"),2000);
+        //msg.length = What is the length of the array of the bytes that is msg.length.
         //Inet = Ip address you want to send.
 
         //Now lets the this above packets to the server.

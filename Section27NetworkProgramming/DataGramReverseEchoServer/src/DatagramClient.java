@@ -16,7 +16,7 @@ public class DatagramClient {
         ds.send(dp);
         //Client has send the packet.
 
-        byte b[]=new byte[1024]; //receiving the size of the packets from the Server.
+        byte b[]=new byte[1024]; // receiving the size of the packets from the Server.
         //For received the packets and display it from the server.
         dp=new DatagramPacket(b,1024);
 

@@ -1,0 +1,34 @@
+The WHERE clause in SQL is used to filter records based on specific conditions. The conditions can include various operators and logical connectors.   
+
+SQL WHERE Clause with Various Conditions.
+
+
+list of the conditions you can use in the WHERE clause:
+
+= : Equal to a specific value.
+
+<> or != : Not equal to a specific value.
+
+> : Greater than a value.
+
+>= : Greater than or equal to a value.
+
+< : Less than a value.
+
+<= : Less than or equal to a value.
+
+BETWEEN : Within a range of values.
+
+IN : Matches any value from a list.
+
+NOT IN : Does not match any value from a list.
+
+AND : Combines multiple conditions, both must be true.
+
+OR : Combines multiple conditions, one must be true.
+
+NOT : Negates a condition.
+
+IS NULL : Checks for NULL values.
+
+IS NOT NULL : Checks for non-NULL values.

@@ -1,0 +1,93 @@
+SQL set operations in theory, all common set operation types.
+
+---
+
+# SQL Set Operations: Theory and Concepts
+
+SQL set operations are used to combine the results of two or more SELECT queries into a single result set.
+They work similarly to mathematical set operations. Each operation has its own characteristics, and
+understanding them is important when designing queries that require the merging of data from multiple queries.
+
+## Key Set Operations in SQL
+
+### 1. UNION
+
+- **Purpose:**
+  Combines the results of two SELECT queries and returns only distinct rows.
+
+- **Characteristics:**
+  - Eliminates duplicate rows from the final result.
+  - Requires that each SELECT statement returns the same number of columns.
+  - The corresponding columns across SELECT statements must have compatible data types.
+  - The ordering of the results is not guaranteed unless an ORDER BY clause is specified after the union.
+
+- **Usage Context:**
+  Use UNION when you want to merge similar datasets and remove duplicates, such as combining student names
+  from different cities while ensuring each name appears only once.
+
+### 2. UNION ALL
+
+- **Purpose:**
+  Similar to UNION, but includes all duplicate rows in the result set.
+
+- **Characteristics:**
+  - Does not remove duplicate rows.
+  - Can be faster than UNION since it skips the duplicate elimination process.
+  - Also requires the same number of columns and compatible data types in each SELECT statement.
+
+- **Usage Context:**
+  Use UNION ALL when duplicate rows are meaningful or when performance is a concern and you know
+  duplicates do not affect the outcome.
+
+### 3. INTERSECT
+
+- **Purpose:**
+  Returns only the rows that are common to both SELECT query results.
+
+- **Characteristics:**
+  - It identifies the intersection of two sets.
+  - Only rows that appear in both SELECT query results are included.
+  - As with other set operations, both queries must return the same number of columns with compatible data types.
+
+- **Usage Context:**
+  Use INTERSECT when you need to find common records between two datasets, such as the list of students enrolled in
+  both two different courses.
+
+### 4. EXCEPT (or MINUS)
+
+- **Purpose:**
+  Returns rows from the first SELECT query that are not present in the second SELECT query.
+
+- **Characteristics:**
+  - Performs a subtraction of one result set from another.
+  - Ensures that the final result contains only the unique rows from the first query that do not appear in the second.
+  - Requires the same number of columns and compatible data types.
+  - Note: Some SQL dialects use the keyword MINUS instead of EXCEPT.
+
+- **Usage Context:**
+  Use EXCEPT when you need to identify differences between two datasets, such as finding students
+  who are enrolled in one course but not in another.
+
+## Important Considerations for All Set Operations
+
+- **Column Consistency:**
+  Every SELECT statement combined by a set operator must return the same number of columns.
+  The data types of corresponding columns must be compatible to ensure the operations can be performed without errors.
+
+- **Order of Results:**
+  By default, the order of the rows in the final result set is not guaranteed. To impose an order,
+  you must include an ORDER BY clause after the set operation(s).
+
+- **Duplicate Handling:**
+  - UNION automatically removes duplicates, which might be useful when the uniqueness of results is required.
+  - UNION ALL retains duplicates, which may provide a more accurate representation of the underlying data if
+    duplicates are significant.
+
+- **Performance Considerations:**
+  - UNION ALL is generally faster than UNION since it does not involve the overhead of duplicate elimination.
+  - The choice of set operator should consider both the intended result and the performance impact on large datasets.
+
+- **SQL Dialects Variations:**
+  While the core principles remain the same across different SQL dialects, certain keywords and behaviors
+  (like the use of MINUS instead of EXCEPT) might differ slightly. Always refer to your specific SQL database
+  documentation for exact details.

@@ -1,0 +1,32 @@
+First, we need to find the city where a student named 'Smith' lives.
+This is done using a subquery.
+The subquery retrieves the city of 'Smith' and passes it to the outer query.
+
+SELECT * FROM students
+WHERE city = (SELECT city FROM students WHERE name = 'Smith');
+
+Explanation:
+
+1. The subquery (inner query) executes first: 
+
+SELECT city FROM students WHERE name = 'Smith';
+This retrieves the city where Smith is living (e.g., 'Delhi').
+
+2. The outer query then selects all students who live in that city.
+
+3. As a result, all students from the same city as 'Smith' will be displayed.
+
+
+### Meaning of the Query:  
+
+The query retrieves all students who belong to the same department (deptno) as Smith.  
+
+### Statement: 
+ 
+Find all students who are in the same department as the student named Smith.  
+
+### Explanation:  
+
+1. The subquery first finds the deptno of Smith.  
+2. The outer query then selects all students who have the same deptno.  
+3. As a result, all students who share a department with Smith are displayed

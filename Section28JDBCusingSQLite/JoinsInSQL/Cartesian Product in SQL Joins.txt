@@ -1,0 +1,58 @@
+Cartesian Product in SQL Joins:
+
+A Cartesian Product occurs in SQL when two tables are combined without specifying a join condition. 
+
+It results in every row from the first table being paired with every row from the second table.
+
+How It Happens
+- If you use a CROSS JOIN explicitly or an incorrect JOIN without an ON condition, you get a Cartesian Product.
+- The total number of rows in the result set = (Rows in Table A) × (Rows in Table B).
+
+Example Scenario
+
+Tables:
+1. Employees Table:
+
+   +----+-----------+
+   | ID | Name      |
+   +----+-----------+
+   | 1  | Alice     |
+   | 2  | Bob       |
+   +----+-----------+
+  
+2. Departments Table:
+
+   +----+-----------+
+   | ID | Dept      |
+   +----+-----------+
+   | 1  | HR        |
+   | 2  | IT        |
+   | 3  | Sales     |
+   +----+-----------+
+ 
+Cartesian Product Result:
+
+If no join condition is used, each employee is combined with all departments:
+
+   +--------+------+-----------+
+   | Emp ID | Name | Dept      |
+   +--------+------+-----------+
+   | 1      | Alice | HR       |
+   | 1      | Alice | IT       |
+   | 1      | Alice | Sales    |
+   | 2      | Bob   | HR       |
+   | 2      | Bob   | IT       |
+   | 2      | Bob   | Sales    |
+   +--------+------+-----------+
+   ```
+
+Here, 2 employees × 3 departments = 6 rows.
+
+When Cartesian Products Are Useful:
+- When you intentionally want all possible combinations (e.g., pairing all customers with all products).
+- If using CROSS JOIN explicitly.
+
+How to Avoid Unwanted Cartesian Products
+
+- Always specify a JOIN condition with ON to ensure meaningful relationships between tables.
+- Use INNER JOIN, LEFT JOIN, or RIGHT JOIN when needed.

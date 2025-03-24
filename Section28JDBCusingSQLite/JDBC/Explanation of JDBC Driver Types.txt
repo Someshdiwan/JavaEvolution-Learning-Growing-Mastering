@@ -42,4 +42,5 @@ Explanation of JDBC Driver Types
 
 Key Points to Remember
 - Type-1 and Type-2 often require native code or ODBC, which adds dependencies and can affect portability.  
-- Type-3 and Type-4 are fully written in Java, making them more platform-independent and usually more performant for modern applications.
+- Type-3 and Type-4 are fully written in Java, making them more platform-independent and usually more
+  performant for modern applications.

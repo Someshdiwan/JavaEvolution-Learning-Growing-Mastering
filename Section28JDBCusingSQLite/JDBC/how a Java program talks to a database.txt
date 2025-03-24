@@ -1,0 +1,63 @@
+What are the things required to java program talk with the database program.
+Ans: Need a driver 
+Need a connection
+Need a statement(SQL).
+
+In last Result Set.
+
+
+Drivers: Helps the establish the connection. Using JAVA Program help to establish connection to the database. it understand the JAVA And other database lang.
+
+
+Driver will converted datatypes of java to the database of datatype.
+
+Using the driver , We create statement using a connection and using this statement we write our Query. Query is send via connection, to the database and it execute and results is return.
+
+
+how a Java program talks to a database:
+
+1. Driver  
+   - Acts as the translator between the Java program and the database.  
+   - It understands Java data types and converts them to the database’s data types (and vice versa).  
+   - Using the driver, Java can establish a connection to the database.
+
+2. Connection  
+   - Once the driver is available, we use it to open a connection to the database.  
+   - This connection is like a channel that allows us to send queries and receive results.
+
+3. Statement 
+   - With an active connection, we create a statement (often a Statement, PreparedStatement, or CallableStatement).  
+   - We use this statement to write and send our SQL queries to the database.
+
+4. ResultSet
+   - When the database finishes executing our query, it sends back the results.  
+   - Those results are provided to the Java program in a ResultSet.  
+   - The Java program can then read data from the ResultSet row by row.
+
+Essentially:
+- The Driver loads and translates.  
+- The Connection opens the link.  
+- The Statement sends queries.  
+- The ResultSet carries the returned data.
+
+
+Short Explanation of JDBC Components
+1. Driver  
+   - Acts as a bridge between your Java application and the database.  
+   - Understands Java data types and converts them to the database’s data types (and vice versa).
+
+2. DriverManager  
+   - Manages the different drivers available.  
+   - Responsible for establishing a connection using the appropriate driver.
+
+3. Connection  
+   - Represents the actual link between your Java program and the database.  
+   - You use this connection to send SQL commands and receive results.
+
+4. Statement (or PreparedStatement, CallableStatement)  
+   - Used to execute SQL queries (like SELECT, INSERT, UPDATE, etc.).  
+   - You create the statement from the connection.
+
+5. ResultSet
+   - Represents the data returned by your SQL queries.  
+   - Allows you to iterate over rows of data and read individual columns.

@@ -1,4 +1,5 @@
-In SQL, clauses are components of a query that specify conditions, constraints, or instructions on how to retrieve and manipulate data. 
+In SQL, clauses are components of a query that specify conditions, constraints, or instructions on
+how to retrieve and manipulate data.
 
 Here’s an explanation of key SQL components used in your queries:  
 

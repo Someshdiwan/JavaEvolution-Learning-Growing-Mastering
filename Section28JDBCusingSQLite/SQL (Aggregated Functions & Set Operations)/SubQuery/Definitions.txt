@@ -1,8 +1,10 @@
 Definitions:
 
--  Query: A query is a request to retrieve or manipulate data from a database. It can be a simple or complex statement written in SQL.
+-  Query: A query is a request to retrieve or manipulate data from a database. It can be a simple or complex
+   statement written in SQL.
 
--  Subquery: A subquery is a query nested inside another query. It is used to retrieve data that will be used by the main (outer) query.
+-  Subquery: A subquery is a query nested inside another query. It is used to retrieve data that will be
+   used by the main (outer) query.
 
 -  Inner Query: The inner query is the subquery that executes first and provides results to the outer query.
 
@@ -15,11 +17,15 @@ Subqueries are commonly used for filtering, calculations, or comparisons within 
 
 ### Usage of IN, =, and > in SQL  
 
--  IN → Used when checking if a value exists within a list or the result of a subquery. It is useful when expecting multiple possible values.  
-   Example: Find students who live in any of the given cities. 
+-  IN → Used when checking if a value exists within a list or the result of a subquery.
+   It is useful when expecting multiple possible values.
 
--  = → Used for exact matches, typically in comparisons with a single value. It is used when the subquery or condition returns only one value.  
+   Example: Find students who live in any of the given cities.
+
+-  = → Used for exact matches, typically in comparisons with a single value.
+   It is used when the subquery or condition returns only one value.
    Example: "Find students whose department number is exactly the same as Smith’s. 
 
--  > → Used for comparing numerical values to check if one is greater than the other. It is used when filtering records based on conditions involving numerical magnitude.  
+-  > → Used for comparing numerical values to check if one is greater than the other.
+   It is used when filtering records based on conditions involving numerical magnitude.
    Example: Find students with marks greater than 50.

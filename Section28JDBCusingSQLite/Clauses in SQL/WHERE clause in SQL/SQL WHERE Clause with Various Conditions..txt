@@ -1,4 +1,6 @@
-The WHERE clause in SQL is used to filter records based on specific conditions. The conditions can include various operators and logical connectors.   
+The WHERE clause in SQL is used to filter records based on specific conditions.
+
+The conditions can include various operators and logical connectors.
 
 SQL WHERE Clause with Various Conditions.
 

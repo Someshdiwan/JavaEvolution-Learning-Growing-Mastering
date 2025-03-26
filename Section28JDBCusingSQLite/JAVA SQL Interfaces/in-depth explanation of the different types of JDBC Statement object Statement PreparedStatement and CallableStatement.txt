@@ -1,0 +1,194 @@
+Below is an in-depth explanation of the different types of JDBC Statement objects—Statement, PreparedStatement, and
+CallableStatement — including how they’re created, when to use them, and why they’re important.
+
+---
+
+## 1. Statement
+
+### Overview
+- A Statement is a simple SQL statement executor.
+- It is created via a Connection object’s createStatement() method.
+- Typically used for static SQL queries without parameters.
+
+### How to Create a Statement
+
+// Assume you already have a Connection object "con"
+Statement stmt = con.createStatement();
+
+### Executing Queries with Statement
+
+1. SELECT queries:
+
+   ResultSet rs = stmt.executeQuery("SELECT * FROM students");
+
+   - Returns a ResultSet that you can iterate over to read rows from the database.
+
+2. DML queries (INSERT, UPDATE, DELETE):
+
+   int rowsAffected = stmt.executeUpdate(INSERT INTO students VALUES (101, 'Alice', 'NY', 10));
+
+   - Returns an integer indicating how many rows were affected.
+
+When to Use
+- For simple, one-time SQL queries** that **do not** contain parameters.
+
+- Downsides:
+  - If you need to run the same query multiple times with different inputs, you’ll have to concatenate strings or
+    rebuild the query each time, which can be **inefficient** and **prone to SQL injection** if user input is not
+    carefully sanitized.
+
+---
+
+## 2. PreparedStatement:
+
+Overview
+- A PreparedStatement is a precompiled SQL statement.
+- It allows placeholders** (?) for parameters, which you can set at runtime.
+- Created via a Connection object’s prepareStatement() method.
+
+### How to Create a PreparedStatement
+
+String sql = SELECT * FROM students WHERE deptno = ?;
+PreparedStatement pstmt = con.prepareStatement(sql);
+
+### Executing Queries with PreparedStatement
+
+1. Setting Parameters:
+
+   pstmt.setInt(1, 10);  // Replaces the first "?" with 10
+
+2. Executing:
+   - SELECT:
+     ResultSet rs = pstmt.executeQuery();
+
+   - INSERT/UPDATE/DELETE:
+     int rowsAffected = pstmt.executeUpdate();
+
+### When to Use
+- For queries with parameters** (e.g., user input or variables in your code).
+- If you need to execute the same SQL statement multiple times with different parameter values,
+  PreparedStatement is more efficient than Statement because the query can be precompiled by the database.
+
+- Security Benefit:
+  - Helps prevent SQL injection** because parameters are bound rather than concatenated into the SQL string.
+
+### Key Benefits
+1. Efficiency: The SQL statement is parsed/compiled once, and can be executed multiple times.
+2. **Security: Automatic handling of special characters in parameters reduces the risk of injection attacks.
+3. **Readability: Clear separation of the SQL query structure from the data being inserted.
+
+---
+
+## 3. CallableStatement
+
+### Overview
+- A CallableStatement is used to **call stored procedures in the database.
+- Many databases (e.g., Oracle, MySQL, SQL Server) allow stored procedures —
+  server-side programs that can contain business logic, loops, conditions, etc.
+
+### How to Create a CallableStatement
+
+// Example stored procedure call: {call getStudentData(?,?)}
+CallableStatement cstmt = con.prepareCall("{call getStudentData(?,?)}");
+
+### Using Parameters
+
+- You can set IN parameters with setXxx() methods, and register OUT parameters if the procedure returns values.
+
+  cstmt.setInt(1, 101); // Setting an IN parameter
+  cstmt.registerOutParameter(2, Types.VARCHAR); // Registering an OUT parameter
+
+### Executing
+
+- Execute the stored procedure:
+
+  cstmt.execute();
+
+- Retrieve OUT parameters:
+
+  String studentName = cstmt.getString(2);
+
+### When to Use
+
+- When you have stored procedures or functions in your database that perform complex tasks.
+- Useful for reusing database-side logic and possibly improving performance.
+
+---
+
+## Important Terms and Applications
+
+1. Connection
+   - Represents a session with a specific database.
+   - All statements (Statement, PreparedStatement, CallableStatement) require an active Connection.
+
+2. ResultSet
+   - Represents the **result** of a SELECT query.
+   - Provides methods like next(), getInt(), getString(), etc. to **iterate through rows.
+
+3. executeQuery() vs. executeUpdate() vs. execute()
+   - executeQuery(): For SELECT statements (returns a ResultSet).
+   - executeUpdate(): For INSERT, UPDATE, DELETE statements (returns an integer indicating rows affected).
+   - execute(): General-purpose method for statements that might return multiple results or unknown types
+     (rarely used for simple queries).
+
+4. SQL Injection:
+   - A common security risk where malicious SQL is inserted into queries.  
+   - Using PreparedStatement with parameters is the best defense in JDBC.
+
+5. Stored Procedures:
+   - Pre-compiled routines on the database server that can be invoked using CallableStatement.
+   - Often used to encapsulate business logic and improve performance by reducing network calls.
+
+6. Resource Management
+   - Always close your ResultSet, Statement, and Connection objects in a finally block (or use try-with-resources)
+     to avoid memory leaks.
+
+---
+
+## Practical Example:
+
+### Using PreparedStatement for a Parameterized Query
+
+// 1. Get a connection
+Connection con = DriverManager.getConnection("jdbc:sqlite:univ.db");
+
+// 2. Prepare your SQL with placeholders
+String sql = INSERT INTO students(roll, name, city, deptno) VALUES(?, ?, ?, ?);
+
+// 3. Create a PreparedStatement
+PreparedStatement pstmt = con.prepareStatement(sql);
+
+// 4. Set the parameters
+pstmt.setInt(1, 110);            // roll
+pstmt.setString(2, "Jane Doe");  // name
+pstmt.setString(3, "LA");        // city
+pstmt.setInt(4, 10);             // deptno
+
+// 5. Execute
+int rowsInserted = pstmt.executeUpdate();
+System.out.println("Rows inserted: " + rowsInserted);
+
+// 6. Close resources
+pstmt.close();
+con.close();
+```
+
+---
+
+## Summary of Statement Types
+
+1. Statement:
+   - Simple, ad-hoc queries without parameters.  
+   - Prone to SQL injection if user inputs are concatenated.  
+   - Less efficient for repeated queries.
+
+2. PreparedStatement:
+   - Parameterized queries.  
+   - Prevents SQL injection and is more efficient for repeated executions.  
+   - Most commonly used for queries with dynamic parameters.
+
+3. CallableStatement:
+   - Invokes stored procedures or functions in the database.  
+   - Useful for encapsulating complex logic on the database server side.
+
+Using these three interfaces effectively allows you to write **clean, efficient, and secure database-access code in Java.

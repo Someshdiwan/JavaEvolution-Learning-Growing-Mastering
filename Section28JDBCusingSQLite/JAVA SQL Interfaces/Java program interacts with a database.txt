@@ -1,0 +1,119 @@
+flow of how a Java program interacts with a database using JDBC (Java Database Connectivity).
+
+It highlights the core java.sql interfaces** involved in the process.
+
+---
+
+Components Explained
+1. Class.forName()
+   - This method dynamically loads the **JDBC driver** for the database you want to connect to.  
+   - Example:
+     Class.forName("org.sqlite.JDBC");
+   - Why is it important?
+     It registers the driver with the DriverManager, allowing further database interaction.
+
+---
+
+2. DriverManager
+   - It is responsible for managing a list of database drivers.  
+   - Establishes a connection between the **Java application** and the database.
+   - Example:
+     Connection con = DriverManager.getConnection("jdbc:sqlite:C:/sqlite/univ.db");
+
+   - Why is it important?
+     Without DriverManager, your program cannot interact with the database.
+
+---
+
+3. Connection
+   - Represents an open connection to the database.  
+   - Once a connection is established, you can create SQL statements and interact with the database.  
+   - Example:
+     Connection con = DriverManager.getConnection("jdbc:sqlite:your_db_path");
+
+   - Why is it important?
+     All database interactions (queries, updates, etc.) require an active Connection.
+
+---
+
+4. Statement
+   - An interface used to **send SQL queries** to the database.  
+   - You can execute SELECT, INSERT, UPDATE, DELETE queries using this object.
+   - Example:
+
+     Statement stmt = con.createStatement();
+     ResultSet rs = stmt.executeQuery("SELECT * FROM students");
+   - Why is it important?
+     It allows executing SQL queries and interacting with the database.
+
+---
+
+5. ResultSet
+   - Represents the **result** of a database query.
+   - It holds the data retrieved from the database.  
+   - Example:
+     while (rs.next()) {
+         System.out.println(rs.getInt("roll") + " " + rs.getString("name"));
+     }
+
+   - Why is it important?
+     Without ResultSet, you cannot access or process the data returned from a database query.
+
+---
+
+### Step-by-Step JDBC Process
+
+1. Load the Driver:
+   - Use Class.forName() to load the database driver.
+
+2. Establish Connection:
+   - Use DriverManager.getConnection() to connect to your database.
+
+3. Create Statement:
+   - Use createStatement() to prepare an SQL command.
+
+4. Execute Query:
+   - Use executeQuery() (for SELECT) or executeUpdate() (for INSERT, UPDATE, DELETE).
+
+5. Process Result:
+   - Iterate through the ResultSet to retrieve data.
+
+6. Close Connection:
+   - Always close the ResultSet, Statement, and Connection objects.
+
+---
+
+Full JDBC Example
+
+import java.sql.*;
+
+public class DatabaseExample {
+    public static void main(String[] args) {
+        try {
+            // 1. Load the driver
+            Class.forName("org.sqlite.JDBC");
+
+            // 2. Establish the connection
+            Connection con = DriverManager.getConnection("jdbc:sqlite:C:/sqlite/univ.db");
+
+            // 3. Create a statement
+            Statement stmt = con.createStatement();
+
+            // 4. Execute the query
+            ResultSet rs = stmt.executeQuery("SELECT * FROM students");
+
+            // 5. Process the results
+            while (rs.next()) {
+                System.out.println(rs.getInt("roll") + " | " + rs.getString("name"));
+            }
+
+            // 6. Close resources
+            rs.close();
+            stmt.close();
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

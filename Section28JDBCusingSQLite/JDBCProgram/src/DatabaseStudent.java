@@ -1,6 +1,6 @@
 import java.sql.*;
 
-class DataBase {
+class DatabaseStudent {
     public static void main(String[] args) {
         try {
             // Load the SQLite JDBC driver
@@ -14,13 +14,17 @@ class DataBase {
             Statement stm = con.createStatement(); //It Create-select statement.
 
             // Execute the query (ensure the SQL statement is enclosed in quotes)
-            ResultSet rs = stm.executeQuery("SELECT * FROM dept");
+            ResultSet rs = stm.executeQuery("SELECT * FROM students");
+
 
             // Loop through the results and print them
-            while(rs.next()) {
-                int dno = rs.getInt("deptno");
-                String name = rs.getString("name"); // Use the actual column name from your schema
-                System.out.println(dno + " " + name);
+            while (rs.next()) {
+                int roll = rs.getInt("roll");
+                String name = rs.getString("name");  // Fixed: "name" instead of "nmae"
+                String city = rs.getString("city");
+                int deptno = rs.getInt("deptno");
+
+                System.out.println(roll + " | " + name + " | " + city + " | " + deptno);
             }
 
             // Clean up resources

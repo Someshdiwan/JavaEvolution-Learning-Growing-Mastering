@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      {% include nav.html %}
+    </aside>
+    <main class="content">
+      {{ content }}
+    </main>
+  </div>
+</body>
+</html>

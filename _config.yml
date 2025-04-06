@@ -1,0 +1,16 @@
+# _config.yml
+
+title: Java Evolution – Learning, Growing, Mastering
+description: A GitHub Pages site powered by Jekyll to explore Java in depth.
+theme: jekyll-theme-slate
+
+plugins:
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: true
+
+include:
+  - README.md
+  - index.md

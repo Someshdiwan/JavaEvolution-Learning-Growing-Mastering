@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="/JavaEvolution-Learning-Growing-Mastering/site/assets/style.css">
-</head>
-<body>
-  {% include nav.html %}
-  <main>
-    {{ content }}
-  </main>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ "/assets/assets/style.css" | relative_url }}">
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("hidden");
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="sidebar" class="sidebar">
+        {% include nav.html %}
+      </div>
+      <div class="content">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+        {{ content }}
+      </div>
+    </div>
+  </body>
 </html>

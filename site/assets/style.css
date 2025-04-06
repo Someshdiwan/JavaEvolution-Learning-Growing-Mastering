@@ -1,3 +1,4 @@
+/*
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -56,3 +57,70 @@ body {
   z-index: 1000;
   border-radius: 5px;
 }
+
+
+*/
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --sidebar-bg: #f8f9fa;
+  --link-color: #0366d6;
+}
+
+.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --sidebar-bg: #1f1f1f;
+  --link-color: #90caf9;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.sidebar {
+  background-color: var(--sidebar-bg);
+}
+
+a {
+  color: var(--link-color);
+}
+
+.sidebar {
+  width: 260px;
+  padding: 1rem;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+  transition: all 0.3s ease;
+}
+
+.sidebar a {
+  display: block;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+<style>
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<div class="content fade-in">
+  {{ content }}
+</div>

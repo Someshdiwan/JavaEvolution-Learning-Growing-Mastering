@@ -1,20 +1,18 @@
-.container {
-  display: flex;
-  min-height: 100vh;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
 }
-.sidebar {
-  width: 250px;
-  background: #2c3e50;
-  color: white;
-  padding: 1rem;
+
+nav {
+  background-color: #343a40;
+  padding: 10px;
 }
-.sidebar a {
-  color: #ecf0f1;
-  display: block;
-  margin: 0.5rem 0;
+
+nav a {
+  color: #fff;
+  margin-right: 15px;
   text-decoration: none;
-}
-.content {
-  flex: 1;
-  padding: 2rem;
 }

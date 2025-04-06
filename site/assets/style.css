@@ -31,15 +31,17 @@ body {
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
-}
-
-img.responsive-img {
-  max-width: 100%;
-  height: auto;
   display: block;
   margin: 1rem auto;
 }
+
+.responsive-img {
+  max-width: 70%;
+  display: block;
+  margin: 1rem auto;
+  height: auto;
+}
+
 .toggle-btn {
   position: fixed;
   top: 10px;

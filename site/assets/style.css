@@ -60,7 +60,6 @@ body {
 
 
 */
-
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
@@ -79,106 +78,78 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: sans-serif;
 }
 
-a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.wrapper {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
+/* Sidebar Styles */
 .sidebar {
+  background-color: var(--sidebar-bg);
   width: 260px;
   padding: 1rem;
-  background-color: var(--sidebar-bg);
-  border-right: 1px solid #ccc;
+  position: fixed;
+  height: 100vh;
   overflow-y: auto;
-  transition: transform 0.3s ease-in-out;
+  border-right: 1px solid #ccc;
+  transition: transform 0.3s ease;
+  z-index: 999;
 }
 
 .sidebar.hidden {
   transform: translateX(-100%);
 }
 
+/* Sidebar Links */
 .sidebar a {
   display: block;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
+  text-decoration: none;
+  color: var(--link-color);
 }
 
 .sidebar a:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* Content Area */
 .content {
-  flex: 1;
-  padding: 2rem;
-  transition: margin-left 0.3s ease-in-out;
   margin-left: 260px;
+  padding: 1rem;
+  transition: margin-left 0.3s ease;
 }
 
-.sidebar.hidden + .content,
-.content.expanded {
+.sidebar.hidden + .content {
   margin-left: 0;
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    z-index: 999;
-    transform: translateX(-100%);
-  }
-
-  .sidebar.show {
-    transform: translateX(0);
-  }
-
-  .content {
-    margin-left: 0;
-  }
-}
-
+/* Toggle Button */
 .toggle-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
   position: fixed;
   top: 1rem;
   left: 1rem;
-  z-index: 1000;
+  z-index: 1001;
+  background: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  color: var(--text-color);
 }
 
-/* Dark mode toggle button */
-.dark-toggle-btn {
+/* Dark Mode Toggle Button */
+.dark-toggle {
   position: fixed;
   top: 1rem;
   right: 1rem;
-  z-index: 1000;
-  font-size: 1.5rem;
-  background: transparent;
+  z-index: 1001;
+  background: #eee;
   border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  color: var(--text-color);
 }
 
-/* Fade-in animation for content */
+/* Animation */
 .fade-in {
   animation: fadeIn 0.4s ease-in;
 }
@@ -186,4 +157,21 @@ a:hover {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Fix for Small Screens */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    left: 0;
+  }
+
+  .sidebar:not(.hidden) {
+    transform: translateX(0);
+  }
+
+  .content {
+    margin-left: 0;
+  }
 }

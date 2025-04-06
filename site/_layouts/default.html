@@ -5,9 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
-
-  <!-- Dark mode script -->
   <script>
+    // Sidebar Toggle Function
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("hidden");
+    }
+
+    // Dark Mode Toggle
     const toggleDarkMode = () => {
       document.body.classList.toggle('dark-mode');
       localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
@@ -19,31 +24,24 @@
       }
     };
   </script>
-
-  <!-- Sidebar toggle script -->
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const content = document.querySelector(".content");
-
-      sidebar.classList.toggle("hidden");
-      content.classList.toggle("expanded");
-    }
-  </script>
 </head>
-
 <body>
-<!-- Dark mode button -->
-<button class="dark-toggle-btn" onclick="toggleDarkMode()">🌓</button>
+<!-- Dark Mode Toggle Button -->
+<button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
 
 <div class="wrapper">
+  <!-- Sidebar Navigation -->
   <div id="sidebar" class="sidebar">
     {% include nav.html %}
   </div>
-  <div class="content fade-in">
-    <!-- Sidebar toggle button -->
+
+  <!-- Content Area -->
+  <div class="content">
+    <!-- Sidebar Toggle Button -->
     <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-    {{ content }}
+    <div class="fade-in">
+      {{ content }}
+    </div>
   </div>
 </div>
 </body>

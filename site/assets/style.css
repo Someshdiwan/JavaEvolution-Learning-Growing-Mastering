@@ -3,10 +3,6 @@
   --text-color: #000000;
   --sidebar-bg: #f8f9fa;
   --link-color: #0366d6;
-  --button-bg: #eee;
-  --button-text: #000;
-  --hover-bg: rgba(0, 0, 0, 0.05);
-  --border-color: #ccc;
 }
 
 .dark-mode {
@@ -14,10 +10,6 @@
   --text-color: #e0e0e0;
   --sidebar-bg: #1f1f1f;
   --link-color: #90caf9;
-  --button-bg: #333;
-  --button-text: #fff;
-  --hover-bg: rgba(255, 255, 255, 0.1);
-  --border-color: #444;
 }
 
 body {
@@ -35,7 +27,7 @@ body {
   position: fixed;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid #ccc;
   transition: transform 0.3s ease;
   z-index: 999;
 }
@@ -55,7 +47,7 @@ body {
 }
 
 .sidebar a:hover {
-  background-color: var(--hover-bg);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Content Area */
@@ -75,8 +67,7 @@ body {
   top: 1rem;
   left: 1rem;
   z-index: 1001;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  background: #eee;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -89,8 +80,7 @@ body {
   top: 1rem;
   right: 1rem;
   z-index: 1001;
-  background-color: var(--button-bg);
-  color: var(--button-text);
+  background: #eee;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
@@ -107,7 +97,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive Design for Small Screens */
+/* Responsive Fix for Small Screens */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);

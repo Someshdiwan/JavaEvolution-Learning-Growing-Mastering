@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}" />
+  <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
   <script>
     // Sidebar Toggle Function
     function toggleSidebar() {
@@ -12,35 +12,17 @@
       sidebar.classList.toggle("hidden");
     }
 
-    // Dark Mode Toggle Function
+    // Dark Mode Toggle
     const toggleDarkMode = () => {
-      document.body.classList.toggle("dark-mode");
-      localStorage.setItem(
-        "dark-mode",
-        document.body.classList.contains("dark-mode")
-      );
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
     };
 
-    // Handle Sidebar Visibility Based on Screen Size
-    function handleSidebarVisibility() {
-      const sidebar = document.getElementById("sidebar");
-      if (window.matchMedia("(max-width: 768px)").matches) {
-        sidebar.classList.add("hidden");
-      } else {
-        sidebar.classList.remove("hidden");
-      }
-    }
-
-    // Initialize on Load
     window.onload = () => {
-      handleSidebarVisibility();
-      if (localStorage.getItem("dark-mode") === "true") {
-        document.body.classList.add("dark-mode");
+      if (localStorage.getItem('dark-mode') === 'true') {
+        document.body.classList.add('dark-mode');
       }
     };
-
-    // Update on Resize
-    window.addEventListener("resize", handleSidebarVisibility);
   </script>
 </head>
 <body>
@@ -49,13 +31,17 @@
 
 <div class="wrapper">
   <!-- Sidebar Navigation -->
-  <div id="sidebar" class="sidebar">{% include nav.html %}</div>
+  <div id="sidebar" class="sidebar">
+    {% include nav.html %}
+  </div>
 
   <!-- Content Area -->
   <div class="content">
     <!-- Sidebar Toggle Button -->
     <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-    <div class="fade-in">{{ content }}</div>
+    <div class="fade-in">
+      {{ content }}
+    </div>
   </div>
 </div>
 </body>

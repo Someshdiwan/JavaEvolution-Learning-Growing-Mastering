@@ -4,9 +4,6 @@ Working will be updated soon.
 
 Preview And Testing Readme.
 
-
-Below is the full Markdown content. Simply copy and paste it into a file named `README.md`:
-
 ```markdown
 # Java Repository Documentation
 

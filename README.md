@@ -344,7 +344,7 @@ printArray(doubleArr);
 ```
 
 **Bounded Type Parameter:**
-```java
+
 public static <T extends Comparable<T>> T max(T x, T y) {
     return x.compareTo(y) > 0 ? x : y;
 }
@@ -385,7 +385,7 @@ try {
 ```
 
 **Deserialization Example:**
-```java
+
 Employee employee = null;
 try {
     FileInputStream fileIn = new FileInputStream("/tmp/employee.ser");

@@ -6,6 +6,8 @@ theme: jekyll-theme-slate
 
 plugins:
   - jekyll-relative-links
+  - jekyll-sitemap
+  - jekyll-feed
 
 relative_links:
   enabled: true

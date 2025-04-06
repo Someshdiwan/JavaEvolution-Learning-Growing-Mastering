@@ -113,3 +113,28 @@ body {
     margin-left: 0;
   }
 }
+.image-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.image-row img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.image-row img:hover {
+  transform: scale(1.03);
+}
+
+@media (min-width: 768px) {
+  .image-row img {
+    width: 48%;
+  }
+}

@@ -5,6 +5,6 @@ This repository is structured for learners at every level, featuring categorized
 
 🔗 For full content: [View Site](https://someshdiwan.github.io/JavaEvolution-Learning-Growing-Mastering/)
 
-[![Deploy Jekyll with GitHub Pages](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/actions/workflows/jekyll-gh-pages.yml/badge.svg?branch=master&event=check_run)](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/actions/workflows/jekyll-gh-pages.yml)
+![Badge](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/actions/workflows/jekyll-gh-pages.yml/badge.svg?branch=master&t=1)
 
 > A GitHub Pages site powered by Jekyll to explore Java in depth...

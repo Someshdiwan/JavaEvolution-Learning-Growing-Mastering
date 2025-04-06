@@ -454,7 +454,9 @@ Situation where two or more threads are blocked forever, waiting for each other.
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Java Collections Framework
 ### Overview
-![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
+
+<img src="https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg" alt="Java Collections Framework" class="responsive-img" />
+
 
 ### Maps
 There are four commonly used map implementations in Java: HashMap, TreeMap, LinkedHashMap, and Hashtable.

@@ -1,5 +1,3 @@
-# _config.yml
-
 title: Java Evolution – Learning, Growing, Mastering
 description: A GitHub Pages site powered by Jekyll to explore Java in depth.
 theme: jekyll-theme-slate
@@ -13,6 +11,17 @@ relative_links:
   enabled: true
   collections: true
 
+# ✅ Only include files within this directory (no ../)
 include:
-  - README.md
+  - Explaination.md
+  - content.md
   - index.md
+  - assets/
+
+# ✅ Optional: If your repo name is part of the GitHub Pages URL
+# Example: someshdiwan.github.io/JavaEvolution-Learning-Growing-Mastering
+# Then set baseurl like this:
+baseurl: "/JavaEvolution-Learning-Growing-Mastering"
+
+# For proper link handling
+markdown: kramdown

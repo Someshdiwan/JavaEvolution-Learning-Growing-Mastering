@@ -1,70 +1,12 @@
-/*
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.wrapper {
-  display: flex;
-  height: 100vh;
-}
-
-.sidebar {
-  width: 220px;
-  background-color: #1e1e2f;
-  color: white;
-  padding: 20px;
-  transition: transform 0.3s ease;
-  overflow-y: auto;
-}
-
-.sidebar.hidden {
-  transform: translateX(-220px);
-}
-
-.content {
-  flex-grow: 1;
-  padding: 20px;
-  background-color: #f8f9fa;
-  overflow-y: auto;
-}
-
-.img {
-  max-width: 90%;
-  height: auto;
-  display: block;
-  margin: 1rem auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.responsive-img {
-  max-width: 70%;
-  display: block;
-  margin: 1rem auto;
-  height: auto;
-}
-
-.toggle-btn {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  background-color: #1e1e2f;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  z-index: 1000;
-  border-radius: 5px;
-}
-
-
-*/
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
   --sidebar-bg: #f8f9fa;
   --link-color: #0366d6;
+  --button-bg: #eee;
+  --button-text: #000;
+  --hover-bg: rgba(0, 0, 0, 0.05);
+  --border-color: #ccc;
 }
 
 .dark-mode {
@@ -72,6 +14,10 @@ body {
   --text-color: #e0e0e0;
   --sidebar-bg: #1f1f1f;
   --link-color: #90caf9;
+  --button-bg: #333;
+  --button-text: #fff;
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --border-color: #444;
 }
 
 body {
@@ -81,7 +27,6 @@ body {
   font-family: sans-serif;
 }
 
-/* Sidebar Styles */
 .sidebar {
   background-color: var(--sidebar-bg);
   width: 260px;
@@ -89,7 +34,7 @@ body {
   position: fixed;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid var(--border-color);
   transition: transform 0.3s ease;
   z-index: 999;
 }
@@ -98,7 +43,6 @@ body {
   transform: translateX(-100%);
 }
 
-/* Sidebar Links */
 .sidebar a {
   display: block;
   padding: 0.5rem;
@@ -109,10 +53,9 @@ body {
 }
 
 .sidebar a:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--hover-bg);
 }
 
-/* Content Area */
 .content {
   margin-left: 260px;
   padding: 1rem;
@@ -123,54 +66,35 @@ body {
   margin-left: 0;
 }
 
-/* Toggle Button */
 .toggle-btn {
   position: fixed;
   top: 1rem;
   left: 1rem;
   z-index: 1001;
-  background: #eee;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
 }
 
-/* Dark Mode Toggle Button */
-.dark-toggle {
+#dark-mode-toggle {
   position: fixed;
   top: 1rem;
   right: 1rem;
-  z-index: 1001;
-  background: #eee;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-/* Animation */
-.fade-in {
-  animation: fadeIn 0.4s ease-in;
+#time-display {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: var(--text-color);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive Fix for Small Screens */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
-    position: fixed;
-    left: 0;
   }
-
-  .sidebar:not(.hidden) {
-    transform: translateX(0);
-  }
-
   .content {
     margin-left: 0;
   }

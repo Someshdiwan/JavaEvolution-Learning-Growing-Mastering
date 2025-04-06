@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #1e1e2f;
+  color: white;
+  padding: 20px;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.sidebar.hidden {
+  transform: translateX(-220px);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+}
+
+.toggle-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background-color: #1e1e2f;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 5px;
+}

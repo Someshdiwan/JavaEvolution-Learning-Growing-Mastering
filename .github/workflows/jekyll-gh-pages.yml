@@ -30,7 +30,7 @@ jobs:
       - name: 🔨 Build Jekyll Site
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./site
+          source: ./site 
           destination: ./_site
 
       - name: 📤 Upload Artifact

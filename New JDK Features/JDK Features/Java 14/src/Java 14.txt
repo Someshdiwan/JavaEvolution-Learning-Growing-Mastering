@@ -1,0 +1,60 @@
+what yield does and why it's used in Java 12+ switch expressions.
+
+---
+
+🧠 What is yield in Java switch expressions?
+
+In traditional switch statements, you use break to exit a case.
+But in switch expressions, you're returning a value, not just running code.
+
+yield is used to **return a value from a switch block,
+especially when the case is a multi-line block (i.e., uses {}).
+
+---
+
+✅ When to use yield
+
+You use yield when:
+
+- You have logic inside a case block (like printing or calculation).
+- You need to return a value from that block to the switch expression.
+
+🔍 Example Comparison
+
+✅ With arrow (no yield needed):
+
+String result = switch (value) {
+    case 1 -> "One";
+    case 2 -> "Two";
+    default -> "Other";
+};
+
+✅ With block (multi-line case, needs yield):
+
+String result = switch (value) {
+    case 1 -> {
+        System.out.println("Matched one");
+        yield "One";
+    }
+    case 2 -> {
+        System.out.println("Matched two");
+        yield "Two";
+    }
+    default -> {
+        yield "Other";
+    }
+};
+
+🚫 Why not use return?
+
+Because return exits the whole method.
+
+yield exits the switch expression block only, providing a value back to the switch.
+
+💡 Summary:
+
+| Keyword  | Use Case                     | Returns Value?  | Inside Method?         |
+|----------|------------------------------|-----------------|------------------------|
+| break    | Old `switch`                 | ❌ No           | ✅ Yes                 |
+| return   | Exits a method               | ✅ Yes          | ✅ Yes                 |
+| yield    | Inside switch expression     | ✅ Yes          | ❌ Not a method return |

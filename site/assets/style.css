@@ -27,6 +27,7 @@ body {
   font-family: sans-serif;
 }
 
+/* Sidebar Styles */
 .sidebar {
   background-color: var(--sidebar-bg);
   width: 260px;
@@ -43,6 +44,7 @@ body {
   transform: translateX(-100%);
 }
 
+/* Sidebar Links */
 .sidebar a {
   display: block;
   padding: 0.5rem;
@@ -56,6 +58,7 @@ body {
   background-color: var(--hover-bg);
 }
 
+/* Content Area */
 .content {
   margin-left: 260px;
   padding: 1rem;
@@ -66,6 +69,7 @@ body {
   margin-left: 0;
 }
 
+/* Toggle Button */
 .toggle-btn {
   position: fixed;
   top: 1rem;
@@ -79,22 +83,42 @@ body {
   cursor: pointer;
 }
 
-#dark-mode-toggle {
+/* Dark Mode Toggle Button */
+.dark-toggle {
   position: fixed;
   top: 1rem;
   right: 1rem;
+  z-index: 1001;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-#time-display {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-  color: var(--text-color);
+/* Animation */
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design for Small Screens */
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
+    position: fixed;
+    left: 0;
   }
+
+  .sidebar:not(.hidden) {
+    transform: translateX(0);
+  }
+
   .content {
     margin-left: 0;
   }

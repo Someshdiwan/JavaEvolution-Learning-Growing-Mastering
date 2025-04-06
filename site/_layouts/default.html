@@ -6,16 +6,22 @@
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}" />
   <script>
+    // Sidebar Toggle Function
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("hidden");
     }
 
+    // Dark Mode Toggle Function
     const toggleDarkMode = () => {
       document.body.classList.toggle("dark-mode");
-      localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode"));
+      localStorage.setItem(
+        "dark-mode",
+        document.body.classList.contains("dark-mode")
+      );
     };
 
+    // Handle Sidebar Visibility Based on Screen Size
     function handleSidebarVisibility() {
       const sidebar = document.getElementById("sidebar");
       if (window.matchMedia("(max-width: 768px)").matches) {
@@ -25,55 +31,31 @@
       }
     }
 
-    function updateTime() {
-      const now = new Date();
-      let hours = now.getHours();
-      const minutes = now.getMinutes().toString().padStart(2, "0");
-      const seconds = now.getSeconds().toString().padStart(2, "0");
-      const ampm = hours >= 12 ? "PM" : "AM";
-      hours = hours % 12 || 12;
-      const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-
-      const offset = now.getTimezoneOffset();
-      const offsetHours = Math.floor(Math.abs(offset) / 60);
-      const offsetMinutes = Math.abs(offset) % 60;
-      const offsetSign = offset > 0 ? "-" : "+";
-      const offsetString = `GMT${offsetSign}${offsetHours.toString().padStart(2, "0")}:${offsetMinutes.toString().padStart(2, "0")}`;
-
-      const fullTimeString = `⏰ Time: ${timeString} ${offsetString}`;
-      document.getElementById("time-display").textContent = fullTimeString;
-    }
-
+    // Initialize on Load
     window.onload = () => {
       handleSidebarVisibility();
       if (localStorage.getItem("dark-mode") === "true") {
         document.body.classList.add("dark-mode");
       }
-      updateTime();
-      setInterval(updateTime, 1000);
-      setTimeout(() => {
-        const sidebar = document.getElementById("sidebar");
-        if (!sidebar.classList.contains("hidden")) {
-          sidebar.classList.add("hidden");
-        }
-      }, 10000);
     };
 
+    // Update on Resize
     window.addEventListener("resize", handleSidebarVisibility);
   </script>
 </head>
 <body>
+<!-- Dark Mode Toggle Button -->
+<button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
+
 <div class="wrapper">
-  <div id="sidebar" class="sidebar">
-    {% include nav.html %}
-  </div>
+  <!-- Sidebar Navigation -->
+  <div id="sidebar" class="sidebar">{% include nav.html %}</div>
+
+  <!-- Content Area -->
   <div class="content">
-    <div id="time-display"></div>
+    <!-- Sidebar Toggle Button -->
     <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-    <button class="toggle-btn" id="dark-mode-toggle" onclick="toggleDarkMode()">🌓</button>
-    <div class="fade-in">
-      {{ content }}
-    </div>
+    <div class="fade-in">{{ content }}</div>
   </div>
 </div>
 </body>

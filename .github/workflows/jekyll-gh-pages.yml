@@ -28,8 +28,8 @@ jobs:
       - name: 🔨 Build Jekyll Site
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./site         # ✅ <--- point to your /site folder
-          destination: ./_site   # output stays _site
+          source: ./site
+          destination: ./_site
 
       - name: 📤 Upload Artifact
         uses: actions/upload-pages-artifact@v3

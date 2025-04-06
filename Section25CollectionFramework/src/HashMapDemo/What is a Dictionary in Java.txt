@@ -1,6 +1,10 @@
 What is a Dictionary in Java?
 
-In Java, there is no direct "dictionary" data type like in Python. However, a similar structure can be created using the HashMap class from the java.util package. A HashMap is a collection that stores key-value pairs.
+In Java, there is no direct dictionary data type like in Python.
+
+However, a similar structure can be created using the HashMap class from the java.util package.
+
+A HashMap is a collection that stores key-value pairs.
 
 Key: The unique identifier.
 Value: The data associated with the key.
@@ -44,7 +48,6 @@ Output:
 makefile
 
 Keys:
-
 Alice
 Bob
 Charlie
@@ -52,7 +55,6 @@ Charlie
 2. Iterate Over Values
 
 You can retrieve all the values using the values() method and loop through them.
-
 
 import java.util.HashMap;
 public class Main
@@ -109,21 +111,17 @@ Alice: 20
 Bob: 22
 Charlie: 19
 
-Step-by-Step Explanation of the Third Example
+Step-by-Step Explanation of the Third Example:
 
 entrySet(): This method returns a set of all the key-value pairs in the HashMap. Each entry is a pair consisting of a key and its associated value.
-
 Map.Entry: This is an interface representing a single key-value pair.
-
 for (Map.Entry<String, Integer> entry : studentAges.entrySet()):
 
 The entry variable represents each key-value pair in the dictionary.
 You can use entry.getKey() to access the key and entry.getValue() to access the value.
 
-Key Methods for Iterating a HashMap
-
-Method	Purpose
-
+Key Methods for Iterating a HashMap:
+Method	Purpose:
 keySet()	Returns all the keys in the map.
 values()	Returns all the values in the map.
 entrySet()	Returns all key-value pairs in the map.

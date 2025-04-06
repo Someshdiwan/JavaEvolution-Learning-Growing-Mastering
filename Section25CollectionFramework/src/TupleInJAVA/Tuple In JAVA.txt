@@ -1,7 +1,13 @@
-In Java, tuples do not exist as a built-in data type like they do in some other programming languages (e.g., Python). However, a tuple is a concept that refers to a collection of multiple elements grouped together. Tuples are often used when you want to store a small, fixed number of related items.
+In Java, tuples do not exist as a built-in data type like they do in some other programming languages (e.g., Python).
+
+However, a tuple is a concept that refers to a collection of multiple elements grouped together.
+
+Tuples are often used when you want to store a small, fixed number of related items.
 
 What is a Tuple?
-A tuple is a collection of elements where each element can have a different data type. Think of a tuple as a lightweight container for grouping related data together.
+A tuple is a collection of elements where each element can have a different data type.
+
+Think of a tuple as a lightweight container for grouping related data together.
 
 For example:
 
@@ -19,8 +25,7 @@ Libraries like Apache Commons or JavaFX (optional).
 Custom Tuple Class Example
 Let’s use a custom class to simulate a tuple with two elements (e.g., String and String).
 
-Tuple Class
-java
+Tuple Class:
 
 // Define a Tuple class to hold two elements
 
@@ -35,8 +40,7 @@ class Tuple {
     }
 }
 
-How to Use the Tuple Class
-java
+How to Use the Tuple Class:
 
 public class Main {
     public static void main(String[] args) {
@@ -82,6 +86,7 @@ for (Tuple tuple : tuples) {
 }
 
 Access the elements of each tuple using the first and second fields.
+
 Output
 
 apple: fruit
@@ -112,7 +117,7 @@ public class Main {
     }
 }
 
-Summary
+Summary:
 
 Java does not have native tuple support, but you can simulate it using custom classes or libraries.
 Tuples are useful for grouping related data together.

@@ -1,5 +1,3 @@
-# 🚀 Deploy Jekyll with GitHub Pages
-
 name: "Deploy Jekyll with GitHub Pages"
 
 on:
@@ -30,8 +28,8 @@ jobs:
       - name: 🔨 Build Jekyll Site
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./site 
-          destination: ./_site
+          source: ./site         # ✅ <--- point to your /site folder
+          destination: ./_site   # output stays _site
 
       - name: 📤 Upload Artifact
         uses: actions/upload-pages-artifact@v3

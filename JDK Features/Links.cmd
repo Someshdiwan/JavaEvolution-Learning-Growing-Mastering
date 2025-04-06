@@ -58,6 +58,6 @@ REM 💡 Bonus Tips:
 
 REM Run this On CMD or Terminal IDE:
 
-REM: cmd.exe /c "C:/Users/somes/Downloads/NoteApp/JavaEvolution-Learning-Growing-Mastering/New JDK Features\JDK Features/Links.cmd"
+REM: cmd.exe /c "C:/Users/somes/Downloads/NoteApp/JavaEvolution-Learning-Growing-Mastering/JDK Features/Links.cmd"
 
 REM -----------------------------------------

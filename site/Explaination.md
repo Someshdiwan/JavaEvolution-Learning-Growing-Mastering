@@ -125,9 +125,10 @@ Three types:
 3. **Errors:** Problems that arise beyond the control of the user and programmer, e.g. stack overflow
 
 ### Exception Hierarchy
-![alt text](http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Exception-in-java1.png "Java Exceptions Hierarchy")
 
-![alt text](http://www.benchresources.net/wp-content/uploads/2017/02/exception-hierarchy-in-java.png "Java Exceptions Hierarchy")
+<img src="http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Exception-in-java1.png" alt="Java Exceptions Hierarchy" style="max-width: 80%; display: block; margin: 1rem auto;" />
+
+<img src="http://www.benchresources.net/wp-content/uploads/2017/02/exception-hierarchy-in-java.png" alt="Java Exceptions Hierarchy" style="max-width: 80%; display: block; margin: 1rem auto;" />
 
 ### try-with-resources
 Automatically closes the resources used, e.g.

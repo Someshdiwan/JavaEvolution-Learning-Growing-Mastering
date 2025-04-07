@@ -1,31 +1,27 @@
 {
   "name": "Java Mastery",
   "short_name": "Java",
-  "start_url": "/Java-Mastery/",
-  "scope": "/Java-Mastery/",
-  "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "start_url": "/JavaEvolution-Learning-Growing-Mastering/",
+  "scope": "/JavaEvolution-Learning-Growing-Mastering/",
   "icons": [
     {
-      "src": "/Java-Mastery/assets/web-app-manifest-192x192.png",
+      "src": "/JavaEvolution-Learning-Growing-Mastering/assets/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/Java-Mastery/assets/web-app-manifest-512x512.png",
+      "src": "/JavaEvolution-Learning-Growing-Mastering/assets/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    },
-    {
-      "src": "/Java-Mastery/assets/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
     }
-  ]
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
 }
+
 
 
 

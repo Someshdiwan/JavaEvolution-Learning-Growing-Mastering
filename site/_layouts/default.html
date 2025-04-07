@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="{{ '/assets/favicon.ico' | relative_url }}" type="image/x-icon" />
+  <!--<link rel="icon" href="{{ '/assets/favicon.ico' | relative_url }}" type="image/x-icon" />-->
+
+  <!-- Added Favicon -->
+  <link rel="icon" type="image/png" href="{{ '/assets/favicon-96x96.png' | relative_url }}" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}" />
+  <link rel="shortcut icon" href="{{ '/assets/favicon.ico' | relative_url }}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | relative_url }}" />
+  <meta name="apple-mobile-web-app-title" content="Java" />
+  <link rel="manifest" href="{{ '/assets/site.webmanifest' | relative_url }}" />
+
+
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
   <script>

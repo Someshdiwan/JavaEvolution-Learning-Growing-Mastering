@@ -3,69 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!--<link rel="icon" href="{{ '/assets/favicon.ico' | relative_url }}" type="image/x-icon" />-->
 
-  <!-- Added Favicon -->
+  <!-- Favicon & PWA Icons -->
   <link rel="icon" type="image/png" href="{{ '/assets/favicon-96x96.png' | relative_url }}" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}" />
   <link rel="shortcut icon" href="{{ '/assets/favicon.ico' | relative_url }}" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | relative_url }}" />
   <meta name="apple-mobile-web-app-title" content="Java" />
-
-  <!--<link rel="manifest" href="{{ '/assets/site.webmanifest' | relative_url }}" />-->
-  <link rel="manifest" href="/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest">
-
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="manifest" href="/Java-Mastery/assets/site.webmanifest">
 
   <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+
   <script>
+    // Dark Mode Toggle Function
+    const toggleDarkMode = () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+    };
+
     // Sidebar Toggle Function
     function toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("hidden");
     }
 
-    // Dark Mode Toggle
-    const toggleDarkMode = () => {
-      document.body.classList.toggle('dark-mode');
-      localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
-    };
-
-    window.onload = () => {
-      if (localStorage.getItem('dark-mode') === 'true') {
-        document.body.classList.add('dark-mode');
+    // Hide Sidebar on Outside Click
+    function hideSidebarIfClickedOutside(event) {
+      const sidebar = document.getElementById("sidebar");
+      if (!sidebar.classList.contains("hidden") && !sidebar.contains(event.target)) {
+        sidebar.classList.add("hidden");
       }
-    };
-  </script>
-</head>
-<body>
-<!-- Dark Mode Toggle Button -->
-<button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
-
-<div class="wrapper">
-  <!-- Sidebar Navigation -->
-  <div id="sidebar" class="sidebar">
-    {% include nav.html %}
-  </div>
-
-  <!-- Content Area -->
-  <div class="content">
-    <!-- Sidebar Toggle Button -->
-    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-    <div class="fade-in">
-      {{ content }}
-    </div>
-  </div>
-  <script>
-    if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/JavaEvolution-Learning-Growing-Mastering/assets/sw.js")
-           .then(() => console.log("✅ Service Worker Registered"))
-           .catch(err => console.error("SW registration failed", err));
     }
-  </script>
 
-  <script>
+    // Update Live Time Function
     function updateLiveTime() {
       const now = new Date();
       let hours = now.getHours();
@@ -77,12 +49,12 @@
       document.getElementById('live-time').textContent = `Time: ${timeString}`;
     }
 
+    // Fetch User Location using OpenStreetMap Nominatim API
     function fetchUserLocation() {
       if (!navigator.geolocation) {
         document.getElementById('user-location').textContent = 'Location: Not supported';
         return;
       }
-
       navigator.geolocation.getCurrentPosition(position => {
         const { latitude, longitude } = position.coords;
         fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`)
@@ -100,13 +72,61 @@
       });
     }
 
+    // Service Worker Registration
+    function registerServiceWorker() {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/JavaEvolution-Learning-Growing-Mastering/assets/sw.js")
+          .then(() => console.log("✅ Service Worker Registered"))
+          .catch(err => console.error("SW registration failed", err));
+      }
+    }
+
+    // Initialization
     window.addEventListener('DOMContentLoaded', () => {
+      // Apply stored dark mode setting
+      if (localStorage.getItem('dark-mode') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+
+      // Initialize live time and location updates
       updateLiveTime();
       setInterval(updateLiveTime, 1000);
       fetchUserLocation();
+
+      // Attach click event to hide sidebar when clicking outside
+      document.addEventListener('click', hideSidebarIfClickedOutside);
+
+      // Register the service worker
+      registerServiceWorker();
     });
   </script>
+</head>
+<body>
+<!-- Dark Mode Toggle Button (stays top-right) -->
+<button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
 
+<div class="wrapper">
+  <!-- Sidebar Navigation -->
+  <div id="sidebar" class="sidebar">
+    {% include nav.html %}
+  </div>
+
+  <!-- Content Area -->
+  <div class="content">
+    <!-- Manual Sidebar Toggle Button (optional) -->
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <!-- Main Content -->
+    <div class="fade-in">
+      {{ content }}
+    </div>
+
+    <!-- Time & Location Container -->
+    <div id="time-location-container">
+      <div id="live-time">Time: Loading...</div>
+      <div id="user-location">Location: Detecting...</div>
+    </div>
+  </div>
 </div>
 </body>
 </html>

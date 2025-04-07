@@ -16,7 +16,7 @@ self.addEventListener("install", (e) => {
       return cache.addAll(urlsToCache);
     })
   );
-  console.log("✅ Service Worker Installed & Cached");
+  console.log("Service Worker Installed & Cached");
 });
 
 // Activate event: cleanup old caches
@@ -30,7 +30,7 @@ self.addEventListener("activate", (e) => {
       )
     )
   );
-  console.log("⚙️ Old caches cleaned up");
+  console.log("Old caches cleaned up");
 });
 
 // Fetch event: serve cached files when offline

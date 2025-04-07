@@ -454,7 +454,6 @@ Situation where two or more threads are blocked forever, waiting for each other.
 
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Java Collections Framework
 ### Overview
 

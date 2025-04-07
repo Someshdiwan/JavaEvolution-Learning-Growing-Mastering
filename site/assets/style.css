@@ -138,9 +138,13 @@ body {
     width: 48%;
   }
 }
+
 .responsive-img {
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px; /* Or 500px or whatever looks good */
   height: auto;
+  margin: 0 auto;
+  display: block;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
@@ -149,6 +153,7 @@ body {
 .responsive-img:hover {
   transform: scale(1.02);
 }
+
 
 /* Optional: Add a dark-mode outline for visibility */
 .dark-mode .responsive-img {

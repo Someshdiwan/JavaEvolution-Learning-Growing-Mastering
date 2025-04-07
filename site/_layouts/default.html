@@ -65,9 +65,7 @@
     }
   </script>
 
-
   <script>
-    // Update Live Time
     function updateLiveTime() {
       const now = new Date();
       let hours = now.getHours();
@@ -76,51 +74,39 @@
       const ampm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12 || 12;
       const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-
-      const offset = now.getTimezoneOffset();
-      const offsetHours = Math.floor(Math.abs(offset) / 60);
-      const offsetMinutes = Math.abs(offset) % 60;
-      const offsetSign = offset > 0 ? '-' : '+';
-      const offsetString = `GMT${offsetSign}${offsetHours.toString().padStart(2, '0')}:${offsetMinutes.toString().padStart(2, '0')}`;
-
-      document.getElementById('live-time').textContent = `Time: ${timeString} ${offsetString}`;
+      document.getElementById('live-time').textContent = `Time: ${timeString}`;
     }
 
-    // Fetch and Display User Location using OpenStreetMap API
     function fetchUserLocation() {
       if (!navigator.geolocation) {
-        document.getElementById('user-location').textContent = '📍 Location not supported';
+        document.getElementById('user-location').textContent = 'Location: Not supported';
         return;
       }
 
       navigator.geolocation.getCurrentPosition(position => {
         const { latitude, longitude } = position.coords;
-        // Using OpenStreetMap's Nominatim API for reverse geocoding:
         fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`)
-          .then(response => response.json())
+          .then(res => res.json())
           .then(data => {
-            const city = data.address.city || data.address.town || data.address.village || "Unknown City";
-            const country = data.address.country || "Unknown Country";
-            document.getElementById('user-location').textContent = `📍 Location: ${city}, ${country}`;
+            const city = data.address.city || data.address.town || data.address.village || "Unknown";
+            const country = data.address.country || "Unknown";
+            document.getElementById('user-location').textContent = `Location: ${city}, ${country}`;
           })
           .catch(() => {
-            document.getElementById('user-location').textContent = '📍 Location unavailable';
+            document.getElementById('user-location').textContent = 'Location: Unavailable';
           });
       }, () => {
-        document.getElementById('user-location').textContent = '📍 Location permission denied';
+        document.getElementById('user-location').textContent = 'Location: Permission denied';
       });
     }
 
-    // Initialize functions on load
-    window.onload = () => {
+    window.addEventListener('DOMContentLoaded', () => {
       updateLiveTime();
-      setInterval(updateLiveTime, 1000);  // Update every second
+      setInterval(updateLiveTime, 1000);
       fetchUserLocation();
-    };
+    });
   </script>
 
 </div>
 </body>
 </html>
-
-

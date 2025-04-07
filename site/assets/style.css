@@ -61,7 +61,7 @@ body {
   margin-left: 0;
 }
 
-/* Toggle Button */
+/* Toggle Button *//*
 .toggle-btn {
   position: fixed;
   top: 1rem;
@@ -72,6 +72,24 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
+}*/
+
+.toggle-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001; /* Ensure it's above other elements */
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: var(--hover-bg);
 }
 
 /* Dark Mode Toggle Button */

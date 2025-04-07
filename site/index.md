@@ -5,10 +5,13 @@ title: Home
 
 # JavaEvolution: Learning, Growing, Mastering
 
-<div id="time-location-box" style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem; text-align: center;">
-  <div id="live-time">⏰ Loading time...</div>
-  <div id="user-location">📍 Detecting location...</div>
+<!-- Time & Location Container -->
+<div id="time-location-container">
+  <div id="live-time">Time: Loading...</div>
+  <div id="user-location">Location: Detecting...</div>
 </div>
 
 Welcome to JavaEvolution, your one-stop guide for mastering Java from basics to advanced concepts.  
 This repository is structured for learners at every level, featuring categorized content, guides, examples, and best practices.
+
+In this Index.md i added normal Main page README.md file Work is in progresses.

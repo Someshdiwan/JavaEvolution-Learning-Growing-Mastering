@@ -159,3 +159,32 @@ body {
 .dark-mode .responsive-img {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
+
+/* for the Location and Time Container */
+<style>
+  #time-location-container {
+    max-width: 300px;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #f0f0f0;
+    color: #222;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  body.dark-mode #time-location-container {
+    background-color: #333;
+    color: #eee;
+  }
+
+  @media (max-width: 600px) {
+    #time-location-container {
+      font-size: 0.95rem;
+      margin: 1rem 1rem;
+    }
+  }
+</style>

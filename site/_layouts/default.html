@@ -17,11 +17,6 @@
 
   <meta name="theme-color" content="#ffffff">
 
-  <!--
-  <link rel="manifest" href="{{ '/assets/site.webmanifest' | relative_url }}" />
-  <link rel="manifest" href="/Java-Mastery/assets/site.webmanifest">
-  -->
-
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
   <script>
@@ -88,7 +83,7 @@
       const offsetSign = offset > 0 ? '-' : '+';
       const offsetString = `GMT${offsetSign}${offsetHours.toString().padStart(2, '0')}:${offsetMinutes.toString().padStart(2, '0')}`;
 
-      document.getElementById('live-time').textContent = `⏰ Time: ${timeString} ${offsetString}`;
+      document.getElementById('live-time').textContent = `Time: ${timeString} ${offsetString}`;
     }
 
     // Fetch and Display User Location using OpenStreetMap API

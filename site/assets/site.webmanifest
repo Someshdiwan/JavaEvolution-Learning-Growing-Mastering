@@ -1,4 +1,31 @@
 {
+  "name": "Java Mastery",
+  "short_name": "Java",
+  "start_url": "/Java-Mastery/",
+  "scope": "/Java-Mastery/",
+  "icons": [
+    {
+      "src": "/Java-Mastery/assets/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/Java-Mastery/assets/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait"
+}
+
+
+/*
+{
   "name": "Java",
   "short_name": "Java",
   "icons": [
@@ -18,4 +45,4 @@
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone"
-}
+} */

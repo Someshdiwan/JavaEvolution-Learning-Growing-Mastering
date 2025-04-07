@@ -453,11 +453,17 @@ All three methods can **only** be called from within a `synchronized` context.
 Situation where two or more threads are blocked forever, waiting for each other. Occurs when multiple threads need the same locks, but obtain them in a different order. Obviously, we want to **avoid this!**
 
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
+<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Java Collections Framework
 ### Overview
 
-<img src="https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg" alt="Java Collections Framework" class="responsive-img" />
-
+<div style="text-align: center;">
+  <img src="https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg" 
+       alt="Java Collections Framework" 
+       class="responsive-img java-img"
+       style="max-width: 600px; width: 100%; height: auto;" />
+</div>
 
 ### Maps
 There are four commonly used map implementations in Java: HashMap, TreeMap, LinkedHashMap, and Hashtable.

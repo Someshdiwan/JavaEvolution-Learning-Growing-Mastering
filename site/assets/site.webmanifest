@@ -3,9 +3,6 @@
   "short_name": "Java",
   "start_url": "/Java-Mastery/",
   "scope": "/Java-Mastery/",
-  "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
   "icons": [
     {
       "src": "/Java-Mastery/assets/web-app-manifest-192x192.png",
@@ -18,16 +15,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
-    },
-    {
-      "src": "/Java-Mastery/assets/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
     }
-  ]
+  ],
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
 }
-
-
 
 
 /*

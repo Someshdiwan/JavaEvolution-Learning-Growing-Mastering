@@ -742,6 +742,13 @@ instead of `Hashtable` when synchronization is needed.
 | Cache with eviction (LRU/FIFO)         | `LinkedHashMap` (custom logic) |
 | Deprecated legacy code (not advised)   | `Hashtable`         |
 
+
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/master/Section25CollectionFramework/src/HashMapDemo/Which%20one%20to%20use%20Map.png" 
+       alt="Which One to Use - Map" 
+       style="width: 400px; height: auto; border-radius: 8px;" />
+</div>
+
 ---
 
 ```

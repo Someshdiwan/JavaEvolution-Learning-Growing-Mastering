@@ -21,8 +21,51 @@
 
    6.2. [Part 2: Methods 2.O](#-part-2-methods-2o)
 
-7. 
+7. [Section 11 – Object-Oriented Programming](#section-11-object-oriented-programming-in-java)
 
+8. [Section 12 – Inheritance](#section-12-inheritance-in-java)
+
+9. [Section 13 – Abstract Classes](#section-13-abstract-classes)
+
+10. [Section 14 – Interfaces](#section-14-interfaces)
+
+11. [Section 15 – Inner Classes](#section-15-inner-classes-in-java)
+
+12. [Section 16 – Static & Final](#section-16-static--final-in-java)
+
+13. [Section 17 – Packages](#section-17-packages-in-java)
+
+14. [Section 18 – Exception Handling](#section-18-exception-handling-in-java)
+
+15. [Section 19 – Multithreading](#section-19-multithreading-in-java)
+     
+    15.1. [Part 1:🧵 Deadlocks in Java](#part-1-deadlocks-in-java)
+
+    15.2. [Part 2:🔒 Locks & Concurrency Tools in Java](#part-2--locks--concurrency-tools-in-java)
+
+    15.3. [Part 3:🌀 Multithreading Essentials & Thread Management](#part-3--multithreading-essentials--thread-management)
+
+    15.4. [Part 4:🔁 Synchronization in Java](#part-4-synchronization-in-java)
+
+    15.5. [Part 5:🚿 Thread Pooling in Java](#part-5-thread-pooling-in-java)
+ 
+    15.6. [Part 6:⚛️ Volatile & Atomic Operations in Java](#part-6-volatile--atomic-operations-in-java)
+
+16. [Section 20 – java.lang Package](#section-20-javalang-package-in-java)
+
+17. [Section 21 – Annotations & JavaDoc](#section-21-annotations--javadoc-in-java)
+
+18. [Section 22 – Lambda Expressions](#section-22-lambda-expressions-in-java)
+
+19. [Section 23: Java IO Streams](#section-23-java-io-streams)
+     
+    [Part 1:📂 Serialization & File Storage](#part-1-serialization--file-storage)
+
+    [Part 2:📂  Core File I/O, Byte & Character Streams](#part-2-core-file-io-byte--character-streams)
+
+20. [Section 24 – Java Generics: Type-Safe Data Structures](#section-24-java-generics--type-safe-data-structures)
+
+21. 
 
 ---
 
@@ -612,7 +655,7 @@ where, and why each variable type is used.
   - Helps avoid bugs related to unexpected values, memory leaks, or incorrect data sharing between classes.
   - Supports understanding of method calls, object references, and constructor logic within OOP.
 
-### **[🔗 LocalAndGlobalVariables](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section10Methods/LocalandGlobalVariables)**
+### **[🔗LocalAndGlobalVariables](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section10Methods/LocalandGlobalVariables)**
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
@@ -622,8 +665,6 @@ where, and why each variable type is used.
 ## 🔧 Part 2: Methods 2.O
 
 This section offers a hands-on dive into Java methods and constructors, emphasizing real-world examples and common use cases. It breaks down method types, overloading, recursion, object passing, varargs, and constructor logic using structured `.java` files and concise `.txt` explanations.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -639,300 +680,18 @@ This section offers a hands-on dive into Java methods and constructors, emphasiz
   - Constructor logic plays a central role in object lifecycle and class initialization.
   - Varargs improve method flexibility, while recursion teaches key problem-solving patterns.
 
-
 ### [Methods 2.O](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section10Methods/Methods%202.O)
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
-  
 
+# Section 11: Object-Oriented Programming in Java
 
+This section builds a strong foundation in object-oriented programming concepts through practical examples of 
+encapsulation, class hierarchies, inheritance, constructor overloading, and polymorphism. 
 
-
-
-
-
-
-
-
-
-
-### [JAVA8](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8)
-
-
-### [CompletableFuture](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/CompletableFuture) 
-
-— Asynchronous programming made easy.
-
-**Summary:**  
-This section covers everything you need to get started with `CompletableFuture` in Java 8. 
-It begins with real-world use cases (`Applications.txt`) that show why `CompletableFuture` is crucial in 
-non-blocking, asynchronous Java programming. You'll then find a beginner-friendly breakdown (`CompletableFuture in Java 
-(Explained Simply).txt`) that explains methods like `thenApply`, `thenCompose`, `thenAccept`, `handle`, and more. 
-To solidify your understanding, the advanced Java example (`CompletableFutureAdvancedExample.java`) demonstrates 
-future chaining, error handling, and working with custom thread pools through `ExecutorService`.
-
-It includes a clear explanation of the API, practical usage scenarios, and advanced concepts like chaining, exception handling, 
-and custom thread pools.
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-    - `Applications.txt` – Real-world scenarios where `CompletableFuture` enhances performance.
-    - `CompletableFuture in Java (Explained Simply).txt` – Beginner-friendly, structured walk-through of the API.
-    - `CompletableFutureAdvancedExample.java` – Practical Java code demonstrating advanced usage and fluent chaining.
-
-- **Related Concepts:**
-    - `Future`, `ExecutorService`, and the need for more flexible async handling.
-    - Error handling with `.exceptionally()`, composition with `.thenCompose()`, and parallel execution via `.allOf()` or `.anyOf()`.
-    - Integration with streams and reactive systems.
-
-### [ConstructorReference](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/ConstructorReference)
-Simplifies object creation using method reference syntax. This section explains how to use constructor references (`ClassName::new`) to clean up factory-style code in Java 8 functional programming, making instantiation more readable and expressive when used with functional interfaces.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `ConstructorReference.java` – Java code demonstrating how constructor references are used in practical cases.
-  - `constructor reference.txt` – Explanation of syntax, compatibility with functional interfaces like `Supplier`, and usage tips.
-
-- **Related Concepts:**
-  - Lambda expressions and their equivalence to method/constructor references.
-  - Functional interfaces (`Supplier`, `Function`) enabling constructor referencing.
-  - Relevance in stream pipelines and dependency injection patterns.
-
-### [ConsumerSupplier](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/ConsumerSupplier)
-Covers the `Consumer` and `Supplier` functional interfaces in Java 8. It demonstrates how to use `Consumer<T>` for performing actions on inputs and `Supplier<T>` for generating values, helping build flexible and reusable logic components.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `ConsumerDemo.java` – Practical usage of `Consumer` to perform operations like printing, modifying values, etc.
-  - `SupplierDemo.java` – Demonstrates how to use `Supplier` to lazily supply data or values when needed.
-
-- **Related Concepts:**
-  - Part of `java.util.function` package introduced in Java 8.
-  - Common use cases include data processing, lazy initialization, and separation of concerns.
-  - Frequently used in combination with `Streams`, `Optional`, and other functional constructs.
-
-
-### [FunctionInterface](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/FunctionInterface)
-Focuses on the core idea of functional interfaces introduced in Java 8. Demonstrates how interfaces with a single abstract method (SAM) enable lambda expressions and method references for concise, functional-style coding.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `FunctionDemo.java` – A practical example of the `Function<T, R>` interface, showing how to transform input to output using lambdas.
-
-- **Related Concepts:**
-  - A functional interface is any interface with one abstract method.
-  - `@FunctionalInterface` annotation is used for clarity and validation.
-  - Key interfaces include `Function`, `Predicate`, `Consumer`, `Supplier`.
-  - Enables functional programming in Java and integration with the `Stream` API.
-
----
-
-### [JAVA8FeaturesUsedInStreams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/JAVA8FeaturesUsedInStreams)
-Highlights Java 8’s stream-related enhancements. Breaks down how lambda expressions, functional interfaces, method references, and the Streams API come together for clean, efficient, and parallelizable data processing.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `In Java 8, Streams are a powerful and versatile API.txt` – High-level overview of stream capabilities.
-  - `combinedExampleALL.java` – Combined code examples using multiple stream features together.
-  - `simplified overview of Java 8 Streams.txt` – Straightforward explanation of key stream operations.
-
-- **Related Concepts:**
-  - Streams allow declarative data processing on collections.
-  - Core operations include `map`, `filter`, `reduce`, `collect`, `forEach`, etc.
-  - Supports lazy evaluation and parallel processing.
-  - Works hand-in-hand with lambda expressions and functional interfaces.
-
-
-### [JavaCollectorsAPI](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/JavaCollectorsAPI)
-Deep dive into the Java Collectors API, demonstrating how streams and collectors work together to aggregate, transform, and manage data. Great for understanding how Java handles grouping, mapping, and summarizing collections using modern functional style.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `CollectorsDemo.java` – Demonstrates core usage of `Collectors` like `toList()`, `toSet()`, `joining()`, `groupingBy()`, and `partitioningBy()`.
-  - `Collectors and the Streams API Applications.txt` – Explains where and how collectors are practically used.
-  - `understanding of the Java Collectors API and the stream operations illustrated in the code.txt` – Insightful breakdown of stream and collector synergy.
-  - `how Java Streams, the Collections Framework, and Generics are used in real-world software development across different layers of an application.txt` – Explores collectors in layered app architecture.
-
-- **Related Concepts:**
-  - Part of `java.util.stream`.
-  - Designed to combine terminal stream operations into single-line expressions.
-  - Key for transforming and reducing large datasets efficiently.
-  - Used extensively in back-end APIs and data pipelines.
-
----
-
-### [LambdaExpression](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/LambdaExpression)
-Focuses on the backbone of Java 8's functional programming—lambda expressions. Explores syntax, use with collections, and integration with interfaces like `Function`, `Predicate`, and `Consumer`.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `LambdaExpressionHard.java` – Covers advanced lambda usage including nested lambdas and functional chaining.
-  - `Java Lambda Expression Cheat Sheet.txt` – Handy reference for lambda syntax and variations.
-  - `Advanced Java Lambda Expressions Cheat Sheet.txt` – Covers advanced tricks like scope rules, closures, and short forms.
-  - `explore lambda expressions with collections in Java 8.txt` – Explains how to use lambdas with `List`, `Map`, `Set`.
-
-- **Related Concepts:**
-  - Lambdas simplify anonymous class syntax for functional interfaces.
-  - Syntax: `(parameters) -> expression`.
-  - Core enabler for Streams API, asynchronous processing, and cleaner event handling.
-  - Improves readability, reduces boilerplate, and supports immutability.
-
-
-### [MethodReference](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/MethodReference)
-Simple yet powerful showcase of Java 8 method references—a shortcut to writing lambdas when method calls can be directly referred to. Clean, elegant code for functional programming.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `MethodReference.java` – Demonstrates all four types: static, instance, constructor, and reference to an instance of a particular object.
-
-- **Related Concepts:**
-  - Syntax: `ClassName::methodName` or `objectRef::instanceMethod`.
-  - Works with functional interfaces like `Consumer`, `Function`, etc.
-  - Makes lambda expressions shorter and more readable.
-
----
-
-### [Operator](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/Operator)
-Explores Java’s functional interfaces `UnaryOperator` and `BinaryOperator`—specialized forms of `Function` with same input and output types. Useful in scenarios where transformation or reduction is needed.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `OperatorInterfaceDemo.java`, `Demo.java` – Examples of applying unary/binary operations in logic.
-  - `UnaryOperatorAndBinaryOperator.txt`, `unary operators and binary operators.txt` – Theory and application scenarios.
-
-- **Related Concepts:**
-  - `UnaryOperator<T>`: operates on a single operand.
-  - `BinaryOperator<T>`: operates on two operands of the same type.
-  - Common in stream reductions, math operations, and data transformations.
-
----
-
-### [Predicates](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/Predicates)
-Predicate interface in action—evaluating conditions using a functional interface that returns boolean. Often used for filtering, validation, and branching logic in streams.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `PredicateDemo.java` – Examples of `test()`, `and()`, `or()`, `negate()` with filters and validations.
-
-- **Related Concepts:**
-  - `Predicate<T>`: returns `true` or `false` based on evaluation.
-  - Can be chained to form complex conditions.
-  - Widely used in `filter()` method of streams.
-
----
-
-### [StreamsInJAVA](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA)
-Massive collection of everything Java 8 Streams—from primitive stream handling to parallel and piped streams. Ideal for mastering stream internals and writing performant functional pipelines.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - **ByteStreams**:
-    - `ByteStreamExample3.txt` – Usage of stream APIs on byte-level I/O data.
-
-  - **ParallelStream**:
-    - `ParallelStream.java`, `How Parallel Streams Work.txt` – Shows concurrency and performance tuning of parallel streams.
-
-  - **PipedStreams**:
-    - `PipedStreamExample.txt` – Communication using piped byte streams between threads.
-
-- **Related Concepts:**
-  - Byte streams deal with binary data I/O (`InputStream`, `OutputStream`).
-  - Parallel streams enable multi-core processing for large datasets.
-  - Piped streams allow threading communication, often in producer-consumer scenarios.
-
-
-### [PrimitiveStreams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA/PrimitiveStreams)
-Focused on the usage of primitive stream variants (`IntStream`, `DoubleStream`, `LongStream`) in Java 8 to improve performance by avoiding boxing overhead in numeric computations and stream operations.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `PrimitiveStreams.java` – Demonstrates creation, transformations, and reductions using primitive streams.
-  - `Primitive streams various application.txt` – Explains real-world use cases and performance benefits of primitive streams.
-
-- **Related Concepts:**
-  - `IntStream`, `DoubleStream`, and `LongStream` are specialized streams for primitives.
-  - More efficient than using `Stream<Integer>`, etc., due to no boxing/unboxing.
-  - Useful for numerical computations, statistics, or working with arrays.
-
----
-
-### [StreamsInJAVA (Core Concepts)](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA)
-A deep dive into stream mechanics including intermediate & terminal operations, lazy evaluation, and the distinction between stateful/stateless stream behaviors.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - `IntermediateOps.java`, `TerminalOps.java` – Code examples for transformation (map, filter) and final operations (collect, reduce).
-  - `LazyEvaluationDemo.java` – Demonstrates how stream operations are not executed until a terminal operation is called.
-  - `Stateful and Stateless Operations in Java Streams.txt` – Theory and examples to differentiate operations.
-  - `Understanding Terminal Operations in Java Streams.txt`, `intermediate and terminal operations..txt`, `simplified overview of Java 8 Streams.txt` – Solid foundational explanations.
-
-- **Related Concepts:**
-  - **Intermediate Ops**: Lazy, return a stream, e.g., `map`, `filter`, `sorted`.
-  - **Terminal Ops**: Trigger execution, e.g., `collect`, `forEach`, `reduce`.
-  - **Stateless vs Stateful**: Stateless (e.g., `map`) doesn't depend on previous elements; stateful (e.g., `sorted`) needs full stream context.
-  - **Lazy Evaluation**: Stream operations are executed only when a terminal operation is present—optimizes performance.
-
----
-
-
-### [JDK Features](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JDK%20Features)
-Covers core enhancements and syntax updates introduced across Java versions from 8 to 24. Each subfolder gives practical insights through `.java` files and supporting notes, helping developers understand version-specific capabilities.
-
----
-
-#### 🧠 Related Topic Overview:
-- **Repo Content:**
-  - **Java 8**: `JAVA8.java` – Introduces lambda expressions, streams, default methods, and the new date/time API.
-  - **Java 11**: `JAVA11.java` – Shows features like `var` for local variables, new string methods, and file enhancements.
-  - **Java 12**: `JAVA12.java` – Demos switch expression previews and performance improvements.
-  - **Java 14**: `JAVA14.java`, `Java 14.txt` – Covers records, pattern matching (preview), and the `instanceof` enhancements.
-  - **Java 24**: `Test.java`, `Test1.java`, `Test2.java` – Custom demos of potential or experimental Java 24 features.
-  - **Misc Files**:
-    - `Java Versions.txt` – Summary of features introduced per version.
-    - `Links.cmd`, `bat file.txt` – Likely utility scripts or resources to compile/run/test examples.
-
-- **Related Concepts:**
-  - Tracks language evolution for developers to maintain forward compatibility and leverage modern syntax.
-  - Useful for migration strategies, learning syntactic sugar, and understanding deprecations.
-  - Provides foundational understanding of how Java has adapted over time in terms of readability, conciseness, and performance.
-
----
-
-
-
-
----
-
-### [Section11ObjectOrientedProgramming](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section11ObjectOrientedProgramming)
-
-### [Section11ObjectOrientedProgramming → OOPs 2.O](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section11ObjectOrientedProgramming/OOPs%202.O)
-This section builds a strong foundation in object-oriented programming concepts through practical examples of encapsulation, class hierarchies, inheritance, constructor overloading, and polymorphism. Real-world analogies and structured Java files make understanding core OOP principles easier.
+Real-world analogies and structured Java files make understanding core OOP principles easier.
 
 ---
 
@@ -951,10 +710,14 @@ This section builds a strong foundation in object-oriented programming concepts 
   - Constructor overloading enhances object initialization with various parameters.
   - Modeling real-world problems as classes and interacting objects is the heart of OOP.
 
+### [Section 11 Object-Oriented Programming](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section11ObjectOrientedProgramming)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
+# Section 12: Inheritance in Java
 
-### [Section12Inheritance](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section12Inheritance)
 This section explores the core concepts of inheritance in Java, such as constructor chaining, method overriding, dynamic method dispatch, and the use of `this` and `super` keywords. These examples help solidify understanding of hierarchical relationships and runtime polymorphism.
 
 ---
@@ -973,10 +736,44 @@ This section explores the core concepts of inheritance in Java, such as construc
   - Method overriding is key for runtime polymorphism, essential in frameworks and real-world apps.
   - The `this` and `super` keywords allow precise access to current vs parent class members, crucial in complex hierarchies.
 
+### [Section 12 Inheritance](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section12Inheritance)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
+# Section 13: Abstract Classes
 
-### [Section14Interfaces](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section14Interfaces)
+### 🧠 Summary:
+
+This section demystifies the concept of **abstract classes** in Java—an essential piece of the object-oriented programming puzzle. Abstract classes serve as partially implemented blueprints that allow you to define **common behavior** across related subclasses, while still leaving room for **flexibility and extension**.
+
+You’ll explore:
+- The difference between **abstract** and **concrete** classes.
+- How to declare **abstract methods**.
+- Why and when to use **abstract classes vs interfaces**.
+- Real-world examples like `Sunstar.java` demonstrating rules enforcement.
+
+---
+
+### 🔍 Core Files Overview:
+
+| File Name           | Purpose                                                  |
+|---------------------|----------------------------------------------------------|
+| `AbstractClasss.java` | Basic usage of abstract classes and inheritance        |
+| `AbstractIMP.java`    | Shows implementation of abstract methods               |
+| `AbstractRules.java`  | Highlights Java rules around abstract definitions      |
+| `Sunstar.java`        | Realistic example simulating abstract enforcement      |
+
+
+### **[🔗 Section 13 AbstractClasses on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section13AbstractClasses)**
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
+---
+
+# Section 14: Interfaces
+
 This section dives deep into Java interfaces, covering core principles like interface implementation, callback mechanism, multiple inheritance via interfaces, and the use of nested interfaces. It demonstrates how interfaces promote abstraction, contract-based design, and flexibility in large systems.
 
 ---
@@ -996,10 +793,16 @@ This section dives deep into Java interfaces, covering core principles like inte
   - Callback mechanisms using interfaces are widely used in event-driven programming, UI frameworks, and asynchronous tasks.
   - Nested interfaces are useful for grouping related behavior within enclosing types.
 
+
+### [Section 14 Interfaces](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section14Interfaces)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
+# Section 15: Inner Classes in Java
 
-### [Section15InnerClasses](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section15InnerClasses)
+
 This section explores inner classes in Java—classes defined within other classes. It demonstrates their types (local, static, and nested) and emphasizes how they encapsulate logic, increase cohesion, and enable access to enclosing class members.
 
 ---
@@ -1016,13 +819,15 @@ This section explores inner classes in Java—classes defined within other class
   - **Static Nested Classes**: Do not have implicit access to outer class members and are memory efficient when instance coupling isn't needed.
   - Inner classes support organizing code in a clean, hierarchical manner, especially for event listeners and builder patterns.
 
+### [Section 15 InnerClasses](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section15InnerClasses)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
+# Section 16: Static & Final in Java
 
-### [Section16StaticFinal](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section16StaticFinal)
 This section covers the use of `static` and `final` keywords in Java. It explains how these keywords affect variables, methods, blocks, and class behaviors. It also illustrates the concept of singleton classes and demonstrates how `this` and `super` keywords interact with static and final modifiers.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -1039,12 +844,15 @@ This section covers the use of `static` and `final` keywords in Java. It explain
   - **Singleton Pattern**: Ensures only one instance of a class exists using static control.
   - **`this` vs `super`**: `this` refers to current class members; `super` is used to access parent class members or constructors.
 
+### [Section 16 StaticFinal](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section16StaticFinal)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [Section17Packages](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section17Packages)
+# Section 17: Packages in Java
+
 This section focuses on how **Java packages** are used to organize classes, avoid naming conflicts, and enforce modularization. It features examples of creating custom packages, importing them, and maintaining clean structure through separation of concerns.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -1057,13 +865,16 @@ This section focuses on how **Java packages** are used to organize classes, avoi
   - **Access Modifiers & Packages**: `public`, `protected`, and default/package-private visibility directly affect accessibility across packages.
   - **Best Practices**: Use lowercase for package names, organize by feature/module, and avoid cyclic dependencies.
 
+
+### [Section 17 Packages](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section17Packages)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
+# Section 18: Exception Handling in Java
 
-### [Section18ExceptionHandling](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section18ExceptionHandling)
 This section delves into **Java's exception handling mechanism**, providing detailed code examples and use cases for both built-in and user-defined exceptions. It emphasizes robust error handling practices that enhance application stability.
-
----
 
 #### 🧠 Combined Summary:
 - **Core Concepts Covered**:
@@ -1082,7 +893,6 @@ This section delves into **Java's exception handling mechanism**, providing deta
 - **Visual Aid**:
   - Screenshot `Screenshot 2025-02-17 224940.png` likely helps visualize exception flow or IDE-based exception handling.
 
----
 
 #### 🧠 Related Topic Overview:
 - **Java Exception Hierarchy**:
@@ -1097,15 +907,22 @@ This section delves into **Java's exception handling mechanism**, providing deta
 - **Real-world Utility**:
   - Exception handling is essential in production systems for logging, error recovery, and user feedback.
 
+
+### [Section18ExceptionHandling](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section18ExceptionHandling)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [Section19MultiThreading](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/)
+# Section 19: Multithreading in Java
 
+### [🧵 Section 19 MultiThreading](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/)
 
-### [→ DeadLock](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/DeadLock)
+---
+
+## Part 1: Deadlocks in Java
+
 This part of the multithreading module zeroes in on one of the most notorious concurrency issues — **Deadlock**. It explains **thread safety**, how deadlocks occur, and how to prevent them with real-world-inspired examples and techniques.
-
----
 
 #### 🧠 Combined Summary:
 - **Key Code Example**:
@@ -1119,8 +936,6 @@ This part of the multithreading module zeroes in on one of the most notorious co
     - **Lock ordering**
     - **Synchronized blocks**
     - **Reentrant locks**
-
----
 
 #### 🧠 Related Topic Overview:
 - **What is a Deadlock?**
@@ -1139,12 +954,15 @@ This part of the multithreading module zeroes in on one of the most notorious co
   - Deadlocks can bring down production systems by freezing critical processes.
   - Mastering thread safety and deadlock prevention is crucial for writing scalable, concurrent applications.
 
+### [DeadLock](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/DeadLock)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [→ Locks](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/Locks)
+## Part 2: 🔒 Locks & Concurrency Tools in Java
+
 This section focuses on **advanced locking mechanisms** in Java, moving beyond `synchronized` to cover finer-grained and performance-efficient tools like `ReentrantLock`, `ReadWriteLock`, and lock fairness strategies.
-
----
 
 #### 🧠 Combined Summary:
 - **Key Implementations**:
@@ -1157,8 +975,6 @@ This section focuses on **advanced locking mechanisms** in Java, moving beyond `
   - `ReentrantLock allows the same thread to acquire the lock multiple times!.txt`: Explains the concept of **lock reentrancy**, crucial in recursive calls or when a thread needs to reacquire a lock it already holds.
   - `FairLock.java` vs `UnfairLock.java`: Highlights how thread scheduling fairness impacts performance. `ReentrantLock(true)` provides a fair lock, while `false` is the default unfair lock which might cause thread starvation.
   - `Distributed Locking`: Suggests theoretical/real-world notes on implementing locks in distributed systems — like with Redis, Zookeeper, or DB-level locks.
-
----
 
 #### 🧠 Related Topic Overview:
 - **ReentrantLock**:
@@ -1180,13 +996,15 @@ This section focuses on **advanced locking mechanisms** in Java, moving beyond `
     - Apache Zookeeper
     - Database-based locks with row-level locking
 
+### [Locks](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/Locks)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
+## Part 3: 🌀 Multithreading Essentials & Thread Management
 
-### [→ MT](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/MT)
 This submodule introduces **core multithreading fundamentals** in Java. It walks through thread creation, daemon threads, and thread lifecycle management using both `Thread` and `Runnable` interfaces.
-
----
 
 #### 🧠 Combined Summary:
 - **Thread Creation**:
@@ -1199,8 +1017,6 @@ This submodule introduces **core multithreading fundamentals** in Java. It walks
 
 - **Daemon Threads**:
   - `DemonThread.java`: Illustrates how **daemon threads** work. These are background threads that terminate when all user threads finish — e.g., garbage collector, auto-save utilities.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Thread vs Runnable**:
@@ -1218,14 +1034,16 @@ This submodule introduces **core multithreading fundamentals** in Java. It walks
 - **Best Practices**:
   - Always prefer `Runnable` or `Callable` + `ExecutorService` over direct `Thread` instantiation in modern applications.
 
----
 
+### [MT](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/MT)
 
-### [→ Synchronization](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/Synchronization)
-
-This subfolder covers **thread synchronization**, a critical concept for maintaining data consistency in multi-threaded Java applications when multiple threads access shared resources.
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Part 4: Synchronization in Java
+
+This subfolder covers **thread synchronization**, a critical concept for maintaining data consistency in multithreaded Java applications when multiple threads access shared resources.
 
 #### 🧠 Combined Summary:
 - **Core Implementation**:
@@ -1235,8 +1053,6 @@ This subfolder covers **thread synchronization**, a critical concept for maintai
 - **Conceptual Insights**:
   - `Disadvantages of Synchronization in Java.txt` & `Disadvantages of Synchronized in Java.txt`: Explain **performance overhead**, **thread contention**, and **deadlock possibilities** due to naive or excessive synchronization.
   - `Fairness Issue in synchronized Unfair Locking.txt`: Discusses how Java's intrinsic locks (via `synchronized`) are **not fair by default** — there's no guarantee threads will acquire locks in order of request, possibly leading to starvation.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Synchronized Keyword**:
@@ -1253,14 +1069,16 @@ This subfolder covers **thread synchronization**, a critical concept for maintai
 - **Best Practice Tip**:
   - Keep synchronized blocks **as small as possible** to reduce contention and improve performance.
 
+
+### [Synchronization](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/Synchronization)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-
-### [→ ThreadPooling](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/ThreadPooling)
+## Part 5: Thread Pooling in Java
 
 This subfolder dives deep into **Java's thread pooling mechanisms** using the `Executors` framework, as well as advanced concurrency tools like `CompletableFuture`, `CountDownLatch`, and `CyclicBarrier`.
-
----
 
 #### 🧠 Combined Summary:
 - **Thread Pooling with Executors**:
@@ -1280,8 +1098,6 @@ This subfolder dives deep into **Java's thread pooling mechanisms** using the `E
     - Files like `Understanding CountDownLatch and ExecutorService Concepts.txt`, `CyclicBarrier.txt`, and `CyclicBarrierExample.java` walk through coordinating thread progress in multi-phase tasks.
     - These constructs help when threads must wait for each other to reach a common state.
 
----
-
 #### 🧠 Related Topic Overview:
 - **Why Thread Pooling?**
   - Efficient reuse of threads → avoids the overhead of creating/destroying threads repeatedly.
@@ -1295,13 +1111,15 @@ This subfolder dives deep into **Java's thread pooling mechanisms** using the `E
   - `CountDownLatch`: One-time countdown gate. Common for triggering action once N threads finish.
   - `CyclicBarrier`: Reusable barrier for N threads to wait at a **common meeting point** (great for phased computation).
 
+### [ThreadPooling](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/ThreadPooling)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [→ Volatile and Atomic](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading)
+## Part 6: Volatile & Atomic Operations in Java
 
 Expanding upon the foundational and advanced multithreading topics, this final part of the section focuses on **volatile visibility guarantees**, **atomic operations**, and **real-world synchronization scenarios**.
-
----
 
 #### 🧠 Combined Summary:
 
@@ -1319,8 +1137,6 @@ Expanding upon the foundational and advanced multithreading topics, this final p
 - **Interview Essentials**:
   - `Interview Basic Questions.txt`: A collection of common and important Java concurrency questions, perfect for brushing up before an interview or test.
 
----
-
 #### 🧠 Related Topic Overview:
 
 | Concept                    | Use Case / Code Insight                                                |
@@ -1333,13 +1149,17 @@ Expanding upon the foundational and advanced multithreading topics, this final p
 | Bank/ATM simulation       | Demonstrates real-world importance of synchronization                  |
 | Interview questions file  | Summary of practical + theory aspects expected in job interviews       |
 
+
+### [Volatile and Atomic](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### 📦 [Section20 JAVA.lang Package](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section20JAVA.lang.Package)
+## Section 20: java.lang Package in Java
+
 
 This section explores the essential core classes in the `java.lang` package, which are **automatically imported in every Java program**. It covers a rich mix of **enums**, **string manipulation**, **wrapper classes**, **math utilities**, and **reflection**.
-
----
 
 #### 🧠 Combined Summary:
 
@@ -1360,8 +1180,6 @@ This section explores the essential core classes in the `java.lang` package, whi
 - **Reflection**:
   - `Refelectionpackage.java` and `ReflectionJAVA.java`: Cover **runtime class analysis**, accessing **constructors**, **methods**, and **fields** dynamically—core to **framework development**, **dependency injection**, and **testing frameworks**.
 
----
-
 #### 🧠 Related Topic Overview:
 
 | Topic                | Covered In                              | Key Insights                                              |
@@ -1372,14 +1190,16 @@ This section explores the essential core classes in the `java.lang` package, whi
 | Math Utilities      | `MathMethodsUseIt.java`                  | Power, rounding, trigonometric, random, min/max           |
 | Reflection          | `ReflectionJAVA.java`, `Refelectionpackage.java` | Runtime analysis of classes, useful for frameworks         |
 
+
+### 📦 [Section20 JAVA.lang Package](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section20JAVA.lang.Package)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-
-### 📝 [Section21 Annotations and JavaDoc](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section21AnnotationsandJavaDoc)
+## Section 21: Annotations & JavaDoc in Java
 
 This section dives into **annotations** and **JavaDoc**, two pillars of **clean, maintainable**, and **self-documenting code** in Java.
-
----
 
 #### 🧠 Combined Summary:
 
@@ -1392,7 +1212,6 @@ This section dives into **annotations** and **JavaDoc**, two pillars of **clean,
   - `JAVADocumentaion.java`: Teaches how to create **JavaDoc comments** (`/** ... */`) and use tags like `@param`, `@return`, `@author`.
     - Emphasizes writing **API-style documentation** for **methods, classes, and constructors**.
 
----
 
 #### 🧠 Related Topic Overview:
 
@@ -1402,16 +1221,18 @@ This section dives into **annotations** and **JavaDoc**, two pillars of **clean,
 | Custom Annotations | `Annotations.java`, `MyAnnontaion.java` | Defining, applying, and reading annotations at runtime    |
 | JavaDoc            | `JAVADocumentaion.java`      | Documenting APIs, generating HTML docs from source code    |
 
----
 
 ✅ This section helps make your code **framework-ready** by preparing you to use and build annotations—vital in **Spring**, **Hibernate**, **JUnit**, etc.—while ensuring you're producing **clean, developer-friendly docs** with JavaDoc.
 
+### 📝 [Section21 Annotations and JavaDoc](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section21AnnotationsandJavaDoc)
 
-### ⚡ [Section22 Lambda Expressions](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section22Lambda%20Expressions)
-
-This section introduces one of Java 8’s most powerful features—**lambda expressions**—which enable **functional-style programming** and concise **inline implementations** of functional interfaces.
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Section 22: Lambda Expressions in Java
+
+This section introduces one of Java 8’s most powerful features—**lambda expressions**—which enable **functional-style programming** and concise **inline implementations** of functional interfaces.
 
 #### 🧠 Combined Summary:
 
@@ -1429,8 +1250,6 @@ This section introduces one of Java 8’s most powerful features—**lambda expr
   - `ConstructerAsMethodReference.java`:
     - Shows how to reference constructors using `ClassName::new`, useful for **factory pattern**-style instantiation with lambdas.
 
----
-
 #### 🧠 Related Topic Overview:
 
 | Topic                   | Files Involved                            | Key Concepts                                         |
@@ -1439,18 +1258,24 @@ This section introduces one of Java 8’s most powerful features—**lambda expr
 | Method References       | `MethodRefrences.java`                    | `::` operator, static & instance methods             |
 | Constructor References  | `ConstructerAsMethodReference.java`       | `ClassName::new`, supplier functional interface usage|
 
----
 
 ✅ Mastering this section helps you write **clean, modern Java code**, and is critical when working with **Java Streams**, **Collections**, and libraries like **Spring**, **RxJava**, or **Reactor**.
 
+### ⚡ [Section22 Lambda Expressions](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section22Lambda%20Expressions)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
+---
+
+## Section 23: Java IO Streams
 
 ### 📂 [Section23 Java IO Streams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section23JavaIOStreams/)
 
-### 📂 [Section23 Java IO Streams – Serialization & File Storage](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section23JavaIOStreams/Serialisation%20Storing%20Data%20in%20a%20File)
+---
+
+## Part 1: Serialization & File Storage
 
 This section focuses on **Java I/O Streams**, especially **serialization** and how to store structured data in files using both **binary and character streams**. You’ll explore key classes like `DataOutputStream`, `PrintStream`, and `ObjectOutputStream`.
-
----
 
 #### 🧠 Combined Summary:
 
@@ -1469,8 +1294,6 @@ This section focuses on **Java I/O Streams**, especially **serialization** and h
     - Use `PrintStream` for **formatted output**, writing human-readable content to files or console.
     - Highlights benefits of `PrintStream` like automatic flushing and formatted printing (`print()`, `println()`).
 
----
-
 #### 🧠 Related Topic Overview:
 
 | Topic                 | Files Involved                                            | Key Concepts                                  |
@@ -1479,16 +1302,18 @@ This section focuses on **Java I/O Streams**, especially **serialization** and h
 | Object Serialization | `SerilalizationOutputStreamFinal`, `SerilalizationIutputStreamFinal` | Persisting custom objects to files            |
 | Print Streams        | `PrintStreamExample`, `PrintInputStreamExample`, `printID`| Writing readable text data to file/console    |
 
----
 
 ✅ Mastery of Java IO Streams enables building **file-based apps**, **data persistence utilities**, and is essential for **network communication**, **logging systems**, or working with **Java EE/Web apps**.
 
+### 📂 [Section23 Java IO Streams – Serialization & File Storage](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section23JavaIOStreams/Serialisation%20Storing%20Data%20in%20a%20File)
 
-### 📂 [– Core File I/O, Byte & Character Streams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section23JavaIOStreams)
-
-This continuation of Section23 expands into **core file operations**, **byte & character stream handling**, **piped streams**, and **buffered I/O** in Java. You’ll learn how to read/write data efficiently using both low-level and high-level abstractions.
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Part 2: Core File I/O, Byte & Character Streams
+
+This continuation of Section23 expands into **core file operations**, **byte & character stream handling**, **piped streams**, and **buffered I/O** in Java. You’ll learn how to read/write data efficiently using both low-level and high-level abstractions.
 
 #### 🧠 Combined Summary:
 
@@ -1513,7 +1338,6 @@ This continuation of Section23 expands into **core file operations**, **byte & c
 - **SCIO Utilities (Custom Implementations)**:
   - `SCIO1.java`, `SCIO2.java`: May include user-defined methods for simplifying stream operations (like SCIO = Somesh Custom IO?).
 
----
 
 #### 📌 Related Topic Overview:
 
@@ -1526,7 +1350,6 @@ This continuation of Section23 expands into **core file operations**, **byte & c
 | Inter-thread Communication  | `PipedStreamExample.java`                             | Data exchange between threads                              |
 | Utility & Sample Files      | `MyJAVA/*.txt`, `WithResources.txt`, `BufferTest.txt` | Practice/test data and examples with I/O handling          |
 
----
 
 📘 **Pro Tips**:
 - Prefer **BufferedReader** and **BufferedWriter** for large text files.
@@ -1534,12 +1357,15 @@ This continuation of Section23 expands into **core file operations**, **byte & c
 - For performance + thread safety, combine `BufferedInputStream` with `DataInputStream` if needed.
 - Learn `PipedStream` when working with **producer-consumer** patterns in multi-threaded apps.
 
+### 📂 [– Core File I/O, Byte & Character Streams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section23JavaIOStreams)
 
-### 📂 [Section24 Java Generics – Type-Safe Data Structures](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section24JavaGenerics)
-
-This section is all about mastering **Java Generics**, which allow type-safe and reusable code by parameterizing types. You dive into **generic classes, interfaces, and wildcards** — foundational for building scalable and flexible APIs or collections.
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Section 24: Java Generics – Type-Safe Data Structures
+
+This section is all about mastering **Java Generics**, which allow type-safe and reusable code by parameterizing types. You dive into **generic classes, interfaces, and wildcards** — foundational for building scalable and flexible APIs or collections.
 
 #### 🧠 Combined Summary:
 
@@ -1563,15 +1389,14 @@ This section is all about mastering **Java Generics**, which allow type-safe and
 ---
 
 ```
-
 #### 📌 Related Topic Overview:
 
-| Concept                  | Key Files                                       | Description                                                                  |
-|--------------------------|--------------------------------------------------|------------------------------------------------------------------------------|
-| Generic Class            | `Pair.java`, `Box.java`                         | Classes with type parameters (e.g., `class Box<T>`)                          |
-| Generic Interface        | `GenericInterfaces.java`, `Container<T>`        | Interfaces that work across multiple types                                   |
+| Concept                  | Key Files                                       | Description                                                                 |
+|--------------------------|-------------------------------------------------|----------------------------------------------------------------------------|
+| Generic Class            | `Pair.java`, `Box.java`                         | Classes with type parameters (e.g., `class Box<T>`)                         |
+| Generic Interface        | `GenericInterfaces.java`, `Container<T>`        | Interfaces that work across multiple types                                  |
 | Type Parameter           | `Type Parameter`, `BoxType.java`                | Files likely explaining syntax like `<T>`, `<E extends Number>`             |
-| Wildcards                | `Wild Cards` folder                             | Covers `?`, `? extends T`, `? super T` use in methods                        |
+| Wildcards                | `Wild Cards` folder                             | Covers `?`, `? extends T`, `? super T` use in methods                       |
 | Real-world Examples      | `Employee1.java`, `StringContainer1.java`       | Using generics in domain-specific use cases (e.g., employee data)           |
 
 ---
@@ -1584,17 +1409,22 @@ This section is all about mastering **Java Generics**, which allow type-safe and
 
 #### 📌 Related Topic Overview:
 
-| Topic                      | Key Files                                             | Concepts Learned                                               |
-|---------------------------|--------------------------------------------------------|----------------------------------------------------------------|
-| Generic Classes            | `Box.java`, `Pair.java`, `BoxType.java`               | Custom containers with parameterized types                    |
-| Generic Methods            | `GenericFunctionsExample.java`, `GenericDemo.java`    | Type-safe utility methods for operations like swap/filter     |
-| Generic Interfaces         | `GenericInterfaces.java`, `StringContainer1.java`     | Reusable service/container interfaces with flexible types      |
-| Bounded Type Parameters    | `Upper and Lower Bounds...txt`, `GenericClassDemo2.java` | Constraining generic types using `extends` and `super`        |
-| Wildcards and Super Bounds| `Java Generics Wildcards...txt`, `Wild Cards` file     | Handle flexible method arguments with `<?>` and bounds         |
-| Why Use Generics?          | `WhyGenerics.java`, `Generics in Java.txt`             | Type safety, code reuse, abstraction, no casting               |
-
-
+| Topic                      | Key Files                                                | Concepts Learned                                                |
+|--------------------------- |-----------------------------------------------------------|----------------------------------------------------------------|
+| Generic Classes            | `Box.java`, `Pair.java`, `BoxType.java`                  | Custom containers with parameterized types                      |
+| Generic Methods            | `GenericFunctionsExample.java`, `GenericDemo.java`       | Type-safe utility methods for operations like swap/filter       |
+| Generic Interfaces         | `GenericInterfaces.java`, `StringContainer1.java`        | Reusable service/container interfaces with flexible types       |
+| Bounded Type Parameters    | `Upper and Lower Bounds...txt`, `GenericClassDemo2.java` | Constraining generic types using `extends` and `super`          |
+| Wildcards and Super Bounds | `Java Generics Wildcards...txt`, `Wild Cards` file        | Handle flexible method arguments with `<?>` and bounds         |
+| Why Use Generics?          | `WhyGenerics.java`, `Generics in Java.txt`               | Type safety, code reuse, abstraction, no casting                |
 ```
+
+### [Section24 Java Generics 📂 – Type-Safe Data Structures](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section24JavaGenerics)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
+---
+
 
 ### 📚 [Section25 Collection Framework – Mastering Java Collections](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework)
 
@@ -2130,8 +1960,6 @@ This section covers both the **modern Java Date and Time API (java.time)** intro
 Always prefer `java.time` classes over legacy `Date` and `Calendar` for **immutability, thread-safety, and cleaner API design**. Use `ZonedDateTime` when working with **internationalized applications**.
 
 
-
-
 ### 🌐 Section 27: Network Programming - Datagram Reverse Echo Server
 
 ---
@@ -2271,8 +2099,6 @@ and building scalable backend systems.
 
 ```
 
-
-
 ### 🗃️ Section 28: JDBC Using SQLite
 
 ---
@@ -2365,6 +2191,271 @@ Database Connectivity	DriverManager.getConnection() explained step-by-step
 
 ---
 
+
+### [JAVA8](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8)
+
+
+### [CompletableFuture](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/CompletableFuture) 
+
+— Asynchronous programming made easy.
+
+**Summary:**  
+This section covers everything you need to get started with `CompletableFuture` in Java 8. 
+It begins with real-world use cases (`Applications.txt`) that show why `CompletableFuture` is crucial in 
+non-blocking, asynchronous Java programming. You'll then find a beginner-friendly breakdown (`CompletableFuture in Java 
+(Explained Simply).txt`) that explains methods like `thenApply`, `thenCompose`, `thenAccept`, `handle`, and more. 
+To solidify your understanding, the advanced Java example (`CompletableFutureAdvancedExample.java`) demonstrates 
+future chaining, error handling, and working with custom thread pools through `ExecutorService`.
+
+It includes a clear explanation of the API, practical usage scenarios, and advanced concepts like chaining, exception handling, 
+and custom thread pools.
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+    - `Applications.txt` – Real-world scenarios where `CompletableFuture` enhances performance.
+    - `CompletableFuture in Java (Explained Simply).txt` – Beginner-friendly, structured walk-through of the API.
+    - `CompletableFutureAdvancedExample.java` – Practical Java code demonstrating advanced usage and fluent chaining.
+
+- **Related Concepts:**
+    - `Future`, `ExecutorService`, and the need for more flexible async handling.
+    - Error handling with `.exceptionally()`, composition with `.thenCompose()`, and parallel execution via `.allOf()` or `.anyOf()`.
+    - Integration with streams and reactive systems.
+
+### [ConstructorReference](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/ConstructorReference)
+Simplifies object creation using method reference syntax. This section explains how to use constructor references (`ClassName::new`) to clean up factory-style code in Java 8 functional programming, making instantiation more readable and expressive when used with functional interfaces.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `ConstructorReference.java` – Java code demonstrating how constructor references are used in practical cases.
+  - `constructor reference.txt` – Explanation of syntax, compatibility with functional interfaces like `Supplier`, and usage tips.
+
+- **Related Concepts:**
+  - Lambda expressions and their equivalence to method/constructor references.
+  - Functional interfaces (`Supplier`, `Function`) enabling constructor referencing.
+  - Relevance in stream pipelines and dependency injection patterns.
+
+### [ConsumerSupplier](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/ConsumerSupplier)
+Covers the `Consumer` and `Supplier` functional interfaces in Java 8. It demonstrates how to use `Consumer<T>` for performing actions on inputs and `Supplier<T>` for generating values, helping build flexible and reusable logic components.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `ConsumerDemo.java` – Practical usage of `Consumer` to perform operations like printing, modifying values, etc.
+  - `SupplierDemo.java` – Demonstrates how to use `Supplier` to lazily supply data or values when needed.
+
+- **Related Concepts:**
+  - Part of `java.util.function` package introduced in Java 8.
+  - Common use cases include data processing, lazy initialization, and separation of concerns.
+  - Frequently used in combination with `Streams`, `Optional`, and other functional constructs.
+
+
+### [FunctionInterface](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/FunctionInterface)
+Focuses on the core idea of functional interfaces introduced in Java 8. Demonstrates how interfaces with a single abstract method (SAM) enable lambda expressions and method references for concise, functional-style coding.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `FunctionDemo.java` – A practical example of the `Function<T, R>` interface, showing how to transform input to output using lambdas.
+
+- **Related Concepts:**
+  - A functional interface is any interface with one abstract method.
+  - `@FunctionalInterface` annotation is used for clarity and validation.
+  - Key interfaces include `Function`, `Predicate`, `Consumer`, `Supplier`.
+  - Enables functional programming in Java and integration with the `Stream` API.
+
+---
+
+### [JAVA8FeaturesUsedInStreams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/JAVA8FeaturesUsedInStreams)
+Highlights Java 8’s stream-related enhancements. Breaks down how lambda expressions, functional interfaces, method references, and the Streams API come together for clean, efficient, and parallelizable data processing.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `In Java 8, Streams are a powerful and versatile API.txt` – High-level overview of stream capabilities.
+  - `combinedExampleALL.java` – Combined code examples using multiple stream features together.
+  - `simplified overview of Java 8 Streams.txt` – Straightforward explanation of key stream operations.
+
+- **Related Concepts:**
+  - Streams allow declarative data processing on collections.
+  - Core operations include `map`, `filter`, `reduce`, `collect`, `forEach`, etc.
+  - Supports lazy evaluation and parallel processing.
+  - Works hand-in-hand with lambda expressions and functional interfaces.
+
+
+### [JavaCollectorsAPI](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/JavaCollectorsAPI)
+Deep dive into the Java Collectors API, demonstrating how streams and collectors work together to aggregate, transform, and manage data. Great for understanding how Java handles grouping, mapping, and summarizing collections using modern functional style.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `CollectorsDemo.java` – Demonstrates core usage of `Collectors` like `toList()`, `toSet()`, `joining()`, `groupingBy()`, and `partitioningBy()`.
+  - `Collectors and the Streams API Applications.txt` – Explains where and how collectors are practically used.
+  - `understanding of the Java Collectors API and the stream operations illustrated in the code.txt` – Insightful breakdown of stream and collector synergy.
+  - `how Java Streams, the Collections Framework, and Generics are used in real-world software development across different layers of an application.txt` – Explores collectors in layered app architecture.
+
+- **Related Concepts:**
+  - Part of `java.util.stream`.
+  - Designed to combine terminal stream operations into single-line expressions.
+  - Key for transforming and reducing large datasets efficiently.
+  - Used extensively in back-end APIs and data pipelines.
+
+---
+
+### [LambdaExpression](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/LambdaExpression)
+Focuses on the backbone of Java 8's functional programming—lambda expressions. Explores syntax, use with collections, and integration with interfaces like `Function`, `Predicate`, and `Consumer`.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `LambdaExpressionHard.java` – Covers advanced lambda usage including nested lambdas and functional chaining.
+  - `Java Lambda Expression Cheat Sheet.txt` – Handy reference for lambda syntax and variations.
+  - `Advanced Java Lambda Expressions Cheat Sheet.txt` – Covers advanced tricks like scope rules, closures, and short forms.
+  - `explore lambda expressions with collections in Java 8.txt` – Explains how to use lambdas with `List`, `Map`, `Set`.
+
+- **Related Concepts:**
+  - Lambdas simplify anonymous class syntax for functional interfaces.
+  - Syntax: `(parameters) -> expression`.
+  - Core enabler for Streams API, asynchronous processing, and cleaner event handling.
+  - Improves readability, reduces boilerplate, and supports immutability.
+
+
+### [MethodReference](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/MethodReference)
+Simple yet powerful showcase of Java 8 method references—a shortcut to writing lambdas when method calls can be directly referred to. Clean, elegant code for functional programming.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `MethodReference.java` – Demonstrates all four types: static, instance, constructor, and reference to an instance of a particular object.
+
+- **Related Concepts:**
+  - Syntax: `ClassName::methodName` or `objectRef::instanceMethod`.
+  - Works with functional interfaces like `Consumer`, `Function`, etc.
+  - Makes lambda expressions shorter and more readable.
+
+---
+
+### [Operator](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/Operator)
+Explores Java’s functional interfaces `UnaryOperator` and `BinaryOperator`—specialized forms of `Function` with same input and output types. Useful in scenarios where transformation or reduction is needed.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `OperatorInterfaceDemo.java`, `Demo.java` – Examples of applying unary/binary operations in logic.
+  - `UnaryOperatorAndBinaryOperator.txt`, `unary operators and binary operators.txt` – Theory and application scenarios.
+
+- **Related Concepts:**
+  - `UnaryOperator<T>`: operates on a single operand.
+  - `BinaryOperator<T>`: operates on two operands of the same type.
+  - Common in stream reductions, math operations, and data transformations.
+
+---
+
+### [Predicates](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/Predicates)
+Predicate interface in action—evaluating conditions using a functional interface that returns boolean. Often used for filtering, validation, and branching logic in streams.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `PredicateDemo.java` – Examples of `test()`, `and()`, `or()`, `negate()` with filters and validations.
+
+- **Related Concepts:**
+  - `Predicate<T>`: returns `true` or `false` based on evaluation.
+  - Can be chained to form complex conditions.
+  - Widely used in `filter()` method of streams.
+
+---
+
+### [StreamsInJAVA](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA)
+Massive collection of everything Java 8 Streams—from primitive stream handling to parallel and piped streams. Ideal for mastering stream internals and writing performant functional pipelines.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - **ByteStreams**:
+    - `ByteStreamExample3.txt` – Usage of stream APIs on byte-level I/O data.
+
+  - **ParallelStream**:
+    - `ParallelStream.java`, `How Parallel Streams Work.txt` – Shows concurrency and performance tuning of parallel streams.
+
+  - **PipedStreams**:
+    - `PipedStreamExample.txt` – Communication using piped byte streams between threads.
+
+- **Related Concepts:**
+  - Byte streams deal with binary data I/O (`InputStream`, `OutputStream`).
+  - Parallel streams enable multi-core processing for large datasets.
+  - Piped streams allow threading communication, often in producer-consumer scenarios.
+
+
+### [PrimitiveStreams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA/PrimitiveStreams)
+Focused on the usage of primitive stream variants (`IntStream`, `DoubleStream`, `LongStream`) in Java 8 to improve performance by avoiding boxing overhead in numeric computations and stream operations.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `PrimitiveStreams.java` – Demonstrates creation, transformations, and reductions using primitive streams.
+  - `Primitive streams various application.txt` – Explains real-world use cases and performance benefits of primitive streams.
+
+- **Related Concepts:**
+  - `IntStream`, `DoubleStream`, and `LongStream` are specialized streams for primitives.
+  - More efficient than using `Stream<Integer>`, etc., due to no boxing/unboxing.
+  - Useful for numerical computations, statistics, or working with arrays.
+
+---
+
+### [StreamsInJAVA (Core Concepts)](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA)
+A deep dive into stream mechanics including intermediate & terminal operations, lazy evaluation, and the distinction between stateful/stateless stream behaviors.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - `IntermediateOps.java`, `TerminalOps.java` – Code examples for transformation (map, filter) and final operations (collect, reduce).
+  - `LazyEvaluationDemo.java` – Demonstrates how stream operations are not executed until a terminal operation is called.
+  - `Stateful and Stateless Operations in Java Streams.txt` – Theory and examples to differentiate operations.
+  - `Understanding Terminal Operations in Java Streams.txt`, `intermediate and terminal operations..txt`, `simplified overview of Java 8 Streams.txt` – Solid foundational explanations.
+
+- **Related Concepts:**
+  - **Intermediate Ops**: Lazy, return a stream, e.g., `map`, `filter`, `sorted`.
+  - **Terminal Ops**: Trigger execution, e.g., `collect`, `forEach`, `reduce`.
+  - **Stateless vs Stateful**: Stateless (e.g., `map`) doesn't depend on previous elements; stateful (e.g., `sorted`) needs full stream context.
+  - **Lazy Evaluation**: Stream operations are executed only when a terminal operation is present—optimizes performance.
+
+---
+
+### [JDK Features](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JDK%20Features)
+Covers core enhancements and syntax updates introduced across Java versions from 8 to 24. Each subfolder gives practical insights through `.java` files and supporting notes, helping developers understand version-specific capabilities.
+
+---
+
+#### 🧠 Related Topic Overview:
+- **Repo Content:**
+  - **Java 8**: `JAVA8.java` – Introduces lambda expressions, streams, default methods, and the new date/time API.
+  - **Java 11**: `JAVA11.java` – Shows features like `var` for local variables, new string methods, and file enhancements.
+  - **Java 12**: `JAVA12.java` – Demos switch expression previews and performance improvements.
+  - **Java 14**: `JAVA14.java`, `Java 14.txt` – Covers records, pattern matching (preview), and the `instanceof` enhancements.
+  - **Java 24**: `Test.java`, `Test1.java`, `Test2.java` – Custom demos of potential or experimental Java 24 features.
+  - **Misc Files**:
+    - `Java Versions.txt` – Summary of features introduced per version.
+    - `Links.cmd`, `bat file.txt` – Likely utility scripts or resources to compile/run/test examples.
+
+- **Related Concepts:**
+  - Tracks language evolution for developers to maintain forward compatibility and leverage modern syntax.
+  - Useful for migration strategies, learning syntactic sugar, and understanding deprecations.
+  - Provides foundational understanding of how Java has adapted over time in terms of readability, conciseness, and performance.
+
+---
 
 ### 🌐 Website Structure Overview – Jekyll-based Project Breakdown
 

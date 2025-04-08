@@ -248,7 +248,8 @@ c = 1111 1110
     - x \| x = x
 ---  
 - Swapping two values without a temporary variable
-  ```
+  
+```
   You can swap the values of two integers using XOR without an extra temporary variable. 
   
   For example, suppose: // E.g. a = 2 (0b0010), b = 5 (0b0101)
@@ -301,6 +302,7 @@ try (FileReader fr = new FileReader(filepath)) {
 - Must be a child of `Throwable`
 - If checked exception, must extend `Exception`
 - If unchecked exception, must extend `RuntimeException`
+
 ---
 
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
@@ -477,9 +479,10 @@ class Boy extends Human {
 Note that, as detailed in the [Polymorphism](#polymorphism) section, the binding of *overloaded* methods is static, 
 while the binding of *overridden* methods is dynamic.
 
+---
+
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
----
 
 ## Interfaces
 An interface may have abstract methods, default methods, static methods, constants, and nested types. 
@@ -505,16 +508,18 @@ Interfaces and their methods are implicitly `abstract`. Their methods are implic
 The most common use of extending interfaces occurs when the parent interface doesn't have any methods.
 Example:
 The MouseListener interface in `java.awt.event` extends `java.util.EventListener`, which is defined as follows:  
+
 ```java
 package java.util;
 public interface EventListener {}
 ```
-Thus, an interface with no methods is a **tagging interface**.  
-These have two basic design purposes:  
+
+Thus,an interface with no methods is a **tagging interface**. These have two basic design purposes:  
 1. Creates a common parent
 2. Adds a data type to a class. A class that implements a tagging interface becomes an interface type through polymorphism
 
 ---
+
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ## Nested Classes
@@ -535,6 +540,7 @@ classes     inner classes     inner classes
 This means a class cannot inherit multiple classes. However, a class **can** implement multiple interfaces.
 
 ---
+
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ## Java Generics
@@ -564,6 +570,7 @@ public class Box<T> {
  }
 ```
 ---
+
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ## Serialization
@@ -607,7 +614,7 @@ The return value of `readObject()` should be cast to the proper class.
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 
-## Multithreading
+## Multithreading  🧵
 Lifecycle of a thread:
 - **New:** a new thread begins in this state where it remains until the program starts the thread
 - **Runnable:** executing its task
@@ -617,19 +624,43 @@ Lifecycle of a thread:
 
 Thread priorities range from `MIN_PRIORITY` (a constant of 1) to `MAX_PRIORITY` (a constant of 10).
 
+
+---
+
+### 🧵 Ways to Create a Thread in Java
+
 There are two ways of creating a thread:
-1. Implement the `Runnable` interface
-  - If you want a class to be executed as a thread, it must implement `Runnable`. This method takes three basic steps:
-    1. Implement a `run()` method
-    2. Instantiate a `Thread` object, like so: `Thread (Runnable threadObj, String threadName)`, where threadObj is an instance of a class that implements `Runnable`, and threadName is the name given to the new thread
-    3. Start a Thread object with `start()`, which executes a class to the class's `run()` method
 
-2. Extend the `Thread` class
-  - This approach provides more flexibility in handling multiple threads created using available methods in the `Thread` class.
-    1. Override the `run()` method in `Thread` class
-    2. After creating the `Thread` object, start it with the `start()` method
+#### 1. Implement the `Runnable` interface
 
-### Thread Synchronization
+If you want a class to be executed as a thread, it must implement `Runnable`.
+
+This method involves three basic steps:
+
+1. Implement a `run()` method.
+
+2. Instantiate a `Thread` object like so:
+   ```java
+   Thread(Runnable threadObj, String threadName);
+   ```  
+   where `threadObj` is an instance of a class that implements `Runnable`, and `threadName` is the name given to the 
+   new thread.
+
+3. Start the thread with `start()`, which calls the class's `run()` method
+
+---
+
+#### 2. Extend the `Thread` class.
+
+This approach provides more flexibility in handling multiple threads using available methods in the `Thread` class.
+
+1. Override the `run()` method in your class that extends `Thread`.
+2. After creating the `Thread` object, start it with the `start()` method.
+
+---
+
+### Thread Synchronization:
+
 What if two threads try to access the same resources? For example, if multiple threads try to write to the same 
 file at the same time, they could corrupt the file.
 
@@ -858,7 +889,7 @@ tmp.demoMethod();
 ```
 
 you can use the [Collections.synchronizedList](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#synchronizedList-java.util.List-)
-function to create a synchronized list, thus getting you the equivalent of a `Vector`.
+function to create a synchronized list, thus getting you the equivalent of a Vector.
 
 ----
 

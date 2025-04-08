@@ -561,9 +561,8 @@ Can be applied to Generic classes as well, e.g.
 ```java
 public class Box<T> {
     private T t;
-    ....
  }
- ```
+```
 ---
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
@@ -807,7 +806,7 @@ Here's a detailed breakdown:
 |   Ordering           | No ordering guarantee               | Sorted by natural/comparator order    | Maintains insertion order              |
 |   Null keys/values   | One null key, many null values      | No null keys, null values allowed     | One null key, many null values         |
 |   Implementation     | Array + Linked List / Tree bins     | Red-Black Tree                        | Hash buckets + Doubly Linked List      |
-|   Thread Safety      | ❌ Not synchronized                 | ❌ Not synchronized                   | ❌ Not synchronized                    |
+|   Thread Safety      | ❌ Not synchronized                | ❌ Not synchronized                   | ❌ Not synchronized                    |
 |   Fail-Fast?         | Yes (not guaranteed in concurrency) | Yes (not guaranteed in concurrency)   | Yes (same behavior)                    |
 |   Interfaces         | Map                                 | Map, SortedMap, NavigableMap          | Map                                    |
 
@@ -828,9 +827,9 @@ Here's a detailed breakdown:
 - Use Case: Range-based queries, maintaining sorted keys.
 
 ✅ LinkedHashMap
-- **Best for: Preserving insertion order or implementing LRU cache.
-- **Behavior: Combines HashMap performance with predictable iteration order.
-- **Use Case: JSON serialization, access-order tracking.
+- Best for: Preserving insertion order or implementing LRU cache.
+- Behavior: Combines HashMap performance with predictable iteration order.
+- Use Case: JSON serialization, access-order tracking.
 
 ---
 

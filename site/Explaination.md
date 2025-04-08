@@ -35,6 +35,7 @@
   - [`transient`](#transient-keyword)
   - [`throws`](#throws-keyword)
   - [`volatile`](#volatile-keyword)
+
 ---
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
@@ -970,3 +971,7 @@ for more information.
 
 Check out the [Volatile and Atomic concepts in Java](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/Volatile%20and%20Atomic) 
 for clear examples and explanations on memory visibility and atomic operations in multithreaded programming.
+
+---
+
+<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>

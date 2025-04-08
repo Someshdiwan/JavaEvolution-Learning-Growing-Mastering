@@ -1,12 +1,194 @@
-## 🔗 Repository Quick Links
+> ✍️ development in progresses...
 
-> ✍️ _More sections will be added soon as development progresses...
+## Table of Contents
+- [Section 5 – Operator & Expression](#-section-5-operator--expression-with-casting-focus)
 
+- [Access Modifiers and Visibility](#access-modifiers-and-visibility)
+- [Bitwise Operations](#bitwise-operations)
+  - [Width vs. Possible Values](#width-vs-possible-values)
+  - [Numerical Primitives](#numerical-primitives)
+  - [Operators](#operators)
+  - [Useful Tricks](#useful-tricks)
+- [Exceptions](#exceptions)
+- [Polymorphism](#polymorphism)
+  - [Static Polymorphism](#static-polymorphism)
+  - [Dynamic Polymorphism](#dynamic-polymorphism)
+  - [Overriding Methods](#method-overriding)
+- [Static vs Dynamic Binding](#static-vs-dynamic-binding)
+- [Interfaces](#interfaces)
+  - [Tagging Interfaces](#tagging-interfaces)
+- [Nested Classes](#nested-classes)
+- [Generics](#java-generics)
+- [Serialization](#serialization)
+- [Multithreading](#multithreading)
+  - [Thread Synchronization](#thread-synchronization)
+  - [Inter-thread Communication](#inter-thread-communication)
+- [Java Collections Framework](#java-collections-framework)
+  - [Overview](#overview)
+  - [Maps](#maps)
+  - [ArrayList vs. Vector](#arraylist-vs-vector)
+- [Common Design Patterns](#common-design-patterns)
+  - [Singleton Class](#singleton-class)
+- [Number Wrapper Classes](#number-wrapper-classes)
+- [Cloning Arrays](#cloning-arrays)
+- [Other Useful Keywords](#other-useful-keywords)
+  - [`final`](#final-keyword)
+  - [`abstract`](#abstract-keyword)
+  - [`synchronized`](#synchronized-keyword)
+  - [`transient`](#transient-keyword)
+  - [`throws`](#throws-keyword)
+  - [`volatile`](#volatile-keyword)
+
+---
+<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ## 🔗 Repository Quick Links
 
 📁 Repository: [JavaEvolution-Learning-Growing-Mastering](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering)
 
+
+---
+
+# 🧮 Section 5: Operator & Expression (with Casting Focus)
+
+### 📘 Combined Summary:
+
+This section introduces the fundamental concepts of **type casting** in Java, with a special focus on **upcasting** and **downcasting**, crucial for **polymorphism**, **object-oriented design**, and **runtime behavior** in inheritance.
+
+While the section title suggests a general overview of *operators and expressions*, the content is centered around understanding how **object references** are cast in **inheritance hierarchies**.
+
+You’ll explore:
+- The concept of upcasting (parent reference → child object)
+- The concept of downcasting (child reference ← parent object)
+- The rules and risks of each
+- Use cases where these casting types are essential (like dynamic method dispatch)
+
+---
+
+### 🔍 Core Topics Breakdown
+
+| Concept             | Description                                                                 |
+|---------------------|-----------------------------------------------------------------------------|
+| **Upcasting**        | Assigning a child class object to a parent class reference. Safe and implicit. |
+| **Downcasting**      | Converting a parent class reference back to a child class. Requires explicit cast and is potentially unsafe unless checked. |
+| **Polymorphism**     | Enabled through upcasting, where overridden methods in the child class are invoked through the parent class reference. |
+| **ClassCastException** | Can occur if downcasting is done without checking the object type using `instanceof`. |
+
+---
+
+### 📷 Visual Learning Aids
+
+| File Name                         | Description                             |
+|----------------------------------|-----------------------------------------|
+| `Upcasting.png`                  | Shows safe assignment of child → parent |
+| `Upcasting-Vs-Downcasting.png`  | Comparison chart of both mechanisms     |
+| `Upcasting-Vs-Downcasting1.png` | Detailed flow with arrows and hierarchy |
+| `upcasting.txt`                 | Text explanation with examples          |
+| `upcasting vs downcasting.txt` | Combined notes on both concepts         |
+
+---
+
+### 🔍 Real Code Insight
+
+```java
+class Animal {
+    void sound() {
+        System.out.println("Generic Animal Sound");
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Bark");
+    }
+
+    void fetch() {
+        System.out.println("Dog fetches");
+    }
+}
+
+public class CastingDemo {
+    public static void main(String[] args) {
+        Animal a = new Dog();  // Upcasting
+        a.sound();             // Outputs: Bark
+
+        if (a instanceof Dog) {
+            Dog d = (Dog) a;  // Downcasting
+            d.fetch();        // Outputs: Dog fetches
+        }
+    }
+}
+```
+
+---
+# 💡 Extended with Java Casting, Bitwise, and Expressions
+
+
+### 📘 Combined Summary:
+
+This section not only explores **upcasting and downcasting**, but also dives into **bitwise operators**, **expression evaluations**, **input/output operations**, and **method parameter handling**.
+
+Together, these files provide a **comprehensive foundation** for how Java handles:
+- Operator precedence
+- Type conversions (widening and narrowing)
+- Expression evaluation
+- Keyboard input
+- Bit-level logic
+
+You’ll find hands-on examples demonstrating:
+- `&`, `|`, `^`, `~` (bitwise operators)
+- `instanceof`, upcasting, and downcasting in class hierarchies
+- Reading input via keyboard
+- Recursive functions like `OneToNPrint`
+- Differences between **method parameters** and **arguments**
+- Type promotion and narrowing in arithmetic expressions
+
+---
+
+### 🔍 Concept Map
+
+| Topic                          | Covered In                                     |
+|--------------------------------|------------------------------------------------|
+| **Bitwise Operations**         | `Bitwise1.java` → `Bitwise7.java`, `And.java`, `And1.java`, `And2.java` |
+| **Casting & Type Conversion**  | `Upcasting.java`, `Downcasting.java`, `WideNarrow.java`, `UpDownCasting.java` |
+| **Expressions in Java**        | `Expression.java`, `Expression2.java`, `Expression3.java` |
+| **Keyboard Input**             | `ReadingFromKeyBoard.java`                    |
+| **Functions & Parameters**     | `ParametersArguments.java`                    |
+| **Recursion**                  | `OneToNPrint.java`                            |
+
+---
+
+### 🔬 Code Patterns in Use
+
+#### ✅ Bitwise Operation Sample
+```java
+int a = 5;   // 0101
+int b = 3;   // 0011
+System.out.println(a & b);  // 0001 = 1
+System.out.println(a | b);  // 0111 = 7
+System.out.println(a ^ b);  // 0110 = 6
+```
+
+```
+✅ Type Casting (Wide → Narrow):
+
+double d = 10.5;int x = (int) d; // narrowing cast, x becomes 10
+```
+
+```
+✅ Recursion Example:
+
+void printOneToN(int n) {
+if (n > 0) {
+printOneToN(n - 1);
+System.out.print(n + " ");
+}
+}
+```
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
+---
 
 
 ### [JAVA8](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8)
@@ -1753,149 +1935,11 @@ Subquery Optimization	Used in large JOINs or filtered data logic
 Database Connectivity	DriverManager.getConnection() explained step-by-step
 ```
 
-### 🧮 Section 5: Operator & Expression (with Casting Focus)
-
 ---
 
-### 📘 Combined Summary:
-
-This section introduces the fundamental concepts of **type casting** in Java, with a special focus on **upcasting** and **downcasting**, crucial for **polymorphism**, **object-oriented design**, and **runtime behavior** in inheritance.
-
-While the section title suggests a general overview of *operators and expressions*, the content is centered around understanding how **object references** are cast in **inheritance hierarchies**.
-
-You’ll explore:
-- The concept of upcasting (parent reference → child object)
-- The concept of downcasting (child reference ← parent object)
-- The rules and risks of each
-- Use cases where these casting types are essential (like dynamic method dispatch)
-
----
-
-### 🔍 Core Topics Breakdown
-
-| Concept             | Description                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| **Upcasting**        | Assigning a child class object to a parent class reference. Safe and implicit. |
-| **Downcasting**      | Converting a parent class reference back to a child class. Requires explicit cast and is potentially unsafe unless checked. |
-| **Polymorphism**     | Enabled through upcasting, where overridden methods in the child class are invoked through the parent class reference. |
-| **ClassCastException** | Can occur if downcasting is done without checking the object type using `instanceof`. |
-
----
-
-### 📷 Visual Learning Aids
-
-| File Name                         | Description                             |
-|----------------------------------|-----------------------------------------|
-| `Upcasting.png`                  | Shows safe assignment of child → parent |
-| `Upcasting-Vs-Downcasting.png`  | Comparison chart of both mechanisms     |
-| `Upcasting-Vs-Downcasting1.png` | Detailed flow with arrows and hierarchy |
-| `upcasting.txt`                 | Text explanation with examples          |
-| `upcasting vs downcasting.txt` | Combined notes on both concepts         |
-
----
-
-### 🔍 Real Code Insight
-
-```java
-class Animal {
-    void sound() {
-        System.out.println("Generic Animal Sound");
-    }
-}
-
-class Dog extends Animal {
-    void sound() {
-        System.out.println("Bark");
-    }
-
-    void fetch() {
-        System.out.println("Dog fetches");
-    }
-}
-
-public class CastingDemo {
-    public static void main(String[] args) {
-        Animal a = new Dog();  // Upcasting
-        a.sound();             // Outputs: Bark
-
-        if (a instanceof Dog) {
-            Dog d = (Dog) a;  // Downcasting
-            d.fetch();        // Outputs: Dog fetches
-        }
-    }
-}
-```
 
 
-### 💡 Section 5: Operator & Expression – Extended with Java Casting, Bitwise, and Expressions
-
----
-
-### 📘 Combined Summary:
-
-This section not only explores **upcasting and downcasting**, but also dives into **bitwise operators**, **expression evaluations**, **input/output operations**, and **method parameter handling**.
-
-Together, these files provide a **comprehensive foundation** for how Java handles:
-- Operator precedence
-- Type conversions (widening and narrowing)
-- Expression evaluation
-- Keyboard input
-- Bit-level logic
-
-You’ll find hands-on examples demonstrating:
-- `&`, `|`, `^`, `~` (bitwise operators)
-- `instanceof`, upcasting, and downcasting in class hierarchies
-- Reading input via keyboard
-- Recursive functions like `OneToNPrint`
-- Differences between **method parameters** and **arguments**
-- Type promotion and narrowing in arithmetic expressions
-
----
-
-### 🔍 Concept Map
-
-| Topic                          | Covered In                                     |
-|--------------------------------|------------------------------------------------|
-| **Bitwise Operations**         | `Bitwise1.java` → `Bitwise7.java`, `And.java`, `And1.java`, `And2.java` |
-| **Casting & Type Conversion**  | `Upcasting.java`, `Downcasting.java`, `WideNarrow.java`, `UpDownCasting.java` |
-| **Expressions in Java**        | `Expression.java`, `Expression2.java`, `Expression3.java` |
-| **Keyboard Input**             | `ReadingFromKeyBoard.java`                    |
-| **Functions & Parameters**     | `ParametersArguments.java`                    |
-| **Recursion**                  | `OneToNPrint.java`                            |
-
----
-
-### 🔬 Code Patterns in Use
-
-#### ✅ Bitwise Operation Sample
-```java
-int a = 5;   // 0101
-int b = 3;   // 0011
-System.out.println(a & b);  // 0001 = 1
-System.out.println(a | b);  // 0111 = 7
-System.out.println(a ^ b);  // 0110 = 6
-```
-
-```
-✅ Type Casting (Wide → Narrow):
-
-double d = 10.5;int x = (int) d; // narrowing cast, x becomes 10
-```
-
-```
-✅ Recursion Example:
-
-void printOneToN(int n) {
-if (n > 0) {
-printOneToN(n - 1);
-System.out.print(n + " ");
-}
-}
-```
-
-### ✨ Section 6: String Class & Printing in Java
-
----
+# ✨ Section 6: String Class & Printing in Java
 
 ### 📘 Combined Summary:
 

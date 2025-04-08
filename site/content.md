@@ -11,7 +11,7 @@
 
 4. [Section 8 – Loops in Java](#section-8-loops-in-java)
 
-   4.1 [Mastery of Loops & Number Patterns](#mastery-of-loops--number-patterns-in-java)
+   4.1. [Mastery of Loops & Number Patterns](#mastery-of-loops--number-patterns-in-java)
 
 5. [Section 9 – ArrayAB](#section-9-arrayab--mastering-arrays-in-java-1d-2d-jagged-and-beyond)
 
@@ -215,7 +215,7 @@ System.out.print(n + " ");
 }
 ```
 
-### **[🔗 View Section5OperatorExpression on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section5OperatorExpression)**
+### **[🔗 View Section 5 OperatorExpression on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section5OperatorExpression)**
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
@@ -283,7 +283,7 @@ full power of Java's String class, regex, and object-printing mechanics — cruc
 form, and log development.
 ```
 
-### [🔗 View Section6StringPrinting on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section6StringClassPrinting)
+### [🔗 View Section 6 String Printing on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section6StringClassPrinting)
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
@@ -364,7 +364,7 @@ Logical Thinking	Conditional constructs help develop critical problem-solving
 ```
 
 
-### **[🔗 View Section7ConditionalStatements on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section7ConditionalStatements/src)**
+### **[🔗 View Section 7 Conditional Statements on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section7ConditionalStatements/src)**
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
@@ -1150,7 +1150,7 @@ Expanding upon the foundational and advanced multithreading topics, this final p
 | Interview questions file  | Summary of practical + theory aspects expected in job interviews       |
 
 
-### [Volatile and Atomic](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading)
+### [Volatile and Atomic](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section19MultiThreading/Volatile%20and%20Atomic)
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
@@ -1355,9 +1355,9 @@ This continuation of Section23 expands into **core file operations**, **byte & c
 - Prefer **BufferedReader** and **BufferedWriter** for large text files.
 - Use `try-with-resources` to **automatically close streams** and avoid resource leaks.
 - For performance + thread safety, combine `BufferedInputStream` with `DataInputStream` if needed.
-- Learn `PipedStream` when working with **producer-consumer** patterns in multi-threaded apps.
+- Learn `PipedStream` when working with **producer-consumer** patterns in multithreaded apps.
 
-### 📂 [– Core File I/O, Byte & Character Streams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section23JavaIOStreams)
+### 📂 [Core File I/O, Byte & Character Streams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section23JavaIOStreams)
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
@@ -1419,14 +1419,14 @@ This section is all about mastering **Java Generics**, which allow type-safe and
 | Why Use Generics?          | `WhyGenerics.java`, `Generics in Java.txt`               | Type safety, code reuse, abstraction, no casting                |
 ```
 
-### [Section24 Java Generics 📂 – Type-Safe Data Structures](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section24JavaGenerics)
+### [Section24 Java Generics Type Safe Data Structures](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section24JavaGenerics)
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
 
 
-### 📚 [Section25 Collection Framework – Mastering Java Collections](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework)
+### [Section25 Collection Framework – Mastering Java Collections](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework)
 
 This section begins your journey into the **Java Collection Framework**, starting with **concurrent maps**—essential when working with multithreaded applications or high-performance systems.
 

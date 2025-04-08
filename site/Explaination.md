@@ -246,7 +246,9 @@ c = 1111 1110
     - x \| 0 = x
     - x \| 1 = 1
     - x \| x = x
+
 ---  
+
 - Swapping two values without a temporary variable
   
 ```
@@ -272,8 +274,12 @@ c = 1111 1110
    a = a ^ b; 
   - Explanation: Finally, (a = (a oplus b) oplus a) simplifies to (b) (as (a oplus a = 0)). 
     So, (a) becomes the original (b) (5).
----  
+
+```
+
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
+---
 
 ## Exceptions
 
@@ -336,7 +342,9 @@ Object o = d;
 All four of these references refer to the same Deer object on the heap.
 
 ---
+
 ### Static Polymorphism
+
 *Static Polymorphism* is polymorphism that is resolved at compile time. 
 Method *overloading* is an example of static polymorphism.
 
@@ -362,8 +370,9 @@ And, in fact, the compiler does just this -- it resolves which method will be ca
 rather than waiting until runtime.
 
 ### Dynamic Polymorphism
-*Dynamic Polymorphism* is polymorphism that is resolved at runtime. 
-Method *overriding* is an example of dynamic polymorphism.
+
+Dynamic Polymorphism is polymorphism that is resolved at runtime. 
+Method overriding is an example of dynamic polymorphism.
 
 For example, consider the following code:
 

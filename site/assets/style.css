@@ -1,4 +1,125 @@
-/* Base Colors and Typography */
+/* Reset and Basic Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px; /* Reduced size for 3 links */
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+    transform: translateX(-100%); /* Hidden by default */
+}
+
+.sidebar.visible {
+    transform: translateX(0); /* Visible state */
+}
+
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    margin: 1rem 0;
+    font-size: 1rem;
+}
+
+/* Content Styles */
+.content {
+    padding: 1rem;
+}
+
+/* Toggle Button */
+.toggle-btn {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1000;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* Time Container */
+#time-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#live-time {
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Dark Mode Toggle */
+.dark-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+body.dark-mode .sidebar {
+    background-color: #444;
+}
+
+body.dark-mode .toggle-btn {
+    background-color: #444;
+}
+
+body.dark-mode #time-container {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 150px; /* Smaller on mobile */
+    }
+}
+
+/* Fade-in Animation for Content */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Base Colors and Typography *//*
+
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
@@ -29,7 +150,9 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Sidebar */
+*/
+/* Sidebar *//*
+
 .sidebar {
   background-color: var(--sidebar-bg);
   width: 260px;
@@ -59,7 +182,9 @@ body {
   background-color: var(--hover-bg);
 }
 
-/* Content */
+*/
+/* Content *//*
+
 .content {
   margin-left: 260px;
   padding: 1rem;
@@ -70,7 +195,9 @@ body {
   margin-left: 0;
 }
 
-/* Toggle Buttons */
+*/
+/* Toggle Buttons *//*
+
 .toggle-btn,
 .dark-toggle {
   position: fixed;
@@ -92,7 +219,9 @@ body {
   right: 1rem;
 }
 
-/* Animation */
+*/
+/* Animation *//*
+
 .fade-in {
   animation: fadeIn 0.4s ease-in;
 }
@@ -105,7 +234,9 @@ body {
 #time-container {
   position: fixed;
   top: 1rem;
-  right: 1rem; /* Stick to top-right */
+  right: 1rem; */
+/* Stick to top-right *//*
+
   background: rgba(0, 0, 0, 0.6);
   color: #00ffff;
   border: 1px solid #00ffff;
@@ -135,7 +266,9 @@ body.dark-mode #time-container {
 }
 
 
-/* Image Row */
+*/
+/* Image Row *//*
+
 .image-row {
   display: flex;
   flex-wrap: wrap;
@@ -162,7 +295,9 @@ body.dark-mode #time-container {
   }
 }
 
-/* Responsive Image */
+*/
+/* Responsive Image *//*
+
 .responsive-img {
   width: 100%;
   max-width: 600px;
@@ -182,7 +317,9 @@ body.dark-mode #time-container {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* Mobile Responsive Fixes */
+*/
+/* Mobile Responsive Fixes *//*
+
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
@@ -214,3 +351,4 @@ body.dark-mode #time-container {
     margin: 1rem;
   }
 }
+*/

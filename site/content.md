@@ -1,6 +1,3 @@
-> ✍️ development in progresses...
-
-
 ## Table of Contents
 
 1. [Section 5 – Operator & Expression](#section-5-operator--expression-with-casting-focus)
@@ -65,12 +62,63 @@
 
 20. [Section 24 – Java Generics: Type-Safe Data Structures](#section-24-java-generics--type-safe-data-structures)
 
-21. 
+21. [Section 25 – Collection Framework: Mastering Java Collections](#section-25-collection-framework--mastering-java-collections)
+    
+    21.1. [HashMap Core Internals & Enhancements](#hashmap-core-internals--enhancements)
+
+    22.2. [Java List Implementations, Stack Behavior & Comparator Use](#java-list-implementations-stack-behavior--comparator-use)
+
+    22.3. [Java Vector Class & PriorityQueue Overview](#java-vector-class--priorityqueue-overview)
+
+    22.4. [PriorityQueue in-Java](#priorityqueue-in-java)
+
+    22.5. [Java Properties Class & Queue Implementations](#java-properties-class--queue-implementations)
+    
+    22.6. [Java Set Interface & Implementations](#java-set-interface--implementations)
+    
+    22.7. [Sorted Maps, TreeSets, and Comparators in Java](#sorted-maps-treesets-and-comparators-in-java)
+
+22. [🕒Date and Time API](#section-26-java-date-and-time-api)
+
+23. [Section 27: Network Programming – Datagram Reverse Echo Server](#section-27-network-programming--datagram-reverse-echo-server)
+
+    23.1. [Reverse Echo Server (TCP)](#section-27-network-programming--reverse-echo-server-tcp)
+
+24. [Section 28: JDBC Using SQLite](#section-28-jdbc-using-sqlite)
+
+25. [JAVA 8](#java-8)
+
+    25.1. [CompletableFuture – Asynchronous Programming in Java 8](#completablefuture--asynchronous-programming-in-java-8)
+
+    25.2. [Constructor Reference – Simplifying Object Creation](#constructor-reference--simplifying-object-creation)
+
+    25.3. [Consumer & Supplier Functional Interfaces](#consumer--supplier-functional-interfaces)
+
+    25.4. [Functional Interfaces in Java 8](#functional-interfaces-in-java-8)
+
+    26.5. [Java 8 Features Used in Streams](#java-8-features-used-in-streams)
+
+    25.6. [Java Collectors API](#java-collectors-api)
+
+    25.7. [Lambda Expressions](#lambda-expressions)
+
+    25.8. [Method References](#method-references)
+
+    25.9. [Java 8 Operators](#java-8-operators)
+
+    25.10. [Java 8 Predicates – Functional Evaluation Made Simple](#java-8-predicates--functional-evaluation-made-simple)
+    
+    25.11. [Streams in Java – Powerful Data Processing](#streams-in-java--powerful-data-processing)
+
+    25.12. [Java 8 Primitive Streams – IntStream, LongStream, DoubleStream](#java-8-primitive-streams--intstream-longstream-doublestream)
+
+    25.13. [Streams in Java 8 – Core Concepts & Pipelines](#streams-in-java-8--core-concepts--pipelines)
+
+26. [JDK Features – Enhancements Across Versions](#jdk-features--enhancements-across-versions)
 
 ---
 
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
-
 
 ## 🔗 Repository Quick Links
 
@@ -1426,11 +1474,9 @@ This section is all about mastering **Java Generics**, which allow type-safe and
 ---
 
 
-### [Section25 Collection Framework – Mastering Java Collections](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework)
+# Section 25: Collection Framework – Mastering Java Collections
 
 This section begins your journey into the **Java Collection Framework**, starting with **concurrent maps**—essential when working with multithreaded applications or high-performance systems.
-
----
 
 #### 🧠 Combined Summary:
 
@@ -1454,7 +1500,6 @@ This section begins your journey into the **Java Collection Framework**, startin
 - **Visual Aid**:
   - Image: `Skip List Data Structure.png` shows the layered structure of a skip list, helping visualize how search efficiency is achieved.
 
----
 
 #### 📌 Related Topic Overview:
 
@@ -1464,16 +1509,11 @@ This section begins your journey into the **Java Collection Framework**, startin
 | Map Comparison                | `HashMap vs Hashtable vs ConcurrentHashMap.txt`              | When to use what map type and the trade-offs             |
 | Sorted Concurrent Map         | `ConcurrentSkipListMapDemo.java`, `Skip List Data Structure.png` | Skip list logic and its advantage in concurrent systems  |
 
----
 
 🔎 **Real-World Insight**:
 Use `ConcurrentHashMap` when building **caches**, **real-time analytics systems**, or **high-throughput services** where multiple threads interact with a shared map.
 
-
-
-### 🔍 Deep Dive: Custom HashMap & Garbage Collection
-
----
+## 🔍 Deep Dive: Custom HashMap & Garbage Collection
 
 #### 🧠 Combined Summary:
 
@@ -1493,14 +1533,10 @@ Use `ConcurrentHashMap` when building **caches**, **real-time analytics systems*
   - Text: `demonstrating how HashMap works internally when we use custom objects.txt`
   - Step-by-step case: what happens if you **don’t override** `hashCode()` and `equals()`
 
----
-
 #### ♻️ Bonus: Garbage Collection
 - File: `GCDemo.java`
 - Introduces Java’s **automatic memory management**
 - Shows how unused objects are detected and destroyed by the **Garbage Collector (GC)** to free memory
-
----
 
 #### 📌 Related Topic Overview:
 
@@ -1511,16 +1547,17 @@ Use `ConcurrentHashMap` when building **caches**, **real-time analytics systems*
 | Internal HashMap Behavior     | `demonstrating how HashMap works internally when we use custom objects.txt` | How custom keys behave in collections                             |
 | Memory Management             | `GCDemo.java`                                                    | Java Garbage Collector (GC) working principle                     |
 
----
-
 🛠️ **Practice Tip**:
 Try creating a `Student` class as a key in a `HashMap`—observe how behavior changes when `hashCode()` and `equals()` are missing, default, or overridden.
 
 
+### [Section25 Collection Framework – Mastering Java Collections](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework)
 
-### 🧠 Detailed Breakdown: HashMap Core Internals & Enhancements
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## HashMap Core Internals & Enhancements
 
 #### 🔍 Combined Summary:
 
@@ -1550,8 +1587,6 @@ This section provides an **in-depth, visual, and textual breakdown** of how `Has
   - File: `EnumMapDemo.java`
   - Showcases usage of `EnumMap` (specialized map for `enum` keys — **faster than HashMap**)
 
----
-
 #### 🧵 Related Topic Overview:
 
 | Topic                                | Key Files / Folders                                                       | Concepts Learned                                             |
@@ -1563,15 +1598,12 @@ This section provides an **in-depth, visual, and textual breakdown** of how `Has
 | HashMap vs TreeMap vs EnumMap       | `Differences Between TreeMap and HashMap in Java.txt`, `EnumMapDemo.java` | Sorted vs unsorted maps, `EnumMap` speed advantages          |
 | Real-World Applications & Best Practices | `real-world applications hash map.txt`, `MapReviseThis.txt`               | When and where to use `HashMap` in practice                  |
 
----
 
 🧠 **Pro Tip**:
 Next time you debug a `HashMap` collision or rehash issue, recall the internal flow from these diagrams — it’ll save you hours of guesswork.
 
 
-### 🧠 Deep Dive: Java Map Implementations & Related Demos
-
----
+## 🧠 Deep Dive: Java Map Implementations & Related Demos
 
 #### 🔍 Combined Summary:
 
@@ -1611,8 +1643,6 @@ This part of the collection framework dives into **advanced Map types** and **sp
   - `MapSetDemo.java`, `ListVsMap 1.java` – Visual and code-based comparisons.
   - Visuals like `Which one to use Map.png`, `Map Demo.png` help in decision making.
 
----
-
 #### 🧵 Related Topic Overview:
 
 | Topic                        | Key Files / Folders                                  | Concepts Learned                                                              |
@@ -1625,16 +1655,17 @@ This part of the collection framework dives into **advanced Map types** and **sp
 | HashTable & Thread Safety   | `HashTableDemo.java`, `ThreadSafeHashTable.java`     | Comparing legacy synchronized maps vs concurrent collections                  |
 | Comparison Diagrams         | `Map Demo.png`, `Which one to use Map.png`           | Visual overview of when to use which `Map` implementation                    |
 
----
 
 🧠 **Pro Tip**:  
 When designing high-performance or concurrent apps, choosing the right `Map` can make or break your scalability. Need help picking between `ConcurrentHashMap` vs `SynchronizedMap` or building a thread-safe LRU cache? Just ask!
 
+### [🧠 HashMap Core Internals & Enhancements On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework/src/HashMapDemo)
 
-
-### 📚 Java List Implementations, Stack Behavior & Comparator Use
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Java List Implementations, Stack Behavior & Comparator Use
 
 #### 🔍 Combined Summary:
 
@@ -1670,8 +1701,6 @@ This section dives into the **`List` interface** and its popular implementations
     - Practical usage (`StackDemo.java`, `InputStacks.java`)
     - Summary file `stack_data.txt` reinforces the theory.
 
----
-
 #### 🧵 Related Topic Overview:
 
 | Topic                            | Key Files / Folders                              | Concepts Learned                                                             |
@@ -1682,23 +1711,22 @@ This section dives into the **`List` interface** and its popular implementations
 | CopyOnWriteArrayList             | `CopyOnWriteArrayListDemo/`                     | Thread-safe list, immutability during iteration                              |
 | Stack Implementation & Diagrams | `SatckDemo/`                                     | LIFO structure, inheritance, usage in Java                                   |
 
----
-
 💡 **Tip**:  
 Use `ArrayList` when you need fast random access and `LinkedList` for frequent insertions/removals. For concurrent access with iteration safety, `CopyOnWriteArrayList` is a lifesaver (though memory-heavy).
 
+### [Java List Implementations On Github](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework/src/ListDemo)
 
-### 🧵 Java `Vector` Class & PriorityQueue Overview
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Java `Vector` Class & PriorityQueue Overview
 
 #### 🔍 Combined Summary:
 
 This portion of the Java Collections Framework focuses on **`Vector`**, an older synchronized list implementation, and the **`PriorityQueue`**, a queue-based data structure with natural or custom ordering.
 
----
-
-#### 🧱 Vector: Synchronized List
+### 🧱 Vector: Synchronized List
 
 - **Visual Aids & Core Files**:
   - `Constructor in Vector.jpeg`, `Key Features.jpeg`, and `Synchronization in Vector.png` explain:
@@ -1714,9 +1742,14 @@ This portion of the Java Collections Framework focuses on **`Vector`**, an older
 
 - 🧠 **Takeaway**: Use `Vector` only when you *must* maintain synchronization. For modern code, prefer `ArrayList` with external synchronization or use `CopyOnWriteArrayList`.
 
+
+### [Java Vector on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework/src/ListDemo/Vector)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-#### ⏫ PriorityQueue
+## PriorityQueue in Java
 
 - **File**: `PriorityQueueDemo/PriorityQueueDemo.java`
   - Shows how to:
@@ -1724,8 +1757,6 @@ This portion of the Java Collections Framework focuses on **`Vector`**, an older
     - Apply custom sorting with `Comparator`
     - Handle min-heaps and max-heaps
   - Ideal for scheduling tasks, Dijkstra’s algorithm, or any use-case that needs elements in order.
-
----
 
 #### 🧵 Related Topic Overview
 
@@ -1735,22 +1766,23 @@ This portion of the Java Collections Framework focuses on **`Vector`**, an older
 | Priority Queue   | `PriorityQueueDemo/`                    | Min/Max heaps, sorting via `Comparator`, queue behavior with ordering logic      |
 | List Comparison  | `Array vs LinkedList.*`, `double ended queue.png` | Performance trade-offs and structural choices across list implementations |
 
----
 
 💡 **Quick Tip**:  
 `Vector` may be thread-safe, but at the cost of performance due to method-level locking. Prefer modern concurrent collections unless you're working with legacy systems. For ordering-sensitive queueing tasks, `PriorityQueue` is your go-to, but remember—it doesn't guarantee complete order during iteration.
 
 
+### [Java PriorityQueue Demo on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework/src/PriorityQueueDemo)
 
-### 🧾 Java `Properties` Class & Queue Implementations
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Java `Properties` Class & Queue Implementations
 
 #### 🔍 Combined Summary:
 
 This section explores the **`Properties` class**, a key-value pair storage often used for configuration files, along with an extensive demo of various **queue-based data structures** used for task scheduling, communication between threads, and more.
 
----
 
 ### 🗃️ `Properties` Class
 
@@ -1763,7 +1795,6 @@ This section explores the **`Properties` class**, a key-value pair storage often
 
 - 🧠 **Takeaway**: Use `Properties` for externalizing config data, lightweight persistence, or setting environment variables at runtime.
 
----
 
 ### 📥 Java Queue Implementations
 
@@ -1787,8 +1818,6 @@ A rich demo of Java’s `Queue` API and its concurrent counterparts.
   - `ConcurrentLinkedQueue`/`Deque` for high-concurrency systems.
   - `PriorityQueue` or `DelayQueue` for scheduling and delayed tasks.
 
----
-
 ### 🔗 Related Topic Overview
 
 | Topic             | Key Concepts                          | Related Code or Media                                         |
@@ -1798,21 +1827,22 @@ A rich demo of Java’s `Queue` API and its concurrent counterparts.
 | CAS               | Compare-And-Swap logic in Java         | `CASDemo.java`, `CAS.txt`                                      |
 | Min Heaps         | Used in PriorityQueues                 | `Min Heap Insertion and Deletion.png`                          |
 
----
 
 💡 **Quick Tip**:  
 For thread-safe operations **without blocking**, favor **lock-free queues** like `ConcurrentLinkedQueue`. For scheduling or throttling tasks based on time or priority, rely on `DelayQueue` or `PriorityQueue`.
 
 
-### 🔧 Java `Set` Interface & Implementations
+### [Java `Properties` & Queue Implementations on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework/src/Properties)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Java `Set` Interface & Implementations
 
 #### 🔍 Combined Summary:
 
 This section provides practical exploration of the Java `Set` interface and its popular implementations: `HashSet`, `LinkedHashSet`, and `BitSet`. Each type is used for **storing unique elements**, with different internal mechanics and performance characteristics.
-
----
 
 ### 🧩 Core Set Types and Demos
 
@@ -1823,16 +1853,12 @@ This section provides practical exploration of the Java `Set` interface and its 
 | **BitSet**      | Efficient bitwise manipulation using boolean arrays | `BitSetDemo.java` (in `BitSetForPerformingBitWiseBitManipulation`) |
 | **Set Interface** | General overview & examples                        | `SetOverview.java`                                              |
 
----
-
 ### 🧠 Key Concepts
 
 - `Set`: No duplicates allowed.
 - `HashSet`: Best for fast operations, but order is not maintained.
 - `LinkedHashSet`: Preserves insertion order, slightly slower than `HashSet`.
 - `BitSet`: Special set for manipulating bits efficiently (great for flags, permissions, and bit masks).
-
----
 
 ### 🔗 Related Topic Overview
 
@@ -1843,16 +1869,18 @@ This section provides practical exploration of the Java `Set` interface and its 
 | Bit Manipulation     | Bit-level operations                      | `BitSetDemo.java`                                                |
 | Set Theory           | Practical usage of unique collections     | `SetOverview.java`                                               |
 
----
 
 💡 **Quick Tip**:  
 Use `HashSet` for fast element existence checks, `LinkedHashSet` when order matters, and `BitSet` for memory-efficient manipulation of binary flags or indexes.
 
 
+### [Java `Set` Implementations on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework/src/Set)
 
-### 🌳 Sorted Maps, TreeSets, and Comparators in Java
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Sorted Maps, TreeSets, and Comparators in Java
 
 #### 🔍 Combined Summary:
 
@@ -1860,7 +1888,6 @@ This section explores **SortedMap**, **TreeMap**, **NavigableMap**, and **TreeSe
 
 It also dives deep into **sorting strategies using `Comparable` and `Comparator`**, highlighting how Java collections are sorted naturally or customly.
 
----
 
 ### 🧭 SortedMap & TreeMap Essentials
 
@@ -1873,8 +1900,6 @@ It also dives deep into **sorting strategies using `Comparable` and `Comparator`
 | **Comparators**             | Compare using custom logic                                      | `ComparatorVsComparable.txt`, `ComparableDemo.java`, `ComparableInterfaceDemoIMP.java/.txt` |
 | **Time Complexity**         | Insight into internal mechanics                                 | `Understand Time Complexity.jpeg`, `Understand Time Complexity 2.jpeg.png` |
 
----
-
 ### 🧠 Key Concepts
 
 - **TreeMap**: Orders keys using their natural order or a provided `Comparator`.
@@ -1884,7 +1909,6 @@ It also dives deep into **sorting strategies using `Comparable` and `Comparator`
   - `Comparator`: Used for custom ordering; passed to the data structure.
 - **NavigableMap**: Adds methods like `ceilingKey`, `floorEntry`, etc.
 
----
 
 ### 🔗 Related Topic Overview
 
@@ -1894,23 +1918,24 @@ It also dives deep into **sorting strategies using `Comparable` and `Comparator`
 | Sorting Strategies | Custom sorting                        | `ComparableInterfaceDemoIMP.java`, `ComparatorVsComparable.txt` |
 | Performance        | Big-O analysis                         | `Understand Time Complexity.jpeg`       |
 
----
 
 💡 **Quick Tip**:  
 Use `TreeMap` or `TreeSet` when you need sorted data structures and fast lookup. Opt for `NavigableMap` when you need floor/ceiling/range-based access.
 
 
+### [SortedMap, TreeSet & Comparator Implementations on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section25CollectionFramework/src/SortedMapDemo)
 
-### 🕒 Java Date and Time API (Section 26)
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Section 26 Java Date and Time API
 
 #### 📘 Combined Summary:
 
 This section covers both the **modern Java Date and Time API (java.time)** introduced in Java 8 and the **legacy APIs** like `Date`, `Calendar`, and `GregorianCalendar`. It also includes **Joda-Time**, which inspired the new API. The material demonstrates how to **parse, format, manipulate, and work with time zones** using the updated and older classes.
 
 ---
-
 ```
 ### 🧩 Key Topics & Files
 
@@ -1924,7 +1949,6 @@ This section covers both the **modern Java Date and Time API (java.time)** intro
 
 ```
 ---
-
 ### 🔑 Concept Highlights
 
 - ✅ **java.time package** (Java 8+):
@@ -1944,7 +1968,7 @@ This section covers both the **modern Java Date and Time API (java.time)** intro
   - Used before Java 8; still relevant in legacy systems.
 
 ---
-
+```
 ### 📎 Related Topic Overview
 
 | Concept                 | Description                                 | File Reference                                            |
@@ -1953,22 +1977,24 @@ This section covers both the **modern Java Date and Time API (java.time)** intro
 | Real-life use of Calendar | Legacy calendar examples                   | `Real-Life Applications of Calendar...txt`               |
 | TimeZone vs ZonedDateTime | Managing offsets & zones                   | `TimeZoneDemo.java`, `Time Zones.png`                    |
 | Date formatting         | Custom and standard patterns                | `DateTimeFormatDemo.java`, `DateTimeDemo.java`           |
-
+````
 ---
 
 💡 **Pro Tip**:  
 Always prefer `java.time` classes over legacy `Date` and `Calendar` for **immutability, thread-safety, and cleaner API design**. Use `ZonedDateTime` when working with **internationalized applications**.
 
 
-### 🌐 Section 27: Network Programming - Datagram Reverse Echo Server
+### [Java Date and Time API – GitHub Source](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section26DateandTimeAPI/src)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Section 27: Network Programming – Datagram Reverse Echo Server
 
 #### 📘 Combined Summary:
 
 This section focuses on **UDP-based socket programming** using **Datagram sockets** in Java. It demonstrates how to create a **simple Reverse Echo Server** where the server receives a message from the client and sends the reversed message back. Both a basic and improved version of the client-server implementation are included, illustrating how data packets are sent and received over the network using `DatagramSocket` and `DatagramPacket`.
-
----
 
 ### 🔑 Key Concepts
 
@@ -1979,8 +2005,6 @@ This section focuses on **UDP-based socket programming** using **Datagram socket
 | **DatagramPacket**       | Container for sending/receiving byte data                                  |
 | **Echo Server Logic**    | Receives a message and replies with the reversed string                    |
 
----
-
 ### 📁 Structure & Files
 
 | File/Folder                          | Description                                                                 |
@@ -1988,8 +2012,6 @@ This section focuses on **UDP-based socket programming** using **Datagram socket
 | `DatagramClient.java`               | The UDP client that sends messages to the server                           |
 | `Server.java` (Improved Version)    | The UDP server that receives, reverses, and sends back the message         |
 | `Develop Datagram client and server.pdf/png` | Visual/Documented explanation of datagram flow                         |
-
----
 
 ### 🧩 Related Topic Overview
 
@@ -2000,7 +2022,6 @@ This section focuses on **UDP-based socket programming** using **Datagram socket
 | **Networking APIs**    | Core Java classes: `DatagramSocket`, `DatagramPacket`, `InetAddress`          |
 | **Real-Time Use Cases**| Online games, streaming, IoT — where low latency is more important than reliability |
 
----
 
 💡 **Pro Tip**:  
 Unlike TCP, **UDP does not guarantee delivery**, so it’s ideal for situations where speed is critical and some data loss is acceptable. Always handle **timeouts and packet size limitations** in real-world applications.
@@ -2023,9 +2044,13 @@ String reversed = new StringBuilder(new String(received.getData())).reverse().to
 
 ```
 
-### 🤝 Section 27: Network Programming - Reverse Echo Server (TCP)
+### [🌐 Section27NetworkProgramming – GitHub Source](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section27NetworkProgramming)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Section 27: Network Programming – Reverse Echo Server (TCP)
 
 #### 📘 Combined Summary:
 
@@ -2036,8 +2061,6 @@ This part of the **Network Programming** section explores TCP-based client-serve
 
 In both cases, when a client sends a message, the server reverses the string and sends it back — showcasing basic **two-way communication using TCP sockets**.
 
----
-
 ### 🔑 Key Concepts
 
 | Topic                    | Description                                                                 |
@@ -2047,8 +2070,6 @@ In both cases, when a client sends a message, the server reverses the string and
 | **Single-threaded Server**| Only one client can be served at a time                                    |
 | **Multithreaded Server** | Handles each client in a separate thread for concurrent handling            |
 
----
-
 ### 🧩 Related Files & Workflows
 
 | File/Folder                                | Description                                                     |
@@ -2057,8 +2078,6 @@ In both cases, when a client sends a message, the server reverses the string and
 | `ReverseEchoServerMultipleClient/src/MultiClient/ReverseEcho.java` | Multithreaded server accepting multiple clients         |
 | `Multi Threaded server’s workflow.pdf/png` | Diagrams explaining thread-based client handling        |
 | `RevserseEcho.java`                        | Likely an older version or typo of the main multithreaded logic |
-
----
 
 ### 🔄 Working Mechanism
 
@@ -2099,9 +2118,13 @@ and building scalable backend systems.
 
 ```
 
-### 🗃️ Section 28: JDBC Using SQLite
+### [Section 27 Network Programming On GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section27NetworkProgramming)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Section 28 JDBC Using SQLite
 
 ### 📘 Combined Summary:
 
@@ -2113,8 +2136,6 @@ You’ll learn how to:
 - Execute these commands through JDBC in Java
 - Work with different JDBC interfaces
 - Create real-world database programs
-
----
 
 ### 🧠 Core Concepts & Tools
 
@@ -2129,8 +2150,6 @@ You’ll learn how to:
 | **Joins**                      | SQL `INNER`, `LEFT`, `RIGHT`, and `CROSS JOIN` explained with diagrams     |
 | **JDBC Programming**           | Java code to connect and interact with SQLite using JDBC                   |
 | **JDBC Interfaces**            | Deep dive into `Statement`, `PreparedStatement`, and `CallableStatement`   |
-
----
 
 ### 🔍 Structure Breakdown
 
@@ -2147,8 +2166,6 @@ You’ll learn how to:
 | `SQL (Aggregated Functions & Set Operations)/` | Rich visuals and notes on complex SQL operations and queries     |
 | `SQLite Setup/`                          | Setup instructions with screenshots for SQLite CLI or integration with IDE |
 | `most useful and important SQL concept.txt` | Final revision or cheat sheet                                          |
-
----
 
 ### 💡 Highlight: JDBC Interfaces
 
@@ -2189,13 +2206,20 @@ Subquery Optimization	Used in large JOINs or filtered data logic
 Database Connectivity	DriverManager.getConnection() explained step-by-step
 ```
 
+
+### [ Section 28 JDBC Using SQLite On GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section28JDBCusingSQLite)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
+# JAVA 8
 
-### [JAVA8](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8)
+### [JAVA 8 On GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8)
 
+---
 
-### [CompletableFuture](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/CompletableFuture) 
+## CompletableFuture – Asynchronous Programming in Java 8
 
 — Asynchronous programming made easy.
 
@@ -2221,10 +2245,16 @@ and custom thread pools.
     - Error handling with `.exceptionally()`, composition with `.thenCompose()`, and parallel execution via `.allOf()` or `.anyOf()`.
     - Integration with streams and reactive systems.
 
-### [ConstructorReference](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/ConstructorReference)
-Simplifies object creation using method reference syntax. This section explains how to use constructor references (`ClassName::new`) to clean up factory-style code in Java 8 functional programming, making instantiation more readable and expressive when used with functional interfaces.
+
+### [Completable Future On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/CompletableFuture)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Constructor Reference – Simplifying Object Creation
+
+Simplifies object creation using method reference syntax. This section explains how to use constructor references (`ClassName::new`) to clean up factory-style code in Java 8 functional programming, making instantiation more readable and expressive when used with functional interfaces.
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2236,10 +2266,16 @@ Simplifies object creation using method reference syntax. This section explains 
   - Functional interfaces (`Supplier`, `Function`) enabling constructor referencing.
   - Relevance in stream pipelines and dependency injection patterns.
 
-### [ConsumerSupplier](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/ConsumerSupplier)
-Covers the `Consumer` and `Supplier` functional interfaces in Java 8. It demonstrates how to use `Consumer<T>` for performing actions on inputs and `Supplier<T>` for generating values, helping build flexible and reusable logic components.
+
+### [Constructor Reference On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/ConstructorReference)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Consumer & Supplier Functional Interfaces
+
+Covers the `Consumer` and `Supplier` functional interfaces in Java 8. It demonstrates how to use `Consumer<T>` for performing actions on inputs and `Supplier<T>` for generating values, helping build flexible and reusable logic components.
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2252,10 +2288,15 @@ Covers the `Consumer` and `Supplier` functional interfaces in Java 8. It demonst
   - Frequently used in combination with `Streams`, `Optional`, and other functional constructs.
 
 
-### [FunctionInterface](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/FunctionInterface)
-Focuses on the core idea of functional interfaces introduced in Java 8. Demonstrates how interfaces with a single abstract method (SAM) enable lambda expressions and method references for concise, functional-style coding.
+### [Consumer Supplier On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/ConsumerSupplier)
 
----
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
+----
+
+## Functional Interfaces in Java 8
+
+Focuses on the core idea of functional interfaces introduced in Java 8. Demonstrates how interfaces with a single abstract method (SAM) enable lambda expressions and method references for concise, functional-style coding.
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2267,12 +2308,15 @@ Focuses on the core idea of functional interfaces introduced in Java 8. Demonstr
   - Key interfaces include `Function`, `Predicate`, `Consumer`, `Supplier`.
   - Enables functional programming in Java and integration with the `Stream` API.
 
+### [Functional Interfaces On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/FunctionInterface)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [JAVA8FeaturesUsedInStreams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/JAVA8FeaturesUsedInStreams)
+## Java 8 Features Used in Streams
+
 Highlights Java 8’s stream-related enhancements. Breaks down how lambda expressions, functional interfaces, method references, and the Streams API come together for clean, efficient, and parallelizable data processing.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2287,10 +2331,15 @@ Highlights Java 8’s stream-related enhancements. Breaks down how lambda expres
   - Works hand-in-hand with lambda expressions and functional interfaces.
 
 
-### [JavaCollectorsAPI](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/JavaCollectorsAPI)
-Deep dive into the Java Collectors API, demonstrating how streams and collectors work together to aggregate, transform, and manage data. Great for understanding how Java handles grouping, mapping, and summarizing collections using modern functional style.
+### [JAVA8 Features Used In Streams On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/JAVA8FeaturesUsedInStreams)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Java Collectors API
+
+Deep dive into the Java Collectors API, demonstrating how streams and collectors work together to aggregate, transform, and manage data. Great for understanding how Java handles grouping, mapping, and summarizing collections using modern functional style.
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2305,12 +2354,15 @@ Deep dive into the Java Collectors API, demonstrating how streams and collectors
   - Key for transforming and reducing large datasets efficiently.
   - Used extensively in back-end APIs and data pipelines.
 
+### [Java Collectors API On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/JavaCollectorsAPI)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [LambdaExpression](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/LambdaExpression)
+## Lambda Expressions
+
 Focuses on the backbone of Java 8's functional programming—lambda expressions. Explores syntax, use with collections, and integration with interfaces like `Function`, `Predicate`, and `Consumer`.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2326,10 +2378,15 @@ Focuses on the backbone of Java 8's functional programming—lambda expressions.
   - Improves readability, reduces boilerplate, and supports immutability.
 
 
-### [MethodReference](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/MethodReference)
-Simple yet powerful showcase of Java 8 method references—a shortcut to writing lambdas when method calls can be directly referred to. Clean, elegant code for functional programming.
+### [Lambda Expression On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/LambdaExpression)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Method References
+
+Simple yet powerful showcase of Java 8 method references—a shortcut to writing lambdas when method calls can be directly referred to. Clean, elegant code for functional programming.
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2340,12 +2397,15 @@ Simple yet powerful showcase of Java 8 method references—a shortcut to writing
   - Works with functional interfaces like `Consumer`, `Function`, etc.
   - Makes lambda expressions shorter and more readable.
 
+### [Method Reference On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/MethodReference)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [Operator](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/Operator)
+## Java 8 Operators
+
 Explores Java’s functional interfaces `UnaryOperator` and `BinaryOperator`—specialized forms of `Function` with same input and output types. Useful in scenarios where transformation or reduction is needed.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2357,12 +2417,15 @@ Explores Java’s functional interfaces `UnaryOperator` and `BinaryOperator`—s
   - `BinaryOperator<T>`: operates on two operands of the same type.
   - Common in stream reductions, math operations, and data transformations.
 
+### [Operator On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/Operator)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [Predicates](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/Predicates)
+## Java 8 Predicates – Functional Evaluation Made Simple
+
 Predicate interface in action—evaluating conditions using a functional interface that returns boolean. Often used for filtering, validation, and branching logic in streams.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2373,12 +2436,15 @@ Predicate interface in action—evaluating conditions using a functional interfa
   - Can be chained to form complex conditions.
   - Widely used in `filter()` method of streams.
 
+### [Predicates On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/Predicates)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [StreamsInJAVA](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA)
+## Streams in Java – Powerful Data Processing
+
 Massive collection of everything Java 8 Streams—from primitive stream handling to parallel and piped streams. Ideal for mastering stream internals and writing performant functional pipelines.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2397,10 +2463,15 @@ Massive collection of everything Java 8 Streams—from primitive stream handling
   - Piped streams allow threading communication, often in producer-consumer scenarios.
 
 
-### [PrimitiveStreams](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA/PrimitiveStreams)
-Focused on the usage of primitive stream variants (`IntStream`, `DoubleStream`, `LongStream`) in Java 8 to improve performance by avoiding boxing overhead in numeric computations and stream operations.
+### [Streams In JAVA On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
+## Java 8 Primitive Streams – IntStream, LongStream, DoubleStream
+
+Focused on the usage of primitive stream variants (`IntStream`, `DoubleStream`, `LongStream`) in Java 8 to improve performance by avoiding boxing overhead in numeric computations and stream operations.
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2412,12 +2483,16 @@ Focused on the usage of primitive stream variants (`IntStream`, `DoubleStream`, 
   - More efficient than using `Stream<Integer>`, etc., due to no boxing/unboxing.
   - Useful for numerical computations, statistics, or working with arrays.
 
+
+### [Primitive Streams On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA/PrimitiveStreams)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [StreamsInJAVA (Core Concepts)](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA)
+## Streams in Java 8 – Core Concepts & Pipelines
+
 A deep dive into stream mechanics including intermediate & terminal operations, lazy evaluation, and the distinction between stateful/stateless stream behaviors.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2432,12 +2507,15 @@ A deep dive into stream mechanics including intermediate & terminal operations, 
   - **Stateless vs Stateful**: Stateless (e.g., `map`) doesn't depend on previous elements; stateful (e.g., `sorted`) needs full stream context.
   - **Lazy Evaluation**: Stream operations are executed only when a terminal operation is present—optimizes performance.
 
+### [Streams In JAVA (Core Concepts) On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/StreamsInJAVA)
+
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
+
 ---
 
-### [JDK Features](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JDK%20Features)
+## JDK Features – Enhancements Across Versions
+
 Covers core enhancements and syntax updates introduced across Java versions from 8 to 24. Each subfolder gives practical insights through `.java` files and supporting notes, helping developers understand version-specific capabilities.
-
----
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
@@ -2455,48 +2533,8 @@ Covers core enhancements and syntax updates introduced across Java versions from
   - Useful for migration strategies, learning syntactic sugar, and understanding deprecations.
   - Provides foundational understanding of how Java has adapted over time in terms of readability, conciseness, and performance.
 
----
+### [JDK Features On Git](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JDK%20Features)
 
-### 🌐 Website Structure Overview – Jekyll-based Project Breakdown
-
----
-
-This `site` directory appears to be a **Jekyll static site** — a common setup for personal portfolios, documentation websites, or educational wikis. Here’s a breakdown of how each part contributes:
-
----
-
-### 📁 Directory & File Breakdown
-
-#### 🧱 `_layouts/`
-- **`default.html`**:  
-  Base layout file applied across the site. Includes the boilerplate HTML, head elements, and body structure.
-
-#### 🔁 `_includes/`
-- **`nav.html`**:  
-  Contains reusable components like the navigation bar. Included in `default.html` via `{% include nav.html %}`.
-
-#### 🎨 `assets/`
-- **`style.css`**: Site-wide CSS styles
-- **`favicon.*`** & **`apple-touch-icon.png`**: Icons for browser tabs and mobile devices
-- **`sw.js`**: Service Worker for PWA (Progressive Web App) support
-- **`site.webmanifest`**, `web-app-manifest-192x192.png`, `web-app-manifest-512x512.png`: Metadata and icons for mobile app-like experience
-
-#### 📄 Content Files
-- **`index.md`**: Likely the home page (rendered at `/`)
-- **`home.md`**: Possibly another variant of the landing page
-- **`Explaination.md`**: May contain overall guide or walkthrough
-- **`content.md`**: Could hold course/module breakdown or project topics
-
-#### ⚙️ `_config.yml`
-- Jekyll site configuration: sets site title, theme, base URL, plugins, etc.
-
----
-
-### 🔍 How It All Connects
-
-- `index.md` uses `layout: default` → which includes `nav.html` → loads styles from `assets/style.css`
-- Icons and manifest support modern browser experience and PWA features
-- Markdown files (`.md`) become HTML pages via Jekyll conversion
-- Static content means it’s fast, lightweight, and ideal for deployment via GitHub Pages or Netlify
+### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---

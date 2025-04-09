@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | relative_url }}" />
     <meta name="apple-mobile-web-app-title" content="Java" />
 
-    <!-- Manifest: Use only one link, adjust for GitHub Pages project path -->
+    <!-- Manifest (use only one, with correct GitHub Pages path) -->
     <link rel="manifest" href="/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
 
@@ -25,7 +25,7 @@
           sidebar.classList.toggle("hidden");
         }
 
-        // Function to hide sidebar if clicked outside
+        // Hide sidebar when clicking outside
         function hideSidebarIfClickedOutside(event) {
           const sidebar = document.getElementById("sidebar");
           const toggleBtn = document.querySelector(".toggle-btn");
@@ -36,13 +36,13 @@
           }
         }
 
-        // Dark Mode Toggle Function
+        // Dark Mode Toggle Function (now used inside time container)
         const toggleDarkMode = () => {
           document.body.classList.toggle('dark-mode');
           localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         };
 
-        // Live Time Update Function (includes GMT offset)
+        // Live Time Update Function with GMT Offset
         function updateLiveTime() {
           const now = new Date();
           let hours = now.getHours();
@@ -52,7 +52,7 @@
           hours = hours % 12 || 12;
           const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
 
-          // Compute offset (JS returns minutes behind UTC; here we negate to get GMT+ for IST)
+          // Calculate GMT offset (JS returns minutes behind UTC; we negate to show positive for IST)
           const offset = -now.getTimezoneOffset();
           const offsetHours = Math.floor(Math.abs(offset) / 60);
           const offsetMinutes = Math.abs(offset) % 60;
@@ -62,7 +62,7 @@
           document.getElementById('live-time').textContent = `Time: ${timeString} ${offsetString}`;
         }
 
-        // Service Worker Registration (ensure sw.js is at the correct path)
+        // Service Worker Registration
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker.register("/JavaEvolution-Learning-Growing-Mastering/assets/sw.js")
             .then(() => console.log("✅ Service Worker Registered"))
@@ -71,26 +71,21 @@
 
         // Initialization on DOMContentLoaded
         window.addEventListener('DOMContentLoaded', () => {
-          // Dark mode initialization
           if (localStorage.getItem('dark-mode') === 'true') {
             document.body.classList.add('dark-mode');
           }
-          // Attach click listener for sidebar auto-hide
           document.addEventListener('click', hideSidebarIfClickedOutside);
-
-          // Start live time updates
           updateLiveTime();
           setInterval(updateLiveTime, 1000);
         });
     </script>
 </head>
 <body>
-<!-- Dark Mode Toggle Button -->
-<button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
-
-<!-- Place the Time Container under the dark mode toggle -->
-<div id="time-location-container">
+<!-- The combined Time Container with Dark Mode Toggle -->
+<div id="time-container">
     <div id="live-time">Time: Loading...</div>
+    <!-- Dark mode toggle button placed inside the time container -->
+    <button onclick="toggleDarkMode()" class="dark-toggle" style="padding: 0.5rem; font-size: 1.2rem;">🌓</button>
 </div>
 
 <div class="wrapper">
@@ -101,7 +96,7 @@
 
     <!-- Content Area -->
     <div class="content">
-        <!-- Sidebar Toggle Button (keep if you want manual control) -->
+        <!-- Sidebar Toggle Button (if you want manual control; you may remove it later) -->
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         <div class="fade-in">
             {{ content }}

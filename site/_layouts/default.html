@@ -11,12 +11,12 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | relative_url }}" />
     <meta name="apple-mobile-web-app-title" content="Java" />
 
-    <!-- Manifest (use only one, with correct GitHub Pages path) -->
+    <!-- Manifest (for GitHub Pages project path) -->
     <link rel="manifest" href="/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
 
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 
     <script>
         // Sidebar Toggle Function
@@ -36,13 +36,13 @@
           }
         }
 
-        // Dark Mode Toggle Function (now used inside time container)
+        // Dark Mode Toggle Function
         const toggleDarkMode = () => {
           document.body.classList.toggle('dark-mode');
           localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         };
 
-        // Live Time Update Function with GMT Offset
+        // Live Time Update Function (with GMT offset)
         function updateLiveTime() {
           const now = new Date();
           let hours = now.getHours();
@@ -52,14 +52,14 @@
           hours = hours % 12 || 12;
           const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
 
-          // Calculate GMT offset (JS returns minutes behind UTC; we negate to show positive for IST)
+          // Calculate GMT offset (negate offset from getTimezoneOffset)
           const offset = -now.getTimezoneOffset();
           const offsetHours = Math.floor(Math.abs(offset) / 60);
           const offsetMinutes = Math.abs(offset) % 60;
           const offsetSign = offset >= 0 ? '+' : '-';
           const offsetString = `GMT${offsetSign}${offsetHours.toString().padStart(2, '0')}:${offsetMinutes.toString().padStart(2, '0')}`;
 
-          document.getElementById('live-time').textContent = `Time: ${timeString} ${offsetString}`;
+          document.getElementById('current-time').textContent = timeString + ' ' + offsetString;
         }
 
         // Service Worker Registration
@@ -71,21 +71,58 @@
 
         // Initialization on DOMContentLoaded
         window.addEventListener('DOMContentLoaded', () => {
+          // Restore dark mode preference
           if (localStorage.getItem('dark-mode') === 'true') {
             document.body.classList.add('dark-mode');
           }
+          // Attach listener for sidebar auto-hide
           document.addEventListener('click', hideSidebarIfClickedOutside);
+          // Start live time updates
           updateLiveTime();
           setInterval(updateLiveTime, 1000);
         });
     </script>
+
+    <!-- (Optional inline styles for the time container can also reside in your style.css) -->
+    <style>
+        /* Time Container (holds the live time and dark mode toggle) */
+        #time-container {
+          position: fixed;
+          top: 1rem;
+          right: 1rem;
+          z-index: 1100;
+          background: rgba(0, 0, 0, 0.6);
+          color: #00ffff;
+          border: 1px solid #00ffff;
+          box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+          border-radius: 16px;
+          padding: 0.6rem 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-weight: 600;
+          font-size: 1.05rem;
+        }
+        /* Dark mode overrides for the time container */
+        body.dark-mode #time-container {
+          background-color: #333;
+          color: #eee;
+        }
+        @media (max-width: 600px) {
+          #time-container {
+            flex-direction: column;
+            font-size: 0.95rem;
+            padding: 0.8rem;
+          }
+        }
+    </style>
 </head>
 <body>
-<!-- The combined Time Container with Dark Mode Toggle -->
+
+<!-- Time Container with Dark Mode Toggle Embedded -->
 <div id="time-container">
-    <div id="live-time">Time: Loading...</div>
-    <!-- Dark mode toggle button placed inside the time container -->
-    <button onclick="toggleDarkMode()" class="dark-toggle" style="padding: 0.5rem; font-size: 1.2rem;">🌓</button>
+    <span id="current-time">--:--</span>
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
 </div>
 
 <div class="wrapper">
@@ -96,7 +133,7 @@
 
     <!-- Content Area -->
     <div class="content">
-        <!-- Sidebar Toggle Button (if you want manual control; you may remove it later) -->
+        <!-- Optional: Manual Sidebar Toggle Button -->
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         <div class="fade-in">
             {{ content }}

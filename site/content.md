@@ -118,14 +118,6 @@
 
 ---
 
-<sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
-
-## 🔗 Repository Quick Links
-
-📁 Repository: [JavaEvolution-Learning-Growing-Mastering](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering)
-
----
-
 # Section 5: Operator & Expression (with Casting Focus)
 
 ### 📘 Combined Summary:

@@ -18,85 +18,58 @@
     <title>{{ page.title }}</title>
     <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 
+    <!-- Script Section -->
+
     <script>
-        // Sidebar Toggle Function
-        function toggleSidebar() {
-            const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("visible");
-        }
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("hidden");
+    }
 
-        // Hide Sidebar When Clicking Outside
-        function hideSidebarIfClickedOutside(event) {
-            const sidebar = document.getElementById("sidebar");
-            const toggleBtn = document.querySelector(".toggle-btn");
-            if (sidebar.classList.contains("visible") &&
-                !sidebar.contains(event.target) &&
-                !toggleBtn.contains(event.target)) {
-                sidebar.classList.remove("visible");
-            }
-        }
+    function hideSidebarIfClickedOutside(event) {
+      const sidebar = document.getElementById("sidebar");
+      const toggleBtn = document.querySelector(".toggle-btn");
+      if (!sidebar.classList.contains("hidden") &&
+          !sidebar.contains(event.target) &&
+          !toggleBtn.contains(event.target)) {
+        sidebar.classList.add("hidden");
+      }
+    }
 
-        // Dark Mode Toggle Function
-        const toggleDarkMode = () => {
-            document.body.classList.toggle("dark-mode");
-            localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode"));
-        };
+    const toggleDarkMode = () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+    };
 
-        // Live Time Update Function with GMT Offset
-        function updateLiveTime() {
-            const now = new Date();
-            let hours = now.getHours();
-            const minutes = now.getMinutes().toString().padStart(2, "0");
-            const seconds = now.getSeconds().toString().padStart(2, "0");
-            const ampm = hours >= 12 ? "PM" : "AM";
-            hours = hours % 12 || 12;
-            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-            const offset = -now.getTimezoneOffset();
-            const offsetHours = Math.floor(Math.abs(offset) / 60);
-            const offsetMinutes = Math.abs(offset) % 60;
-            const offsetSign = offset >= 0 ? "+" : "-";
-            const offsetString = `GMT${offsetSign}${offsetHours.toString().padStart(2, "0")}:${offsetMinutes.toString().padStart(2, "0")}`;
-            document.getElementById("live-time").textContent = `${timeString} ${offsetString}`;
-        }
+    function updateLiveTime() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+      const offset = -now.getTimezoneOffset();
+      const offsetHours = Math.floor(Math.abs(offset) / 60);
+      const offsetMinutes = Math.abs(offset) % 60;
+      const offsetSign = offset >= 0 ? '+' : '-';
+      const offsetString = `GMT${offsetSign}${offsetHours.toString().padStart(2, '0')}:${offsetMinutes.toString().padStart(2, '0')}`;
+      document.getElementById('live-time').textContent = `Time: ${hours}:${minutes}:${seconds} ${ampm} ${offsetString}`;
+    }
 
-        // Service Worker Registration
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("/JavaEvolution-Learning-Growing-Mastering/assets/sw.js")
-                .then(() => console.log("✅ Service Worker Registered"))
-                .catch(err => console.error("SW registration failed", err));
-        }
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/JavaEvolution-Learning-Growing-Mastering/assets/sw.js")
+        .then(() => console.log("✅ Service Worker Registered"))
+        .catch(err => console.error("SW registration failed", err));
+    }
 
-        // Initialization
-        window.addEventListener("DOMContentLoaded", () => {
-            if (localStorage.getItem("dark-mode") === "true") {
-                document.body.classList.add("dark-mode");
-            }
-            document.addEventListener("click", hideSidebarIfClickedOutside);
-            updateLiveTime();
-            setInterval(updateLiveTime, 1000);
-        });
-    </script>
-</head>
-<body>
-<!-- Time Container with Dark Mode Toggle -->
-<div id="time-container">
-    <div id="live-time">Time: Loading...</div>
-    <button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
-</div>
-
-<div class="wrapper">
-    <!-- Sidebar Navigation -->
-    <div id="sidebar" class="sidebar">
-        {% include nav.html %}
-    </div>
-
-    <!-- Content Area -->
-    <div class="content">
-        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-        <div class="fade-in">
-            {{ content }}
-        </div>
-    </div>
-</div>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('dark-mode') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+      document.addEventListener('click', hideSidebarIfClickedOutside);
+      updateLiveTime();
+      setInterval(updateLiveTime, 1000);
+    });
+</script>
 </body>
 </html>

@@ -1,8 +1,13 @@
+/* Base Colors and Typography */
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
   --sidebar-bg: #f8f9fa;
   --link-color: #0366d6;
+  --button-bg: #eee;
+  --button-text: #000;
+  --hover-bg: rgba(0, 0, 0, 0.05);
+  --border-color: #ccc;
 }
 
 .dark-mode {
@@ -10,6 +15,10 @@
   --text-color: #e0e0e0;
   --sidebar-bg: #1f1f1f;
   --link-color: #90caf9;
+  --button-bg: #333;
+  --button-text: #fff;
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --border-color: #444;
 }
 
 body {
@@ -17,8 +26,8 @@ body {
   color: var(--text-color);
   margin: 0;
   font-family: sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 
 /* Sidebar Styles */
 .sidebar {
@@ -28,7 +37,7 @@ body {
   position: fixed;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid var(--border-color);
   transition: transform 0.3s ease;
   z-index: 999;
 }
@@ -37,7 +46,6 @@ body {
   transform: translateX(-100%);
 }
 
-/* Sidebar Links */
 .sidebar a {
   display: block;
   padding: 0.5rem;
@@ -48,7 +56,7 @@ body {
 }
 
 .sidebar a:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--hover-bg);
 }
 
 /* Content Area */
@@ -62,34 +70,34 @@ body {
   margin-left: 0;
 }
 
-
-/* Toggle Button */
+/* Toggle Buttons */
 .toggle-btn {
   position: fixed;
   top: 1rem;
   left: 1rem;
   z-index: 1001;
-  background: #eee;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
 }
 
-/* Dark Mode Toggle Button */
 .dark-toggle {
   position: fixed;
   top: 1rem;
   right: 1rem;
   z-index: 1001;
-  background: #eee;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
 }
 
-/* Animation */
+/* Fade-in Animation */
 .fade-in {
   animation: fadeIn 0.4s ease-in;
 }
@@ -106,15 +114,15 @@ body {
     position: fixed;
     left: 0;
   }
-
   .sidebar:not(.hidden) {
     transform: translateX(0);
   }
-
   .content {
     margin-left: 0;
   }
 }
+
+/* Image Row and Responsive Image Styles */
 .image-row {
   display: flex;
   flex-wrap: wrap;
@@ -143,7 +151,7 @@ body {
 
 .responsive-img {
   width: 100%;
-  max-width: 600px; /* Or 500px or whatever looks good */
+  max-width: 600px; /* Adjust this value as preferred */
   height: auto;
   margin: 0 auto;
   display: block;
@@ -156,15 +164,12 @@ body {
   transform: scale(1.02);
 }
 
-
-/* Optional: Add a dark-mode outline for visibility */
 .dark-mode .responsive-img {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* for the Location and Time Container */
-<style>
-  #time-location-container {
+/* Time Container Styling */
+#time-location-container {
   background: rgba(0, 0, 0, 0.6);
   color: #00ffff;
   border: 1px solid #00ffff;
@@ -174,17 +179,18 @@ body {
   text-align: center;
   font-weight: 600;
   font-size: 1.05rem;
-  }
+  margin: 1rem auto;
+  max-width: 300px;
+}
 
-  body.dark-mode #time-location-container {
-    background-color: #333;
-    color: #eee;
-  }
+body.dark-mode #time-location-container {
+  background-color: #333;
+  color: #eee;
+}
 
-  @media (max-width: 600px) {
-    #time-location-container {
-      font-size: 0.95rem;
-      margin: 1rem 1rem;
-    }
+@media (max-width: 600px) {
+  #time-location-container {
+    font-size: 0.95rem;
+    margin: 1rem;
   }
-</style>
+}

@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Favicon and related assets -->
+    <!-- Favicon and App Icons -->
     <link rel="icon" type="image/png" href="{{ '/assets/favicon-96x96.png' | relative_url }}" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}" />
     <link rel="shortcut icon" href="{{ '/assets/favicon.ico' | relative_url }}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | relative_url }}" />
     <meta name="apple-mobile-web-app-title" content="Java" />
 
-    <!-- Use the correct manifest for GitHub Pages project path -->
+    <!-- Manifest: Use only one link, adjust for GitHub Pages project path -->
     <link rel="manifest" href="/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest">
     <meta name="theme-color" content="#ffffff">
 
@@ -19,13 +19,13 @@
     <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
 
     <script>
-        // --- Sidebar Toggle Function ---
+        // Sidebar Toggle Function
         function toggleSidebar() {
           const sidebar = document.getElementById("sidebar");
           sidebar.classList.toggle("hidden");
         }
 
-        // --- Auto-hide Sidebar if Clicked Outside ---
+        // Function to hide sidebar if clicked outside
         function hideSidebarIfClickedOutside(event) {
           const sidebar = document.getElementById("sidebar");
           const toggleBtn = document.querySelector(".toggle-btn");
@@ -36,23 +36,23 @@
           }
         }
 
-        // --- Dark Mode Toggle ---
+        // Dark Mode Toggle Function
         const toggleDarkMode = () => {
           document.body.classList.toggle('dark-mode');
           localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         };
 
-        // --- Live Time Update Function ---
+        // Live Time Update Function (includes GMT offset)
         function updateLiveTime() {
           const now = new Date();
           let hours = now.getHours();
           const minutes = now.getMinutes().toString().padStart(2, '0');
           const seconds = now.getSeconds().toString().padStart(2, '0');
           const ampm = hours >= 12 ? 'PM' : 'AM';
-          hours = hours % 12 || 12;  // convert to 12-hour format
+          hours = hours % 12 || 12;
           const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
 
-          // Calculate GMT offset (JavaScript returns offset in minutes; negative means ahead of UTC)
+          // Compute offset (JS returns minutes behind UTC; here we negate to get GMT+ for IST)
           const offset = -now.getTimezoneOffset();
           const offsetHours = Math.floor(Math.abs(offset) / 60);
           const offsetMinutes = Math.abs(offset) % 60;
@@ -62,32 +62,36 @@
           document.getElementById('live-time').textContent = `Time: ${timeString} ${offsetString}`;
         }
 
-        // --- Service Worker Registration ---
+        // Service Worker Registration (ensure sw.js is at the correct path)
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker.register("/JavaEvolution-Learning-Growing-Mastering/assets/sw.js")
             .then(() => console.log("✅ Service Worker Registered"))
             .catch(err => console.error("SW registration failed", err));
         }
 
-        // --- Initialize on DOMContentLoaded ---
+        // Initialization on DOMContentLoaded
         window.addEventListener('DOMContentLoaded', () => {
-          // Initialize dark mode from localStorage
+          // Dark mode initialization
           if (localStorage.getItem('dark-mode') === 'true') {
             document.body.classList.add('dark-mode');
           }
+          // Attach click listener for sidebar auto-hide
+          document.addEventListener('click', hideSidebarIfClickedOutside);
 
           // Start live time updates
           updateLiveTime();
           setInterval(updateLiveTime, 1000);
-
-          // Auto-hide sidebar on click outside
-          document.addEventListener('click', hideSidebarIfClickedOutside);
         });
     </script>
 </head>
 <body>
-<!-- Dark Mode Toggle Button (top-right) -->
+<!-- Dark Mode Toggle Button -->
 <button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
+
+<!-- Place the Time Container under the dark mode toggle -->
+<div id="time-location-container">
+    <div id="live-time">Time: Loading...</div>
+</div>
 
 <div class="wrapper">
     <!-- Sidebar Navigation -->
@@ -97,15 +101,8 @@
 
     <!-- Content Area -->
     <div class="content">
-        <!-- (Optional: Sidebar Toggle Button, if needed) -->
+        <!-- Sidebar Toggle Button (keep if you want manual control) -->
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-
-        <!-- Live Time Container (placed below the dark mode toggle) -->
-        <div id="live-time" class="fade-in" style="text-align: center; margin: 1rem 0;">
-            Time: Loading...
-        </div>
-
-        <!-- Main Content -->
         <div class="fade-in">
             {{ content }}
         </div>

@@ -9,6 +9,7 @@ title: Home
 <div id="time-location-container">
   <div id="live-time">Time: Loading...</div>
   <div id="user-location">Location: Detecting...</div>
+  <button onclick="toggleDarkMode()" class="dark-toggle">🌓</button>
 </div>
 
 Welcome to JavaEvolution, your one-stop guide for mastering Java from basics to advanced concepts.  

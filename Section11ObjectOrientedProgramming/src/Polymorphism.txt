@@ -5,6 +5,13 @@ The term polymorphism comes from Greek, where "poly" means "many" and "morph" me
 polymorphism allows different classes to be treated as instances of the same class through inheritance, while allowing
 for different behaviors depending on the specific class type that is being referenced.
 
+Method overloading is an example of compile-time (static) polymorphism in Java.
+
+It allows a class to have multiple methods with the same name but different parameters.
+
+The compiler determines which method to call based on the number, types, and order of arguments at compile-time.
+
+This provides flexibility in method invocation and improves code readability.
 
 What is Polymorphism?
 

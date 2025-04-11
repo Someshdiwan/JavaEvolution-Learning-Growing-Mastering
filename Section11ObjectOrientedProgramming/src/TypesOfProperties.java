@@ -36,3 +36,12 @@ class Main
         System.out.println("Length: " + obj.getLength());
     }
 }
+
+/*
+Getter and setter methods are primarily used to enforce encapsulation in Java.
+
+They allow controlled access to private fields of a class.
+Getters retrieve the value of a private field, while setters modify it.
+This approach enables the class to maintain control over its internal state and implement validation or additional logic
+when accessing or modifying the data.
+*/

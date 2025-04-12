@@ -1,10 +1,12 @@
 Callback Method in Java:
 
-A callback method in Java is a method that is passed as an argument to another method, and it gets executed at a later time when a certain event occurs or a condition is met.
+A callback method in Java is a method that is passed as an argument to another method, and it gets
+executed at a later time when a certain event occurs or a condition is met.
 
 How Callbacks Work in Java
 
-Since Java does not support passing functions directly (like JavaScript or Python), **callback methods are typically implemented using interfaces, anonymous classes, or lambda expressions.
+Since Java does not support passing functions directly (like JavaScript or Python), **callback methods are typically
+implemented using interfaces, anonymous classes, or lambda expressions.
 
 ---
 

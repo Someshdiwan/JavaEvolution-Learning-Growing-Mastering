@@ -1,0 +1,49 @@
+An interface in Java contributes to polymorphism by defining a contract for implementing classes.
+
+It declares a set of abstract methods that must be implemented by any class that implements the interface.
+
+This allows for polymorphic behavior, as different classes can provide their own implementations of the interface methods.
+
+Objects of these implementing classes can be treated as instances of the interface type, enabling runtime polymorphism
+
+and promoting loose coupling in the code.
+
+This code shows an interface Animal with a method makeSound(). Two classes, Dog and Cat, implement this interface and provide their own implementations of makeSound(). The AnimalSounds class demonstrates how objects of Dog and Cat can be treated as Animal objects, exhibiting polymorphic behavior.
+
+// Define an interface
+interface Animal {
+    void makeSound();
+}
+
+// Implement the interface with a Dog class
+class Dog implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+}
+
+// Implement the interface with a Cat class
+class Cat implements Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+}
+
+// Demonstrate polymorphism
+public class AnimalSounds {
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        Animal myCat = new Cat();
+
+        myDog.makeSound(); // Output: Woof!
+        myCat.makeSound(); // Output: Meow!
+    }
+}
+In this example, the Animal interface defines a contract that both Dog and Cat classes adhere to.
+
+This allows us to treat instances of Dog and Cat as Animal objects, and when we call the makeSound() method,
+the appropriate implementation is executed based on the actual object type.
+
+This is a clear demonstration of polymorphism in action.

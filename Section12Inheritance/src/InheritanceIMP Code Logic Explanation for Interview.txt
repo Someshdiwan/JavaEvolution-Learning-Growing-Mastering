@@ -6,6 +6,14 @@ Your program demonstrates inheritance in Java, specifically:
 - Method Overriding (different implementations of deposit, withdraw, and repay).
 - Polymorphism (SavingsAccount and LoanAccount extending Account).
 
+Enhanced performance is not a direct benefit of encapsulation in Java.
+While encapsulation improves code maintainability, provides better control over data access, and increases modularity,
+
+it doesn't necessarily enhance performance.
+
+Encapsulation is primarily about information hiding and creating a clear separation between the internal implementation
+of a class and its public interface, which helps in managing complexity and improving code organization.
+
 ---
 
 1. Base Class: `Account`

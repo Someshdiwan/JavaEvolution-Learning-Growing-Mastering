@@ -1,0 +1,8 @@
+You cannot create an instance of an abstract class in Java.
+
+Abstract classes are designed to be incomplete and serve as a base for other classes.
+
+They may contain abstract methods, which have no implementation, making it impossible to instantiate them directly.
+
+However, you can create instances of concrete subclasses that extend the abstract class and provide implementations
+for all abstract methods.

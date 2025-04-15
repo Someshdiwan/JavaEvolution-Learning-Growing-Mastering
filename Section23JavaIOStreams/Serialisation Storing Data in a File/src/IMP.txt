@@ -1,0 +1,29 @@
+InputStreamReader is commonly used to specify character encoding when reading text files.
+
+It acts as a bridge between byte streams and character streams, allowing you to read characters from a byte stream
+(like FileInputStream) using a specified character encoding.
+
+Key points about character encoding in Java I/O:
+1. FileReader uses the default character encoding of the system.
+2. InputStreamReader allows specifying a custom character encoding.
+3. It's important to use the correct encoding to avoid data corruption.
+4. Common encodings include UTF-8, UTF-16, ISO-8859-1, etc.
+
+Example usage:
+```java
+try (FileInputStream fis = new FileInputStream("file.txt");
+     InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
+     BufferedReader br = new BufferedReader(isr)) {
+
+    String line;
+    while ((line = br.readLine()) != null) {
+        System.out.println(line);
+    }
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+In this example, InputStreamReader is used to read the file with UTF-8 encoding.
+This approach is more flexible than using FileReader, as it allows you to specify the encoding explicitly,
+ensuring that the file is read correctly regardless of the system's default encoding.

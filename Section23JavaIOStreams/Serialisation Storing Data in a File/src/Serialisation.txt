@@ -1,0 +1,44 @@
+Key points about serialization:
+
+1. Serialization is the process of converting an object into a byte stream.
+2. Deserialization is the reverse process of creating an object from a byte stream.
+3. The Serializable interface is in the java.io package.
+4. Fields marked as transient are not serialized.
+5. Static fields are not serialized as they belong to the class, not the object.
+
+The method canRead() of the File class is used to check if a file is readable.
+
+This method returns a boolean value indicating whether the application can read the file denoted by the File object.
+
+Key points about file permissions in Java:
+1. canRead(): Checks if the file is readable.
+2. canWrite(): Checks if the file is writable.
+3. canExecute(): Checks if the file is executable.
+4. setReadable(), setWritable(), setExecutable(): Methods to change file permissions.
+
+Example usage:
+```java
+File file = new File("example.txt");
+
+if (file.canRead()) {
+    System.out.println("File is readable");
+} else {
+    System.out.println("File is not readable");
+}
+
+if (file.canWrite()) {
+    System.out.println("File is writable");
+} else {
+    System.out.println("File is not writable");
+}
+
+// Change permissions
+file.setWritable(true);
+file.setReadable(true, false); // true for all users, false for owner only
+```
+
+It's important to note that these methods work within the constraints of the underlying operating system
+and the Java Security Manager.
+
+The actual ability to read, write, or execute a file may depend on factors beyond just the file permissions,
+such as overall system security policies.

@@ -1,5 +1,8 @@
 //Display name of the day based on the number.
 
+//The 'switch' statement cannot be used to compare string values; it only works with integral or enumeration types
+
+
 import java.util.Scanner;
 
 public class SwitchCaseAB1 {

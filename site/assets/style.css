@@ -1,8 +1,15 @@
+/*=============================================
+  1. Color Variables & Dark‑Mode Overrides
+=============================================*/
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
   --sidebar-bg: #f8f9fa;
   --link-color: #0366d6;
+  --button-bg: #eee;
+  --button-text: #000;
+  --hover-bg: rgba(0, 0, 0, 0.05);
+  --border-color: #ccc;
 }
 
 .dark-mode {
@@ -10,6 +17,10 @@
   --text-color: #e0e0e0;
   --sidebar-bg: #1f1f1f;
   --link-color: #90caf9;
+  --button-bg: #333;
+  --button-text: #fff;
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --border-color: #444;
 }
 
 body {
@@ -17,10 +28,12 @@ body {
   color: var(--text-color);
   margin: 0;
   font-family: sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
-/* Sidebar Styles */
+/*=============================================
+  2. Sidebar Styles
+=============================================*/
 .sidebar {
   background-color: var(--sidebar-bg);
   width: 260px;
@@ -28,8 +41,8 @@ body {
   position: fixed;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid #ccc;
-  transition: transform 0.3s ease;
+  border-right: 1px solid var(--border-color);
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
   z-index: 999;
 }
 
@@ -37,7 +50,6 @@ body {
   transform: translateX(-100%);
 }
 
-/* Sidebar Links */
 .sidebar a {
   display: block;
   padding: 0.5rem;
@@ -45,13 +57,16 @@ body {
   border-radius: 0.5rem;
   text-decoration: none;
   color: var(--link-color);
+  transition: background-color 0.2s ease;
 }
 
 .sidebar a:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--hover-bg);
 }
 
-/* Content Area */
+/*=============================================
+  3. Main Content Area
+=============================================*/
 .content {
   margin-left: 260px;
   padding: 1rem;
@@ -62,59 +77,77 @@ body {
   margin-left: 0;
 }
 
-
-/* Toggle Button */
+/*=============================================
+  4. Toggle Buttons
+=============================================*/
 .toggle-btn {
   position: fixed;
   top: 1rem;
   left: 1rem;
   z-index: 1001;
-  background: #eee;
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Dark Mode Toggle Button */
+.toggle-btn:hover {
+  background-color: var(--hover-bg);
+}
+
 .dark-toggle {
   position: fixed;
   top: 1rem;
   right: 1rem;
   z-index: 1001;
-  background: #eee;
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Animation */
+.dark-toggle:hover {
+  background-color: var(--hover-bg);
+}
+
+/*=============================================
+  5. Fade‑In Animation
+=============================================*/
 .fade-in {
   animation: fadeIn 0.4s ease-in;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive Fix for Small Screens */
+/*=============================================
+  6. Responsive Sidebar (Mobile)
+=============================================*/
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);
     position: fixed;
     left: 0;
   }
-
   .sidebar:not(.hidden) {
     transform: translateX(0);
   }
-
   .content {
     margin-left: 0;
   }
 }
+
+/*=============================================
+  7. Image Layout Helpers
+=============================================*/
 .image-row {
   display: flex;
   flex-wrap: wrap;
@@ -143,7 +176,7 @@ body {
 
 .responsive-img {
   width: 100%;
-  max-width: 600px; /* Or 500px or whatever looks good */
+  max-width: 600px;
   height: auto;
   margin: 0 auto;
   display: block;
@@ -156,35 +189,29 @@ body {
   transform: scale(1.02);
 }
 
-
-/* Optional: Add a dark-mode outline for visibility */
 .dark-mode .responsive-img {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* for the Location and Time Container */
-<style>
-  #time-location-container {
-  background: rgba(0, 0, 0, 0.6);
-  color: #00ffff;
-  border: 1px solid #00ffff;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-  border-radius: 16px;
-  padding: 1.2rem;
-  text-align: center;
-  font-weight: 600;
-  font-size: 1.05rem;
-  }
+/*=============================================
+  8. Dark‑Mode Toggle & Live‑Time Container
+=============================================*/
+#theme-time-container {
+  max-width: 320px;
+  margin: 3rem auto 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--sidebar-bg);
+  color: var(--text-color);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 0.95rem;
+}
 
-  body.dark-mode #time-location-container {
-    background-color: #333;
-    color: #eee;
-  }
-
-  @media (max-width: 600px) {
-    #time-location-container {
-      font-size: 0.95rem;
-      margin: 1rem 1rem;
-    }
-  }
-</style>
+.dark-mode #theme-time-container {
+  background-color: var(--sidebar-bg);
+  color: var(--text-color);
+}

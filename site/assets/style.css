@@ -183,46 +183,22 @@ body {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
+/* Dark‑Mode Toggle & Live‑Time Container */
 #theme-time-container {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  max-width: 320px;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
   background-color: var(--sidebar-bg);
   color: var(--text-color);
-  padding: 0.5rem 1rem;
   border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  font-size: 0.9rem;
-  z-index: 1002;
   transition: background-color 0.3s, color 0.3s;
+  font-size: 0.95rem;
 }
 
-#theme-time-container .dark-toggle,
-#theme-time-container .time-toggle {
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  padding: 0.3rem 0.6rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s;
-}
-
-#theme-time-container .dark-toggle:hover,
-#theme-time-container .time-toggle:hover {
-  background-color: var(--hover-bg);
-}
-
-#theme-time-container #live-time {
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-/* Dark‑mode override */
 body.dark-mode #theme-time-container {
   background-color: var(--sidebar-bg);
   color: var(--text-color);

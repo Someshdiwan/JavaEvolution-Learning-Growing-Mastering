@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 
     <script>
+        // Track current zone: 'IST' or 'GMT'
+        let currentZone = 'IST';
+
         // Sidebar Toggle
         function toggleSidebar() {
           document.getElementById('sidebar').classList.toggle('hidden');
@@ -39,16 +42,32 @@
           localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         }
 
-        // Live Time Update
+        // Toggle between IST and GMT
+        function toggleTimezone() {
+          currentZone = (currentZone === 'IST') ? 'GMT' : 'IST';
+          document.getElementById('tz-toggle-btn').textContent = currentZone;
+          updateLiveTime(); // immediately refresh display
+        }
+
+        // Live Time Update with timezone support
         function updateLiveTime() {
           const now = new Date();
-          let hours   = now.getHours();
-          const mins  = now.getMinutes().toString().padStart(2, '0');
-          const secs  = now.getSeconds().toString().padStart(2, '0');
+          let date;
+          if (currentZone === 'GMT') {
+            // UTC time
+            date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+          } else {
+            // IST = UTC + 5.5h
+            const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+            date = new Date(utc + 5.5 * 3600000);
+          }
+          let hours   = date.getHours();
+          const mins  = date.getMinutes().toString().padStart(2,'0');
+          const secs  = date.getSeconds().toString().padStart(2,'0');
           const ampm  = hours >= 12 ? 'PM' : 'AM';
           hours = hours % 12 || 12;
           document.getElementById('live-time').textContent =
-            `Time: ${hours}:${mins}:${secs} ${ampm}`;
+            `Time (${currentZone}): ${hours}:${mins}:${secs} ${ampm}`;
         }
 
         // On window load: initialize Dark Mode, Sidebar listener, Live Time & Service Worker
@@ -76,12 +95,15 @@
     </script>
 </head>
 <body>
-<!-- Dark Mode & Live Time Container -->
+
+<!-- Dark‑Mode + Time Zone Toggle Container -->
 <div id="theme-time-container">
-    <button class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
+    <button id="dark-mode-btn" class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
+    <button id="tz-toggle-btn" class="time-toggle" onclick="toggleTimezone()">IST</button>
     <div id="live-time">Time: Loading...</div>
-    <div class="wrapper">
 </div>
+
+<div class="wrapper">
 
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
@@ -98,5 +120,3 @@
 </div>
 </body>
 </html>
-
-

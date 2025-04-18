@@ -17,7 +17,8 @@
     <title>{{ page.title }}</title>
     <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 
-    <script>
+
+<!--    <script>
         // Track current zone: 'IST' or 'GMT'
         let currentZone = 'IST';
 
@@ -93,6 +94,85 @@
               .catch(err => console.error('SW registration failed', err));
           }
         };
+    </script>-->
+
+    <script>
+        // Track current zone: 'IST' or 'GMT'
+        let currentZone = 'IST';
+
+        // Sidebar Toggle
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('hidden');
+        }
+
+        // Hide Sidebar When Clicking Outside
+        function hideSidebarIfClickedOutside(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            if (!sidebar.classList.contains('hidden')
+                && !sidebar.contains(event.target)
+                && !toggleBtn.contains(event.target)) {
+                sidebar.classList.add('hidden');
+            }
+        }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Toggle between IST and GMT
+        function toggleTimezone() {
+            currentZone = (currentZone === 'IST') ? 'GMT' : 'IST';
+            document.getElementById('tz-toggle-btn').textContent = currentZone;
+            updateLiveTime(); // immediately refresh display
+        }
+
+        // Live Time Update with timezone support
+        function updateLiveTime() {
+            const now = new Date();
+            let date;
+            if (currentZone === 'GMT') {
+                // UTC time
+                date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+            } else {
+                // IST = UTC + 5.5h
+                const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+                date = new Date(utc + 5.5 * 3600000);
+            }
+            let hours = date.getHours();
+            const mins = date.getMinutes().toString().padStart(2,'0');
+            const secs = date.getSeconds().toString().padStart(2,'0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            document.getElementById('live-time').textContent =
+                `Time (${currentZone}): ${hours}:${mins}:${secs} ${ampm}`;
+        }
+
+        // On window load: initialize Dark Mode, Sidebar listener, Live Time & Service Worker
+        window.onload = () => {
+            // Dark mode init
+            if (localStorage.getItem('dark-mode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+
+            // Sidebar outside-click hide
+            document.addEventListener('click', hideSidebarIfClickedOutside);
+
+            // Start live time updates
+            updateLiveTime();
+            setInterval(updateLiveTime, 1000);
+
+            // Service Worker registration
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker
+                    .register('/JavaEvolution-Learning-Growing-Mastering/assets/sw.js')
+                    .then(() => console.log('✅ Service Worker Registered'))
+                    .catch(err => console.error('SW registration failed', err));
+            }
+        };
+
     </script>
 </head>
 <body>

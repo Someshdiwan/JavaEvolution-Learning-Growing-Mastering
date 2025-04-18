@@ -100,8 +100,10 @@
 
 <div id="theme-time-container">
     <button id="dark-mode-btn" class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
-    <button id="tz-toggle-btn" class="time-toggle" onclick="toggleTimezone()">IST</button>
-    <div id="live-time">Time: Loading...</div>
+    <div id="time-zone-wrapper" style="display:flex; align-items:center; gap:0.5rem;">
+        <button id="tz-toggle-btn" class="time-toggle" onclick="toggleTimezone()">IST</button>
+        <div id="live-time">Time: Loading...</div>
+    </div>
 </div>
 
 <div class="wrapper">

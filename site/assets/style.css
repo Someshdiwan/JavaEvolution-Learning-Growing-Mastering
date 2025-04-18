@@ -1,197 +1,13 @@
-/*  1. Color Variables & Dark‑Mode Overrides*/
-:root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --sidebar-bg: #f8f9fa;
-  --link-color: #0366d6;
-  --button-bg: #eee;
-  --button-text: #000;
-  --hover-bg: rgba(0, 0, 0, 0.05);
-  --border-color: #ccc;
-}
-
-.dark-mode {
-  --bg-color: #121212;
-  --text-color: #e0e0e0;
-  --sidebar-bg: #1f1f1f;
-  --link-color: #90caf9;
-  --button-bg: #333;
-  --button-text: #fff;
-  --hover-bg: rgba(255, 255, 255, 0.1);
-  --border-color: #444;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  margin: 0;
-  font-family: sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/*  2. Sidebar Styles*/
-.sidebar {
-  background-color: var(--sidebar-bg);
-  width: 260px;
-  padding: 1rem;
-  position: fixed;
-  height: 100vh;
-  overflow-y: auto;
-  border-right: 1px solid var(--border-color);
-  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
-  z-index: 999;
-}
-
-.sidebar.hidden {
-  transform: translateX(-100%);
-}
-
-.sidebar a {
-  display: block;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  color: var(--link-color);
-  transition: background-color 0.2s ease;
-}
-
-.sidebar a:hover {
-  background-color: var(--hover-bg);
-}
-
-/*  3. Main Content Area*/
-.content {
-  margin-left: 260px;
-  padding: 1rem;
-  transition: margin-left 0.3s ease;
-}
-
-.sidebar.hidden + .content {
-  margin-left: 0;
-}
-
-/*
-  4. Toggle Buttons
-*/
-.toggle-btn {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  z-index: 1001;
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.toggle-btn:hover {
-  background-color: var(--hover-bg);
-}
-
-.dark-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1001;
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.dark-toggle:hover {
-  background-color: var(--hover-bg);
-}
-
-/* 5. Fade‑In Animation*/
-
-.fade-in {
-  animation: fadeIn 0.4s ease-in;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-
-/*  6. Responsive Sidebar (Mobile)*/
-@media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-    position: fixed;
-    left: 0;
-  }
-  .sidebar:not(.hidden) {
-    transform: translateX(0);
-  }
-  .content {
-    margin-left: 0;
-  }
-}
-
-/*7. Image Layout Helpers*/
-.image-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.image-row img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.image-row img:hover {
-  transform: scale(1.03);
-}
-
-@media (min-width: 768px) {
-  .image-row img {
-    width: 48%;
-  }
-}
-
-.responsive-img {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  margin: 0 auto;
-  display: block;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.responsive-img:hover {
-  transform: scale(1.02);
-}
-
-.dark-mode .responsive-img {
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-}
-
 /* Dark‑Mode Toggle & Live‑Time Container */
 #theme-time-container {
   position: fixed;
   top: 1rem;
-  right: 1rem;      /* move to the right */
-  left: auto;       /* ensure no left offset */
+  right: 1rem;
+  left: auto;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;  /* space between dark mode and time */
+  gap: 1rem;
   background-color: var(--sidebar-bg);
   color: var(--text-color);
   padding: 0.5rem 1rem;
@@ -199,10 +15,41 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   font-size: 0.9rem;
   z-index: 1002;
+  min-width: 180px; /* optional: ensure container width */
+  max-width: 300px;
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* Wrapper for timezone toggle and live time */
+#time-zone-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
+/* Buttons styling */
+#theme-time-container button {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+#theme-time-container button:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Adjust live time text */
+#live-time {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Dark mode container colors */
 body.dark-mode #theme-time-container {
   background-color: var(--sidebar-bg);
   color: var(--text-color);

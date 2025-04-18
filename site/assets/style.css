@@ -193,12 +193,10 @@ body {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/*=============================================
-  8. Dark‑Mode Toggle & Live‑Time Container
-=============================================*/
+/* Dark‑Mode Toggle & Live‑Time Container */
 #theme-time-container {
   max-width: 320px;
-  margin: 3rem auto 1rem;
+  margin: 1rem auto;
   padding: 0.5rem 1rem;
   background-color: var(--sidebar-bg);
   color: var(--text-color);
@@ -211,7 +209,7 @@ body {
   font-size: 0.95rem;
 }
 
-.dark-mode #theme-time-container {
+body.dark-mode #theme-time-container {
   background-color: var(--sidebar-bg);
   color: var(--text-color);
 }

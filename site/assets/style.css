@@ -1,4 +1,4 @@
-/* 1. Color Variables & Dark‑Mode Overrides */
+/* 1. Color Variables & Dark-Mode Overrides */
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
@@ -104,7 +104,7 @@ body {
   background-color: var(--hover-bg);
 }
 
-/* 5. Fade‑In Animation */
+/* 5. Fade-In Animation */
 .fade-in {
   animation: fadeIn 0.4s ease-in;
 }
@@ -175,7 +175,7 @@ body {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
 }
 
-/* 8. Dark‑Mode Toggle & Live‑Time Container */
+/* 8. Dark-Mode Toggle & Live-Time Container */
 #theme-time-container {
   position: fixed;
   top: 1rem;
@@ -193,11 +193,13 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* Alignment Fix: Dark Mode Button on Left, Time Elements on Right */
 #theme-time-container .dark-toggle {
-  position: static;
-  margin-right: auto;
+  position: static;       /* Remove fixed positioning to follow flex layout */
+  margin-right: auto;     /* Push the dark mode button to the left */
 }
 
+/* Optional: Consistent Button Styling in Container */
 #theme-time-container button {
   background: var(--button-bg);
   color: var(--button-text);
@@ -212,6 +214,7 @@ body {
   background-color: var(--hover-bg);
 }
 
+/* Optional: Style the Time Display */
 #live-time {
-  padding: 0.5rem;
+  padding: 0.5rem; /* Matches button padding for consistency */
 }

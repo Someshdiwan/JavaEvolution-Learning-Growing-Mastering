@@ -1,4 +1,4 @@
-const CACHE_NAME = "java-evolution-cache-v6"; // Updated version
+const CACHE_NAME = "java-evolution-cache-v6";
 const STATIC_ASSETS = [
     "/JavaEvolution-Learning-Growing-Mastering/",
     "/JavaEvolution-Learning-Growing-Mastering/default.html",

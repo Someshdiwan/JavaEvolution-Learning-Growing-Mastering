@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://someshdiwan.github.io/JavaEvolution-Learning-Growing-Mastering/" target="_blank">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=900&size=30&pause=1000&background=FFFFFF00&center=true&vCenter=true&width=435&lines=Make+The+JAVA+Great+Again" alt="Typing SVG">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=900&size=30&pause=1000&background=FFFFFF00&center=true&vCenter=true&width=435&lines=Make+JAVA+Great+Again!" alt="Typing SVG">
   </a>
 </p>
 

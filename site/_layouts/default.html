@@ -213,6 +213,7 @@
         let tapCount = 0;
         let tapTimer = null;
         const TAP_TIMEOUT = 300; // ms for double-tap detection
+        const SCROLL_THRESHOLD = 100; // px to hide theme/time container
 
         // Sidebar toggle
         function toggleSidebar(isHidden) {
@@ -220,7 +221,6 @@
             const toggleBtn = document.querySelector('.toggle-btn');
             sidebar.classList.toggle('hidden', isHidden);
             localStorage.setItem('sidebar-hidden', isHidden);
-            // Show/hide toggle button based on sidebar state (desktop)
             if (window.innerWidth > 768) {
                 toggleBtn.style.display = isHidden ? 'block' : 'none';
             }
@@ -229,15 +229,14 @@
         // Handle tap/click events
         function handleTap(event) {
             const sidebar = document.getElementById('sidebar');
-            const toggleBtn = document.querySelector('.toggle-btn');
             const target = event.target;
 
-            // Ignore taps on interactive elements
             if (
                 target.closest('a') ||
                 target.closest('button') ||
                 target.closest('#sidebar') ||
-                target.closest('#theme-time-container')
+                target.closest('#theme-time-container') ||
+                target.closest('.tooltip')
             ) {
                 return;
             }
@@ -245,7 +244,6 @@
             tapCount++;
             if (tapCount === 1) {
                 tapTimer = setTimeout(() => {
-                    // Single tap: hide sidebar if visible
                     if (!sidebar.classList.contains('hidden')) {
                         toggleSidebar(true);
                     }
@@ -253,7 +251,6 @@
                 }, TAP_TIMEOUT);
             } else if (tapCount === 2) {
                 clearTimeout(tapTimer);
-                // Double tap: show sidebar if hidden
                 if (sidebar.classList.contains('hidden')) {
                     toggleSidebar(false);
                 }
@@ -298,6 +295,16 @@
                 `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
         }
 
+        // Handle scroll for theme/time container
+        function handleScroll() {
+            const themeTimeContainer = document.getElementById('theme-time-container');
+            if (window.scrollY > SCROLL_THRESHOLD) {
+                themeTimeContainer.classList.add('hidden');
+            } else {
+                themeTimeContainer.classList.remove('hidden');
+            }
+        }
+
         // On load: init dark mode, sidebar state, listeners, time, SW
         window.onload = () => {
             // Initialize dark mode
@@ -316,12 +323,25 @@
             if (window.innerWidth > 768) {
                 toggleBtn.style.display = isSidebarHidden ? 'block' : 'none';
             } else {
-                toggleBtn.style.display = 'block'; // Always show on mobile
+                toggleBtn.style.display = 'block';
             }
 
-            // Add tap/click listeners
+            // Add tap/click and scroll listeners
             document.addEventListener('click', handleTap);
             document.addEventListener('touchstart', handleTap, { passive: true });
+            window.addEventListener('scroll', handleScroll, { passive: true });
+
+            // Show tooltip on first visit
+            if (!localStorage.getItem('tooltip-shown')) {
+                setTimeout(() => {
+                    const tooltip = document.getElementById('tooltip');
+                    tooltip.classList.add('visible');
+                    setTimeout(() => {
+                        tooltip.classList.remove('visible');
+                        localStorage.setItem('tooltip-shown', 'true');
+                    }, 5000);
+                }, 1000);
+            }
 
             updateLiveTime();
             setInterval(updateLiveTime, 1000);
@@ -346,6 +366,11 @@
         <button id="tz-toggle-btn" class="time-toggle" onclick="toggleTimezone()" aria-label="Toggle Timezone">IST</button>
         <span id="live-time">Time: Loading...</span>
     </div>
+</div>
+
+<!-- Onboarding Tooltip -->
+<div id="tooltip" class="tooltip">
+    Single tap to hide sidebar, double tap to show
 </div>
 
 <!-- Collapsible Sidebar -->

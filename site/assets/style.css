@@ -259,6 +259,18 @@ body {
     --button-text: #ffffff;
 }
 
+/* Dark mode override */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --sidebar-bg: #1f1f1f;
+    --button-text: #ffffff;
+    --card-bg: #2b2b2b;
+    --card-shadow: rgba(0, 0, 0, 0.5);
+    --primary-color: #4da8ff; /* Lighter blue for better contrast */
+    --active-color: #a1d6ff; /* Lighter active color */
+}
+
 /* 2. Global Styles */
 body {
     margin: 0;
@@ -281,17 +293,12 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     z-index: 1002;
-    transition: background-color 0.3s, color 0.3s;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Dark mode override */
-.dark-mode {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --sidebar-bg: #1f1f1f;
-    --button-text: #ffffff;
-    --card-bg: #2b2b2b;
-    --card-shadow: rgba(0, 0, 0, 0.5);
+#theme-time-container.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
 }
 
 /* 4. Dark Mode and Timezone Toggle */
@@ -318,7 +325,29 @@ body {
     font-size: 0.9rem;
 }
 
-/* 6. Sidebar */
+/* 6. Tooltip */
+.tooltip {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: var(--button-text);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1003;
+}
+
+.tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 7. Sidebar */
 .sidebar {
     width: 200px;
     height: 100vh;
@@ -337,7 +366,7 @@ body {
     transform: translateX(-100%);
 }
 
-/* 7. Sidebar Links */
+/* 8. Sidebar Links */
 .sidebar-link {
     display: flex;
     align-items: center;
@@ -364,7 +393,7 @@ body {
     text-decoration: underline;
 }
 
-/* 8. Toggle Button (Fallback) */
+/* 9. Toggle Button (Fallback) */
 .toggle-btn {
     position: fixed;
     top: 1rem;
@@ -372,14 +401,14 @@ body {
     background-color: var(--primary-color);
     color: var(--button-text);
     border: none;
-    padding: 0.4rem 0.8rem; /* Smaller padding */
-    font-size: 0.9rem; /* Smaller icon */
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
     border-radius: 4px;
     cursor: pointer;
     z-index: 1001;
     display: none;
     transition: background-color 0.3s;
-    opacity: 0.7; /* Less prominent */
+    opacity: 0.7;
 }
 
 .toggle-btn:hover {
@@ -387,7 +416,7 @@ body {
     opacity: 1;
 }
 
-/* 9. Content Area */
+/* 10. Content Area */
 .wrapper {
     display: flex;
 }
@@ -403,7 +432,7 @@ body {
     margin-left: 0;
 }
 
-/* 10. Card-style Container inside Content */
+/* 11. Card-style Container inside Content */
 .fade-in {
     background-color: var(--card-bg);
     padding: 1.5rem;
@@ -411,7 +440,7 @@ body {
     box-shadow: 0 4px 20px var(--card-shadow);
 }
 
-/* 11. Fade-in Keyframes */
+/* 12. Fade-in Keyframes */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -423,7 +452,19 @@ body {
     }
 }
 
-/* 12. Responsive Behavior */
+/* 13. Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .sidebar,
+    #theme-time-container,
+    .tooltip {
+        transition: none;
+    }
+    .fade-in {
+        animation: none;
+    }
+}
+
+/* 14. Responsive Behavior */
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;

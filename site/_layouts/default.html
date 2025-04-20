@@ -1,16 +1,17 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Font Awesome -->
+    &lt;!&ndash; Font Awesome &ndash;&gt;
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
-    <!-- Favicons -->
+    &lt;!&ndash; Favicons &ndash;&gt;
     <link
             rel="icon" type="image/png"
             href="{{ '/assets/favicon-96x96.png' | relative_url }}"
@@ -117,7 +118,7 @@
 </head>
 
 <body>
-<!-- Dark Mode & Timezone Controls -->
+&lt;!&ndash; Dark Mode & Timezone Controls &ndash;&gt;
 <div id="theme-time-container">
     <button class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
     <div id="time-zone-wrapper">
@@ -126,7 +127,7 @@
     </div>
 </div>
 
-<!-- Collapsible Sidebar -->
+&lt;!&ndash; Collapsible Sidebar &ndash;&gt;
 <div id="sidebar" class="sidebar">
     <a href="{{ site.baseurl }}/" class="sidebar-link active">
         <i class="fas fa-home"></i> Home
@@ -145,8 +146,195 @@
     </a>
 </div>
 
-<!-- Toggle Button for Mobile -->
+&lt;!&ndash; Toggle Button for Mobile &ndash;&gt;
 <button class="toggle-btn" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</button>
+
+&lt;!&ndash; Main Content &ndash;&gt;
+<div class="wrapper">
+    <div class="content">
+        <div class="fade-in">
+            {{ content }}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- Favicons -->
+    <link
+            rel="icon" type="image/png"
+            href="{{ '/assets/favicon-96x96.png' | relative_url }}"
+            sizes="96x96"
+    />
+    <link
+            rel="icon" type="image/svg+xml"
+            href="{{ '/assets/favicon.svg' | relative_url }}"
+    />
+    <link
+            rel="shortcut icon"
+            href="{{ '/assets/favicon.ico' | relative_url }}"
+    />
+    <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="{{ '/assets/apple-touch-icon.png' | relative_url }}"
+    />
+    <meta name="apple-mobile-web-app-title" content="Java" />
+    <link
+            rel="manifest"
+            href="/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>{{ page.title }}</title>
+    <link
+            rel="stylesheet"
+            href="{{ '/assets/style.css' | relative_url }}"
+    />
+
+    <script>
+        // Current timezone tracker
+        let currentZone = 'IST';
+
+        // Sidebar toggle
+        function toggleSidebar() {
+          const sidebar = document.getElementById('sidebar');
+          sidebar.classList.toggle('hidden');
+          localStorage.setItem('sidebar-hidden', sidebar.classList.contains('hidden'));
+        }
+
+        // Hide sidebar on outside click (mobile only)
+        function hideSidebarIfClickedOutside(e) {
+          const sidebar = document.getElementById('sidebar');
+          const toggleBtn = document.querySelector('.toggle-btn');
+          if (
+            !sidebar.classList.contains('hidden') &&
+            !sidebar.contains(e.target) &&
+            !toggleBtn.contains(e.target) &&
+            window.innerWidth <= 768
+          ) {
+            sidebar.classList.add('hidden');
+            localStorage.setItem('sidebar-hidden', true);
+          }
+        }
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+          const body = document.body;
+          body.classList.toggle('dark-mode');
+          const isDark = body.classList.contains('dark-mode');
+          localStorage.setItem('dark-mode', isDark);
+          const icon = document.querySelector('.dark-toggle i');
+          icon.classList.remove('fa-moon', 'fa-sun');
+          icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+        }
+
+        // Timezone toggle
+        function toggleTimezone() {
+          currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
+          document.getElementById('tz-toggle-btn').textContent = currentZone;
+          updateLiveTime();
+        }
+
+        // Update live time
+        function updateLiveTime() {
+          const now = new Date();
+          let date;
+          if (currentZone === 'GMT') {
+            date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+          } else {
+            const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+            date = new Date(utc + 5.5 * 3600000);
+          }
+          let h = date.getHours();
+          const m = date.getMinutes().toString().padStart(2, '0');
+          const s = date.getSeconds().toString().padStart(2, '0');
+          const ampm = h >= 12 ? 'PM' : 'AM';
+          h = h % 12 || 12;
+          document.getElementById('live-time').textContent =
+            `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
+        }
+
+        // On load: init dark mode, sidebar state, listeners, time, SW
+        window.onload = () => {
+          // Initialize dark mode
+          const isDark = localStorage.getItem('dark-mode') === 'true';
+          const body = document.body;
+          if (isDark) {
+            body.classList.add('dark-mode');
+            document.querySelector('.dark-toggle i').classList.replace('fa-moon', 'fa-sun');
+          }
+
+          // Initialize sidebar state
+          const sidebar = document.getElementById('sidebar');
+          if (localStorage.getItem('sidebar-hidden') === 'true') {
+            sidebar.classList.add('hidden');
+          } else {
+            sidebar.classList.remove('hidden');
+          }
+
+          document.addEventListener('click', hideSidebarIfClickedOutside);
+          updateLiveTime();
+          setInterval(updateLiveTime, 1000);
+
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+              .register('/JavaEvolution-Learning-Growing-Mastering/assets/sw.js')
+              .then(() => console.log('Service Worker Registered'))
+              .catch(err => console.error('SW registration failed', err));
+          }
+        };
+    </script>
+</head>
+
+<body>
+<!-- Dark Mode & Timezone Controls -->
+<div id="theme-time-container">
+    <button class="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div id="time-zone-wrapper">
+        <button id="tz-toggle-btn" class="time-toggle" onclick="toggleTimezone()" aria-label="Toggle Timezone">IST</button>
+        <span id="live-time">Time: Loading...</span>
+    </div>
+</div>
+
+<!-- Collapsible Sidebar -->
+<div id="sidebar" class="sidebar">
+    <button class="close-btn" onclick="toggleSidebar()" aria-label="Close Sidebar">×</button>
+    <a href="{{ site.baseurl }}/" class="sidebar-link active">
+        <i class="fas fa-home"></i> Home
+    </a>
+    <a href="{{ site.baseurl }}/content" class="sidebar-link">
+        <i class="fas fa-book"></i> All Contents
+    </a>
+    <a
+            href="https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering"
+            target="_blank"
+            class="sidebar-link"
+    >
+        <i class="fab fa-github"></i> GitHub Repo
+    </a>
+</div>
+
+<!-- Toggle Button for Mobile -->
+<button class="toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
     <i class="fas fa-bars"></i>
 </button>
 

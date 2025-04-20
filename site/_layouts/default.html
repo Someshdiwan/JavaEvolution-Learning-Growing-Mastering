@@ -163,7 +163,6 @@
 </html>
 -->
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -211,94 +210,128 @@
     <script>
         // Current timezone tracker
         let currentZone = 'IST';
+        let tapCount = 0;
+        let tapTimer = null;
+        const TAP_TIMEOUT = 300; // ms for double-tap detection
 
         // Sidebar toggle
-        function toggleSidebar() {
-          const sidebar = document.getElementById('sidebar');
-          sidebar.classList.toggle('hidden');
-          localStorage.setItem('sidebar-hidden', sidebar.classList.contains('hidden'));
+        function toggleSidebar(isHidden) {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            sidebar.classList.toggle('hidden', isHidden);
+            localStorage.setItem('sidebar-hidden', isHidden);
+            // Show/hide toggle button based on sidebar state (desktop)
+            if (window.innerWidth > 768) {
+                toggleBtn.style.display = isHidden ? 'block' : 'none';
+            }
         }
 
-        // Hide sidebar on outside click (mobile only)
-        function hideSidebarIfClickedOutside(e) {
-          const sidebar = document.getElementById('sidebar');
-          const toggleBtn = document.querySelector('.toggle-btn');
-          if (
-            !sidebar.classList.contains('hidden') &&
-            !sidebar.contains(e.target) &&
-            !toggleBtn.contains(e.target) &&
-            window.innerWidth <= 768
-          ) {
-            sidebar.classList.add('hidden');
-            localStorage.setItem('sidebar-hidden', true);
-          }
+        // Handle tap/click events
+        function handleTap(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const target = event.target;
+
+            // Ignore taps on interactive elements
+            if (
+                target.closest('a') ||
+                target.closest('button') ||
+                target.closest('#sidebar') ||
+                target.closest('#theme-time-container')
+            ) {
+                return;
+            }
+
+            tapCount++;
+            if (tapCount === 1) {
+                tapTimer = setTimeout(() => {
+                    // Single tap: hide sidebar if visible
+                    if (!sidebar.classList.contains('hidden')) {
+                        toggleSidebar(true);
+                    }
+                    tapCount = 0;
+                }, TAP_TIMEOUT);
+            } else if (tapCount === 2) {
+                clearTimeout(tapTimer);
+                // Double tap: show sidebar if hidden
+                if (sidebar.classList.contains('hidden')) {
+                    toggleSidebar(false);
+                }
+                tapCount = 0;
+            }
         }
 
         // Dark mode toggle
         function toggleDarkMode() {
-          const body = document.body;
-          body.classList.toggle('dark-mode');
-          const isDark = body.classList.contains('dark-mode');
-          localStorage.setItem('dark-mode', isDark);
-          const icon = document.querySelector('.dark-toggle i');
-          icon.classList.remove('fa-moon', 'fa-sun');
-          icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('dark-mode', isDark);
+            const icon = document.querySelector('.dark-toggle i');
+            icon.classList.remove('fa-moon', 'fa-sun');
+            icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
         }
 
         // Timezone toggle
         function toggleTimezone() {
-          currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
-          document.getElementById('tz-toggle-btn').textContent = currentZone;
-          updateLiveTime();
+            currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
+            document.getElementById('tz-toggle-btn').textContent = currentZone;
+            updateLiveTime();
         }
 
         // Update live time
         function updateLiveTime() {
-          const now = new Date();
-          let date;
-          if (currentZone === 'GMT') {
-            date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-          } else {
-            const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-            date = new Date(utc + 5.5 * 3600000);
-          }
-          let h = date.getHours();
-          const m = date.getMinutes().toString().padStart(2, '0');
-          const s = date.getSeconds().toString().padStart(2, '0');
-          const ampm = h >= 12 ? 'PM' : 'AM';
-          h = h % 12 || 12;
-          document.getElementById('live-time').textContent =
-            `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
+            const now = new Date();
+            let date;
+            if (currentZone === 'GMT') {
+                date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+            } else {
+                const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+                date = new Date(utc + 5.5 * 3600000);
+            }
+            let h = date.getHours();
+            const m = date.getMinutes().toString().padStart(2, '0');
+            const s = date.getSeconds().toString().padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            document.getElementById('live-time').textContent =
+                `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
         }
 
         // On load: init dark mode, sidebar state, listeners, time, SW
         window.onload = () => {
-          // Initialize dark mode
-          const isDark = localStorage.getItem('dark-mode') === 'true';
-          const body = document.body;
-          if (isDark) {
-            body.classList.add('dark-mode');
-            document.querySelector('.dark-toggle i').classList.replace('fa-moon', 'fa-sun');
-          }
+            // Initialize dark mode
+            const isDark = localStorage.getItem('dark-mode') === 'true';
+            const body = document.body;
+            if (isDark) {
+                body.classList.add('dark-mode');
+                document.querySelector('.dark-toggle i').classList.replace('fa-moon', 'fa-sun');
+            }
 
-          // Initialize sidebar state
-          const sidebar = document.getElementById('sidebar');
-          if (localStorage.getItem('sidebar-hidden') === 'true') {
-            sidebar.classList.add('hidden');
-          } else {
-            sidebar.classList.remove('hidden');
-          }
+            // Initialize sidebar state
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const isSidebarHidden = localStorage.getItem('sidebar-hidden') === 'true';
+            sidebar.classList.toggle('hidden', isSidebarHidden);
+            if (window.innerWidth > 768) {
+                toggleBtn.style.display = isSidebarHidden ? 'block' : 'none';
+            } else {
+                toggleBtn.style.display = 'block'; // Always show on mobile
+            }
 
-          document.addEventListener('click', hideSidebarIfClickedOutside);
-          updateLiveTime();
-          setInterval(updateLiveTime, 1000);
+            // Add tap/click listeners
+            document.addEventListener('click', handleTap);
+            document.addEventListener('touchstart', handleTap, { passive: true });
 
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-              .register('/JavaEvolution-Learning-Growing-Mastering/assets/sw.js')
-              .then(() => console.log('Service Worker Registered'))
-              .catch(err => console.error('SW registration failed', err));
-          }
+            updateLiveTime();
+            setInterval(updateLiveTime, 1000);
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker
+                    .register('/JavaEvolution-Learning-Growing-Mastering/assets/sw.js')
+                    .then(() => console.log('Service Worker Registered'))
+                    .catch(err => console.error('SW registration failed', err));
+            }
         };
     </script>
 </head>
@@ -317,7 +350,6 @@
 
 <!-- Collapsible Sidebar -->
 <div id="sidebar" class="sidebar">
-    <button class="close-btn" onclick="toggleSidebar()" aria-label="Close Sidebar">×</button>
     <a href="{{ site.baseurl }}/" class="sidebar-link active">
         <i class="fas fa-home"></i> Home
     </a>
@@ -333,8 +365,8 @@
     </a>
 </div>
 
-<!-- Toggle Button for Mobile -->
-<button class="toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Sidebar">
+<!-- Toggle Button (Fallback) -->
+<button class="toggle-btn" onclick="toggleSidebar(!document.getElementById('sidebar').classList.contains('hidden'))" aria-label="Toggle Sidebar">
     <i class="fas fa-bars"></i>
 </button>
 

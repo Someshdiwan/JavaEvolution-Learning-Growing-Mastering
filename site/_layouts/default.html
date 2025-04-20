@@ -315,13 +315,18 @@
             const sidebar = document.getElementById('sidebar');
             const toggleBtn = document.querySelector('.toggle-btn');
             const content = document.querySelector('.content');
+            if (!sidebar) {
+                console.error('Sidebar element not found');
+                return;
+            }
             sidebar.classList.toggle('hidden', isHidden);
             content.style.marginLeft = isHidden ? '0' : '210px'; // Force margin update
             localStorage.setItem('sidebar-hidden', isHidden);
             if (window.innerWidth > 768) {
                 toggleBtn.style.display = isHidden ? 'block' : 'none';
+            } else {
+                toggleBtn.style.display = 'block';
             }
-            // Update active link after toggle
             updateActiveLink();
         }
 
@@ -329,6 +334,10 @@
         function handleTap(event) {
             const sidebar = document.getElementById('sidebar');
             const target = event.target;
+            if (!sidebar) {
+                console.error('Sidebar not found during tap');
+                return;
+            }
 
             // Allow taps outside interactive elements to trigger hide/show
             if (
@@ -364,19 +373,42 @@
             const isDark = body.classList.contains('dark-mode');
             localStorage.setItem('dark-mode', isDark);
             const icon = document.querySelector('.dark-toggle i');
-            icon.classList.remove('fa-moon', 'fa-sun');
-            icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+            if (icon) {
+                icon.classList.remove('fa-moon', 'fa-sun');
+                icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+            } else {
+                console.error('Dark mode icon not found');
+            }
+            // Force re-render of styled elements
+            const sidebar = document.getElementById('sidebar');
+            const themeContainer = document.getElementById('theme-time-container');
+            if (sidebar) sidebar.style.display = 'none'; // Trigger reflow
+            if (themeContainer) themeContainer.style.display = 'none';
+            setTimeout(() => {
+                if (sidebar) sidebar.style.display = '';
+                if (themeContainer) themeContainer.style.display = '';
+            }, 0);
         }
 
         // Timezone toggle
         function toggleTimezone() {
             currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
-            document.getElementById('tz-toggle-btn').textContent = currentZone;
-            updateLiveTime();
+            const tzButton = document.getElementById('tz-toggle-btn');
+            if (tzButton) {
+                tzButton.textContent = currentZone;
+                updateLiveTime();
+            } else {
+                console.error('Timezone button not found');
+            }
         }
 
         // Update live time
         function updateLiveTime() {
+            const liveTime = document.getElementById('live-time');
+            if (!liveTime) {
+                console.error('Live time element not found');
+                return;
+            }
             const now = new Date();
             let date;
             if (currentZone === 'GMT') {
@@ -390,17 +422,20 @@
             const s = date.getSeconds().toString().padStart(2, '0');
             const ampm = h >= 12 ? 'PM' : 'AM';
             h = h % 12 || 12;
-            document.getElementById('live-time').textContent =
-                `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
+            liveTime.textContent = `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
         }
 
         // Handle scroll for theme/time container
         function handleScroll() {
             const themeTimeContainer = document.getElementById('theme-time-container');
-            if (window.scrollY > SCROLL_THRESHOLD) {
-                themeTimeContainer.classList.add('hidden');
+            if (themeTimeContainer) {
+                if (window.scrollY > SCROLL_THRESHOLD) {
+                    themeTimeContainer.classList.add('hidden');
+                } else {
+                    themeTimeContainer.classList.remove('hidden');
+                }
             } else {
-                themeTimeContainer.classList.remove('hidden');
+                console.error('Theme/time container not found');
             }
         }
 
@@ -409,22 +444,31 @@
             // Initialize dark mode
             const isDark = localStorage.getItem('dark-mode') === 'true';
             const body = document.body;
-            if (isDark) {
-                body.classList.add('dark-mode');
-                document.querySelector('.dark-toggle i').classList.replace('fa-moon', 'fa-sun');
+            if (body) {
+                if (isDark) {
+                    body.classList.add('dark-mode');
+                    const icon = document.querySelector('.dark-toggle i');
+                    if (icon) icon.classList.replace('fa-moon', 'fa-sun');
+                }
+            } else {
+                console.error('Body element not found');
             }
 
             // Initialize sidebar state
             const sidebar = document.getElementById('sidebar');
             const toggleBtn = document.querySelector('.toggle-btn');
             const content = document.querySelector('.content');
-            const isSidebarHidden = localStorage.getItem('sidebar-hidden') === 'true';
-            sidebar.classList.toggle('hidden', isSidebarHidden);
-            content.style.marginLeft = isSidebarHidden ? '0' : '210px'; // Initial margin
-            if (window.innerWidth > 768) {
-                toggleBtn.style.display = isSidebarHidden ? 'block' : 'none';
+            if (sidebar && toggleBtn && content) {
+                const isSidebarHidden = localStorage.getItem('sidebar-hidden') === 'true';
+                sidebar.classList.toggle('hidden', isSidebarHidden);
+                content.style.marginLeft = isSidebarHidden ? '0' : '210px';
+                if (window.innerWidth > 768) {
+                    toggleBtn.style.display = isSidebarHidden ? 'block' : 'none';
+                } else {
+                    toggleBtn.style.display = 'block';
+                }
             } else {
-                toggleBtn.style.display = 'block';
+                console.error('Sidebar, toggle button, or content not found');
             }
 
             // Add tap/click and scroll listeners
@@ -433,15 +477,17 @@
             window.addEventListener('scroll', handleScroll, { passive: true });
 
             // Show tooltip on first visit
-            if (!localStorage.getItem('tooltip-shown')) {
+            const tooltip = document.getElementById('tooltip');
+            if (tooltip && !localStorage.getItem('tooltip-shown')) {
                 setTimeout(() => {
-                    const tooltip = document.getElementById('tooltip');
                     tooltip.classList.add('visible');
                     setTimeout(() => {
                         tooltip.classList.remove('visible');
                         localStorage.setItem('tooltip-shown', 'true');
                     }, 5000);
                 }, 1000);
+            } else if (!tooltip) {
+                console.error('Tooltip element not found');
             }
 
             // Initialize active link

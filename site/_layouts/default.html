@@ -1,16 +1,17 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Font Awesome -->
+    &lt;!&ndash; Font Awesome &ndash;&gt;
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
-    <!-- Favicons -->
+    &lt;!&ndash; Favicons &ndash;&gt;
     <link
             rel="icon" type="image/png"
             href="{{ '/assets/favicon-96x96.png' | relative_url }}"
@@ -244,6 +245,321 @@
             } else if (!tooltip) {
                 console.error('Tooltip element not found');
             }
+
+            // Initialize active link
+            updateActiveLink();
+
+            updateLiveTime();
+            setInterval(updateLiveTime, 1000);
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker
+                    .register('/JavaEvolution-Learning-Growing-Mastering/assets/sw.js')
+                    .then(() => console.log('Service Worker Registered'))
+                    .catch(err => console.error('SW registration failed', err));
+            }
+        };
+    </script>
+</head>
+
+<body>
+&lt;!&ndash; Dark Mode & Timezone Controls &ndash;&gt;
+<div id="theme-time-container">
+    <button class="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div id="time-zone-wrapper">
+        <button id="tz-toggle-btn" class="time-toggle" onclick="toggleTimezone()" aria-label="Toggle Timezone">IST</button>
+        <span id="live-time">Time: Loading...</span>
+    </div>
+</div>
+
+&lt;!&ndash; Onboarding Tooltip &ndash;&gt;
+<div id="tooltip" class="tooltip">
+    Single tap to hide sidebar, double tap to show
+</div>
+
+&lt;!&ndash; Collapsible Sidebar &ndash;&gt;
+<div id="sidebar" class="sidebar">
+    <a href="{{ site.baseurl }}/" class="sidebar-link">
+        <i class="fas fa-home"></i> Home
+    </a>
+    <a href="{{ site.baseurl }}/content" class="sidebar-link">
+        <i class="fas fa-book"></i> All Contents
+    </a>
+    <a href="https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering" class="sidebar-link" target="_blank">
+        <i class="fab fa-github"></i> GitHub Repo
+    </a>
+</div>
+
+&lt;!&ndash; Toggle Button (Fallback) &ndash;&gt;
+<button class="toggle-btn" onclick="toggleSidebar(!document.getElementById('sidebar').classList.contains('hidden'))" aria-label="Toggle Sidebar">
+    <i class="fas fa-bars"></i>
+</button>
+
+&lt;!&ndash; Main Content &ndash;&gt;
+<div class="wrapper">
+    <div class="content">
+        <div class="fade-in">
+            {{ content }}
+        </div>
+    </div>
+</div>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- Favicons -->
+    <link
+            rel="icon" type="image/png"
+            href="{{ '/assets/favicon-96x96.png' | relative_url }}"
+            sizes="96x96"
+    />
+    <link
+            rel="icon" type="image/svg+xml"
+            href="{{ '/assets/favicon.svg' | relative_url }}"
+    />
+    <link
+            rel="shortcut icon"
+            href="{{ '/assets/favicon.ico' | relative_url }}"
+    />
+    <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="{{ '/assets/apple-touch-icon.png' | relative_url }}"
+    />
+    <meta name="apple-mobile-web-app-title" content="Java" />
+    <link
+            rel="manifest"
+            href="/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>{{ page.title }}</title>
+    <link
+            rel="stylesheet"
+            href="{{ '/assets/style.css' | relative_url }}"
+    />
+
+    <script>
+        // Current timezone tracker
+        let currentZone = 'IST';
+        let tapCount = 0;
+        let tapTimer = null;
+        const TAP_TIMEOUT = 300; // ms for double-tap detection
+        const SCROLL_THRESHOLD = 100; // px to hide theme/time container
+
+        // Update active link based on URL
+        function updateActiveLink() {
+            const currentPath = window.location.pathname;
+            const baseUrl = '{{ site.baseurl }}' || '';
+            console.log('Current Path:', currentPath, 'Base URL:', baseUrl); // Debug
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href').replace(baseUrl, ''); // Normalize href
+                if (href === currentPath || (currentPath === '/' && href === '/')) {
+                    link.classList.add('active');
+                    console.log('Active Link Set:', href); // Debug
+                }
+            });
+        }
+
+        // Sidebar toggle
+        function toggleSidebar(isHidden) {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const content = document.querySelector('.content');
+            if (!sidebar) {
+                console.error('Sidebar element not found');
+                return;
+            }
+            sidebar.classList.toggle('hidden', isHidden);
+            content.style.marginLeft = isHidden ? '0' : '210px'; // Force margin update
+            localStorage.setItem('sidebar-hidden', isHidden);
+            if (window.innerWidth > 768) {
+                toggleBtn.style.display = isHidden ? 'block' : 'none';
+            } else {
+                toggleBtn.style.display = 'block';
+            }
+            updateActiveLink();
+        }
+
+        // Handle tap/click events
+        function handleTap(event) {
+            const sidebar = document.getElementById('sidebar');
+            const target = event.target;
+            if (!sidebar) {
+                console.error('Sidebar not found during tap');
+                return;
+            }
+
+            // Allow taps outside interactive elements to trigger hide/show
+            if (
+                target.closest('#sidebar') ||
+                target.closest('#theme-time-container') ||
+                target.closest('.toggle-btn') ||
+                target.closest('.tooltip')
+            ) {
+                return;
+            }
+
+            tapCount++;
+            if (tapCount === 1) {
+                tapTimer = setTimeout(() => {
+                    if (!sidebar.classList.contains('hidden')) {
+                        toggleSidebar(true);
+                    }
+                    tapCount = 0;
+                }, TAP_TIMEOUT);
+            } else if (tapCount === 2) {
+                clearTimeout(tapTimer);
+                if (sidebar.classList.contains('hidden')) {
+                    toggleSidebar(false);
+                }
+                tapCount = 0;
+            }
+        }
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('dark-mode', isDark);
+            const icon = document.querySelector('.dark-toggle i');
+            if (icon) {
+                icon.classList.remove('fa-moon', 'fa-sun');
+                icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+            } else {
+                console.error('Dark mode icon not found');
+            }
+            // Force re-render of styled elements
+            const sidebar = document.getElementById('sidebar');
+            const themeContainer = document.getElementById('theme-time-container');
+            if (sidebar) sidebar.style.display = 'none';
+            if (themeContainer) themeContainer.style.display = 'none';
+            setTimeout(() => {
+                if (sidebar) sidebar.style.display = '';
+                if (themeContainer) themeContainer.style.display = '';
+            }, 0);
+        }
+
+        // Timezone toggle
+        function toggleTimezone() {
+            currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
+            const tzButton = document.getElementById('tz-toggle-btn');
+            if (tzButton) {
+                tzButton.textContent = currentZone;
+                updateLiveTime();
+            } else {
+                console.error('Timezone button not found');
+            }
+        }
+
+        // Update live time
+        function updateLiveTime() {
+            const liveTime = document.getElementById('live-time');
+            if (!liveTime) {
+                console.error('Live time element not found');
+                return;
+            }
+            const now = new Date();
+            let date;
+            if (currentZone === 'GMT') {
+                date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+            } else {
+                const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+                date = new Date(utc + 5.5 * 3600000);
+            }
+            let h = date.getHours();
+            const m = date.getMinutes().toString().padStart(2, '0');
+            const s = date.getSeconds().toString().padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            liveTime.textContent = `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
+        }
+
+        // Handle scroll for theme/time container
+        function handleScroll() {
+            const themeTimeContainer = document.getElementById('theme-time-container');
+            if (themeTimeContainer) {
+                if (window.scrollY > SCROLL_THRESHOLD) {
+                    themeTimeContainer.classList.add('hidden');
+                } else {
+                    themeTimeContainer.classList.remove('hidden');
+                }
+            } else {
+                console.error('Theme/time container not found');
+            }
+        }
+
+        // On load: init dark mode, sidebar state, listeners, time, SW
+        window.onload = () => {
+            // Initialize dark mode
+            const isDark = localStorage.getItem('dark-mode') === 'true';
+            const body = document.body;
+            if (body) {
+                if (isDark) {
+                    body.classList.add('dark-mode');
+                    const icon = document.querySelector('.dark-toggle i');
+                    if (icon) icon.classList.replace('fa-moon', 'fa-sun');
+                }
+            } else {
+                console.error('Body element not found');
+            }
+
+            // Initialize sidebar state
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const content = document.querySelector('.content');
+            if (sidebar && toggleBtn && content) {
+                const isSidebarHidden = localStorage.getItem('sidebar-hidden') === 'true';
+                sidebar.classList.toggle('hidden', isSidebarHidden);
+                content.style.marginLeft = isSidebarHidden ? '0' : '210px';
+                if (window.innerWidth > 768) {
+                    toggleBtn.style.display = isSidebarHidden ? 'block' : 'none';
+                } else {
+                    toggleBtn.style.display = 'block';
+                }
+            } else {
+                console.error('Sidebar, toggle button, or content not found');
+            }
+
+            // Show tooltip on first visit or force for testing
+            const tooltip = document.getElementById('tooltip');
+            if (tooltip) {
+                const tooltipShown = localStorage.getItem('tooltip-shown');
+                if (!tooltipShown) {
+                    console.log('Showing tooltip for first visit'); // Debug
+                    setTimeout(() => {
+                        tooltip.classList.add('visible');
+                        setTimeout(() => {
+                            tooltip.classList.remove('visible');
+                            localStorage.setItem('tooltip-shown', 'true');
+                        }, 5000);
+                    }, 1000);
+                } else {
+                    console.log('Tooltip already shown, skipping'); // Debug
+                }
+            } else {
+                console.error('Tooltip element not found');
+            }
+
+            // Add tap/click and scroll listeners
+            document.addEventListener('click', handleTap);
+            document.addEventListener('touchstart', handleTap, { passive: true });
+            window.addEventListener('scroll', handleScroll, { passive: true });
 
             // Initialize active link
             updateActiveLink();

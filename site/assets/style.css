@@ -99,25 +99,6 @@ body {
     visibility: visible;
 }
 
-/* 7. Sidebar */
-.sidebar {
-    width: 200px;
-    height: 100vh;
-    background-color: var(--sidebar-bg);
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 1.25rem;
-    box-sizing: border-box;
-    overflow-y: auto;
-    transition: transform 0.3s ease;
-    z-index: 999;
-}
-
-.sidebar.hidden {
-    transform: translateX(-100%);
-}
-
 /* 8. Sidebar Links */
 .sidebar-link {
     display: flex;
@@ -142,8 +123,74 @@ body {
 .sidebar-link.active {
     color: var(--active-color);
     font-weight: bold;
-    text-decoration: underline;
 }
+
+/* Remove underline from icon, apply only to text */
+.sidebar-link.active i {
+    text-decoration: none; /* Ensure icon has no underline */
+}
+
+.sidebar-link.active::after {
+    content: "";
+    position: absolute;
+    left: 2.5rem; /* Adjust to start after the icon (2.5rem accounts for icon + margin) */
+    right: 1rem;
+    bottom: 0;
+    height: 2px;
+    background: var(--active-color);
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+}
+
+.sidebar-link.active:hover::after {
+    transform: scaleX(1);
+}
+
+/* 7. Sidebar
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    z-index: 999;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+*//* 8. Sidebar Links *//*
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.sidebar-link i {
+    margin-right: 0.75rem;
+}
+
+.sidebar-link:hover {
+    transform: scale(1.03);
+    background-color: var(--hover-bg);
+}
+
+.sidebar-link.active {
+    color: var(--active-color);
+    font-weight: bold;
+    text-decoration: underline;
+}*/
 
 /* 9. Toggle Button (Fallback) */
 .toggle-btn {

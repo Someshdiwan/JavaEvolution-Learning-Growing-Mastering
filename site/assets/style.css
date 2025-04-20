@@ -246,7 +246,8 @@ body {
 }
 */
 
-/* 1. Color Variables */
+/*
+ 1. Color Variables
 :root {
     --primary-color: #1e90ff;
     --hover-bg: #e0e0e0;
@@ -259,7 +260,9 @@ body {
     --button-text: #ffffff;
 }
 
-/* Dark mode override */
+*/
+/* Dark mode override *//*
+
 .dark-mode {
     --bg-color: #121212;
     --text-color: #e0e0e0;
@@ -267,11 +270,17 @@ body {
     --button-text: #ffffff;
     --card-bg: #2b2b2b;
     --card-shadow: rgba(0, 0, 0, 0.5);
-    --primary-color: #4da8ff; /* Lighter blue for better contrast */
-    --active-color: #a1d6ff; /* Lighter active color */
+    --primary-color: #4da8ff; */
+/* Lighter blue for better contrast *//*
+
+    --active-color: #a1d6ff; */
+/* Lighter active color *//*
+
 }
 
-/* 2. Global Styles */
+*/
+/* 2. Global Styles *//*
+
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -280,7 +289,9 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* 3. Theme + Time Container */
+*/
+/* 3. Theme + Time Container *//*
+
 #theme-time-container {
     position: fixed;
     top: 1rem;
@@ -301,7 +312,9 @@ body {
     transform: translateY(-20px);
 }
 
-/* 4. Dark Mode and Timezone Toggle */
+*/
+/* 4. Dark Mode and Timezone Toggle *//*
+
 .dark-toggle,
 .time-toggle {
     background-color: var(--primary-color);
@@ -319,13 +332,17 @@ body {
     background-color: var(--active-color);
 }
 
-/* 5. Live-Time Display */
+*/
+/* 5. Live-Time Display *//*
+
 #live-time {
     font-weight: 500;
     font-size: 0.9rem;
 }
 
-/* 6. Tooltip */
+*/
+/* 6. Tooltip *//*
+
 .tooltip {
     position: fixed;
     bottom: 1rem;
@@ -347,7 +364,9 @@ body {
     visibility: visible;
 }
 
-/* 7. Sidebar */
+*/
+/* 7. Sidebar *//*
+
 .sidebar {
     width: 200px;
     height: 100vh;
@@ -366,7 +385,9 @@ body {
     transform: translateX(-100%);
 }
 
-/* 8. Sidebar Links */
+*/
+/* 8. Sidebar Links *//*
+
 .sidebar-link {
     display: flex;
     align-items: center;
@@ -393,9 +414,16 @@ body {
     text-decoration: underline;
 }
 
-/* 9. Toggle Button (Fallback) */
+*/
+/* 9. Toggle Button (Fallback) *//*
+
 .toggle-btn {
+    position: sticky;
+*/
+/*
     position: fixed;
+*//*
+
     top: 1rem;
     left: 1rem;
     background-color: var(--primary-color);
@@ -416,7 +444,9 @@ body {
     opacity: 1;
 }
 
-/* 10. Content Area */
+*/
+/* 10. Content Area *//*
+
 .wrapper {
     display: flex;
 }
@@ -432,7 +462,9 @@ body {
     margin-left: 0;
 }
 
-/* 11. Card-style Container inside Content */
+*/
+/* 11. Card-style Container inside Content *//*
+
 .fade-in {
     background-color: var(--card-bg);
     padding: 1.5rem;
@@ -440,7 +472,9 @@ body {
     box-shadow: 0 4px 20px var(--card-shadow);
 }
 
-/* 12. Fade-in Keyframes */
+*/
+/* 12. Fade-in Keyframes *//*
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -452,7 +486,9 @@ body {
     }
 }
 
-/* 13. Reduced Motion */
+*/
+/* 13. Reduced Motion *//*
+
 @media (prefers-reduced-motion: reduce) {
     .sidebar,
     #theme-time-container,
@@ -464,7 +500,223 @@ body {
     }
 }
 
-/* 14. Responsive Behavior */
+*/
+/* 14. Responsive Behavior *//*
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    .toggle-btn {
+        display: block;
+    }
+}
+
+*/
+/* Global link styles in content *//*
+
+.content a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.content a:visited {
+    color: var(--active-color);
+}
+
+.content a:hover,
+.content a:focus {
+    text-decoration: underline;
+}*/
+
+
+/* 1. Color Variables */
+:root {
+    --primary-color: #1e90ff;
+    --hover-bg: #e0e0e0;
+    --active-color: #87cefa;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --bg-color: #f9f9f9;
+    --text-color: #000000;
+    --sidebar-bg: #f4f4f4;
+    --button-text: #ffffff;
+}
+
+/* 2. Global Styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 3. Theme + Time Container */
+#theme-time-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--sidebar-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    z-index: 1002;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark mode override */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --sidebar-bg: #1f1f1f;
+    --button-text: #ffffff;
+    --card-bg: #2b2b2b;
+    --card-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* 4. Dark Mode and Timezone Toggle */
+.dark-toggle,
+.time-toggle {
+    background-color: var(--primary-color);
+    color: var(--button-text);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.dark-toggle:hover,
+.time-toggle:hover {
+    background-color: var(--active-color);
+}
+
+/* 5. Live-Time Display */
+#live-time {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* 6. Sidebar */
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: var(--sidebar-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    z-index: 999;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* 7. Sidebar Links */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.sidebar-link i {
+    margin-right: 0.75rem;
+}
+
+.sidebar-link:hover {
+    transform: scale(1.03);
+    background-color: var(--hover-bg);
+}
+
+.sidebar-link.active {
+    color: var(--active-color);
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* 8. Toggle Button (Fallback) */
+.toggle-btn {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background-color: var(--primary-color);
+    color: var(--button-text);
+    border: none;
+    padding: 0.4rem 0.8rem; /* Smaller padding */
+    font-size: 0.9rem; /* Smaller icon */
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1001;
+    display: none;
+    transition: background-color 0.3s;
+    opacity: 0.7; /* Less prominent */
+}
+
+.toggle-btn:hover {
+    background-color: var(--active-color);
+    opacity: 1;
+}
+
+/* 9. Content Area */
+.wrapper {
+    display: flex;
+}
+
+.content {
+    margin-left: 210px;
+    padding: 2rem;
+    flex: 1;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar.hidden ~ .wrapper .content {
+    margin-left: 0;
+}
+
+/* 10. Card-style Container inside Content */
+.fade-in {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px var(--card-shadow);
+}
+
+/* 11. Fade-in Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 12. Responsive Behavior */
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;

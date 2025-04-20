@@ -1,5 +1,5 @@
 <!-- ===========================
-     BANNER: Make The JAVA Great Again - Join Our Community
+     BANNER: Make JAVA Great Again - Join Our Community
      =========================== -->
 
 <p align="center">

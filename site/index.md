@@ -17,7 +17,7 @@ Whether you’re a beginner exploring Java or an experienced developer brushing 
 - ⚙️ Hands-on **code examples and best practices**
 - 🗂 Categorized topics for **easy navigation**
 - 🧱 Built using **GitHub Pages + Jekyll** with PWA support
-- 
+
 ---
 
 ## 🔗 Explore the Repository
@@ -42,33 +42,8 @@ Whether you’re a beginner exploring Java or an experienced developer brushing 
 
 Want to improve this project or add features? Check out this [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-> This site is open-source and built with ❤️ by developers for developers.
-
-## 🚧 Make The JAVA Great Again – Tasks To Do
-
-> Help us improve JavaEvolution! Contributors are encouraged to pick a task and submit a PR. Let's build a better Java learning experience together.
-
-### 🔧 Feature Tasks for Contributors
-
-- [ ] **Scroll Progress Bar**  
-  Add a visual indicator showing how much content the user has scrolled through on a page. This feature helps users track their progress while navigating long pages.
-
-- [ ] **Search Bar for Topic Navigation**  
-  Implement an in-page or site-wide search bar to allow users to quickly find topics, lessons, or files in the repository.
-
-- [ ] **Styled Visited/Unvisited Links**  
-  Enhance the site's user interface by making visited and unvisited links visually distinct, helping users easily navigate previously explored topics.
-
-- [ ] **Dark Mode Polish & UX Enhancements**  
-  Improve dark mode aesthetics by refining color contrasts, readability, and overall theme consistency across the website.
-
-- [ ] **Improve PWA Caching & Offline Support**  
-  Work on optimizing the Progressive Web App (PWA) functionality by enhancing service worker caching. This would allow users to access content offline more effectively.
-
-- [ ] **Contributor Guide**  
-  Add a comprehensive `CONTRIBUTING.md` file with clear setup instructions, task guidelines, and steps for issue reporting. This will make it easier for new contributors to get started.
-
-- [ ] **UI Enhancements & Animations**  
-  Enhance user interface elements with polished transitions, hover effects, and subtle animations to create a more engaging and modern browsing experience.
+This site is open-source and built with ❤️ by developers for developers.
 
 ---
+
+Adding Photos and videos Guide how to download and setup Then Final Release ...

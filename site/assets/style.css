@@ -42,6 +42,8 @@ body {
   --text-color: #e0e0e0;
   --sidebar-bg: #1f1f1f;
   --button-text: #ffffff;
+  --card-bg: #2b2b2b;           /* dark gray background for cards */
+  --card-shadow: rgba(0, 0, 0, 0.5); /* stronger shadow on dark */
 }
 
 /* 4. Dark Mode Toggle */
@@ -83,7 +85,8 @@ body {
   z-index: 999;
 }
 
-.sidebar.collapsed {
+/* replace .sidebar.collapsed with .sidebar.hidden */
+.sidebar.hidden {
   transform: translateX(-100%);
 }
 
@@ -153,8 +156,12 @@ body {
   background-color: var(--card-bg);
   padding: 1.5rem;
   border-radius: 10px;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 20px var(--card-shadow);
+  /*
   box-shadow: 0 4px 20px var(--card-shadow);
   animation: fadeIn 0.5s ease;
+  */
 }
 
 /* 11. Fade-in Keyframes */
@@ -185,4 +192,20 @@ body {
   .toggle-btn {
     display: block;
   }
+}
+
+/* global link styles in content */
+.content a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.content a:visited {
+  color: var(--active-color);
+}
+
+.content a:hover,
+.content a:focus {
+  text-decoration: underline;
 }

@@ -1,196 +1,26 @@
-/* 1. Color Variables & Dark-Mode Overrides *//*
-
+/* 1. Color Variables */
 :root {
-  --bg-color: #ffffff;
+  --primary-color: #1e90ff;
+  --hover-bg: #e0e0e0;
+  --active-color: #87cefa;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.1);
+  --bg-color: #f9f9f9;
   --text-color: #000000;
-  --sidebar-bg: #f8f9fa;
-  --link-color: #0366d6;
-  --button-bg: #eee;
-  --button-text: #000;
-  --hover-bg: rgba(0, 0, 0, 0.05);
-  --border-color: #ccc;
+  --sidebar-bg: #f4f4f4;
+  --button-text: #ffffff;
 }
 
-.dark-mode {
-  --bg-color: #121212;
-  --text-color: #e0e0e0;
-  --sidebar-bg: #1f1f1f;
-  --link-color: #90caf9;
-  --button-bg: #333;
-  --button-text: #fff;
-  --hover-bg: rgba(255, 255, 255, 0.1);
-  --border-color: #444;
-}
-
+/* 2. Global Styles */
 body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  margin: 0;
-  font-family: sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-*/
-/* 2. Sidebar Styles *//*
-
-.sidebar {
-  background-color: var(--sidebar-bg);
-  width: 260px;
-  padding: 1rem;
-  position: fixed;
-  height: 100vh;
-  overflow-y: auto;
-  border-right: 1px solid var(--border-color);
-  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
-  z-index: 999;
-}
-
-.sidebar.hidden {
-  transform: translateX(-100%);
-}
-
-.sidebar a {
-  display: block;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  color: var(--link-color);
-  transition: background-color 0.2s ease;
-}
-
-.sidebar a:hover {
-  background-color: var(--hover-bg);
-}
-
-*/
-/* 3. Main Content Area *//*
-
-.content {
-  margin-left: 260px;
-  padding: 1rem;
-  transition: margin-left 0.3s ease;
-}
-
-.sidebar.hidden + .content {
-  margin-left: 0;
-}
-
-*/
-/* 4. Toggle Buttons *//*
-
-.toggle-btn {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  z-index: 1001;
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.toggle-btn:hover {
-  background-color: var(--hover-bg);
-}
-
-.dark-toggle {
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.dark-toggle:hover {
-  background-color: var(--hover-bg);
-}
-
-*/
-/* 5. Fade-In Animation *//*
-
-.fade-in {
-  animation: fadeIn 0.4s ease-in;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-*/
-/* 6. Responsive Sidebar (Mobile) *//*
-
-@media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-    position: fixed;
-    left: 0;
-  }
-  .sidebar:not(.hidden) {
-    transform: translateX(0);
-  }
-  .content {
-    margin-left: 0;
-  }
-}
-
-*/
-/* 7. Image Layout Helpers *//*
-
-.image-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.image-row img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.image-row img:hover {
-  transform: scale(1.03);
-}
-
-@media (min-width: 768px) {
-  .image-row img {
-    width: 48%;
-  }
-}
-
-.responsive-img {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  margin: 0 auto;
-  display: block;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.responsive-img:hover {
-  transform: scale(1.02);
-}
-
-.dark-mode .responsive-img {
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-}
-
-*/
-/* 8. Dark-Mode Toggle & Live-Time Container *//*
-
+/* 3. Theme + Time Container */
 #theme-time-container {
   position: fixed;
   top: 1rem;
@@ -199,271 +29,160 @@ body {
   align-items: center;
   gap: 0.5rem;
   background-color: var(--sidebar-bg);
-  color: var(--text-color);
   padding: 0.5rem 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  font-size: 0.9rem;
   z-index: 1002;
   transition: background-color 0.3s, color 0.3s;
 }
 
-*/
-/* Alignment Fix: Dark Mode Button on Left, Time Elements on Right *//*
-
-#theme-time-container .dark-toggle {
-  position: static;       */
-/* Remove fixed positioning to follow flex layout *//*
-
-  margin-right: auto;     */
-/* Push the dark mode button to the left *//*
-
+/* Dark mode override */
+.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --sidebar-bg: #1f1f1f;
+  --button-text: #ffffff;
 }
 
-*/
-/* Optional: Consistent Button Styling in Container *//*
-
-#theme-time-container button {
-  background: var(--button-bg);
+/* 4. Dark Mode Toggle */
+.dark-toggle,
+.time-toggle {
+  background-color: var(--primary-color);
   color: var(--button-text);
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
 }
 
-#theme-time-container button:hover {
+.dark-toggle:hover,
+.time-toggle:hover {
+  background-color: var(--active-color);
+}
+
+/* 5. Live-Time Display */
+#live-time {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* 6. Sidebar */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  z-index: 999;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+}
+
+/* 7. Sidebar Links */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.sidebar-link i {
+  margin-right: 0.75rem;
+}
+
+.sidebar-link:hover {
+  transform: scale(1.03);
   background-color: var(--hover-bg);
 }
 
-*/
-/* Optional: Style the Time Display *//*
+.sidebar-link.active {
+  color: var(--active-color);
+  font-weight: bold;
+  text-decoration: underline;
+}
 
-#live-time {
-  padding: 0.5rem; */
-/* Matches button padding for consistency *//*
+/* 8. Mobile Toggle Button */
+.toggle-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background-color: var(--primary-color);
+  color: var(--button-text);
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 1.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1001;
+  display: none;
+  transition: background-color 0.3s;
+}
 
- /* 1. Color Variables & Dark-Mode Overrides */
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #000000;
-            --sidebar-bg: #f4f4f4;
-            --link-color: #1e90ff;
-            --button-bg: #eee;
-            --button-text: #000;
-            --hover-bg: rgba(0, 0, 0, 0.05);
-            --border-color: #ccc;
-        }
+.toggle-btn:hover {
+  background-color: var(--active-color);
+}
 
-        .dark-mode {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --sidebar-bg: #1f1f1f;
-            --link-color: #90caf9;
-            --button-bg: #333;
-            --button-text: #fff;
-            --hover-bg: rgba(255, 255, 255, 0.1);
-            --border-color: #444;
-        }
+/* 9. Content Area */
+.wrapper {
+  display: flex;
+}
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            font-family: sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+.content {
+  margin-left: 260px;
+  padding: 2rem;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+}
 
-        /* 2. Sidebar Styles */
-        .sidebar {
-            width: 260px;
-            height: 100vh;
-            background-color: var(--sidebar-bg);
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-y: auto;
-            border-right: 1px solid var(--border-color);
-            z-index: 999;
-            transition: transform 0.3s ease-in-out, background-color 0.3s ease;
-        }
+/* 10. Card‑style Container inside Content */
+.content-container,
+.fade-in {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px var(--card-shadow);
+  animation: fadeIn 0.5s ease;
+}
 
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
+/* 11. Fade-in Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-        .sidebar-link {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            color: var(--link-color);
-            text-decoration: none;
-            transition: transform 0.2s, background-color 0.2s;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-
-        .sidebar-link i {
-            margin-right: 10px;
-        }
-
-        .sidebar-link:hover {
-            transform: scale(1.05);
-            background-color: var(--hover-bg);
-        }
-
-        .sidebar-link.active {
-            color: #87cefa;
-            font-weight: bold;
-            text-decoration: underline;
-        }
-
-        /* 3. Main Content Area */
-        .content {
-            margin-left: 260px;
-            padding: 1rem;
-            transition: margin-left 0.3s ease;
-        }
-
-        .sidebar.hidden + .content {
-            margin-left: 0;
-        }
-
-        /* 4. Toggle Buttons */
-        .toggle-btn {
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            background: var(--button-bg);
-            color: var(--button-text);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1001;
-            transition: background-color 0.3s ease;
-        }
-
-        .toggle-btn:hover {
-            background-color: var(--hover-bg);
-        }
-
-        .dark-toggle, .time-toggle {
-            background: var(--button-bg);
-            color: var(--button-text);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .dark-toggle:hover, .time-toggle:hover {
-            background-color: var(--hover-bg);
-        }
-
-        /* 5. Fade-In Animation */
-        .fade-in {
-            animation: fadeIn 0.4s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 6. Dark-Mode Toggle & Live-Time Container */
-        #theme-time-container {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: var(--sidebar-bg);
-            color: var(--text-color);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            font-size: 0.9rem;
-            z-index: 1002;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        #theme-time-container .dark-toggle {
-            position: static;
-            margin-right: auto;
-        }
-
-        #live-time {
-            padding: 0.5rem;
-        }
-
-        /* 7. Responsive Sidebar (Mobile) */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: fixed;
-                transform: translateX(-100%);
-            }
-            .sidebar:not(.hidden) {
-                transform: translateX(0);
-            }
-            .content {
-                margin-left: 0;
-            }
-            .sidebar-link {
-                font-size: 1.1rem;
-                padding: 1rem;
-            }
-        }
-
-        /* 8. Image Layout Helpers */
-        .image-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .image-row img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .image-row img:hover {
-            transform: scale(1.03);
-        }
-
-        @media (min-width: 768px) {
-            .image-row img {
-                width: 48%;
-            }
-        }
-
-        .responsive-img {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            margin: 0 auto;
-            display: block;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .responsive-img:hover {
-            transform: scale(1.02);
-        }
-
-        .dark-mode .responsive-img {
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-        }
+/* 12. Responsive Behavior */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  .toggle-btn {
+    display: block;
+  }
+}

@@ -3,90 +3,108 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png"      href="{{ '/assets/favicon-96x96.png'  | relative_url }}" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml"  href="{{ '/assets/favicon.svg'       | relative_url }}" />
-    <link rel="shortcut icon"             href="{{ '/assets/favicon.ico'       | relative_url }}" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | relative_url }}" />
+    <link
+            rel="icon" type="image/png"
+            href="{{ '/assets/favicon-96x96.png' | relative_url }}"
+            sizes="96x96"
+    />
+    <link
+            rel="icon" type="image/svg+xml"
+            href="{{ '/assets/favicon.svg' | relative_url }}"
+    />
+    <link
+            rel="shortcut icon"
+            href="{{ '/assets/favicon.ico' | relative_url }}"
+    />
+    <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="{{ '/assets/apple-touch-icon.png' | relative_url }}"
+    />
     <meta name="apple-mobile-web-app-title" content="Java" />
-    <link rel="manifest" href="/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest" />
-    <meta name="theme-color" content="#ffffff">
+    <link
+            rel="manifest"
+            href="/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest"
+    />
+    <meta name="theme-color" content="#ffffff" />
 
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+    <link
+            rel="stylesheet"
+            href="{{ '/assets/style.css' | relative_url }}"
+    />
 
-
-<!--    <script>
-        // Track current zone: 'IST' or 'GMT'
+    <script>
+        // Current timezone tracker
         let currentZone = 'IST';
 
-        // Sidebar Toggle
+        // Sidebar toggle
         function toggleSidebar() {
           document.getElementById('sidebar').classList.toggle('hidden');
         }
 
-        // Hide Sidebar When Clicking Outside
-        function hideSidebarIfClickedOutside(event) {
-          const sidebar  = document.getElementById('sidebar');
+        // Hide sidebar on outside click
+        function hideSidebarIfClickedOutside(e) {
+          const sidebar = document.getElementById('sidebar');
           const toggleBtn = document.querySelector('.toggle-btn');
-          if (!sidebar.classList.contains('hidden')
-              && !sidebar.contains(event.target)
-              && !toggleBtn.contains(event.target)) {
+          if (
+            !sidebar.classList.contains('hidden') &&
+            !sidebar.contains(e.target) &&
+            !toggleBtn.contains(e.target)
+          ) {
             sidebar.classList.add('hidden');
           }
         }
 
-        // Dark Mode Toggle
+        // Dark mode toggle
         function toggleDarkMode() {
           document.body.classList.toggle('dark-mode');
           localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
         }
 
-        // Toggle between IST and GMT
+        // Timezone toggle
         function toggleTimezone() {
-          currentZone = (currentZone === 'IST') ? 'GMT' : 'IST';
+          currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
           document.getElementById('tz-toggle-btn').textContent = currentZone;
-          updateLiveTime(); // immediately refresh display
+          updateLiveTime();
         }
 
-        // Live Time Update with timezone support
+        // Update live time
         function updateLiveTime() {
           const now = new Date();
           let date;
           if (currentZone === 'GMT') {
-            // UTC time
             date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
           } else {
-            // IST = UTC + 5.5h
             const utc = now.getTime() + now.getTimezoneOffset() * 60000;
             date = new Date(utc + 5.5 * 3600000);
           }
-          let hours   = date.getHours();
-          const mins  = date.getMinutes().toString().padStart(2,'0');
-          const secs  = date.getSeconds().toString().padStart(2,'0');
-          const ampm  = hours >= 12 ? 'PM' : 'AM';
-          hours = hours % 12 || 12;
+          let h = date.getHours();
+          const m = date.getMinutes().toString().padStart(2,'0');
+          const s = date.getSeconds().toString().padStart(2,'0');
+          const ampm = h >= 12 ? 'PM' : 'AM';
+          h = h % 12 || 12;
           document.getElementById('live-time').textContent =
-            `Time (${currentZone}): ${hours}:${mins}:${secs} ${ampm}`;
+            `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
         }
 
-        // On window load: initialize Dark Mode, Sidebar listener, Live Time & Service Worker
+        // On load: init dark mode, listeners, time, SW
         window.onload = () => {
-          // Dark mode init
           if (localStorage.getItem('dark-mode') === 'true') {
             document.body.classList.add('dark-mode');
           }
-
-          // Sidebar outside-click hide
           document.addEventListener('click', hideSidebarIfClickedOutside);
-
-          // Start live time updates
           updateLiveTime();
           setInterval(updateLiveTime, 1000);
 
-          // Service Worker registration
           if ('serviceWorker' in navigator) {
             navigator.serviceWorker
               .register('/JavaEvolution-Learning-Growing-Mastering/assets/sw.js')
@@ -94,109 +112,46 @@
               .catch(err => console.error('SW registration failed', err));
           }
         };
-    </script>-->
-
-    <script>
-        // Track current zone: 'IST' or 'GMT'
-        let currentZone = 'IST';
-
-        // Sidebar Toggle
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('hidden');
-        }
-
-        // Hide Sidebar When Clicking Outside
-        function hideSidebarIfClickedOutside(event) {
-            const sidebar = document.getElementById('sidebar');
-            const toggleBtn = document.querySelector('.toggle-btn');
-            if (!sidebar.classList.contains('hidden')
-                && !sidebar.contains(event.target)
-                && !toggleBtn.contains(event.target)) {
-                sidebar.classList.add('hidden');
-            }
-        }
-
-        // Dark Mode Toggle
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
-        }
-
-        // Toggle between IST and GMT
-        function toggleTimezone() {
-            currentZone = (currentZone === 'IST') ? 'GMT' : 'IST';
-            document.getElementById('tz-toggle-btn').textContent = currentZone;
-            updateLiveTime(); // immediately refresh display
-        }
-
-        // Live Time Update with timezone support
-        function updateLiveTime() {
-            const now = new Date();
-            let date;
-            if (currentZone === 'GMT') {
-                // UTC time
-                date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-            } else {
-                // IST = UTC + 5.5h
-                const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-                date = new Date(utc + 5.5 * 3600000);
-            }
-            let hours = date.getHours();
-            const mins = date.getMinutes().toString().padStart(2,'0');
-            const secs = date.getSeconds().toString().padStart(2,'0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12;
-            document.getElementById('live-time').textContent =
-                `Time (${currentZone}): ${hours}:${mins}:${secs} ${ampm}`;
-        }
-
-        // On window load: initialize Dark Mode, Sidebar listener, Live Time & Service Worker
-        window.onload = () => {
-            // Dark mode init
-            if (localStorage.getItem('dark-mode') === 'true') {
-                document.body.classList.add('dark-mode');
-            }
-
-            // Sidebar outside-click hide
-            document.addEventListener('click', hideSidebarIfClickedOutside);
-
-            // Start live time updates
-            updateLiveTime();
-            setInterval(updateLiveTime, 1000);
-
-            // Service Worker registration
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker
-                    .register('/JavaEvolution-Learning-Growing-Mastering/assets/sw.js')
-                    .then(() => console.log('✅ Service Worker Registered'))
-                    .catch(err => console.error('SW registration failed', err));
-            }
-        };
-
     </script>
 </head>
+
 <body>
-
-<!--Dark Mode and Time-->
-
+<!-- Dark Mode & Timezone Controls -->
 <div id="theme-time-container">
-    <button id="dark-mode-btn" class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
-    <div id="time-zone-wrapper" style="display:flex; align-items:center; gap:0.5rem;">
-        <button id="tz-toggle-btn" class="time-toggle" onclick="toggleTimezone()">IST</button>
-        <div id="live-time">Time: Loading...</div>
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌓</button>
+    <div id="time-zone-wrapper">
+        <button id="tz-toggle-btn" onclick="toggleTimezone()">IST</button>
+        <span id="live-time">Time: Loading...</span>
     </div>
 </div>
 
+<!-- Collapsible Sidebar -->
+<div id="sidebar" class="sidebar">
+    <a href="{{ site.baseurl }}/" class="sidebar-link active">
+        <i class="fas fa-home"></i> Home
+    </a>
+
+    <a href="{{ site.baseurl }}/content" class="sidebar-link">
+        <i class="fas fa-book"></i> All Contents
+    </a>
+
+    <a
+            href="https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering"
+            target="_blank"
+            class="sidebar-link"
+    >
+        <i class="fab fa-github"></i> GitHub Repo
+    </a>
+</div>
+
+<!-- Toggle Button for Mobile -->
+<button class="toggle-btn" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</button>
+
+<!-- Main Content -->
 <div class="wrapper">
-
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-        {% include nav.html %}
-    </div>
-
-    <!-- Main Content -->
     <div class="content">
-        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         <div class="fade-in">
             {{ content }}
         </div>

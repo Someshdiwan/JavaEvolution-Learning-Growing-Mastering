@@ -73,7 +73,7 @@ self.addEventListener("fetch", (event) => {
 const CACHE_NAME = "java-evolution-cache-v5"; // Updated version
 const STATIC_ASSETS = [
     "/JavaEvolution-Learning-Growing-Mastering/",
-    "/JavaEvolution-Learning-Growing-Mastering/default.html", // Changed from index.html
+    "/JavaEvolution-Learning-Growing-Mastering/default.html",
     "/JavaEvolution-Learning-Growing-Mastering/assets/style.css",
     "/JavaEvolution-Learning-Growing-Mastering/assets/favicon-96x96.png",
     "/JavaEvolution-Learning-Growing-Mastering/assets/favicon.svg",

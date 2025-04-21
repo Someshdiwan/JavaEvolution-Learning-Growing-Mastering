@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/blob/master/site/CONTRIBUTING.md" target="_blank" style="text-decoration:none;">
+  <a href="https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/blob/master/CONTRIBUTING.md" target="_blank" style="text-decoration:none;">
     <img src="https://img.shields.io/badge/-Contribute-4ECDC4?style=for-the-badge&logo=github&logoColor=white" alt="Contribute">
   </a>
   <a href="https://someshdiwan.github.io/JavaEvolution-Learning-Growing-Mastering/" target="_blank" style="text-decoration:none;">

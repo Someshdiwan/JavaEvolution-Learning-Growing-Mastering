@@ -118,13 +118,15 @@
 
 ---
 
-# Section 5: Operator & Expression (with Casting Focus)
+# Section 5: Operator & Expression
 
 ### 📘 Combined Summary:
 
-This section introduces the fundamental concepts of **type casting** in Java, with a special focus on **upcasting** and **downcasting**, crucial for **polymorphism**, **object-oriented design**, and **runtime behavior** in inheritance.
+This section introduces the fundamental concepts of **type casting** in Java, with a special focus on **upcasting** and 
+**downcasting**, crucial for **polymorphism**, **object-oriented design**, and **runtime behavior** in inheritance.
 
-While the section title suggests a general overview of *operators and expressions*, the content is centered around understanding how **object references** are cast in **inheritance hierarchies**.
+While the section title suggests a general overview of *operators and expressions*, the content is centered around 
+understanding how **object references** are cast in **inheritance hierarchies**.
 
 You’ll explore:
 - The concept of upcasting (parent reference → child object)
@@ -134,28 +136,30 @@ You’ll explore:
 
 ---
 
+```
 ### 🔍 Core Topics Breakdown
 
-| Concept             | Description                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| **Upcasting**        | Assigning a child class object to a parent class reference. Safe and implicit. |
-| **Downcasting**      | Converting a parent class reference back to a child class. Requires explicit cast and is potentially unsafe unless checked. |
-| **Polymorphism**     | Enabled through upcasting, where overridden methods in the child class are invoked through the parent class reference. |
-| **ClassCastException** | Can occur if downcasting is done without checking the object type using `instanceof`. |
+| Concept               | Description                                                                                                                 |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Upcasting             | Assigning a child class object to a parent class reference. Safe and implicit.                                              |
+| Downcasting           | Converting a parent class reference back to a child class. Requires explicit cast and is potentially unsafe unless checked. |
+| Polymorphism          | Enabled through upcasting, where overridden methods in the child class are invoked through the parent class reference.      |
+| ClassCastException    | Can occur if downcasting is done without checking the object type using `instanceof`.                                       |
 
----
+```
 
+```
 ### 📷 Visual Learning Aids
 
-| File Name                         | Description                             |
-|----------------------------------|-----------------------------------------|
-| `Upcasting.png`                  | Shows safe assignment of child → parent |
-| `Upcasting-Vs-Downcasting.png`  | Comparison chart of both mechanisms     |
-| `Upcasting-Vs-Downcasting1.png` | Detailed flow with arrows and hierarchy |
-| `upcasting.txt`                 | Text explanation with examples          |
-| `upcasting vs downcasting.txt` | Combined notes on both concepts         |
+| File Name                      | Description                             |
+|--------------------------------|-----------------------------------------|
+| Upcasting.png                  | Shows safe assignment of child → parent |
+| Upcasting-Vs-Downcasting.png   | Comparison chart of both mechanisms     |
+| Upcasting-Vs-Downcasting1.png  | Detailed flow with arrows and hierarchy |
+| upcasting.txt                  | Text explanation with examples          |
+| upcasting vs downcasting.txt   | Combined notes on both concepts         |
 
----
+```
 
 ### 🔍 Real Code Insight
 
@@ -195,7 +199,8 @@ public class CastingDemo {
 
 ### 📘 Combined Summary:
 
-This section not only explores **upcasting and downcasting**, but also dives into **bitwise operators**, **expression evaluations**, **input/output operations**, and **method parameter handling**.
+This section not only explores **upcasting and downcasting**, but also dives into **bitwise operators**, 
+**expression evaluations**, **input/output operations**, and **method parameter handling**.
 
 Together, these files provide a **comprehensive foundation** for how Java handles:
 - Operator precedence
@@ -214,18 +219,19 @@ You’ll find hands-on examples demonstrating:
 
 ---
 
+```
 ### 🔍 Concept Map
 
 | Topic                          | Covered In                                     |
-|--------------------------------|------------------------------------------------|
-| **Bitwise Operations**         | `Bitwise1.java` → `Bitwise7.java`, `And.java`, `And1.java`, `And2.java` |
-| **Casting & Type Conversion**  | `Upcasting.java`, `Downcasting.java`, `WideNarrow.java`, `UpDownCasting.java` |
-| **Expressions in Java**        | `Expression.java`, `Expression2.java`, `Expression3.java` |
-| **Keyboard Input**             | `ReadingFromKeyBoard.java`                    |
-| **Functions & Parameters**     | `ParametersArguments.java`                    |
-| **Recursion**                  | `OneToNPrint.java`                            |
+|--------------------------------|---------------------------------------------------------------------------------|
+| **Bitwise Operations**         | Bitwise1.java → Bitwise7.java, And.java, And1.java, And2.java                   |
+| **Casting & Type Conversion**  | Upcasting.java, Downcasting.java, WideNarrow.java, UpDownCasting.java           |
+| **Expressions in Java**        | Expression.java, Expression2.java,  Expression3.java                            |
+| **Keyboard Input**             | ReadingFromKeyBoard.java                                                        |
+| **Functions & Parameters**     | ParametersArguments.java                                                        |
+| **Recursion**                  | OneToNPrint.java                                                                |
 
----
+```
 
 ### 🔬 Code Patterns in Use
 

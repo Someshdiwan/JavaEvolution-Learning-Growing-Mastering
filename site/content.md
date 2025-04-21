@@ -137,7 +137,7 @@ You’ll explore:
 ---
 
 ```
-### 🔍 Core Topics Breakdown
+🔍 Core Topics Breakdown
 
 | Concept               | Description                                                                                                                 |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------|
@@ -149,7 +149,7 @@ You’ll explore:
 ```
 
 ```
-### 📷 Visual Learning Aids
+📷 Visual Learning Aids
 
 | File Name                      | Description                             |
 |--------------------------------|-----------------------------------------|
@@ -194,8 +194,8 @@ public class CastingDemo {
 ```
 
 ---
-# 💡 Extended with Java Casting, Bitwise, and Expressions
 
+# 💡 Extended with Java Casting, Bitwise, and Expressions
 
 ### 📘 Combined Summary:
 
@@ -220,16 +220,17 @@ You’ll find hands-on examples demonstrating:
 ---
 
 ```
-### 🔍 Concept Map
 
-| Topic                          | Covered In                                     |
-|--------------------------------|---------------------------------------------------------------------------------|
-| **Bitwise Operations**         | Bitwise1.java → Bitwise7.java, And.java, And1.java, And2.java                   |
-| **Casting & Type Conversion**  | Upcasting.java, Downcasting.java, WideNarrow.java, UpDownCasting.java           |
-| **Expressions in Java**        | Expression.java, Expression2.java,  Expression3.java                            |
-| **Keyboard Input**             | ReadingFromKeyBoard.java                                                        |
-| **Functions & Parameters**     | ParametersArguments.java                                                        |
-| **Recursion**                  | OneToNPrint.java                                                                |
+🔍 Concept Map
+
+| Topic                          | Covered In                                                            |
+|--------------------------------|-----------------------------------------------------------------------|
+| Bitwise Operations             | Bitwise1.java → Bitwise7.java, And.java, And1.java, And2.jav          |
+| Casting & Type Conversion      | Upcasting.java, Downcasting.java, WideNarrow.java, UpDownCasting.java |
+| Expressions in Java            | Expression.java, Expression2.java,  Expression3.java                  |
+| Keyboard Input                 | ReadingFromKeyBoard.java                                              |
+| Functions & Parameters         | ParametersArguments.java                                              |
+| Recursion                      | OneToNPrint.java                                                      |
 
 ```
 
@@ -261,11 +262,12 @@ System.out.print(n + " ");
 }
 ```
 
-### **[🔗 View Section 5 OperatorExpression on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section5OperatorExpression)**
+### **[🔗 Section 5 OperatorExpression on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section5OperatorExpression)**
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
+
 
 # Section 6: String Class & Printing in Java
 

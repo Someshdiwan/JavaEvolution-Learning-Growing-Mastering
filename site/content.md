@@ -1,6 +1,6 @@
 ## Table of Contents
 
-1. [Section 5 – Operator & Expression](#section-5-operator--expression-with-casting-focus)
+1. [Section 5 – Operator & Expression](#section-5-operator--expression)
 
 2. [Section 6 – String Class & Printing in Java](#section-6-string-class--printing-in-java)
 

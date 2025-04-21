@@ -942,10 +942,10 @@ It also illustrates the concept of singleton classes and demonstrates how this a
   - vehicles/Vehicle.java, EVCar.java, car.java, Test.java: Realistic object-oriented examples showing static/final usage in inheritance and polymorphism.
 
 - **Related Concepts:**
-  - **`static`**: Class-level keyword for shared state/methods. Great for counters, utility methods, and factory patterns.
-  - **`final`**: Restricts modification. Used for constants, method overriding prevention, and immutability.
+  - **static**: Class-level keyword for shared state/methods. Great for counters, utility methods, and factory patterns.
+  - **final**: Restricts modification. Used for constants, method overriding prevention, and immutability.
   - **Singleton Pattern**: Ensures only one instance of a class exists using static control.
-  - **`this` vs `super`**: this refers to current class members; super is used to access parent class members or constructors.
+  - **this vs super**: this refers to current class members; super is used to access parent class members or constructors.
 
 ### [Section 16 StaticFinal On GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section16StaticFinal)
 

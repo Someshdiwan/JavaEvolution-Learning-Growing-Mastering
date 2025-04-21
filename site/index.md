@@ -40,9 +40,9 @@ Whether you’re a beginner exploring Java or an experienced developer brushing 
 
 ## 💡 Contributions Welcome
 
-Want to improve this project or add features? Check out this [CONTRIBUTING.md](../CONTRIBUTING.md)
+Want to improve this project or add features? Check out this [CONTRIBUTING.md](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/blob/master/CONTRIBUTING.md)
 
-This site is open-source and built with ❤️
+This site is open-source and built with ❤️ by developers for developers.
 
 ---
 

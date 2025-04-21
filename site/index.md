@@ -46,4 +46,15 @@ This site is open-source and built with ❤️ by developers for developers.
 
 ---
 
-Adding Photos and videos Guide how to download and setup Then Final Release ...
+## 📽️ Setup & Installation Guide
+
+Learn how to download and run the JavaEvolution project on your local machine in just a few minutes.
+
+🎬 **Watch the video walkthrough:**  
+<a href="https://youtu.be/w-GR5y96P70" target="_blank">
+<img src="https://img.youtube.com/vi/w-GR5y96P70/0.jpg" alt="Watch the Setup Guide on YouTube" width="320">
+</a>
+
+A step-by-step setup tutorial for beginners. Covers GitHub cloning, folder structure, how to use the site, and project overview.
+
+---

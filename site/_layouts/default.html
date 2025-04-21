@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Font Awesome -->
+    <-- Font Awesome -->
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
-    <!-- Favicons -->
+    <-- Favicons -->
     <link
             rel="icon" type="image/png"
             href="{{ '/assets/favicon-96x96.png' | relative_url }}"
@@ -45,29 +45,30 @@
     />
 
     <script>
-        // Current timezone tracker
+
+        // TimeZone
         let currentZone = 'IST';
         let tapCount = 0;
         let tapTimer = null;
-        const TAP_TIMEOUT = 300; // ms for double-tap detection
-        const SCROLL_THRESHOLD = 100; // px to hide theme/time container
 
-        // Update active link based on URL
+        const TAP_TIMEOUT = 200; //double-tap detection
+        const SCROLL_THRESHOLD = 100; // after Scroll hide theme/time container
+
+
         function updateActiveLink() {
             const currentPath = window.location.pathname;
             const baseUrl = '{{ site.baseurl }}' || '';
-            console.log('Current Path:', currentPath, 'Base URL:', baseUrl); // Debug
+            console.log('Current Path:', currentPath, 'Base URL:', baseUrl);
             document.querySelectorAll('.sidebar-link').forEach(link => {
                 link.classList.remove('active');
-                const href = link.getAttribute('href').replace(baseUrl, ''); // Normalize href
+                const href = link.getAttribute('href').replace(baseUrl, '');
                 if (href === currentPath || (currentPath === '/' && href === '/')) {
                     link.classList.add('active');
-                    console.log('Active Link Set:', href); // Debug
+                    console.log('Active Link Set:', href);
                 }
             });
         }
 
-        // Sidebar toggle
         function toggleSidebar(isHidden) {
             const sidebar = document.getElementById('sidebar');
             const toggleBtn = document.querySelector('.toggle-btn');
@@ -77,7 +78,7 @@
                 return;
             }
             sidebar.classList.toggle('hidden', isHidden);
-            content.style.marginLeft = isHidden ? '0' : '210px'; // Force margin update
+            content.style.marginLeft = isHidden ? '0' : '210px';
             localStorage.setItem('sidebar-hidden', isHidden);
             if (window.innerWidth > 768) {
                 toggleBtn.style.display = isHidden ? 'block' : 'none';
@@ -87,7 +88,7 @@
             updateActiveLink();
         }
 
-        // Handle tap/click events
+        // Handle tap or click events
         function handleTap(event) {
             const sidebar = document.getElementById('sidebar');
             const target = event.target;
@@ -96,7 +97,7 @@
                 return;
             }
 
-            // Allow taps outside interactive elements to trigger hide/show
+            // Allow taps outside interactive elements to trigger hide and show
             if (
                 target.closest('#sidebar') ||
                 target.closest('#theme-time-container') ||
@@ -123,7 +124,7 @@
             }
         }
 
-        // Dark mode toggle
+        // Dark mode
         function toggleDarkMode() {
             const body = document.body;
             body.classList.toggle('dark-mode');
@@ -147,7 +148,7 @@
             }, 0);
         }
 
-        // Timezone toggle
+        // Timezone
         function toggleTimezone() {
             currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
             const tzButton = document.getElementById('tz-toggle-btn');
@@ -182,7 +183,8 @@
             liveTime.textContent = `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
         }
 
-        // Handle scroll for theme/time container
+
+        // Handle scroll for theme and time container
         function handleScroll() {
             const themeTimeContainer = document.getElementById('theme-time-container');
             if (themeTimeContainer) {
@@ -196,7 +198,8 @@
             }
         }
 
-        // On load: init dark mode, sidebar state, listeners, time, SW
+
+        // On load: init dark mode, sidebar state, listeners, time, SW.
         window.onload = () => {
             // Initialize dark mode
             const isDark = localStorage.getItem('dark-mode') === 'true';
@@ -211,7 +214,8 @@
                 console.error('Body element not found');
             }
 
-            // Initialize sidebar state
+
+            // Initialize sidebar
             const sidebar = document.getElementById('sidebar');
             const toggleBtn = document.querySelector('.toggle-btn');
             const content = document.querySelector('.content');
@@ -228,12 +232,13 @@
                 console.error('Sidebar, toggle button, or content not found');
             }
 
-            // Show tooltip on first visit or force for testing
+
+            // Show tooltip on first visit
             const tooltip = document.getElementById('tooltip');
             if (tooltip) {
                 const tooltipShown = localStorage.getItem('tooltip-shown');
                 if (!tooltipShown) {
-                    console.log('Showing tooltip for first visit'); // Debug
+                    console.log('Showing tooltip for first visit');
                     setTimeout(() => {
                         tooltip.classList.add('visible');
                         setTimeout(() => {
@@ -242,13 +247,13 @@
                         }, 5000);
                     }, 1000);
                 } else {
-                    console.log('Tooltip already shown, skipping'); // Debug
+                    console.log('Tooltip already shown, skipping');
                 }
             } else {
                 console.error('Tooltip element not found');
             }
 
-            // Add tap/click and scroll listeners
+            // Add tap and click and scroll listeners
             document.addEventListener('click', handleTap);
             document.addEventListener('touchstart', handleTap, { passive: true });
             window.addEventListener('scroll', handleScroll, { passive: true });
@@ -271,7 +276,8 @@
 
 <body>
 
-<!-- Dark Mode & Timezone Controls -->
+
+<-- Dark Mode & Timezone Controls -->
 <div id="theme-time-container">
     <button class="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
         <i class="fas fa-moon"></i>
@@ -282,12 +288,13 @@
     </div>
 </div>
 
-<!-- Onboarding Tooltip -->
+
+<-- Onboarding Tooltip -->
 <div id="tooltip" class="tooltip">
     Single tap to hide sidebar, double tap to show
 </div>
 
-<!-- Collapsible Sidebar -->
+<-- Collapsible Sidebar -->
 <div id="sidebar" class="sidebar">
     <a href="{{ site.baseurl }}/" class="sidebar-link">
         <i class="fas fa-home"></i> Home
@@ -300,12 +307,12 @@
     </a>
 </div>
 
-<!-- Toggle Button (Fallback) -->
+<-- Toggle Button (Fallback) -->
 <button class="toggle-btn" onclick="toggleSidebar(!document.getElementById('sidebar').classList.contains('hidden'))" aria-label="Toggle Sidebar">
     <i class="fas fa-bars"></i>
 </button>
 
-<!-- Main Content -->
+<-- Main Content -->
 <div class="wrapper">
     <div class="content">
         <div class="fade-in">

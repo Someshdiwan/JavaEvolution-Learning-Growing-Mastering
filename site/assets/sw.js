@@ -1,4 +1,4 @@
-const CACHE_NAME = "java-evolution-cache-v6";
+const CACHE_NAME = "java-evolution-cache-v7";
 const STATIC_ASSETS = [
     "/JavaEvolution-Learning-Growing-Mastering/",
     "/JavaEvolution-Learning-Growing-Mastering/default.html",
@@ -10,6 +10,7 @@ const STATIC_ASSETS = [
     "/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 ];
+
 
 // Debounce function to limit cache updates
 function debounce(func, wait) {
@@ -24,6 +25,7 @@ function debounce(func, wait) {
     };
 }
 
+
 // Install event
 self.addEventListener("install", (event) => {
     console.log("[Service Worker] Installing and caching static assets");
@@ -34,6 +36,7 @@ self.addEventListener("install", (event) => {
         })
     );
 });
+
 
 // Activate event
 self.addEventListener("activate", (event) => {
@@ -49,6 +52,7 @@ self.addEventListener("activate", (event) => {
     );
     self.clients.claim();
 });
+
 
 // Fetch event
 self.addEventListener("fetch", (event) => {

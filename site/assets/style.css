@@ -21,7 +21,7 @@
     --card-shadow: rgba(0, 0, 0, 0.5);
     --primary-color: #4da8ff;
     --active-color: #a1d6ff;
-    --hover-bg: #333333; /* Adjusted for dark mode */
+    --hover-bg: #333333;
 }
 
 /* 2. Global Styles */
@@ -33,7 +33,7 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* 3. Theme + Time Container */
+/* 3. Theme and Time Container */
 #theme-time-container {
     position: fixed;
     top: 1rem;
@@ -163,7 +163,7 @@ body {
     transform: scaleX(1.1);
 }
 
-/* 9. Toggle Button (Fallback) */
+/* 9. Toggle Button */
 .toggle-btn {
     position: sticky;
     top: 1rem;
@@ -186,6 +186,7 @@ body {
     opacity: 1;
 }
 
+
 /* 10. Content Area */
 .wrapper {
     display: flex;
@@ -204,7 +205,8 @@ body {
     margin-left: 0;
 }
 
-/* 11. Card-style Container inside Content */
+
+/* 11. Card style Container inside Content */
 .fade-in {
     background-color: var(--card-bg);
     padding: 1.5rem;
@@ -212,7 +214,7 @@ body {
     box-shadow: 0 4px 20px var(--card-shadow);
 }
 
-/* 12. Fade-in Keyframes */
+/* 12. Fade in Key frames */
 @keyframes fadeIn {
     from {
         opacity: 0;

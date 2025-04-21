@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <-- Font Awesome -->
+   <!--Font Awesome-->
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
-    <-- Favicons -->
+    <!--Favicons-->
     <link
             rel="icon" type="image/png"
             href="{{ '/assets/favicon-96x96.png' | relative_url }}"
@@ -277,7 +277,7 @@
 <body>
 
 
-<-- Dark Mode & Timezone Controls -->
+<!--Dark Mode & Timezone Controls-->
 <div id="theme-time-container">
     <button class="dark-toggle" onclick="toggleDarkMode()" aria-label="Toggle Dark Mode">
         <i class="fas fa-moon"></i>
@@ -289,12 +289,12 @@
 </div>
 
 
-<-- Onboarding Tooltip -->
+<!--Onboarding Tooltip-->
 <div id="tooltip" class="tooltip">
     Single tap to hide sidebar, double tap to show
 </div>
 
-<-- Collapsible Sidebar -->
+<!--Collapsible Sidebar-->
 <div id="sidebar" class="sidebar">
     <a href="{{ site.baseurl }}/" class="sidebar-link">
         <i class="fas fa-home"></i> Home
@@ -307,7 +307,7 @@
     </a>
 </div>
 
-<-- Toggle Button (Fallback) -->
+<!--Toggle Button (Fallback)-->
 <button class="toggle-btn" onclick="toggleSidebar(!document.getElementById('sidebar').classList.contains('hidden'))" aria-label="Toggle Sidebar">
     <i class="fas fa-bars"></i>
 </button>

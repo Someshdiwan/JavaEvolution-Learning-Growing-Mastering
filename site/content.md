@@ -262,12 +262,11 @@ System.out.print(n + " ");
 }
 ```
 
-### **[🔗 Section 5 OperatorExpression on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section5OperatorExpression)**
+### **[🔗 Section 5 Operator & Expression on GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section5OperatorExpression)**
 
 ### <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 
 ---
-
 
 # Section 6: String Class & Printing in Java
 

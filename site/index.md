@@ -42,7 +42,7 @@ Whether you’re a beginner exploring Java or an experienced developer brushing 
 
 Want to improve this project or add features? Check out this [CONTRIBUTING.md](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/blob/master/CONTRIBUTING.md)
 
-This site is open-source and built with ❤️ by developers for developers.
+This site is open-source and built with ❤️
 
 ---
 

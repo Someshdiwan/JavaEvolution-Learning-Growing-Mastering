@@ -2331,80 +2331,76 @@ You’ll learn how to:
 - Work with different JDBC interfaces
 - Create real-world database programs
 
-
 ````
 
-🧠 Core Concepts & Tools
+# 🧠 Core Concepts & Tools
 
-| Topic                          | Description                                                                 |
-|--------------------------------|-----------------------------------------------------------------------------|
-| **SQLite Setup**               | Step-by-step guides and visuals to configure SQLite                        |
-| **DDL & DML**                  | SQL statements to define (`CREATE`, `ALTER`) and manipulate (`INSERT`, `UPDATE`, `DELETE`) database tables |
-| **SQL Clauses**                | In-depth learning of `WHERE`, `ORDER BY`, `GROUP BY`, `HAVING`, `DISTINCT` |
-| **Aggregate Functions**        | `SUM`, `AVG`, `MAX`, `MIN`, `COUNT` with `GROUP BY` and filtering          |
-| **Set Operations**             | `UNION`, `INTERSECT`, and `EXCEPT` to combine results                      |
-| **Subqueries**                 | Nested queries for dynamic filtering and selection                         |
-| **Joins**                      | SQL `INNER`, `LEFT`, `RIGHT`, and `CROSS JOIN` explained with diagrams     |
-| **JDBC Programming**           | Java code to connect and interact with SQLite using JDBC                   |
-| **JDBC Interfaces**            | Deep dive into `Statement`, `PreparedStatement`, and `CallableStatement`   |
+| Topic               | Description                                                                                    |
+|---------------------|------------------------------------------------------------------------------------------------|
+| SQLite Setup        | Step-by-step guides and visuals to configure SQLite                                            |
+| DDL & DML           | SQL statements to define (CREATE,ALTER) and manipulate(INSERT,UPDATE,DELETE) database tables   |
+| SQL Clauses         | In-depth learning of WHERE, ORDER BY, GROUP BY, HAVING, DISTINCT                               |
+| Aggregate Functions | SUM, AVG, MAX, MIN, COUNT with GROUP BY and filtering                                          |
+| Set Operations      | UNION, INTERSECT, and EXCEPT to combine results                                                |
+| Subqueries          | Nested queries for dynamic filtering and selection                                             |
+| Joins               | SQL INNER, LEFT, RIGHT, and CROSS JOIN explained with diagrams                                 |
+| JDBC Programming    | Java code to connect and interact with SQLite using JDBC                                       |
+| JDBC Interfaces     | Deep dive into Statement, PreparedStatement, and CallableStatement                             |
 
-🔍 Structure Breakdown
+---
 
-| Folder/File                              | Contents                                                                 |
-|------------------------------------------|--------------------------------------------------------------------------|
-| `Clauses in SQL/`                        | Visual explanations of filtering and ordering data using SQL clauses     |
-| `Creating Database/`                     | Visuals for database creation, DDL/DML basics, and schema setup           |
-| `DDLUsingJDBC/src/Database.java`         | Java code to create/alter tables using JDBC                              |
-| `DMLUsingJDBC/src/InsertusingPreparedtable.java` | Java program to insert values using `PreparedStatement`        |
-| `JAVA SQL Interfaces/`                   | Code and notes on Statement types, pros and cons                         |
-| `JDBC/`                                  | JDBC architecture, driver types, and execution flow                      |
-| `JDBCProgram/src/DatabaseStudent.java`   | A full example of a student database JDBC program                        |
-| `JoinsInSQL/`                            | Theory + diagrams of JOINs and how they work with primary/foreign keys   |
-| `SQL (Aggregated Functions & Set Operations)/` | Rich visuals and notes on complex SQL operations and queries     |
-| `SQLite Setup/`                          | Setup instructions with screenshots for SQLite CLI or integration with IDE |
-| `most useful and important SQL concept.txt` | Final revision or cheat sheet                                          |
+# 🔍 Structure Breakdown
 
-💡 Highlight: JDBC Interfaces
+| Folder/File                                    | Contents                                                                  |
+|------------------------------------------------|---------------------------------------------------------------------------|
+| Clauses in SQL/                                | Visual explanations of filtering and ordering data using SQL clauses      |
+| Creating Database/                             | Visuals for database creation, DDL/DML basics, and schema setup           |
+| DDLUsingJDBC/src/Database.java                 | Java code to create/alter tables using JDBC                               |
+| DMLUsingJDBC/src/InsertusingPreparedtable.java | Java program to insert values using PreparedStatement                     |
+| JAVA SQL Interfaces/                           | Code and notes on Statement types, pros and cons                          |
+| JDBC/                                          | JDBC architecture, driver types, and execution flow                       |
+| JDBCProgram/src/DatabaseStudent.java           | A full example of a student database JDBC program                         |
+| JoinsInSQL/                                    | Theory + diagrams of JOINs and how they work with primary/foreign keys    |
+| SQL (Aggregated Functions & Set Operations)/   | Rich visuals and notes on complex SQL operations and queries              |
+| SQLite Setup/                                  | Setup instructions with screenshots for SQLite CLI & integration with IDE |
+| most useful and important SQL concept.txt      | Final revision or cheat sheet                                             |
 
-| Interface           | Description |
-|---------------------|-------------|
-| `Statement`         | Executes static SQL queries. Fast but prone to SQL injection |
-| `PreparedStatement` | Precompiled, safe from SQL injection, supports dynamic inputs |
-| `CallableStatement` | Executes stored procedures in databases like Oracle/MySQL     |
+---
 
-Example:
-```java
+# 💡 Highlight: JDBC Interfaces
+
+| Interface           | Description                                                   |
+|---------------------|---------------------------------------------------------------|
+| Statement           | Executes static SQL queries. Fast but prone to SQL injection  |
+| PreparedStatement   | Precompiled, safe from SQL injection, supports dynamic inputs |
+| CallableStatement   | Executes stored procedures in databases like Oracle/MySQL     |
+
+### Example:
+
 PreparedStatement stmt = con.prepareStatement("INSERT INTO users VALUES (?, ?)");
 stmt.setString(1, "Somesh");
 stmt.setInt(2, 101);
 stmt.executeUpdate();
+
 ````
-   
-```` 
+
 🔄 Real-world Use Case
 You’re building an inventory management system:
 
 Use DDL to define tables for products, suppliers, transactions
-
 DML via JDBC for CRUD operations
-
 Aggregate functions to get monthly totals
-
 JOIN to combine supplier-product info
-
 PreparedStatement to insert data securely
-
 Related Topic Overview
 
-Concept	Related Content
+Concept	Related Content:
 
 Database Normalization	                             Understand structure in Database Schema.png
 SQL Injection Prevention	                         Via PreparedStatement explained in code & notes
 Data Aggregation	                                 Grouping data using SQL + JDBC + Java collections
 Subquery Optimization	                             Used in large JOINs or filtered data logic
 Database Connectivity	                             DriverManager.getConnection() explained step-by-step
-
-````
 
 ### [JDBC Using SQLite On GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/Section28JDBCusingSQLite)
 
@@ -2428,11 +2424,10 @@ This section covers everything you need to get started with `CompletableFuture` 
 It begins with real-world use cases (`Applications.txt`) that show why `CompletableFuture` is crucial in 
 non-blocking, asynchronous Java programming. 
 
-You'll then find a beginner-friendly breakdown (`CompletableFuture in Java 
-(Explained Simply).txt`) that explains methods like `thenApply`, `thenCompose`, `thenAccept`, `handle`, and more. 
+You'll then find a beginner-friendly breakdown (`CompletableFuture in Java (Explained Simply).txt`) that explains methods like `thenApply`, `thenCompose`, `thenAccept`, `handle`, and more. 
 
 To solidify your understanding, the advanced Java example (`CompletableFutureAdvancedExample.java`) demonstrates 
-future chaining, error handling, and working with custom thread pools through `ExecutorService`.
+future chaining, error handling, and working with custom thread pools through ExecutorService.
 
 It includes a clear explanation of the API, practical usage scenarios, and advanced concepts like chaining, exception handling, 
 and custom thread pools.
@@ -2440,15 +2435,14 @@ and custom thread pools.
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
-    - `Applications.txt` – Real-world scenarios where `CompletableFuture` enhances performance.
+    - `Applications.txt` – Real-world scenarios where CompletableFuture enhances performance.
     - `CompletableFuture in Java (Explained Simply).txt` – Beginner-friendly, structured walk-through of the API.
     - `CompletableFutureAdvancedExample.java` – Practical Java code demonstrating advanced usage and fluent chaining.
 
 - **Related Concepts:**
-    - `Future`, `ExecutorService`, and the need for more flexible async handling.
-    - Error handling with `.exceptionally()`, composition with `.thenCompose()`, and parallel execution via `.allOf()` or `.anyOf()`.
-    - Integration with streams and reactive systems.
-
+    -  Future, ExecutorService, and the need for more flexible async handling.
+    -  Error handling with .exceptionally(), composition with .thenCompose(), and parallel execution via .allOf() or .anyOf().
+    -  Integration with streams and reactive systems.
 
 ### [Completable Future On GitHub](https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering/tree/master/JAVA8/CompletableFuture)
 
@@ -2460,7 +2454,7 @@ and custom thread pools.
 
 Simplifies object creation using method reference syntax. 
 
-This section explains how to use constructor references (`ClassName::new`) to clean up 
+This section explains how to use constructor references (ClassName::new) to clean up 
 factory-style code in Java 8 functional programming, making instantiation more readable and expressive when used with functional interfaces.
 
 #### 🧠 Related Topic Overview:

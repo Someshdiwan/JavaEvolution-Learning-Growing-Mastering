@@ -10,8 +10,8 @@
 
 <p align="center">
   <b style="font-family: sans-serif; font-size: 1.5em; color: #333;">
-    Java isn’t just a language; it’s a movement. Join us in shaping it, growing it, and making it legendary!
-  </b>
+  Where Java Begins, Greatness Lives
+</b>
 </p>
 
 <p align="center">

@@ -10,18 +10,20 @@ echo 1. OpenJDK 24 Project Page
 echo 2. IntelliJ IDEA & Java 24 Blog
 echo 3. OpenJDK JEP 0 (Placeholder)
 echo 4. Java Almanac Features
-echo 5. Exit
+echo 5. Java SE Specifications (Oracle)
+echo 6. Exit
 echo.
-set /p choice=Enter your choice [1-5]:
+set /p choice=Enter your choice [1-6]:
 
 if "%choice%"=="1" start https://openjdk.org/projects/jdk/24/ & goto MENU
 if "%choice%"=="2" start https://blog.jetbrains.com/idea/2025/03/java-24-and-intellij-idea/ & goto MENU
 if "%choice%"=="3" start https://openjdk.org/jeps/0 & goto MENU
 if "%choice%"=="4" start https://javaalmanac.io/features/ & goto MENU
-if "%choice%"=="5" goto END
+if "%choice%"=="5" start https://docs.oracle.com/javase/specs/ & goto MENU
+if "%choice%"=="6" goto END
 
 echo.
-echo Invalid choice. Please select 1–5.
+echo Invalid choice. Please select 1–6.
 pause
 goto MENU
 

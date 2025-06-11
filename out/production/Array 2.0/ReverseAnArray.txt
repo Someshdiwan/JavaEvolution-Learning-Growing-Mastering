@@ -1,0 +1,76 @@
+To reverse an array in place means that we need to reverse the elements without using any additional array or extra space.
+We can do this by swapping the elements starting from the two ends of the array, working towards the middle.
+
+Approach:
+
+1. Start two pointers:
+   - One at the beginning (left = 0).
+   - One at the end (right = n - 1).
+2. Swap the elements at the left and right pointers.
+3. Move the left pointer to the right and the right pointer to the left.
+4. Continue this process until left is greater than or equal to right.
+
+Algorithm:
+
+1. Initialize two pointers left = 0 and right = n - 1.
+2. Swap arr[left] and arr[right].
+3. Increment left and decrement right.
+4. Repeat the process until left >= right.
+
+Code Implementation in Java:
+
+import java.util.Arrays;
+
+class Solution {
+    public static void reverseArray(int[] arr, int n) {
+        int left = 0;
+        int right = n - 1;
+
+        // Swap elements while left is less than right
+        while (left < right) {
+            // Swap arr[left] and arr[right]
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+
+            // Move pointers
+            left++;
+            right--;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};  // Example input
+        int n = arr.length;
+
+        // Function call to reverse the array
+        reverseArray(arr, n);
+
+        // Output the reversed array
+        System.out.println(Arrays.toString(arr));  // [5, 4, 3, 2, 1]
+    }
+}
+
+Explanation:
+- left starts at index 0 (the first element) and right starts at index n - 1 (the last element).
+- Inside the while loop, we swap the elements at arr[left] and arr[right].
+- After swapping, we increment left and decrement right, moving the pointers towards the center of the array.
+- The loop continues until left >= right.
+
+Example:
+
+For input:
+gi
+arr = [1, 2, 3, 4, 5]
+
+- First iteration: left = 0, right = 4 → Swap arr[0] with arr[4] → [5, 2, 3, 4, 1]
+- Second iteration: left = 1, right = 3 → Swap arr[1] with arr[3] → [5, 4, 3, 2, 1]
+- Third iteration: left = 2`, right = 2 → The loop stops because left is not less than right.
+
+The reversed array is [5, 4, 3, 2, 1].
+
+Time Complexity:
+- O(n) where n is the number of elements in the array, because we are swapping each element once.
+
+Space Complexity:
+- O(1), as we are not using any extra space; the array is reversed in place.

@@ -1,0 +1,213 @@
+Your code has several issues, mainly with incorrect instance variable assignments inside constructors. I'll fix these errors and then modify the `main` method to take input from the user using `Scanner`.  
+
+---
+
+### **Fixes:**
+1. **Incorrect Assignments in Constructors**
+   - `itemNo = itemNo;` should be `this.itemNo = itemNo;`
+   - `custID = custID;` should be `this.custID = custID;`
+   - `address = name;` (Incorrect) → should be `this.name = name;`
+   - `setAddress(address); setPhno(phno);` should be removed from the constructor (values are uninitialized).
+
+2. **Fix Constructors:**
+   - Ensure the `name` field is assigned properly.
+   - Remove unnecessary method calls inside constructors where values are uninitialized.
+
+---
+
+### **Corrected Code:**
+```java
+import java.util.Scanner;
+
+class Product {
+    private String itemNo;
+    private String name;
+    private double price;
+    private short qty;
+
+    // Constructor: Only item number
+    public Product(String itemNo) {
+        this.itemNo = itemNo;
+    }
+
+    // Constructor: Item number and name
+    public Product(String itemNo, String name) {
+        this.itemNo = itemNo;
+        this.name = name;
+    }
+
+    // Constructor: Item number, name, price, and quantity
+    public Product(String itemNo, String name, double price, short qty) {
+        this.itemNo = itemNo;
+        this.name = name;
+        setPrice(price);
+        setQuantity(qty);
+    }
+
+    // Getter methods
+    public String getItemNo() { return itemNo; }
+    public String getName() { return name; }
+    public double getPrice() { return price; }
+    public short getQuantity() { return qty; }
+
+    // Setter methods (Only for price and quantity)
+    public void setPrice(double price) { this.price = price; }
+    public void setQuantity(short qty) { this.qty = qty; }
+}
+
+// Customer Class
+class Customer {
+    private String custID;
+    private String name;
+    private String address;
+    private String phno;
+
+    // Constructor: Customer ID and Name (Required)
+    public Customer(String custID, String name) {
+        this.custID = custID;
+        this.name = name;
+    }
+
+    // Getter methods
+    public String getCustID() { return custID; }
+    public String getName() { return name; }
+    public String getAddress() { return address; }
+    public String getPhno() { return phno; }
+
+    // Setter methods (Only for address and phone number)
+    public void setAddress(String address) { this.address = address; }
+    public void setPhno(String phno) { this.phno = phno; }
+}
+
+// Main Class
+public class ProductAndCustomer {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Taking product details
+        System.out.println("Enter Product Item Number: ");
+        String itemNo = sc.nextLine();
+
+        System.out.println("Enter Product Name: ");
+        String name = sc.nextLine();
+
+        System.out.println("Enter Product Price: ");
+        double price = sc.nextDouble();
+
+        System.out.println("Enter Product Quantity: ");
+        short qty = sc.nextShort();
+
+        // Creating Product Object
+        Product product = new Product(itemNo, name, price, qty);
+
+        // Taking customer details
+        sc.nextLine(); // Consume the newline character
+
+        System.out.println("Enter Customer ID: ");
+        String custID = sc.nextLine();
+
+        System.out.println("Enter Customer Name: ");
+        String custName = sc.nextLine();
+
+        System.out.println("Enter Customer Address: ");
+        String address = sc.nextLine();
+
+        System.out.println("Enter Customer Phone Number: ");
+        String phno = sc.nextLine();
+
+        // Creating Customer Object
+        Customer customer = new Customer(custID, custName);
+        customer.setAddress(address);
+        customer.setPhno(phno);
+
+        // Displaying Product Details
+        System.out.println("\nProduct Details:");
+        System.out.println("Item No: " + product.getItemNo());
+        System.out.println("Name: " + product.getName());
+        System.out.println("Price: " + product.getPrice());
+        System.out.println("Quantity: " + product.getQuantity());
+
+        // Displaying Customer Details
+        System.out.println("\nCustomer Details:");
+        System.out.println("Customer ID: " + customer.getCustID());
+        System.out.println("Name: " + customer.getName());
+        System.out.println("Address: " + customer.getAddress());
+        System.out.println("Phone Number: " + customer.getPhno());
+
+        sc.close();
+    }
+}
+```
+
+---
+
+### **Changes & Fixes:**
+✔ **Fixed incorrect constructor assignments.**  
+✔ **Proper input handling using `Scanner`.**  
+✔ **Added a `nextLine()` after `nextShort()` to avoid input skipping issues.**  
+✔ **Encapsulated properties properly with appropriate `get` and `set` methods.**  
+✔ **Displayed product and customer details after taking input.**  
+
+### **Sample Output:**
+```
+Enter Product Item Number: 
+A25
+Enter Product Name: 
+Laptop
+Enter Product Price: 
+59999.99
+Enter Product Quantity: 
+5
+
+Enter Customer ID: 
+C1001
+Enter Customer Name: 
+John Doe
+Enter Customer Address: 
+123, New York Street
+Enter Customer Phone Number: 
++919876543210
+This is a **Java program** that defines two classes, `Product` and `Customer`, and then takes input from the user to create objects of these classes and display their details.  
+
+### **Breakdown of the Code**
+1. **`Product` Class**
+   - Represents a product with properties: `itemNo`, `name`, `price`, and `qty`.
+   - Only `price` and `qty` can be modified after creation (via setter methods).
+   - Constructors:
+     - `Product(String itemNo)` → Requires an item number.
+     - `Product(String itemNo, String name)` → Requires item number and name.
+     - `Product(String itemNo, String name, double price, short qty)` → Full constructor.
+
+2. **`Customer` Class**
+   - Represents a customer with properties: `custID`, `name`, `address`, and `phno`.
+   - Only `address` and `phno` can be changed after registration.
+   - Constructors:
+     - `Customer(String custID, String name)` → Requires a customer ID and name.
+
+3. **`ProductAndCustomer` (Main Class)**
+   - Uses `Scanner` to take user input.
+   - Prompts the user for product details (`itemNo`, `name`, `price`, `qty`).
+   - Prompts the user for customer details (`custID`, `name`, `address`, `phno`).
+   - Creates instances of `Product` and `Customer` using constructor calls.
+   - Displays the entered details.
+
+### **Purpose of the Code**
+✅ Demonstrates **encapsulation** by making properties private and providing getters/setters.  
+✅ Shows **constructors** for object initialization.  
+✅ Implements **user input handling** with `Scanner`.  
+✅ Practices **object-oriented programming (OOP)** in Java.  
+
+Product Details:
+Item No: A25
+Name: Laptop
+Price: 59999.99
+Quantity: 5
+
+Customer Details:
+Customer ID: C1001
+Name: John Doe
+Address: 123, New York Street
+Phone Number: +919876543210
+```
+
+Now, the program correctly takes input, processes it, and prints the expected output. 🚀

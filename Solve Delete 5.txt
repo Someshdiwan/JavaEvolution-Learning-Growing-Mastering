@@ -1,0 +1,11 @@
+Heap memory is used for dynamic memory allocation, where memory allocation and deallocation occur at runtime. When you create a string using the `new` operator in Java, it allocates memory from the heap because:
+
+1. Heap memory is suitable for storing objects whose size can vary during the program's execution, such as strings. Strings in Java can have variable lengths, so allocating them on the heap allows for flexible memory management.
+
+2. Heap memory is managed by the JVM's garbage collector, which automatically deallocates memory for objects that are no longer in use. This automatic memory management simplifies memory management for developers.
+
+3. Strings created using the `new` operator are stored in the heap because they are objects, and objects in Java are always allocated on the heap.
+
+In contrast, primitive types and small objects can be allocated on the stack, but for larger and dynamically sized objects like strings, the heap is the appropriate choice.
+
+When you create a string using the new operator in Java, the space allocated for the string object is from the heap memory.

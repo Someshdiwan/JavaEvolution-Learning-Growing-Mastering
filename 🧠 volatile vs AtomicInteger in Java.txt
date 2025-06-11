@@ -1,0 +1,37 @@
+🧠 volatile vs AtomicInteger in Java
+
+
+🔄 Volatile
+volatile is a keyword in Java used to mark a variable so that:
+Reads and writes go directly to main memory (i.e., no caching by threads).
+Visibility is guaranteed — when one thread updates a volatile variable, others see the updated value immediately.
+🔸 What it does:
+Ensures visibility, not atomicity.
+Useful for flags or single reads/writes.
+🔸 What it does not do:
+Doesn’t make operations like count++ atomic — because count++ is a read-modify-write, not a single operation.
+❌ Example where volatile fails:
+volatile int count = 0;
+
+public void increment() {
+ count++; // Not atomic: read -> increment -> write
+}
+Multiple threads could read the same value and overwrite each other.
+
+⚛️ AtomicInteger
+AtomicInteger is part of java.util.concurrent.atomic package and provides:
+Atomic operations on integers (like getAndIncrement(), compareAndSet()).
+Thread safety without locking.
+Non-blocking, lock-free performance using low-level CPU instructions (CAS – Compare-And-Swap).
+✅ Example with AtomicInteger:
+AtomicInteger count = new AtomicInteger(0);
+
+public void increment() {
+ count.incrementAndGet(); // Atomic and thread-safe
+}
+Each thread gets the correct updated value without needing synchronized.
+
+🚦 When to Use What?
+You need a simple flag (on/off, ready/done)? : volatile
+You need to count, accumulate, or check-and-set values concurrently? 
+: AtomicInteger

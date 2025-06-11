@@ -1,0 +1,50 @@
+Real-World Examples of Thread Safety:
+
+1. Online Banking System (Race Condition Example)
+
+Imagine two users trying to withdraw money from the same bank account at the same time:
+
+Thread 1: Withdraws $500 from an account with $1000.
+
+Thread 2: Withdraws $600 at the same time.
+
+If both transactions read the balance simultaneously, they might both think there is enough money, leading to an
+overdrawn account.
+
+Solution: The banking system must ensure that only one transaction is processed at a time using thread-safe mechanisms
+like synchronization or atomic transactions.
+
+2. Ticket Booking System (Thread-safe Collections)
+
+Suppose multiple users are trying to book the last available seat in a theater at the same time.
+
+If the system is not thread-safe, two users might end up booking the same seat, causing a double booking.
+
+Solution: The ticketing system can use thread-safe data structures like a concurrent queue or synchronized database
+transactions to prevent such conflicts.
+
+3. Shared File Editing (Deadlock Scenario)
+
+Imagine two users editing the same file in a cloud-based application.
+Thread A locks the file and tries to access the metadata.
+Thread B locks the metadata and tries to access the file.
+
+Both threads are waiting for each other to release their locks, leading to a deadlock, where neither can proceed.
+
+Solution: A proper locking strategy (e.g., acquiring locks in a predefined order) ensures that deadlocks don’t happen.
+
+4. E-Commerce Website (Thread-safe Counters)
+
+During a flash sale, thousands of users are adding products to their carts.
+
+If a non-thread-safe counter is used to track the available stock, multiple users might be shown the same last product,
+leading to overselling.
+
+Solution: Using atomic operations ensures that each stock update is correctly processed.
+
+Key Takeaways for Interviews:
+
+Thread safety is essential when multiple threads share a resource.
+Common issues include race conditions, deadlocks, and data inconsistency.
+Solutions include synchronization, locks, atomic variables, thread-safe collections, and immutable objects.
+Real-world applications include banking, ticket booking, cloud file editing, and e-commerce.

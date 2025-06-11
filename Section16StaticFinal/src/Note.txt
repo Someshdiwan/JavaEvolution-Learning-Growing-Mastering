@@ -1,0 +1,33 @@
+References vs Objects vs Instances
+
+Person p1 = new Person(); // p1 is a reference, new Person() is an object (instance)
+
+you can create many objects using a single class. each may have unique attributes or values.
+
+static variable(class variable):
+
+Declared using static keyword.
+It is also know as a static members variable.
+Every instance of class shares static variables.
+so if changes are made with that static variables all other instances of that class will see the affects if that changes.
+
+class Counter {
+    static int count = 0; // shared by all instances
+    Counter() {
+        count++; // increases the same shared variable
+    }
+}
+
+static variables are used for:
+1.Storing counters
+2.Generating unique id.
+3.Storing a constant values that doesn't change like a pi.
+4.Creating and controlling access to the shared resources.
+
+
+static methods & Instances Method:
+
+it is declared using a static modifier.
+static methods can't access directly using a instances' method.
+and directly also a instances variables.
+we can't use 'this' keyword.

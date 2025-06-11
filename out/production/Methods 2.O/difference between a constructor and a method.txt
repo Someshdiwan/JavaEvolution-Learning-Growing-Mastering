@@ -1,0 +1,162 @@
+The difference between a constructor and a method in Java is fundamental in object-oriented programming. Let's break down the key differences:
+
+1. Purpose
+     - Constructor:
+     - A constructor is used to initialize a new object. It is called when an object is created.
+     - Its main role is to set up the initial state of the object, such as initializing fields or setting up resources.
+   
+     - Method:
+     - A method is used to define behavior or operations that an object can perform. It can be called after the object is created to perform actions on the object.
+
+2. Name
+     - Constructor:
+     - The constructor's name must be the same as the class name.
+     - For example, in the `Arithmetic` class, the constructor must be named `Arithmetic`.
+     
+     - Method:
+     - A method can have any name (except it cannot be the same as the class name, unless it's a constructor).
+     - For example, a method can be named `add`, `multiply`, or `display`.
+
+3. Return Type
+
+     - Constructor:
+
+     - A constructor does not have a return type. It doesn't return anything, not even `void`.
+    
+     - Example: 
+     
+       public Arithmetic(int a, int b) { ... }
+      
+     - Method:
+
+     - A method must have a return type. It can return a value (e.g., `int`, `String`, `void`), or in some cases, it can return nothing (in which case it would have a return type of         
+       void).
+
+     - Example:
+     
+       public int add(int a, int b) { ... }
+     
+4. Invocation
+   
+     - Constructor:
+
+     - A constructor is automatically called when you **create an object** using the `new` keyword.
+
+     - Example:
+       
+       Arithmetic obj = new Arithmetic(10, 20);  // Constructor is called here
+       
+     -  Method:
+     
+     - A method is called explicitly after the object has been created, using the object's reference.
+     
+     - Example:
+     
+       int sum = obj.add(10, 20);  // Calling the add method
+       
+5. Parameters:
+     
+     - Constructor:
+     
+     - Constructors can take parameters, allowing you to pass values to initialize the object at the time of creation.
+     
+     - Example:
+       
+       public Arithmetic(int a, int b) {
+           // Initializes the object
+       }
+       
+     - Method:
+
+     - Methods can also take parameters, but they are called after the object is created.
+
+     - Example:
+       
+       public int add(int a, int b) {
+           return a + b;
+       }
+       
+6. Inheritance
+
+     - Constructor:
+
+     - Constructors are not inherited. Each class must define its own constructors, although the subclass can call the superclass constructor using `super()`.
+     
+     - Method:
+
+     - Methods are inherited. A subclass can inherit methods from its superclass and can override them if needed.
+
+7. Constructor Overloading vs Method Overloading
+     
+     - Constructor:
+
+     - Constructor overloading is allowed, meaning you can have multiple constructors with different parameters in the same class.
+     
+     - Example:
+     
+      public Arithmetic() {
+           // Default constructor
+       }
+
+       public Arithmetic(int a, int b) {
+           // Constructor with parameters
+       }
+       
+     - Method:
+
+     - Method overloading is also allowed, which means you can have multiple methods with the same name but different parameter lists.
+     - Example:
+       
+       public int add(int a, int b) { ... }
+       
+       public int add(int a, int b, int c) { ... }
+      
+Summary of Differences:
+
+| Feature                 | Constructor                                      | Method                                           |
+|-------------------------|--------------------------------------------------|--------------------------------------------------|
+|   Purpose               | To initialize the object                         | To define behavior or operations on the object   |
+|   Name                  | Same as the class name                           | Can have any name                                |
+|   Return Type           | No return type (not even `void`)                 | Must have a return type (`int`, `void`, etc.)    |
+|   Invocation            | Called automatically when an object is created   | Called explicitly on an object after creation    |
+|   Parameters            | Can take parameters to initialize an object      | Can take parameters to perform an action         |
+|   Inheritance           | Not inherited; must be defined in each class     | Inherited by subclasses                          |
+|   Overloading           | Can be overloaded with different parameter lists | Can be overloaded with different parameter lists |
+
+
+Example to Clarify:
+
+class Car {
+    private String model;
+    private int year;
+
+    // Constructor: Initializes the object with model and year
+    public Car(String model, int year) {
+        this.model = model;
+        this.year = year;
+    }
+
+    // Method: Displays the details of the car
+    public void displayDetails() {
+        System.out.println("Model: " + model + ", Year: " + year);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Creating a new object of type Car
+        Car myCar = new Car("Tesla Model 3", 2021); // Constructor is called here
+
+        // Calling the method to display car details
+        myCar.displayDetails();  // Method is called here
+    }
+}
+
+
+Output:
+
+Model: Tesla Model 3, Year: 2021
+
+- Constructor: `new Car("Tesla Model 3", 2021)` initializes the object with the `model` and `year`.
+
+- Method: `displayDetails()` is called after the object is created to show the car's details.

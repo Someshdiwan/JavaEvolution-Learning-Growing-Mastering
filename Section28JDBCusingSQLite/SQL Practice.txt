@@ -1,0 +1,132 @@
+Here are **real-world SQL problems** to **test your skills**! 🚀  
+
+---
+
+## 🎯 **SQL Practice Problems**  
+
+### **📝 Scenario: University Database**  
+You have two tables:  
+
+📌 **students Table**  
+| roll | name   | city       | deptno |
+|------|--------|-----------|--------|
+| 1    | Smith  | Delhi     | 10     |
+| 2    | Vijay  | Kolkata   | 10     |
+| 3    | Amit   | Mumbai    | 20     |
+| 4    | Priya  | Chennai   | 30     |
+| 5    | Rahul  | Pune      | 40     |
+
+📌 **dept Table**  
+| deptno | deptname  |
+|--------|----------|
+| 10     | CSE      |
+| 20     | ECE      |
+| 30     | Mech     |
+| 40     | Civil    |
+| 50     | Chemical |
+
+---
+
+## **💡 Beginner Level Problems**
+### ✅ 1. Find all students from Delhi  
+```sql
+SELECT * FROM students WHERE city = 'Delhi';
+```
+
+### ✅ 2. Retrieve names of students studying in department 10  
+```sql
+SELECT name FROM students WHERE deptno = 10;
+```
+
+### ✅ 3. Show unique department numbers (without duplicates)  
+```sql
+SELECT DISTINCT deptno FROM students;
+```
+
+### ✅ 4. List students in alphabetical order  
+```sql
+SELECT name FROM students ORDER BY name ASC;
+```
+
+### ✅ 5. Count the total number of students  
+```sql
+SELECT COUNT(*) FROM students;
+```
+
+---
+
+## **🚀 Intermediate Level Problems**
+### ✅ 6. Find students whose names start with "A"  
+```sql
+SELECT * FROM students WHERE name LIKE 'A%';
+```
+
+### ✅ 7. Get the number of students in each department  
+```sql
+SELECT deptno, COUNT(*) FROM students GROUP BY deptno;
+```
+
+### ✅ 8. Find students from either 'Delhi' or 'Mumbai'  
+```sql
+SELECT * FROM students WHERE city IN ('Delhi', 'Mumbai');
+```
+
+### ✅ 9. Find students **NOT** from Kolkata  
+```sql
+SELECT * FROM students WHERE city <> 'Kolkata';
+```
+
+### ✅ 10. Find students who have a department assigned (`deptno IS NOT NULL`)  
+```sql
+SELECT * FROM students WHERE deptno IS NOT NULL;
+```
+
+---
+
+## **🔥 Advanced Level Problems**
+### ✅ 11. Retrieve student names along with their department names (JOIN)  
+```sql
+SELECT students.name, dept.deptname 
+FROM students 
+INNER JOIN dept ON students.deptno = dept.deptno;
+```
+
+### ✅ 12. Show departments that have at least **2 students**  
+```sql
+SELECT deptno, COUNT(*) 
+FROM students 
+GROUP BY deptno 
+HAVING COUNT(*) >= 2;
+```
+
+### ✅ 13. Find the **top 3 departments** with the most students  
+```sql
+SELECT deptno, COUNT(*) 
+FROM students 
+GROUP BY deptno 
+ORDER BY COUNT(*) DESC 
+LIMIT 3;
+```
+
+### ✅ 14. Find students **without** a department (LEFT JOIN)  
+```sql
+SELECT students.name, dept.deptname 
+FROM students 
+LEFT JOIN dept ON students.deptno = dept.deptno
+WHERE dept.deptname IS NULL;
+```
+
+### ✅ 15. Delete students from the 'Civil' department  
+```sql
+DELETE FROM students WHERE deptno = (SELECT deptno FROM dept WHERE deptname = 'Civil');
+```
+
+---
+
+## **🎯 Bonus Challenge**
+💡 **Write a query to find the department with the most students**  
+💡 **Retrieve the top 5 students based on roll number, but skip the first 2**  
+
+---
+
+Would you like **more problems** or an **interactive SQL playground**? 🚀

@@ -59,3 +59,29 @@ Programs that use Generics has got many benefits over non-generic code.
 2. Type Safety: Generics make errors to appear compile time than at run time (It’s always better to know problems in your code at compile time rather than making your code fail at run time). 
 
 Suppose you want to create an ArrayList that store name of students, and if by mistake the programmer adds an integer object instead of a string, the compiler allows it. But, when we retrieve this data from ArrayList, it causes problems at runtime.
+
+
+
+In Java, generic type information is completely erased at runtime. This process is known as type erasure.
+
+The compiler replaces all type parameters in generic types with their bounds or Object if the type parameters
+are unbounded.
+
+This means that the bytecode after compilation contains only ordinary classes, interfaces, and methods.
+
+For example:
+
+```java
+List<String> stringList = new ArrayList<>();
+List<Integer> intList = new ArrayList<>();
+
+System.out.println(stringList.getClass() == intList.getClass()); // prints true
+```
+
+At runtime, both stringList and intList are just List objects, without any information about their generic type.
+
+
+This approach was chosen to maintain backward compatibility with pre-generics code.
+
+However, it also means that certain operations, like checking if an object is an instance of a specific generic type,
+are not possible at runtime.

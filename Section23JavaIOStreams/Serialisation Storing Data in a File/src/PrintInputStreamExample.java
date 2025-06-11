@@ -1,10 +1,8 @@
 import java.io.*;
 
-class PrintInputStreamExample
-{
-    public static void main(String[] args) throws Exception
-    {
-        FileInputStream fis=new FileInputStream("C:\\Users\\somes\\Downloads\\JAVA SE\\Section23JavaIOStreams\\Serialisation Storing Data in a File\\MyJAVA\\Student1.txt");
+class PrintInputStreamExample {
+    public static void main(String[] args) throws Exception {
+        FileInputStream fis = new FileInputStream("C:\\Users\\somes\\Downloads\\JAVA SE\\Section23JavaIOStreams\\Serialisation Storing Data in a File\\MyJAVA\\Student1.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 
         // Creating a Student object

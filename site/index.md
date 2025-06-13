@@ -52,10 +52,6 @@ Learn how to download and run the **JavaEvolution** project on your local machin
 
 🎬 **Watch the video walkthrough:**
 
-<a href="https://youtu.be/w-GR5y96P70" target="_blank">
-  <img src="https://img.youtube.com/vi/w-GR5y96P70/0.jpg" alt="Watch the Setup Guide on YouTube" width="300" height="170">
-</a>
-
 👉 [Click here to watch the full video guide](https://youtu.be/w-GR5y96P70?si=JcsbqlmbyewT1mRt)
 
 A step-by-step setup tutorial for beginners. It covers:

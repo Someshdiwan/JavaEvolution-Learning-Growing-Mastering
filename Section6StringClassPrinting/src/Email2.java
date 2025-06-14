@@ -34,7 +34,6 @@ public class Email2 {
         } else {
             System.out.println("Invalid email format. Please enter a valid email address.");
         }
-
         scanner.close();
     }
 }

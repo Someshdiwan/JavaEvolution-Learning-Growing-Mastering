@@ -2,14 +2,13 @@ import java.lang.*;
 import java.util.Scanner;
 
 class Expression {
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         float base;
         float height;
         float area;
 
-        System.out.println("Enter Base and Height ");
-        Scanner sc = new Scanner(System.in); //Read the value
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Base and Height: ");
 
         base = sc.nextFloat();
         height = sc.nextFloat();

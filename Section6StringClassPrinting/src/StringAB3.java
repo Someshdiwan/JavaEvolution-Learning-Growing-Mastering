@@ -5,13 +5,11 @@ public class StringAB3 {
         System.out.println(str1.endsWith("Khan"));
 
         System.out.println(str1.charAt(4));
+        System.out.println(str1.startsWith("Shah", 4));
 
         //if you want display char of all the strings
-        for(int i=0; i<str1.length(); i++)
-        {
+        for(int i=0; i<str1.length(); i++) {
             System.out.print(str1.charAt(i));
         }
-
-        System.out.println(str1.startsWith("Shah", 4));
     }
 }

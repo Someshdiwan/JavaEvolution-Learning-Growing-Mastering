@@ -25,10 +25,10 @@ public class Employee {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return id+" "+name;
     }
+
     public static void main(String[] args) {
         Employee e = new Employee();
         e.setId(12);

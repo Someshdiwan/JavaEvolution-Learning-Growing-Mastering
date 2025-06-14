@@ -2,10 +2,8 @@
 //String d = "01/01/2000"
 //Logic = "[0-3][0-9]/[01][0-9]/[0-9]{4}
 
-public class RegularExpressionChallenge2
-{
-    public static void main(String[] args)
-    {
+public class RegularExpressionChallenge2 {
+    public static void main(String[] args) {
         String d = "01/01/2000";
 
         // Correct regular expression for the date format
@@ -15,6 +13,7 @@ public class RegularExpressionChallenge2
         System.out.println(d.matches(regex));
     }
 }
+
 /*
 Correct Regular Expression:
 

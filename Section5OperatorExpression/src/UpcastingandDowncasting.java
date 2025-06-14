@@ -19,6 +19,7 @@ class Dog extends Animal {
 
 public class UpcastingandDowncasting {
     public static void main(String[] args) {
+
         Animal myAnimal = new Dog();
         myAnimal.makenoise();
         /*Automatically upcasting Dog to Animal.*/
@@ -27,9 +28,9 @@ public class UpcastingandDowncasting {
         Dog d = new Dog();
         d.makenoise();
         d.growl();
-       */
-
+        */
         /*Unsafe Down-casting (Incorrect)*/
+
         /*
         Dog dd = (Dog) new Animal();
         dd.growl();

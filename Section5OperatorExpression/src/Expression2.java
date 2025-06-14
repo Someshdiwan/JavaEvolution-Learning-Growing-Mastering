@@ -1,13 +1,11 @@
 import java.lang.*;
 import java.util.Scanner;
 
-class Expression2
-{
-    public static void main(String args[])
-    {
+class Expression2 {
+    public static void main(String args[]) {
         Scanner sc=new Scanner(System.in);
         int a, b, c;
-        float s;
+        float s; //initialize the variable to store the value.
         double area;
 
         System.out.println("Enter 3 sides of a triangle ");

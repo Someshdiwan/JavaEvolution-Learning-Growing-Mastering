@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class And1 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        // Read the first number
-        int num1 = scanner.nextInt();
+        System.out.printf("Enter a Number: ");
+        int num1 = sc.nextInt();
         if (num1 % 3 == 0) {
             if (num1 % 5 == 0) {
                 System.out.println("Divisible by both 3 and 5");
@@ -16,8 +16,8 @@ public class And1 {
             System.out.println("Not divisible by both 3 and 5");
         }
 
-        // Read the second number
-        int num2 = scanner.nextInt();
+        System.out.println("Enter a Number: ");
+        int num2 = sc.nextInt();
         if (num2 % 3 == 0) {
             if (num2 % 5 == 0) {
                 System.out.println("Divisible by both 3 and 5");
@@ -28,6 +28,6 @@ public class And1 {
             System.out.println("Not divisible by both 3 and 5");
         }
 
-        scanner.close();  // Close the scanner
+        sc.close();  // Close the scanner
     }
 }

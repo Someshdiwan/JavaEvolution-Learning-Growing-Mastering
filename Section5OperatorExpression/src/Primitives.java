@@ -9,7 +9,9 @@ public class Primitives {
 
         float c = 30.6f;
         c++;
-//        c = (int)(c) + 1;
+
+        //c = (int)(c) + 1;
+
         System.out.println(c);
     }
 }

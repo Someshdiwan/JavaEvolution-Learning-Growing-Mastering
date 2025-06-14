@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
 public class Expression3 {
-    public static void main(String args[]){
+    public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
 
-        int length, breadth, height;
-        int totalArea,volume;
+        int length, breadth, height; //taken from input.
+        int totalArea,volume; //calculate and store the output into the variable.
 
-        System.out.print("Enter Length breadth and Height ");
+        System.out.print("Enter Length breadth and Height: ");
 
         length=sc.nextInt();
         breadth=sc.nextInt();

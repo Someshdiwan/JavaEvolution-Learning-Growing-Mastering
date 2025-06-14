@@ -1,3 +1,5 @@
+//Find number binary or not.
+
 public class RegularExpressionChallenge {
     public static void main(String[] args) {
         int b = 1000110;

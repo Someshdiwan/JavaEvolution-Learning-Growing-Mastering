@@ -28,8 +28,6 @@ public class Email {
             String name = domainname.substring(0, j);
             System.out.println("Is it a valid Gmail domain (case-insensitive)? " + name.equalsIgnoreCase("gmail"));
         }
-
-        // Close the scanner
         scanner.close();
     }
 }

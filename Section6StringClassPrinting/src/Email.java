@@ -4,7 +4,7 @@ public class Email {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Prompt user to enter an email address
+        // Prompt the user to enter an email address
         System.out.print("Enter your email address: ");
         String str = scanner.nextLine();
 

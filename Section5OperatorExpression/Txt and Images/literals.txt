@@ -14,7 +14,9 @@ range of the target type. An integer literal can always be assigned to a long va
 literal, you will need to explicitly tell the compiler that the literal value is of type long. You do this by appending
 an upper- or lowercase L to the literal.
 
-Beginning with JDK 7, you can also specify integer literals using binary. To do so, prefix the value with 0b or 0B.
+Beginning with JDK 7, you can also specify integer literals using binary.
+
+To do so, prefix the value with 0b or 0B.
 For example, this specifies the decimal value 10 using a binary literal: int x = 0b1010;
 
 int x = 123_456_789;

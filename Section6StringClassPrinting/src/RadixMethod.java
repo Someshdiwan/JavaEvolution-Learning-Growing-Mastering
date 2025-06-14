@@ -1,14 +1,16 @@
 import java.util.Scanner;
 
 public class RadixMethod {
-    public static void main(String args[]) throws Exception
-    {
+    public static void main(String args[]) throws Exception {
         Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a binary number (using only 0s and 1s):");
         sc.useRadix(2);
+
         int x = sc.nextInt();
         System.out.print(x);
     }
 }
+
 /*
 The line sc.useRadix(3); in your Java code sets the radix (or base) for the Scanner object sc to 3.
 

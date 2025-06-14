@@ -1,13 +1,12 @@
-class student
-{
+class student {
     int studentID;
     String name;
 
-    student(int studentID, String name)
-    {
+    student(int studentID, String name) {
         this.studentID =studentID;
         this.name =name;
     }
+
    /*
     public String toString()
     {
@@ -29,10 +28,9 @@ class student
     would be returned if neither the toString nor hashCode methods were overridden by the object's class.
     */
 }
-public class toStringMethod
-{
-    public static void main(String[] args)
-    {
+
+public class toStringMethod {
+    public static void main(String[] args) {
         student s = new student(1,"Bruce");
         student s2 = new student(2, "Jackie");
 

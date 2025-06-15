@@ -26,6 +26,8 @@ public class SwitchCasesAB4 {
             case "net":
                 System.out.println("Network");
                     break;
+
+            default: System.out.println("Invalid Domain");
         }
     }
 }

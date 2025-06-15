@@ -1,13 +1,10 @@
-public class FindingPrimes
-{
-    public static void main(String[] args)
-    {
+public class FindingPrimes {
+    public static void main(String[] args) {
         int currentNumber = 2; //Number analyzed
         int maxNumber = 20; //Maximum value to be checked
 
         //Main loop that goes from 2 to 20
-        while(currentNumber <= maxNumber)
-        {
+        while(currentNumber <= maxNumber) {
             //Loop that checks all integers from 2 to the current number (starts with 2, ends with 20)
             for (int divisor = 2; divisor <= currentNumber; divisor++) {
                 //We know that the number is prime if it already checked all previous divisors

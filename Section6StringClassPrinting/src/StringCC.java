@@ -6,5 +6,9 @@ class StringCC {
         xArray[0] = 'j';
         x = new String(xArray);
         System.out.println(x);
+
+        for(int i = 0; i < xArray.length; i++) {
+            System.out.println(xArray[i]);
+        }
     }
 }

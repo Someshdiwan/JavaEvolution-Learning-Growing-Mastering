@@ -2,6 +2,7 @@ public class Practice3 {
     public static void main(String[] args) {
         double temperature = 25.0; //in Celsius degrees
         double humidity = 0.75;    //as a percentage (0.75 = 75%)
+
         boolean smartMode = false;  //smart mode is off
 
         if (smartMode) //if smartMode is true, then...

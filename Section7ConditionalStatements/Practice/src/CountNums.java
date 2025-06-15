@@ -5,12 +5,13 @@ public class CountNums {
         int count = 0;
         while (n > 0) {
             int rem = n % 10;
+
+            //code counts how many times the digit '5' appears in the number 45535.
             if (rem == 5) {
                 count++;
             }
-            n = n / 10; // n /= 10
+            n = n / 10;
         }
-
         System.out.println(count);
     }
 }

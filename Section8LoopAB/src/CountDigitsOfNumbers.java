@@ -8,8 +8,7 @@ public class CountDigitsOfNumbers {
         int n = scan.nextInt();
 
         int count = 0;
-
-        while(n>0){
+        while(n>0) {
             n = n/10;
             count++;
         }

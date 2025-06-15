@@ -11,8 +11,7 @@ public class DisplayNumberInWords {
         int r;
         String str = "";
 
-        while(n>0)
-        {
+        while(n>0) {
             r=n%10;
             n=n/10;
             str=str+r;
@@ -23,9 +22,11 @@ public class DisplayNumberInWords {
 
         char c;
 
-        for(int i =str.length()-1;i>=0;i--){
+        for(int i =str.length()-1;i>=0;i--)
+        {
             c=str.charAt(i);
-            switch (c) {
+            switch (c)
+            {
                 case '0':System.out.print("Zero ");
                     break;
                 case '1':System.out.print("One ");

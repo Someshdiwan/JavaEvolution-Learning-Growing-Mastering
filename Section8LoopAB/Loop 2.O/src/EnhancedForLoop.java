@@ -1,7 +1,5 @@
-public class EnhancedForLoop
-{
-    public static void main(String[] args)
-    {
+public class EnhancedForLoop {
+    public static void main(String[] args) {
         String[] seasons = new String[4];
         seasons[0] = "Spring";
         seasons[1] = "Summer";
@@ -11,7 +9,7 @@ public class EnhancedForLoop
         for (String season: seasons)
             System.out.println(season);
 
-        //Remember char are NOT Strings; notice the SINGLE QOUTES
+        //Remember char are NOT Strings; notice the SINGLE QUOTES
         char[] cardinalPoints = {'W', 'N', 'E', 'S'};
 
         for (char point: cardinalPoints)

@@ -1,14 +1,13 @@
 import java.util.Scanner;
 
-public class NestedLoopdiamondpattern
-{
-    public static void main(String[] args)
-    {
+public class NestedLoopdiamondpattern {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a Number: ");
+
         int N = scanner.nextInt();
 
-        for(int i = 1; i <= N; i++)
-        {
+        for(int i = 1; i <= N; i++) {
             for (int j = 1; j <= N - i; j++)
                 System.out.print(" "); //Spaces printing
 
@@ -16,8 +15,7 @@ public class NestedLoopdiamondpattern
                 System.out.print("*"); //stars
             System.out.println();
         }
-        for(int i = N-1; i>=1; i--)
-        {
+        for(int i = N-1; i>=1; i--) {
             for (int j = 1; j<=N - i; j++)
                 System.out.print(" ");
 
@@ -34,11 +32,10 @@ You need to print a diamond shape using stars (*).
 The diamond has two parts: the upper part and the lower part.
 
 Upper Part:
-
 The number of stars increases as you go down the rows.
 The number of spaces decreases as you go down the rows.
-Lower Part:
 
+Lower Part:
 The number of stars decreases as you go down the rows.
 The number of spaces increases as you go down the rows.
 

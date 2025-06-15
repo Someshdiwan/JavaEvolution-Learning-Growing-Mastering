@@ -3,17 +3,15 @@ import java.util.Scanner;
 public class NestedLoopCC4PyramidPattern {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println( "Enter a Number: ");
         int n =scanner.nextInt();
 
-        for (int i = 1; i <= n; i++)
-        {
+        for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n-i; j++)
                 System.out.print(" ");
 
             for (int k = 1; k <= 2 * i -1; k++)
                 System.out.print("*");
-
-
             System.out.println();
         }
     }
@@ -23,15 +21,15 @@ public class NestedLoopCC4PyramidPattern {
 To determine the number of spaces and stars in each row, follow these steps:
 
 Spaces:
-
 For each row i, the number of spaces decreases as i increases.
-The number of spaces is N - i. For example, when N = 5 and i = 1, spaces = 4; when i = 2, spaces = 3, and so on.
+The number of spaces is N - i.
+For example, when N = 5 and i = 1, spaces = 4; when i = 2, spaces = 3, and so on.
 
 Stars:
 
 The number of stars in each row increases as i increases.
-
-The number of stars is 2 * i - 1. For example, when i = 1, stars = 1; when i = 2, stars = 3, and so on.
+The number of stars is 2 * i - 1.
+For example, when i = 1, stars = 1; when i = 2, stars = 3, and so on.
 
 Example Breakdown for N = 5:
 Row 1: Spaces = 4, Stars = 1 → *
@@ -42,10 +40,14 @@ Row 5: Spaces = 0, Stars = 9 → *********
 */
 
 /*
-The solution works for both even and odd values of N. The logic for spaces and stars remains the same regardless of whether N is even or odd. Let me explain:
+The solution works for both even and odd values of N.
+The logic for spaces and stars remains the same regardless of whether N is even or odd.
+
+Let me explain:
 
 For Odd N:
 The pyramid will have a single star at the top and expand symmetrically downward.
+
 Example for N = 5 (odd):
         *
         ***
@@ -68,7 +70,8 @@ The logic adapts automatically to both even and odd N
 */
 
 
-/*Outer Loop: Iterate over the rows (from 1 to N).
+/*
+Outer Loop: Iterate over the rows (from 1 to N).
 First Inner Loop: Print the spaces for alignment.
 Second Inner Loop: Print the stars for the pyramid.
 New Line: Move to the next line after each row
@@ -89,6 +92,7 @@ The number of stars increases as i increases (2 * i - 1).
 New Line:
 
 After printing spaces and stars for a row, move to the next line using System.out.println().
+
 Example for N = 3:
 Row 1:
 Spaces: 3 - 1 = 2 →

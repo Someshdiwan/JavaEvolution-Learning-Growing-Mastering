@@ -1,12 +1,17 @@
 import java.util.Scanner;
 
-public class NestedSwitch {
+public class NestedSwitch2 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
+        System.out.print("Enter Employee ID: ");
         int empID = in.nextInt();
-        String department = in.next();
+        in.nextLine();  // Consume newline
+        System.out.print("Enter Department (if applicable): ");
+        String department = in.nextLine();
 
+        // Traditional switch statement
+        System.out.println("\n--- Traditional Switch Output ---");
         switch (empID) {
             case 1:
                 System.out.println("Kunal Kushwaha");
@@ -24,14 +29,15 @@ public class NestedSwitch {
                         System.out.println("Management Department");
                         break;
                     default:
-                        System.out.println("No department entered");
+                        System.out.println("No valid department entered");
                 }
                 break;
             default:
                 System.out.println("Enter correct EmpID");
         }
 
-        // better way to write
+        // Enhanced switch expression (Java 14+)
+        System.out.println("\n--- Enhanced Switch Output ---");
         switch (empID) {
             case 1 -> System.out.println("Kunal Kushwaha");
             case 2 -> System.out.println("Rahul Rana");
@@ -40,10 +46,12 @@ public class NestedSwitch {
                 switch (department) {
                     case "IT" -> System.out.println("IT Department");
                     case "Management" -> System.out.println("Management Department");
-                    default -> System.out.println("No department entered");
+                    default -> System.out.println("No valid department entered");
                 }
             }
             default -> System.out.println("Enter correct EmpID");
         }
+
+        in.close();
     }
 }

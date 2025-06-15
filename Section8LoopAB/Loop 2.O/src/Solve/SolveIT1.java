@@ -32,7 +32,6 @@ class Student {
                 pos = i;
             }
         }
-
         System.out.println("Topper is:");
         s[pos].display();
     }

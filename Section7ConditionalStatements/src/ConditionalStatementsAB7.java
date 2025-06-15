@@ -1,6 +1,7 @@
 /*
 find a type of website and the protocol.
-is it goverment website, private, or org website.
+
+is it a government website, private, or org website?
 */
 
 import java.util.Scanner;
@@ -49,36 +50,29 @@ public class ConditionalStatementsAB7 {
         // Extract the protocol
         String protocol = url.substring(0, url.indexOf(":"));
 
-        if (protocol.equals("http"))
-        {
+        if (protocol.equals("http")) {
             System.out.println("Hypertext Transfer Protocol");
         }
-        else if (protocol.equals("ftp"))
-        {
+        else if (protocol.equals("ftp")) {
             System.out.println("File Transfer Protocol");
         }
-        else
-        {
+        else {
             System.out.println("Unknown protocol");
         }
 
         // Extract the domain type
         String ext = url.substring(url.lastIndexOf(".") + 1);
 
-        if (ext.equals("com"))
-        {
+        if (ext.equals("com")) {
             System.out.println("Commercial website");
         }
-        else if (ext.equals("org"))
-        {
+        else if (ext.equals("org")) {
             System.out.println("Organization website");
         }
-        else if (ext.equals("net"))
-        {
+        else if (ext.equals("net")) {
             System.out.println("Network website");
         }
-        else
-        {
+        else {
             System.out.println("Unknown website type");
         }
     }

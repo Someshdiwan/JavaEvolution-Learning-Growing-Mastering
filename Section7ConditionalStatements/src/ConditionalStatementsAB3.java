@@ -14,8 +14,7 @@ public class ConditionalStatementsAB3 {
 
         if(n%2 == 0){
             System.out.println("Number is even");
-        }
-        else {
+        } else {
             System.out.println("number is odd");
         }
     }

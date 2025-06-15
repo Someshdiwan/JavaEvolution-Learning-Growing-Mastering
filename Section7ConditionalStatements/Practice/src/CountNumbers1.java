@@ -1,4 +1,4 @@
-public class CountNums {
+public class CountNumbers1 {
     public static void main(String[] args) {
         int n = 45535;
 

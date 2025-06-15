@@ -11,8 +11,7 @@ public class ForLoopList {
         numbers.add(5);
 
         //Iterating through the list using for each loop
-
-        for (int number : numbers){
+        for (int number : numbers) {
             System.out.println(number);
         }
     }

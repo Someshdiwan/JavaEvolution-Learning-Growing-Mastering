@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
-
+public class SwitchCases {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 //        String fruit = in.next();
@@ -43,6 +42,5 @@ public class Main {
             case 1, 2, 3, 4, 5 -> System.out.println("Weekday");
             case 6, 7 -> System.out.println("Weekend");
         }
-
     }
 }

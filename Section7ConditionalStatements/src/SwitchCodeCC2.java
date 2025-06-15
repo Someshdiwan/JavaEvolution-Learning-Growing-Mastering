@@ -1,7 +1,7 @@
 /*
 Arithmetic operation:
 
-Write a C++ program that takes two numbers and an operator (+, -, *, /) as input.
+Write a JAVA program that takes two numbers and an operator (+, -, *, /) as input.
 
 Use a 'switch' statement to perform the corresponding arithmetic operation and print the result.
 
@@ -18,7 +18,7 @@ public class SwitchCodeCC2 {
         int num1 = scanner.nextInt();
         int num2 = scanner.nextInt();
 
-        //Take two integer as a input and choose a one operator's below this.
+        //Take two integers as an input and choose a one operator's below this.
         char op = scanner.next().charAt(0);
 
         switch (op) {

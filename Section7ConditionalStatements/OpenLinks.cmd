@@ -4,10 +4,10 @@ pushd "%~dp0"
 :MENU
 cls
 echo ===============================================================
-echo             Java Tutorial Resources - Conditional Logic
+echo             Resources - Conditional Logic
 echo ===============================================================
 echo 1. Open switch Statement Tutorial
-echo 2. Java Language Spec §4.6 - Type Erasure
+echo 2. Java Language Spec 4.6 - Type Erasure
 echo 3. Java Enums Tutorial (Object-Oriented Concepts)
 echo 4. Exit
 echo.

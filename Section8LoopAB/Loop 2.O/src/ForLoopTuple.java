@@ -1,5 +1,9 @@
-//tuples can be simulated using classes or Pair from external libraries (e.g., Apache Commons or JavaFX).
-//Here is an example using a custom tuple class:
+/*
+Tuples can be simulated using classes or Pair from external libraries
+(e.g., Apache Commons or JavaFX).
+
+Here is an example using a custom tuple class:
+*/
 
 class Tuple {
     String first;
@@ -20,8 +24,8 @@ public class ForLoopTuple {
         };
 
         // Iterating through the tuple array
-        for (Tuple tuple : tuples) {
-            System.out.println(tuple.first + ": " + tuple.second);
+        for (Tuple ReferencesToStoreValues : tuples) {
+            System.out.println(ReferencesToStoreValues.first + ": " + ReferencesToStoreValues.second);
         }
     }
 }

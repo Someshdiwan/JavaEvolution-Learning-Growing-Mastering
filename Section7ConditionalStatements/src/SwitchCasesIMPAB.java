@@ -26,8 +26,7 @@ public class SwitchCasesIMPAB {
         String option=sc.nextLine();
         option=option.toUpperCase();
 
-        switch(option)
-        {
+        switch(option) {
             case "ADD": System.out.println("Sum is "+(x+y));
                 break;
             case "SUB": System.out.println("Difference is "+(x-y));
@@ -36,9 +35,8 @@ public class SwitchCasesIMPAB {
                 break;
             case "DIV": System.out.println("Ratio is "+(x/y));
                 break;
-            default:     System.out.println("Invalid Option");
+            default:    System.out.println("Invalid Option");
                 break;
         }
     }
 }
-

@@ -7,7 +7,6 @@ First line of each test case consists of a string S
 You need to perform the following operation
 Create a variable X which contains the string S concatenated with the string S
 Output X for each test case
-
 */
 
 import java.util.Scanner;
@@ -25,7 +24,6 @@ public class StringCC2 {
             // create a variable X which stores the value of string S concatenated with itself
             String x = s + s;
 
-            // output the variable X
             System.out.println(x);
         }
     }

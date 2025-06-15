@@ -7,7 +7,7 @@ public class StarPatternsAB3 {
                 else
                     System.out.print("  ");
             }
-            System.out.println("");
+            System.out.println(" ");
         }
     }
 }

@@ -4,7 +4,7 @@ pushd "%~dp0"
 :MENU
 cls
 echo ============================================================
-echo               Java - StringBuilder Documentation
+echo         Java - StringBuilder Documentation Launcher
 echo ============================================================
 echo 1. StringBuilder Class (Java SE 8 API)
 echo 2. Exit

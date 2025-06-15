@@ -4,8 +4,7 @@ public class ConditionalStatementsAB1 {
 
         if(n>=0){
             System.out.println("Positive");
-        }
-        else {
+        } else {
             System.out.println("Negative");
         }
     }

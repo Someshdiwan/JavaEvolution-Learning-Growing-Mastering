@@ -13,12 +13,9 @@ public class GeomatircSeries {
 
         int term=a;
 
-        for (int i=0;i<n;i++)
-        {
+        for (int i=0;i<n;i++) {
             System.out.print(term+",");
-
             term=term*r;
-
         }
     }
 }

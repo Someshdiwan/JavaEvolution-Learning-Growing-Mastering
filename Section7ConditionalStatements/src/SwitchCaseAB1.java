@@ -1,4 +1,4 @@
-//Display name of the day based on the number.
+//Display the name of the day based on the number.
 
 //The 'switch' statement cannot be used to compare string values; it only works with integral or enumeration types
 

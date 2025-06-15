@@ -4,7 +4,7 @@ pushd "%~dp0"
 :MENU
 cls
 echo =====================================================
-echo     Java Tutorial - Operators Q&A Answer Page
+echo     Java Tutorial - Operators
 echo =====================================================
 echo 1. Open Oracle Operators Answer Page
 echo 2. Exit

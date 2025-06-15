@@ -1,7 +1,8 @@
-/*Find a person is young or not young
-if(age >= 14 && age <= 55)
-if age>=14 true young.
-if(age <14 || age > 55) not young.*/
+/*
+Find a person is young or not young.
+
+if(age >= 14 && age <= 55), if age>=14 true young, if(age <14 || age > 55) not young.
+*/
 
 import java.util.Scanner;
 
@@ -13,11 +14,9 @@ public class ConditionalStatementsAB4 {
 
         age = scanner.nextInt();
 
-        if(age >=14 && age <=55)
-        {
+        if(age >=14 && age <=55) {
             System.out.println("Person is young");
-        }
-        else {
+        } else {
             System.out.println("Person is not a young");
         }
     }

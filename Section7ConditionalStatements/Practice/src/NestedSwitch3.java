@@ -1,21 +1,21 @@
 import java.util.Scanner;
 
-class Practice
-{
-    public static void main(String[] args)
-    {
+class Practice {
+    public static void main(String[] args) {
         int x, y, res, ch;
+        
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter two numbers:");
+        
         x = sc.nextInt();
         y = sc.nextInt();
 
-        do
-        {
+        do {
+            
             System.out.println("1.Addition 2.Subtraction 3.Multiplication 4.Division 5.Exit");
             ch = sc.nextInt();
-            switch(ch)
-            {
+           
+            switch(ch) {
                 case 1: res = x+y;
                     System.out.println("Addition of x & y is: "+res);
                     break;

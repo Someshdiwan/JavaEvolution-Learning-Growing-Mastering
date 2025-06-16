@@ -17,12 +17,11 @@ class ArrayAdd {
             B[i] = sc.nextInt();
         }
 
-        // Add arrays A and B, store result in C
+        // Add arrays A and B, store a result in c.
         for (int i = 0; i < A.length; i++) {
             C[i] = A[i] + B[i];
         }
 
-        // Print result
         System.out.println("Sum of arrays:");
         for (int i = 0; i < C.length; i++) {
             System.out.print(C[i] + " ");

@@ -6,12 +6,12 @@ Definition
 
 - List (ArrayList/LinkedList): A dynamic collection that can grow or shrink in size. 
 
-  It is part of Java’s `java.util` package and allows flexible manipulation of elements. 
+  It is part of Java’s java.util package and allows flexible manipulation of elements.
  
  `ArrayList` provides fast access, while `LinkedList` is optimized for frequent insertions/deletions.
 
 
-Array vs. List in Java (Short Theory):
+Array vs. List in Java:
 
 | Feature               |  Array                                    |  List (ArrayList/LinkedList)                                               |
 |-----------------------|-------------------------------------------|----------------------------------------------------------------------------|
@@ -22,6 +22,6 @@ Array vs. List in Java (Short Theory):
 | Implementation        | int[] arr = new int[5];                   |  List<Integer> list = new ArrayList<>();                                   |
 | Best For              | When size is known & fixed                |  When frequent insertions/deletions are needed                             |
 
-👉  Use Array when performance & fixed size matter. 
- 
-👉  Use List when flexibility & dynamic resizing are needed.
+
+Use Array when performance and fixed size matter.
+Use List when flexibility and dynamic resizing are needed.

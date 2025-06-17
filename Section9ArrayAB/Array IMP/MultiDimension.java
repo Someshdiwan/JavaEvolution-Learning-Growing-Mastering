@@ -8,6 +8,7 @@ public class MultiDimension {
              4 5 6
              7 8 9
         */
+
         Scanner in = new Scanner(System.in);
 //        int[][] arr = new int[3][];
 

@@ -1,19 +1,3 @@
-/*Logic to Merge Lists
-        Input:
-
-        Read the sizes of List 1 (N) and List 2 (X).
-        Read the elements of List 1 and List 2.
-
-        Merge:
-        Create a new list (mergedList).
-        Add all elements of List 1 to mergedList.
-        Add all elements of List 2 to mergedList.
-        Add all elements of List 1 again to mergedList.
-        Output:
-
-        Print the elements of mergedList.
-
-*/
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,6 +33,7 @@ public class MergeTwoLists {
         }
     }
 }
+
 /*
 Key Steps
 Input:
@@ -58,4 +43,20 @@ Use addAll() to combine the lists in the required order.
 Output:
 Iterate through mergedList and print the elements.
 This logic works for any size of N and X.
+*/
+
+/*
+Logic to Merge Lists
+Input:
+Read the sizes of List 1 (N) and List 2 (X).
+Read the elements of List 1 and List 2.
+
+Merge:
+Create a new list (mergedList).
+Add all elements of List 1 to mergedList.
+Add all elements of List 2 to mergedList.
+Add all elements of List 1 again to mergedList.
+
+Output:
+Print the elements of mergedList.
 */

@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class ArrayListExample {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter 5 numbers: ");
         // Syntax
         ArrayList<Integer> list = new ArrayList<>(5);
 
@@ -31,10 +33,6 @@ public class ArrayListExample {
         for (int i = 0; i < 5; i++) {
             System.out.println(list.get(i)); // pass index here, list[index] syntax will not work here
         }
-
         System.out.println(list);
-
-
-
     }
 }

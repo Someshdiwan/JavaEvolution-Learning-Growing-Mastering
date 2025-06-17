@@ -4,13 +4,11 @@ public class Max {
         System.out.println(maxRange(arr, 1, 3));
     }
 
-    // work on edge cases here, like array being null
+    // work on edge cases here, like an array being null.
     static int maxRange(int[] arr, int start, int end) {
-
         if (start > end) {
             return -1;
         }
-
         if (arr == null) {
             return -1;
         }

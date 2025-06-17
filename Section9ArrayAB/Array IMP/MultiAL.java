@@ -6,7 +6,6 @@ public class MultiAL {
         Scanner in = new Scanner(System.in);
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
 
-        // initialisation
         for (int i = 0; i < 3; i++) {
             list.add(new ArrayList<>());
         }
@@ -17,7 +16,6 @@ public class MultiAL {
                 list.get(i).add(in.nextInt());
             }
         }
-
         System.out.println(list);
     }
 }

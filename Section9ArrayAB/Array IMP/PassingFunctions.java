@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class PassinginFunctions {
+public class PassingFunctions {
     public static void main(String[] args) {
         int[] nums = {3, 4, 5, 12};
         System.out.println(Arrays.toString(nums));

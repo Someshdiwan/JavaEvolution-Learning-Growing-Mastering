@@ -10,8 +10,7 @@ public class RotateArrayIMP {
 
         int temp = A[0];
 
-        for(int i=1; i<A.length; i++)
-        {
+        for(int i=1; i<A.length; i++) {
             A[i-1]=A[i];
         }
         A[A.length-1]=temp;

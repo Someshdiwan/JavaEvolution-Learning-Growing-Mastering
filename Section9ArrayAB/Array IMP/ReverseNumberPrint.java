@@ -4,7 +4,6 @@ public class ReverseNumberPrint {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        //Ask the user for the number of natural numbers to print
         System.out.print("Enter the number, to print natural numbers in reverse order: ");
         int n = scanner.nextInt();
 
@@ -20,9 +19,7 @@ public class ReverseNumberPrint {
 Do-While:
 
 Initialize the loop variable
-
 int i = n;
-
 Use a do-while loop to print numbers in reverse order.
 
         do {
@@ -34,9 +31,7 @@ Use a do-while loop to print numbers in reverse order.
 While:
 
 Initialize the loop variable
-
 int i = n;
-
 Use a while loop to print numbers in reverse order
 
         while (i >= 1) {

@@ -15,10 +15,9 @@ public class TwoDJaggedArray {
             }
             System.out.println("");
         }
-*/
-        for(int x[]:A)
-        {
-            for(int y:x){
+     */
+        for(int x[]:A) {
+            for(int y:x) {
                 System.out.println(y+" ");
             }
             System.out.println("");

@@ -12,7 +12,7 @@ class TwoDArrayPractice {
             for(int j = 0; j<2; j++) {
                 A[i][j] = sc.nextInt();
             }
-        } 
+        }
 
         System.out.println("Array elements are: ");
         for(int i = 0; i<2; i++) {
@@ -20,6 +20,7 @@ class TwoDArrayPractice {
                 System.out.print(A[i][j]+" ");
             }
         }
+
         System.out.println("");
     }
 }

@@ -1,4 +1,6 @@
-To reverse an array in place means that we need to reverse the elements without using any additional array or extra space.
+To reverse an array in place means that we need to reverse the elements without using any additional array or
+extra space.
+
 We can do this by swapping the elements starting from the two ends of the array, working towards the middle.
 
 Approach:
@@ -15,7 +17,7 @@ Algorithm:
 1. Initialize two pointers left = 0 and right = n - 1.
 2. Swap arr[left] and arr[right].
 3. Increment left and decrement right.
-4. Repeat the process until left >= right.
+4. Repeat the process until a left >= right.
 
 Code Implementation in Java:
 
@@ -55,12 +57,11 @@ Explanation:
 - left starts at index 0 (the first element) and right starts at index n - 1 (the last element).
 - Inside the while loop, we swap the elements at arr[left] and arr[right].
 - After swapping, we increment left and decrement right, moving the pointers towards the center of the array.
-- The loop continues until left >= right.
+- The loop continues until a left >= right.
 
 Example:
 
 For input:
-gi
 arr = [1, 2, 3, 4, 5]
 
 - First iteration: left = 0, right = 4 → Swap arr[0] with arr[4] → [5, 2, 3, 4, 1]

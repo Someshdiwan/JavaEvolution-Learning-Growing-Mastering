@@ -1,7 +1,6 @@
 public class StudentChallengeAB {
     public static void main(String[] args) {
         String str = "Programmer@Gmail.com";
-
         int i = str.indexOf("@");
         String uname = str.substring(0 , i);
         String domainname = str.substring(i+1, str.length());

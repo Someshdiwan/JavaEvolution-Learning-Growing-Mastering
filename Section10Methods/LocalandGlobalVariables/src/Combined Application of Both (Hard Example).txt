@@ -9,6 +9,7 @@ Global Variables: schoolName is shared by all students, and totalStudents keeps 
 Static Method (displayTotalStudents()) prints the total students enrolled.
 
 ## Conclusion
+
 | Type                      | Application Example                                                                   |
 |---------------------------|---------------------------------------------------------------------------------------|
 | Instance Variables        | Storing unique data like Student Names, Account Balances, Game Player Stats           |

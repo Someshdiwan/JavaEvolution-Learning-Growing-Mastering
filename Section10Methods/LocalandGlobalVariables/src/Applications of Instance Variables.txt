@@ -1,4 +1,4 @@
-1 Applications of Instance Variables:
+1. Applications of Instance Variables:
 
 Instance variables are used when each object needs its own unique data.
 

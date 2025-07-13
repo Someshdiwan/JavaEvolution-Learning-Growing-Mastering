@@ -1,10 +1,3 @@
-/* 
-Key Features:
-Each account has its own accountHolder and balance (Instance Variables).
-interestRate is shared across all accounts (Global Variable).
-Updating interestRate affects all accounts.
-*/
-
 class BankAccount {
     private String accountHolder;  // Instance variable (unique per object)
     private double balance;        // Instance variable

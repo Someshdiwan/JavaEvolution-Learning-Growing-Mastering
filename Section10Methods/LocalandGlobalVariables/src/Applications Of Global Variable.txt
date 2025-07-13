@@ -20,6 +20,7 @@ class User {
         userCount++;  // Increase count every time an object is created
     }
 }
+
 This helps in monitoring the total number of active users in a system.
 
 3. Managing Shared Resources
@@ -51,7 +52,7 @@ Global Scoreboard (static int highestScore;)
 Example: Singleton Design Pattern (Ensuring only one instance of a class is created).
 
 class DatabaseConnection {
-    private static DatabaseConnection instance;  // Global shared instance
+    private static DatabaseConnection instance; // Global shared instance
 
     private DatabaseConnection() {} // Private constructor to prevent multiple instances
 
@@ -62,4 +63,5 @@ class DatabaseConnection {
         return instance;
     }
 }
+
 Used in databases to prevent multiple connections from being created.

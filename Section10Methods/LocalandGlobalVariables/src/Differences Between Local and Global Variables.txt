@@ -1,4 +1,4 @@
-Differences Between Local and Global Variables
+Differences Between Local and Global Variables:
 
 - Scope:
   • Local Variables: Declared inside a method, constructor, or block; accessible only within that specific region.

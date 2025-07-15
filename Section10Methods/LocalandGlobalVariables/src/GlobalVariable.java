@@ -1,11 +1,3 @@
-/* A global variable is shared across all instances of a class.
-It is declared as static so that it belongs to the class instead of an object.
-
-Key Features:
-companyName is shared across all instances.
-Changing companyName for one object affects all objects.
-*/
-
 class Company {
     private String employeeName;  // Instance variable (belongs to object)
     private double salary;        // Instance variable
@@ -42,3 +34,11 @@ public class GlobalVariable {
         emp2.display();
     }
 }
+
+/* A global variable is shared across all instances of a class.
+It is declared as static so that it belongs to the class instead of an object.
+
+Key Features:
+companyName is shared across all instances.
+Changing companyName for one object affects all objects.
+*/

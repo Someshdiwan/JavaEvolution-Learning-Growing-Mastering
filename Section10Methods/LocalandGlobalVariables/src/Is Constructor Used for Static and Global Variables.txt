@@ -31,6 +31,7 @@ class Company {
         System.out.println("Static block executed");
     }
 }
+
 This ensures companyName is set before any object is created.
 
 3. Constructor Only Initializes Instance Variables
@@ -57,4 +58,4 @@ companyName is initialized outside the constructor because it does not belong to
 Conclusion
 ✅ Constructors are used for initializing instance variables because they belong to objects.
 ❌ Constructors are NOT used for static (global) variables because static variables belong to
-the class and are initialized when the class is loaded. Instead, direct assignment or a static block is used.
+the class and are initialized when the class is loaded. Instead, a direct assignment or a static block is used.

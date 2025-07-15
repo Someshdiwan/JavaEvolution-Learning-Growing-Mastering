@@ -1,7 +1,3 @@
-/* An instance variable belongs to an object and is created when the object is instantiated.
-   Each object has its own copy of instance variables.
-*/
-
 class Student {
     private String name;  // Instance variable
     private double gpa;   // Instance variable
@@ -29,7 +25,11 @@ public class InstanceVariable {
     }
 }
 
-/* Key Features:
+/*
+An instance variable belongs to an object and is created when the object is instantiated.
+Each object has its own copy of instance variables.
+
+Key Features:
 Each Student object has its own name and gpa.
 Changing values for one object does not affect the other.
 */

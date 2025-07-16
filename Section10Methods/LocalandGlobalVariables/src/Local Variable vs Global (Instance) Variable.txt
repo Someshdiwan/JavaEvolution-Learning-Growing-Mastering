@@ -1,6 +1,6 @@
 Local Variable vs Global (Instance) Variable
 
-In Java, the distinction between local and global (or instance)** variables is essential to understanding
+In Java, the distinction between local and global (or instance) variables is essential to understanding
 how variables are used within a class.
 
 Local Variables:

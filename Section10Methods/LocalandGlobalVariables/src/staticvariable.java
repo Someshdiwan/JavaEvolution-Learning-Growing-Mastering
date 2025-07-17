@@ -1,6 +1,5 @@
 public class staticvariable {
     static int a=10;
-
     void fun() {
         int b=10;
         System.out.println(a+" "+b);

@@ -9,16 +9,14 @@ class Mobile1{
         System.out.println(brand+" : "+price+" : "+name);
     }
 
-    public static void show1(Mobile1 obj)
-    {
+    public static void show1(Mobile1 obj) {
 //		System.out.println("in static method");
         System.out.println(obj.brand+" : "+ obj.price +" : "+obj.name);
     }
 }
 
 public class StaicMethodDemo {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Mobile1 obj1=new Mobile1();
         obj1.brand="Apple";
         obj1.price=1500;

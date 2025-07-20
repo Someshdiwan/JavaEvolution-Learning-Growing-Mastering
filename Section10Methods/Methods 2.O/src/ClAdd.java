@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
-class ClAdd
-{
-    public static void main(String[] args)
-    {
+class ClAdd {
+    public static void main(String[] args) {
         Add a = new Add();
         a.getData();
         a.getTotal();
@@ -11,25 +9,21 @@ class ClAdd
     }
 }
 
-class Add
-{
+class Add {
     int a, b, total;
 
-    void getData()
-    {
+    void getData() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter values of a & b to perform addition: ");
         a = sc.nextInt();
         b = sc.nextInt();
     }
 
-    void getTotal()
-    {
+    void getTotal() {
         total = a+b;
     }
 
-    void showData()
-    {
+    void showData() {
         System.out.println("Addition of a & b is: "+total);
     }
 }

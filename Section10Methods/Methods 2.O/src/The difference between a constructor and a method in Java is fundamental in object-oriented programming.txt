@@ -8,7 +8,8 @@ Let's break down the key differences:
      - Its main role is to set up the initial state of the object, such as initializing fields or setting up resources.
    
      - Method:
-     - A method is used to define behavior or operations that an object can perform. It can be called after the object is created to perform actions on the object.
+     - A method is used to define behavior or operations that an object can perform.
+       It can be called after the object is created to perform actions on the object.
 
 2. Name
      - Constructor:

@@ -1,4 +1,6 @@
-The difference between a constructor and a method in Java is fundamental in object-oriented programming. Let's break down the key differences:
+The difference between a constructor and a method in Java is fundamental in object-oriented programming.
+
+Let's break down the key differences:
 
 1. Purpose
      - Constructor:
@@ -18,82 +20,65 @@ The difference between a constructor and a method in Java is fundamental in obje
      - For example, a method can be named `add`, `multiply`, or `display`.
 
 3. Return Type
-
      - Constructor:
-
      - A constructor does not have a return type. It doesn't return anything, not even `void`.
     
-     - Example: 
-     
+     - Example:
        public Arithmetic(int a, int b) { ... }
       
      - Method:
-
      - A method must have a return type. It can return a value (e.g., `int`, `String`, `void`), or in some cases, it can return nothing (in which case it would have a return type of         
        void).
 
      - Example:
-     
        public int add(int a, int b) { ... }
      
 4. Invocation
    
      - Constructor:
-
      - A constructor is automatically called when you **create an object** using the `new` keyword.
 
      - Example:
-       
        Arithmetic obj = new Arithmetic(10, 20);  // Constructor is called here
        
      -  Method:
-     
      - A method is called explicitly after the object has been created, using the object's reference.
      
      - Example:
-     
        int sum = obj.add(10, 20);  // Calling the add method
        
 5. Parameters:
      
      - Constructor:
-     
      - Constructors can take parameters, allowing you to pass values to initialize the object at the time of creation.
      
      - Example:
-       
        public Arithmetic(int a, int b) {
            // Initializes the object
        }
        
      - Method:
-
      - Methods can also take parameters, but they are called after the object is created.
 
      - Example:
-       
        public int add(int a, int b) {
            return a + b;
        }
        
 6. Inheritance
-
      - Constructor:
-
-     - Constructors are not inherited. Each class must define its own constructors, although the subclass can call the superclass constructor using `super()`.
+     - Constructors are not inherited. Each class must define its own constructors,
+       although the subclass can call the superclass constructor using `super()`.
      
      - Method:
-
      - Methods are inherited. A subclass can inherit methods from its superclass and can override them if needed.
 
 7. Constructor Overloading vs Method Overloading
-     
      - Constructor:
-
-     - Constructor overloading is allowed, meaning you can have multiple constructors with different parameters in the same class.
+     - Constructor overloading is allowed, meaning you can have multiple constructors with
+       different parameters in the same class.
      
      - Example:
-     
       public Arithmetic() {
            // Default constructor
        }
@@ -103,12 +88,10 @@ The difference between a constructor and a method in Java is fundamental in obje
        }
        
      - Method:
-
      - Method overloading is also allowed, which means you can have multiple methods with the same name but different parameter lists.
+
      - Example:
-       
        public int add(int a, int b) { ... }
-       
        public int add(int a, int b, int c) { ... }
       
 Summary of Differences:
@@ -152,11 +135,7 @@ public class Main {
     }
 }
 
-
 Output:
-
 Model: Tesla Model 3, Year: 2021
-
 - Constructor: `new Car("Tesla Model 3", 2021)` initializes the object with the `model` and `year`.
-
 - Method: `displayDetails()` is called after the object is created to show the car's details.

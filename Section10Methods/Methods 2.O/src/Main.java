@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         // Q: take input of 2 numbers and print the sum
         Scanner in = new Scanner(System.in);
+        System.out.println("Enter ur numbers: ");
         int num1, num2, sum;
 
         System.out.print("Enter number 1: ");
@@ -49,7 +50,6 @@ public class Main {
         sum = num1 + num2;
         System.out.println("The sum = " + sum);
 
-
         System.out.print("Enter number 1: ");
         num1 = in.nextInt();
         System.out.print("Enter number 2: ");
@@ -78,13 +78,11 @@ public class Main {
         sum = num1 + num2;
         System.out.println("The sum = " + sum);
 
-
         System.out.print("Enter number 1: ");
         num1 = in.nextInt();
         System.out.print("Enter number 2: ");
         num2 = in.nextInt();
         sum = num1 + num2;
         System.out.println("The sum = " + sum);
-
     }
 }

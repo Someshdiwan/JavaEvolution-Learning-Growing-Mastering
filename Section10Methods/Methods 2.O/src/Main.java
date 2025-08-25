@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        // Q: take input of 2 numbers and print the sum
+        // Q: take input of 2 numbers and print the sum.
         Scanner in = new Scanner(System.in);
         System.out.println("Enter ur numbers: ");
         int num1, num2, sum;

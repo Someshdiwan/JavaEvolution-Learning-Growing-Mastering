@@ -1,4 +1,4 @@
-Definition
+Definition:
 
 - Array: A fixed-size, contiguous memory data structure that stores elements of the same type. 
 

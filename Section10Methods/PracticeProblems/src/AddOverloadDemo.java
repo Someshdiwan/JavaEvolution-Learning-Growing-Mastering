@@ -1,24 +1,22 @@
 public class AddOverloadDemo {
-
-    // Method 1: No parameters, adds hardcoded numbers
+    // Method 1: No parameters, adds hardcoded numbers.
     void add() {
         int a = 10, b = 20;
         int sum = a + b;
         System.out.println("Sum (no parameters): " + sum);
     }
 
-    // Method 2: Two parameters, returns the sum
+    // Method 2: Two parameters, returns the sum.
     int add(int x, int y) {
         return x + y;
     }
 
-    // Method 3: Three parameters, prints the sum
+    // Method 3: Three parameters, prints the sum.
     void add(int x, int y, int z) {
         int sum = x + y + z;
         System.out.println("Sum (three parameters): " + sum);
     }
 
-    // Main method to call all add methods
     public static void main(String[] args) {
         AddOverloadDemo obj = new AddOverloadDemo();
 

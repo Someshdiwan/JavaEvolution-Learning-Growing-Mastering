@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>FAANG Interview Questions - CountingError Analysis</title>
+  <meta name="Author" content="AI Assistant">
+  <meta name="Generator" content="IntelliJ IDEA">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px 'Comic Sans MS'; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px 'Comic Sans MS'; color: #6d6d6d; -webkit-text-stroke: #6d6d6d; min-height: 25.0px}
+    p.answer {margin: 0.0px 0.0px 0.0px 20.0px; font: 16.0px 'Comic Sans MS'; color: #2c2c2c;}
+    li.li1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px 'Comic Sans MS'; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+    ol.ol1 {list-style-type: decimal}
+    pre.code {background-color: #f5f5f5; padding: 10px; border-radius: 5px; font: 14px Monaco, monospace;}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>🚀 FAANG-Style Interview Questions on the CountingError Code</b></span></p>
+<p class="p1"><span class="s1"><b>✅ Logic & Array Traversal</b></span></p>
+<ol class="ol1">
+  <li class="li1"><span class="s1"><b>How does the count() method traverse the 2D array?</b></span></li>
+  <p class="answer">The method uses nested loops for row-major traversal. The outer loop iterates through rows (0 to things.length-1), while the inner loop iterates through columns (0 to things[r].length-1). This creates a left-to-right, top-to-bottom traversal pattern.</p>
+
+  <li class="li1"><span class="s1"><b>What about jagged arrays?</b></span></li>
+  <p class="answer">The code handles jagged arrays correctly because it uses things[r].length for each row separately, adapting to different row lengths dynamically.</p>
+
+  <li class="li1"><span class="s1"><b>Explain indexOf("a") >= 0</b></span></li>
+  <p class="answer">indexOf() returns -1 if the character isn't found, and the actual index (0 or greater) if found. Using >= 0 checks for the presence of 'a' anywhere in the string, while == 0 would only match strings starting with 'a'.</p>
+</ol>
+
+<p class="p1"><span class="s1"><b>✅ String Operations</b></span></p>
+<ol class="ol1">
+  <li class="li1"><span class="s1"><b>indexOf() Internal Performance</b></span></li>
+  <p class="answer">indexOf() performs a linear search with O(n) time complexity, where n is the string length. It scans characters sequentially until finding a match or reaching the end.</p>
+
+  <li class="li1"><span class="s1"><b>Multiple 'a' Characters</b></span></li>
+  <p class="answer">To count strings with multiple 'a' characters:</p>
+  <pre class="code">if (things[r][c].length() - things[r][c].replace("a", "").length() > 1)</pre>
+
+  <li class="li1"><span class="s1"><b>Strings Starting with 'a'</b></span></li>
+  <p class="answer">To check for strings starting with 'a':</p>
+  <pre class="code">if (things[r][c].startsWith("a"))</pre>
+</ol>
+
+<!-- Continue with other sections similarly -->
+
+<p class="p1"><span class="s1"><b>✅ Robustness & Edge Cases</b></span></p>
+<ol class="ol1">
+  <li class="li1"><span class="s1"><b>Null Values</b></span></li>
+  <p class="answer">The current code will throw NullPointerException for null array input, null rows, or null string elements. This needs to be handled with proper null checks.</p>
+
+  <li class="li1"><span class="s1"><b>Null-Safe Solution</b></span></li>
+  <pre class="code">
+public static int count(String[][] things) {
+    if (things == null) return 0;
+    int count = 0;
+    for (String[] row : things) {
+        if (row != null) {
+            for (String str : row) {
+                if (str != null && str.indexOf("a") >= 0) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}</pre>
+
+  <li class="li1"><span class="s1"><b>Empty Array</b></span></li>
+  <p class="answer">For an empty array (new String[0][0]), the method correctly returns 0 as there are no strings to count.</p>
+</ol>
+
+<p class="p1"><span class="s1"><b>✅ Optimization</b></span></p>
+<ol class="ol1">
+  <li class="li1"><span class="s1"><b>Performance Improvements</b></span></li>
+  <p class="answer">For large datasets, we can improve efficiency by:</p>
+  <ul class="answer">
+    <li>Using enhanced for loops</li>
+    <li>Implementing parallel processing</li>
+    <li>Early termination when possible</li>
+    <li>Avoiding unnecessary string operations</li>
+  </ul>
+
+  <li class="li1"><span class="s1"><b>Set&lt;Character&gt; Usage</b></span></li>
+  <p class="answer">Using a Set&lt;Character&gt; would be unnecessary overhead for checking a single character 'a'. However, it would be beneficial when checking for multiple characters like vowels.</p>
+
+  <li class="li1"><span class="s1"><b>Parallel Processing</b></span></li>
+  <pre class="code">
+public static int countParallel(String[][] things) {
+    if (things == null) return 0;
+    return Arrays.stream(things)
+        .parallel()
+        .flatMap(Arrays::stream)
+        .filter(s -> s != null && s.indexOf("a") >= 0)
+        .mapToInt(s -> 1)
+        .sum();
+}</pre>
+</ol>
+
+<p class="p1"><span class="s1"><b>✅ Code Extension / Behavior Change</b></span></p>
+<ol class="ol1">
+  <li class="li1"><span class="s1"><b>Count Vowels</b></span></li>
+  <pre class="code">
+public static int countVowels(String[][] things) {
+    if (things == null) return 0;
+    String vowels = "aeiou";
+    int count = 0;
+    for (String[] row : things) {
+        if (row != null) {
+            for (String str : row) {
+                if (str != null &&
+                    vowels.chars().anyMatch(v -> str.indexOf(v) >= 0)) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}</pre>
+
+  <li class="li1"><span class="s1"><b>Case-Insensitive Matching</b></span></li>
+  <p class="answer">To make the method case-insensitive:</p>
+  <pre class="code">if (str != null && str.toLowerCase().indexOf("a") >= 0)</pre>
+
+  <li class="li1"><span class="s1"><b>Return List Instead of Count</b></span></li>
+  <pre class="code">
+public static List&lt;String&gt; findStringsWithA(String[][] things) {
+    List&lt;String&gt; result = new ArrayList&lt;&gt;();
+    if (things == null) return result;
+
+    for (String[] row : things) {
+        if (row != null) {
+            for (String str : row) {
+                if (str != null && str.indexOf("a") >= 0) {
+                    result.add(str);
+                }
+            }
+        }
+    }
+    return result;
+}</pre>
+</ol>
+
+<p class="p1"><span class="s1"><b>✅ Design & Readability</b></span></p>
+<ol class="ol1">
+  <li class="li1"><span class="s1"><b>Code Refactoring</b></span></li>
+  <p class="answer">Suggested improvements:</p>
+  <ul class="answer">
+    <li>Add comprehensive input validation</li>
+    <li>Use meaningful variable names</li>
+    <li>Extract character checking logic to separate method</li>
+    <li>Add JavaDoc documentation</li>
+    <li>Consider using modern Java features like streams</li>
+  </ul>
+
+  <li class="li1"><span class="s1"><b>Method Naming</b></span></li>
+  <p class="answer">Better method names would be:</p>
+  <ul class="answer">
+    <li>countStringsContaining()</li>
+    <li>countStringsWithCharacter()</li>
+    <li>countMatchingStrings()</li>
+  </ul>
+
+  <li class="li1"><span class="s1"><b>Unit Testing</b></span></li>
+  <pre class="code">
+@Test
+public void testCount() {
+    // Test regular case
+    String[][] normal = {{"apple", "banana"}, {"cat", "dog"}};
+    assertEquals(2, CountingError.count(normal));
+
+    // Test empty array
+    String[][] empty = new String[0][0];
+    assertEquals(0, CountingError.count(empty));
+
+    // Test null array
+    assertDoesNotThrow(() -> CountingError.count(null));
+
+    // Test array with nulls
+    String[][] withNulls = {null, {"apple", null}};
+    assertDoesNotThrow(() -> CountingError.count(withNulls));
+
+    // Test case sensitivity
+    String[][] mixed = {{"Apple", "BANANA"}};
+    assertEquals(1, CountingError.count(mixed));
+}</pre>
+</ol>
+
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><b>📝 Additional Notes</b></span></p>
+<p class="answer">
+  • All code examples include proper error handling<br>
+  • Solutions focus on both functionality and maintainability<br>
+  • Performance considerations are balanced with code readability<br>
+  • Test cases cover edge cases and common scenarios<br>
+</p>
+
+</body>
+</html>

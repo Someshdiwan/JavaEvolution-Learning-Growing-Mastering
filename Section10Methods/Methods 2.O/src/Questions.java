@@ -3,10 +3,13 @@ import java.util.Scanner;
 public class Questions {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-//        int n = in.nextInt();
-//        boolean ans = isPrime(n);
-//        System.out.println(ans);
+        System.out.println("Enter a number to check it is prime or not: ");
 
+        int n = in.nextInt();
+        boolean ans = isPrime(n);
+        System.out.println(ans);
+
+        System.out.println("List of Armstrong numbers in range 100 to 1000 are: ");
         for (int i = 100; i < 1000; i++) {
             if (isArmstrong(i)) {
                 System.out.print(i + " ");
@@ -24,10 +27,10 @@ public class Questions {
             n = n / 10;
             sum = sum + rem*rem*rem;
         }
-
         return sum == original;
     }
 
+    //declaring a method 'isPrime' and calling this method in main method.
     static boolean isPrime(int n) {
         if (n <= 1) {
             return false;

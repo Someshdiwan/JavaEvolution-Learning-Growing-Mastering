@@ -1,15 +1,18 @@
 public class Overloading {
     public static void main(String[] args) {
-//        fun(67);
-//        fun("Kunal Kushwaha");
-        int ans = sum(3, 4, 78);
-        System.out.println(ans);
+          fun(7);
+          fun("Somesh Diwan");
+
+          int ans = sum(3, 4, 78);
+          System.out.println(ans);
     }
 
+    //First method called.
     static int sum(int a, int b) {
         return a + b;
     }
 
+    //Second method called.
     static int sum(int a, int b, int c) {
         return a + b + c;
     }

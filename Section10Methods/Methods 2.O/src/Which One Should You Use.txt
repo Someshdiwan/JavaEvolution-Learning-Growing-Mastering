@@ -1,0 +1,7 @@
+Which One Should You Use?
+
+| Method                                       | Pros                                       | When to Use                                       |
+|----------------------------------------------|--------------------------------------------|---------------------------------------------------|
+| toString() (Best)                            | Cleaner, reusable, easy to debug           |  If you need structured output often              |
+| printf()                                     | Better formatting                          |  When you need aligned columns                    |
+| printDetails()                               | Simple and separate                        |  If you prefer explicit method calls              |

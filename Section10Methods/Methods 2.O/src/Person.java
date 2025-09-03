@@ -1,27 +1,25 @@
-public class Person
-{
-    //attributes of every Person object
-    private int yearBorn;
-    private int yearDeceased;
-    private String name;
+public class Person {
+    //attributes of every Person object.
+    // attributes of every Person object
+    private int YearBorn;
+    private int YearDeceased;
+    private String Name;
 
-    //constructor//
-    public Person(String named, int born, int died)
-    {
-        name = named;
-        yearBorn = born;
-        yearDeceased = died;
+    // constructor
+    public Person(String Name, int YearBorn, int YearDeceased) {
+        this.Name = Name;
+        this.YearBorn = YearBorn;
+        this.YearDeceased = YearDeceased;
     }
 
-    //instance (object) method//
-    public void epitaph()
-    {
-        /* Print <name> lived to an age of <age> */
+    // instance method
+    public void epitaph() {
+        int age = YearDeceased - YearBorn;
+        System.out.println(Name + " lived to an age of " + age);
     }
 
-    public static void main(String[] args)
-    {
-        Person grandma = new Person("Mary", 1932, 1999);
-        grandma.epitaph(); //apply method to object (yes, in this case, grandma is considered an object)
+    public static void main(String[] args) {
+        Person person = new Person("Mary", 1932, 1999);
+        person.epitaph();
     }
 }

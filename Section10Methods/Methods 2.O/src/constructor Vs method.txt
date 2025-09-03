@@ -2,7 +2,7 @@ The difference between a constructor and a method in Java is fundamental in obje
 
 Let's break down the key differences:
 
-1. Purpose
+1. Purpose:
      - Constructor:
      - A constructor is used to initialize a new object. It is called when an object is created.
      - Its main role is to set up the initial state of the object, such as initializing fields or setting up resources.
@@ -11,7 +11,7 @@ Let's break down the key differences:
      - A method is used to define behavior or operations that an object can perform.
        It can be called after the object is created to perform actions on the object.
 
-2. Name
+2. Name:
      - Constructor:
      - The constructor's name must be the same as the class name.
      - For example, in the `Arithmetic` class, the constructor must be named `Arithmetic`.
@@ -20,7 +20,7 @@ Let's break down the key differences:
      - A method can have any name (except it cannot be the same as the class name, unless it's a constructor).
      - For example, a method can be named `add`, `multiply`, or `display`.
 
-3. Return Type
+3. Return Type:
      - Constructor:
      - A constructor does not have a return type. It doesn't return anything, not even `void`.
     
@@ -34,8 +34,7 @@ Let's break down the key differences:
      - Example:
        public int add(int a, int b) { ... }
      
-4. Invocation
-   
+4. Invocation:
      - Constructor:
      - A constructor is automatically called when you **create an object** using the `new` keyword.
 
@@ -49,7 +48,6 @@ Let's break down the key differences:
        int sum = obj.add(10, 20);  // Calling the add method
        
 5. Parameters:
-     
      - Constructor:
      - Constructors can take parameters, allowing you to pass values to initialize the object at the time of creation.
      
@@ -60,7 +58,6 @@ Let's break down the key differences:
        
      - Method:
      - Methods can also take parameters, but they are called after the object is created.
-
      - Example:
        public int add(int a, int b) {
            return a + b;
@@ -128,7 +125,7 @@ class Car {
 
 public class Main {
     public static void main(String[] args) {
-        // Creating a new object of type Car
+        // Creating a new object of type Car.
         Car myCar = new Car("Tesla Model 3", 2021); // Constructor is called here
 
         // Calling the method to display car details

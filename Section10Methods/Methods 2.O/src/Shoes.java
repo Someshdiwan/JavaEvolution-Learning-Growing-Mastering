@@ -1,9 +1,9 @@
 public class Shoes {
-    // Instance attributes
+    // Instance attributes.
     private int size;
     private String color;
 
-    // Setters
+    // Setters.
     public void setSize(int size) {
         this.size = size;
     }

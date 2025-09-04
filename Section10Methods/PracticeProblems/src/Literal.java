@@ -1,6 +1,5 @@
 public class Literal {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         byte b1 = 10;
         byte b2 = 0b101;
         byte b3 = 012;

@@ -1,19 +1,17 @@
 public class SimpleCalculator {
-
-    // Method 1: No parameters - adds two constants
-    void calculate() //No parameters
-    {
+    // Method 1: No parameters - adds two constants.
+    void calculate() {
         int x = 7, y = 13;
         int sum = x + y;
         System.out.println("Addition (no parameters): " + sum);
     }
 
-    // Method 2: Two parameters - multiplies them and returns result
+    // Method 2: Two parameters - multiplies them and returns result.
     int calculate(int a, int b) {
         return a * b;
     }
 
-    // Method 3: Three parameters - subtracts and prints result
+    // Method 3: Three parameters - subtracts and prints result.
     void calculate(int a, int b, int c) {
         int result = a - b - c;
         System.out.println("Subtraction (three parameters): " + result);
@@ -21,7 +19,6 @@ public class SimpleCalculator {
 
     public static void main(String[] args) {
         SimpleCalculator calc = new SimpleCalculator();
-
         calc.calculate();  // Output: Addition (no parameters): 20
 
         int product = calc.calculate(4, 5);  // 4 * 5 = 20

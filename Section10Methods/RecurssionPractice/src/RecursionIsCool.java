@@ -1,8 +1,7 @@
 public class RecursionIsCool {
     public static void main(String[] args) {
-        //calling a method sayHi.
+        //calling a method sayHi. Method called it-self.
         sayHi();
-        //Method called it-self.
     }
     public static void sayHi() {
         System.out.println("Hi");

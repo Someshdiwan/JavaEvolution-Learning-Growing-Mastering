@@ -3,11 +3,10 @@ public class PrintNumbersBackward {
         countBackwards(7);
     }
     public static void countBackwards(int n){
-        if(n==0)
-        {
+        if(n==0) {
             System.out.println("Done!");
         }
-        else{
+        else {
             System.out.println(n);
             n--;
             countBackwards(n);

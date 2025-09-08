@@ -1,9 +1,7 @@
 import java.util.Scanner;
 
-class Item
-{
-    public static void main(String[] args)
-    {
+class Item {
+    public static void main(String[] args) {
         Calculate c = new Calculate();
         c.getData();
         c.Result();
@@ -11,11 +9,11 @@ class Item
     }
 }
 
-class Calculate
-{
+
+
+class Calculate {
     int p, q, total;
-    void getData()
-    {
+    void getData() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the price of product:");
         p = sc.nextInt();
@@ -23,13 +21,11 @@ class Calculate
         q = sc.nextInt();
     }
 
-    void Result()
-    {
+    void Result() {
         total = p*q;
     }
 
-    void Show()
-    {
+    void Show() {
         System.out.println("Total price is: "+total);
     }
 }

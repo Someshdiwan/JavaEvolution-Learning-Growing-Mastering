@@ -8,9 +8,6 @@ class Item {
         c.Show();
     }
 }
-
-
-
 class Calculate {
     int p, q, total;
     void getData() {
@@ -20,11 +17,9 @@ class Calculate {
         System.out.println("Enter the quantity of the product:");
         q = sc.nextInt();
     }
-
     void Result() {
         total = p*q;
     }
-
     void Show() {
         System.out.println("Total price is: "+total);
     }

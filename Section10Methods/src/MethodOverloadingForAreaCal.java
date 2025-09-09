@@ -1,15 +1,12 @@
 public class MethodOverloadingForAreaCal {
-    static double area(double radius)
-    {
+    static double area(double radius) {
         return Math.PI*radius*radius;
     }
-    static double area(double length, double breadth)
-    {
+    static double area(double length, double breadth) {
         return length*breadth;
     }
-
     public static void main(String[] args) {
-        // Calculate the area of a circle with radius 5
+        // Calculate the area of a circle with radius 5.
         double radius = 5.0;
         double circleArea = area(radius);
         System.out.println("Area of the circle with radius " + radius + " is: " + circleArea);

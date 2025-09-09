@@ -1,24 +1,20 @@
-class Practice
-{
-    public static void main(String[] args)
-    {
+class Practice {
+    public static void main(String[] args) {
         A a=new A();
         a.add(5,7);
         a.mul();
     }
 }
-class A
-{
+class A {
     int x,y,sum,res;
-    void add(int x,int y)
-    {
+
+    void add(int x,int y) {
         this.x=x;
         this.y=y;
         sum=x+y;
         System.out.println(sum);
     }
-    void mul()
-    {
+    void mul() {
         res=x*y;
         System.out.println(res);
     }

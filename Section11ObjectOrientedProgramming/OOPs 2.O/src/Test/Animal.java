@@ -4,8 +4,7 @@ public class Animal {
     String name;
     String age;
 
-    //Method Behavior hota hai
     public void makeSound() {
-        System.out.println("MAke Some sound");
+        System.out.println("Make Some sound");
     }
 }

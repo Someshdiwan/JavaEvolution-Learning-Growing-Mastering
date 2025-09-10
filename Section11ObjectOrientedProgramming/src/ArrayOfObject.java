@@ -1,20 +1,20 @@
-//You have to wtite a 2 classes one is subject and students.
-//you have to write a class for subject and subjID and name and maxMarks and maxobtain. you have to decide the data type and properties methods and constructers. how many constructer are possible.
-//data type Should be a string for subID and name also and MaxMarks is Int and MarksObtain is als.
-//Property methods get method for all of them... what about the set method
-//maxmarks can change everytime so marksobtain are also use the set method
-//constructer you can not have non parameterized cons.. subject(sid, name) and subject(",",max marks, marks obtain)
+/*
+You have to write a 2 classes one is subject and students.
+you have to write a class for subject and subjID and name and maxMarks and maxobtain.
+you have to decide the data type and properties methods and constructers. how many constructer are possible.
+data type Should be a string for subID and name also and MaxMarks is Int and MarksObtain is als.
+Property methods get method for all of them... what about the set method
+maxmarks can change everytime so marksobtain are also use the set method
+constructer you can not have non parameterized cons.. subject(sid, name) and subject(",",max marks, marks obtain)
+*/
 
-
-class Subject
-{
+class Subject {
     private String subID;
     private String name;
     private int maxMarks;
     private int marksObtains;
 
-    public Subject(String subID,String name,int maxMarks)
-    {
+    public Subject(String subID,String name,int maxMarks) {
         this.subID=subID;
         this.name=name;
         this.maxMarks=maxMarks;
@@ -25,33 +25,25 @@ class Subject
     public int getMaxMarks(){return maxMarks;}
     public int getMarksObtains(){return marksObtains;}
 
-    public void setMaxMarks(int mm)
-    {
+    public void setMaxMarks(int mm) {
         maxMarks=mm;
     }
 
-    public void setMarksObtain(int m)
-    {
+    public void setMarksObtain(int m) {
         marksObtains=m;
     }
 
-    boolean isQualified()
-    {
+    boolean isQualified() {
         return marksObtains>=maxMarks/10*4;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return"\n SubjectID: "+subID+"\n Name "+name+"\n MarksObtained "+marksObtains;
     }
-
 }
 
-public class ArrayOfObject
-{
-
-    public static void main(String[] args)
-    {
+public class ArrayOfObject {
+    public static void main(String[] args) {
         //Array of objects
         //Subs Reference to an object
         //Pointers or References 0, 1, 2. there are no pointers in JAVA.

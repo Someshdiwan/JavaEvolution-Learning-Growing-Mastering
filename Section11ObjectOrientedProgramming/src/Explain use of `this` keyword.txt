@@ -1,6 +1,7 @@
 Why Do We Need this.itemNo = itemNo; in the Constructor?  
 
-If you don’t use `this.itemNo = itemNo;` in the constructor, the instance variable (`itemNo`) won’t be assigned the value passed as a parameter.  
+If you don’t use `this.itemNo = itemNo;` in the constructor, the instance variable (`itemNo`) won’t be assigned the
+value passed as a parameter.
 
 What Happens If We Don't Use `this`?
 
@@ -22,6 +23,7 @@ public Product(String itemNo) {
 }
 
 ```
+
 - `this.itemNo` refers to the instance variable of the class.
 - `itemNo` (without `this`) refers to the local parameter passed to the constructor.
 - `this.itemNo = itemNo;` assigns the constructor parameter to the instance variable.
@@ -30,16 +32,13 @@ Example: Without `this` (Incorrect Code)
 
 class Product {
     private String itemNo;
-
     public Product(String itemNo) {
         itemNo = itemNo; // ❌ Wrong! This does nothing
     }
-
     public String getItemNo() {
         return itemNo;
     }
 }
-
 public class Main {
     public static void main(String[] args) {
         Product p = new Product("A25");
@@ -72,7 +71,6 @@ public class Main {
 ```
 🟢 Now, `getItemNo()` returns `"A25"` as expected.
 
-Conclusion
-
+Conclusion:
 When the parameter name is the same as the instance variable name, use `this` to refer to the instance variable.  
 Without `this`, the assignment does nothing, leading to incorrect behavior (like getting `null`).

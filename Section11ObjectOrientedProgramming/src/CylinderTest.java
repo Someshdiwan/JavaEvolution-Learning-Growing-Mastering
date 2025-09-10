@@ -1,22 +1,20 @@
-class Cylindertest1
-{
+class Cylindertest1 {
     public double radius;
     public double height;
 
-    public double lidArea()
-    {
+    public double lidArea() {
         return Math.PI*radius*radius;
     }
-    public double  totalSurfaceArea()
-    {
+
+    public double  totalSurfaceArea() {
         return 2*lidArea()+circumference()*height;
     }
-    public double circumference()
-    {
+
+    public double circumference() {
         return 2*Math.PI*radius;
     }
-    public double volume()
-    {
+
+    public double volume() {
         return lidArea();
     }
 }
@@ -24,7 +22,6 @@ class Cylindertest1
 public class CylinderTest {
     public static void main(String[] args) {
         Cylindertest1 c = new Cylindertest1();
-
         c.radius=7;
         c.height=10;
 

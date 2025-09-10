@@ -1,33 +1,26 @@
-// Update the '_' to solve the problem
 class BankAccount {
     double balance;
     String holdername;
 
-    public BankAccount(String n)
-    {
+    public BankAccount(String n) {
         holdername = n;
     }
 
-    public BankAccount(double b)
-    {
+    public BankAccount(double b) {
         balance = b;
     }
 
-    void displayName()
-    {
+    void displayName() {
         System.out.println("Account holder name: " + holdername);
     }
 
-    void displayBalance()
-    {
-
+    void displayBalance() {
         System.out.println("Balance: $" + balance);
     }
 }
 
 class constructoroverloading {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         BankAccount b1 = new BankAccount("John");
         BankAccount b2 = new BankAccount(1000);
         b1.displayName();

@@ -1,5 +1,4 @@
-public class ClassBluePrint
-{
+public class ClassBluePrint {
     String Color;
     String brand;
     String Model;
@@ -9,24 +8,20 @@ public class ClassBluePrint
     int speed;
 
     //Method hai. Speed ko increment kar raha hai.
-    public void accelerate(int increment)
-    {
+    public void accelerate(int increment) {
         speed += increment;
     }
 
     //Behavior hai toh method mai likh te hai
-    public void brak(int decrement)
-    {
+    public void brak(int decrement) {
         speed -= decrement;
-        if(speed<0)
-        {
+        if(speed<0) {
             speed=0;
         }
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return
                 "Car Properties:\n" +
                 "Brand: " + brand + "\n" +

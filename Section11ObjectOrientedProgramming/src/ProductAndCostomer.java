@@ -1,84 +1,81 @@
 /*
 Product: itemno, name, price, qty 4 properties here.
-you should write properties method get and set method you have write down methods.
+you should write properties method get and set method you have writedown methods.
 and now ypu have to write constructors.
 Customer: custID, name, address, phno.
-What is data type of itemNo, this is alpha numeric and this sholud be string or int. Ex: A25 , this should be string.
+What is a data type of itemNo, this is an alphanumeric, and this should be string or int. Ex: A25, this should be string.
 you also takr long data type.
-price double and name is string and Quantity in shop may be short or long byte what ever you required decide data type proper.
+
+price double and name is string and Quantity in shop may be short or long byte whatever you required decide data type proper.
 Properties methods: you have to write get method. String getItemNo, String getName, like this...
-setMethod: set method means it change the propertie of item can i have setItemNo. setItemNO(String itemNo) we can not change itemNo everytime.
+
+setMethod: set method means it change the propertie of item can i have setItemNo.
+setItemNO(String itemNo) we can not change itemNo everytime.
 setItemNo should not be allowd. it should be in constructer.
-setName also not allowd.
-setPrice allowd beacuse it changes frequently you write down those
-setQuanttity allowd. it changes frequently.
+setName also aren't allowed.
+setPrice allowed because it changes frequently you write down those
+setQuantity allowed. it changes frequently.
 
-Now Constructer, if you have construction product class it must take itemnumber. there is no non parameterized constucter.
-Product(String itemNo , String name)
-
+Now Constructor, if you have construction product class it must take itemnumber. there is no non-parameterized constructor.
+Product (String itemNo , String name)
 
 Class Customer: CustomerID, name, address, PhoneNumber, now decide data type, properties method and constructers.
 like what we do in product class.
-CustomerId: String is ok, name string , phoneNo: String because +91 we added , all thing are Strings.
-Propertie methods are: all of them are get method and set method can not modified we gave at the time of registration and we cant change after that.
+CustomerId: String is ok, name string , phoneNo: String because +91 we added, all things are Strings.
+Propertie methods are: all of them are get method and set method cannot modify we gave it at the time of registration, and we can't change after that.
 we change only addresss, so setAddress. setPhoneNumber.
-Constructers; Customer(c.id, name) we cannot create customer id without mentioning his customerid and name. so there is no parameterized constructer here.
+Constructers; Customer(c.id, name) we cannot create a customer id without mentioning his customerid and name.
+so there is no parameterized constructor here.
 
 This is a Java program that defines two classes,
 Product and Customer, and then takes input from the user to create objects of these classes and display their details.*/
 
 import java.util.Scanner;
 
-class product
-{
+class product {
     private String itemNo;
     private String name;
     private double price;
     private short qty;
 
-    public product(String itemNo)
-    {
+    public product(String itemNo) {
        this.itemNo = itemNo;
     }
 
-    public product(String itemNo, String name)
-    {
+    public product(String itemNo, String name) {
         this.itemNo = itemNo;
         this.name = name;
     }
-    public product(String itemNo, String name, double price, short qty)
-    {
+
+    public product(String itemNo, String name, double price, short qty) {
         this.itemNo=itemNo;
         this.name=name;
         setPrice(price);
         setQuantity(qty);
     }
+
     public String getItemNo(){return  itemNo;}
     public String getName(){return name;}
     public double getPrice(){return price;}
     public short getQuantity(){return qty;}
 
-    public void setPrice(double price)
-    {
+    public void setPrice(double price) {
         this.price=price;
     }
-    public void setQuantity(short qty)
-    {
+
+    public void setQuantity(short qty) {
         this.qty=qty;
     }
 }
 
 //Now for Customer
-
-class Customer
-{
+class Customer {
     private String custID;
     private String name;
     private String address;
     private String phno;
 
-    public Customer(String custId, String name)
-    {
+    public Customer(String custId, String name) {
         this.custID = custId;  // ✅ Corrected assignment
         this.name = name;      // ✅ Corrected assignment
         this.address = "";     // Default value (can be changed later)
@@ -93,16 +90,14 @@ class Customer
     public void setAddress(String address){
         this.address=address;
     }
-    public void setPhno(String phno)
-    {
+
+    public void setPhno(String phno) {
         this.phno=phno;
     }
 }
 
-public class ProductAndCostomer
-{
-    public static void main(String[] args)
-    {
+public class ProductAndCostomer {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         // Taking product details
@@ -176,7 +171,7 @@ Represents a customer with properties: custID, name, address, and phno.
 Only address and phno can be changed after registration.
 
 Constructors:
-Customer(String custID, String name) → Requires a customer ID and name.
+Customer (String custID, String name) → Requires a customer ID and name.
 ProductAndCustomer (Main Class)
 
 Uses Scanner to take user input.

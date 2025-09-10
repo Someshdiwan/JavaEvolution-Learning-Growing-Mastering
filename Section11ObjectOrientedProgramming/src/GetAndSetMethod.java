@@ -1,48 +1,39 @@
-//Write this code again and again and solve it again.
-class Rectangle
-{
+class Rectangle {
     private double length;
     private double breadth;
 
-    public double getLength()
-    {
+    public double getLength() {
         return length;
     }
 
-    public double getBreadth()
-    {
+    public double getBreadth() {
         return breadth;
     }
 
-    public void setLength(double l)
-    {
+    public void setLength(double l) {
         if(l>=0)
             length=l;
         else
             length=0;
     }
 
-    public void setBreadth(double b)
-    {
+    public void setBreadth(double b) {
         if(b>=0)
             breadth=b;
         else
             breadth=0;
     }
 
-    public double area()
-    {
+    public double area() {
         //return length*breadth;
         return getLength()*getBreadth();
     }
 
-    public double perimeter()
-    {
+    public double perimeter() {
         return 2*(length+breadth);
     }
 
-    public boolean isSquare()
-    {
+    public boolean isSquare() {
         if(length==breadth)
             return true;
         else
@@ -50,13 +41,10 @@ class Rectangle
     }
 }
 
-public class GetAndSetMethod
-{
-
-    public static void main(String[] args)
-    {
+public class GetAndSetMethod {
+    public static void main(String[] args) {
         Rectangle r=new Rectangle();
-        r.setLength(10.5);//check with negative values.
+        r.setLength(10.5); //check with negative values.
         r.setBreadth(5.5);
 
         System.out.println("Area "+r.area());

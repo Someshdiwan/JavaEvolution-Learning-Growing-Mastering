@@ -1,4 +1,3 @@
-//Solve it pending
 class Account {
     private String accNo;
     private String name;
@@ -79,7 +78,6 @@ class LoanAccount extends Account {
     }
 }
 
-// Testing the classes in main method
 public class InheritanceIMP {
     public static void main(String[] args) {
         System.out.println("=== Savings Account Transactions ===");

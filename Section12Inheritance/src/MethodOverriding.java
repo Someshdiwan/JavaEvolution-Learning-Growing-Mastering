@@ -1,15 +1,12 @@
-class SuperMethod
-{
-    public void display()
-    {
+class SuperMethod {
+    public void display() {
         System.out.println("Super Class Display");
     }
 }
-class SubMethod extends SuperMethod
-{
+
+class SubMethod extends SuperMethod {
     @Override
-    public void display()
-    {
+    public void display() {
         System.out.println("Sub Class Display");
     }
 }
@@ -21,6 +18,5 @@ public class MethodOverriding {
 
         SubMethod s= new SubMethod();
         s.display();
-
     }
 }

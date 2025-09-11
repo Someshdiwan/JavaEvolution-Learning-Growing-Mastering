@@ -1,8 +1,7 @@
 An abstract class in Java can contain both abstract and concrete methods. 
-This is one of the key features that distinguishes abstract classes from interfaces (prior to Java 8). 
+This is one of the key features that distinguish abstract classes from interfaces (prior to Java 8). 
 
 An abstract class can have any of the following:
-
 1. Abstract methods (methods without a body)
 2. Concrete methods (methods with a body)
 3. Instance variables
@@ -30,7 +29,6 @@ abstract class Shape {
 }
 ```
 
-
 Yes, an abstract class can contain final methods. 
 
 Final methods in Java are methods that cannot be overridden by subclasses. 
@@ -56,7 +54,6 @@ class Car extends Vehicle {
     void startEngine() {
         System.out.println("Car engine started");
     }
-
     // Cannot override stopEngine() as it's final in the superclass
 }
 ```
@@ -64,7 +61,6 @@ class Car extends Vehicle {
 Yes, an abstract class can extend another abstract class. 
 
 This is perfectly valid in Java and can be useful for creating a hierarchy of abstract classes, 
-
 each adding or refining abstract or concrete methods. 
 
 When an abstract class extends another abstract class, it is not required to implement the abstract methods of its 

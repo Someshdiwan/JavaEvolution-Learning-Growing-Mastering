@@ -11,9 +11,8 @@ What happens if a subclass of an abstract class doesn't implement all the abstra
 Ans:
 If a subclass of an abstract class doesn't implement all the abstract methods, the subclass itself becomes abstract.
 This means that the subclass cannot be instantiated either. To create a concrete class, all abstract methods 
-from the superclass must be implemented. 
-
-If you want to leave some methods unimplemented, you must declare the subclass as abstract as well:
+from the superclass must be implemented.
+If you want to leave some methods unimplemented, you must declare the subclass as abstract as well.
 
 ```java
 abstract class Shape {
@@ -26,10 +25,8 @@ abstract class Rectangle extends Shape {
 ```
 
 Yes, an abstract class can have a constructor in Java. Although abstract classes cannot be instantiated directly, 
-they can have constructors. 
-
-These constructors are called when an instance of a concrete subclass is created. 
-
+they can have constructors.
+These constructors are called when an instance of a concrete subclass is created.
 Constructors in abstract classes are useful for initializing common fields or performing common setup operations for 
 all subclasses. 
 

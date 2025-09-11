@@ -8,7 +8,6 @@ Your program demonstrates inheritance in Java, specifically:
 
 Enhanced performance is not a direct benefit of encapsulation in Java.
 While encapsulation improves code maintainability, provides better control over data access, and increases modularity,
-
 it doesn't necessarily enhance performance.
 
 Encapsulation is primarily about information hiding and creating a clear separation between the internal implementation
@@ -17,7 +16,6 @@ of a class and its public interface, which helps in managing complexity and impr
 ---
 
 1. Base Class: `Account`
-     
      - This is a superclass containing attributes for:
      - Account number (`accNo`)
      - Name (`name`)
@@ -30,13 +28,11 @@ of a class and its public interface, which helps in managing complexity and impr
      - Setter methods allow updating `address` and `phno`.
 
 2.  Subclass: `SavingsAccount` (Regular Bank Account):
-
    - Extends `Account`, meaning it inherits all properties of `Account`.
    - Implements deposit() and withdraw() methods.
    - Withdrawal is restricted (prevents overdrawing).
 
 3. Subclass: `LoanAccount` (Credit/Debt System):
-   
    - Also extends `Account`, but balance here represents debt.
    - Implements payEMI() and repay():
    - `payEMI()` reduces debt partially.
@@ -44,12 +40,9 @@ of a class and its public interface, which helps in managing complexity and impr
    - Ensures debt does not go negative.
 
 4. Main Class (`InheritanceIMP`):
-   
    - Creates a `SavingsAccount` and `LoanAccount` object.
    - Tests `deposit()`, `withdraw()`, `payEMI()`, and `repay()`.
    - Prints results to verify the implementation.
-
----
 
 How to Explain System Design in Interviews:
 
@@ -58,8 +51,6 @@ System design focuses on scalability, performance, and reliability. Interviewers
 2. Break down components (databases, APIs, microservices, etc.).
 3. Consider trade-offs (scalability vs. consistency).
 4. Optimize for performance (caching, load balancing).
-
----
 
 Basic Concepts to Cover:
 
@@ -70,5 +61,3 @@ Basic Concepts to Cover:
 ✅ Database Design: Normalization, Indexing, SQL vs NoSQL.  
 ✅ Microservices & REST APIs: How to design scalable web applications.  
 ✅ Caching & Load Balancing: Redis, CDN, and other optimizations.  
-
----

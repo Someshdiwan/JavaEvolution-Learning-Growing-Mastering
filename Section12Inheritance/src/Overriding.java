@@ -1,15 +1,19 @@
-//Need Practice the same thing again.
-//Solve Again Revise This.
-//https://abdulbari.newzenler.com/courses/java-se/contents/5fcf6ad0df944
+/**
+ * 📘 Java SE Course – Abdul Bari
+ * <p>
+ * 📝 Need Practice – Solve Again & Revise This
+ * <p>
+ * Course Content: <a href="https://abdulbari.newzenler.com/courses/java-se/contents/5fcf6ad0df944">
+ * https://abdulbari.newzenler.com/courses/java-se/contents/5fcf6ad0df944</a>
+ */
 
-class TV
-{
-    //Added annotaion.
+class TV {
+    //Added annotation.
     public void switchON(){System.out.println("TV is Switched ON");}
     public void chnageChannel(){System.out.println("TV channel is change");}
 }
-class SmartTV extends TV
-{
+
+class SmartTV extends TV {
     @Override
     public void switchON(){System.out.println("smart TV is Switched On");}
     @Override
@@ -17,10 +21,9 @@ class SmartTV extends TV
 
     public void browse(){System.out.println("Smart Tv Browsing");}
 }
-public class Overriding
-{
-    public static void main(String[] args)
-    {
+
+public class Overriding {
+    public static void main(String[] args) {
        SmartTV t1=new SmartTV();
        t1.switchON();
        t1.chnageChannel();

@@ -1,13 +1,11 @@
 class SuperOverride{
-    public void DisplayOverride()
-    {
+    public void DisplayOverride() {
         System.out.println("Super Method Display.");
     }
 }
-class SubOverride extends SuperOverride{
 
-    public void DisplayOverride()
-    {
+class SubOverride extends SuperOverride{
+    public void DisplayOverride() {
         System.out.println("Sub Display.");
     }
 }
@@ -25,7 +23,6 @@ public class OverridingRules {
 
         SuperOverride s3=new SuperOverride();
         s3.DisplayOverride();
-
     }
 }
 
@@ -33,13 +30,13 @@ public class OverridingRules {
 Explanation:
 Method Overriding:
 
-The method DisplayOverride() is now public in both SuperOverride and SubOverride, which allows proper method overriding.
+The method DisplayOverride() is now public in both SuperOverride and SubOverride, which allow proper method overriding.
 Since the method signature remains the same, dynamic method dispatch (runtime polymorphism) occurs.
 
 Dynamic Method Dispatch (Runtime Polymorphism):
 
 The reference variable s is of type SuperOverride, but it is assigned an object of SubOverride (SuperOverride s = new SubOverride();).
-At runtime, Java determines that the actual object is of type SubOverride, so it calls DisplayOverride() of SubOverride, not SuperOverride.
+At runtime, Java determines that the actual object is of the type SubOverride, so it calls DisplayOverride() of SubOverride, not SuperOverride.
 
 Correct Method Invocation:
 s.DisplayOverride(); correctly calls the overridden method in SubOverride.

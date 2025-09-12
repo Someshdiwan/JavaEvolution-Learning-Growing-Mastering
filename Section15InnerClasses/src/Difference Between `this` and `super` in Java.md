@@ -1,0 +1,148 @@
+# Difference Between `this` and `super` in Java
+
+Both `this` and `super` are keywords in Java that help in referring to the current
+class object and the parent class object, respectively.
+
+---
+
+## 🔑 Detailed Comparison
+
+| Feature                    | `this`                                                               | `super`                                                       |
+| -------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------- |
+|   Purpose                  | Refers to the current class instance                                 | Refers to the   parent (superclass) instance**                |
+|   Used in                  | The same class                                                       | A subclass (to refer to the parent class)                     |
+|   Accesses                 | Instance variables, methods, constructors of the same class          | Instance variables, methods, constructors of the parent class |
+|   Constructor Invocation   | Used to call another constructor within the same class → `this(...)` | Used to call a superclass constructor → `super(...)`          |
+|   Method Overriding        | Used to call the current class method explicitly                     | Used to call a superclass method when it is overridden        |
+|   Cannot be Used In        | Static methods                                                       | Static methods                                                |
+|   Example                  | `this.variableName` → Access current class variables                 | `super.variableName` → Access parent class variables          |
+
+---
+
+## 📘 Examples
+
+### 1️⃣ Using `this` (Refers to the Current Class)
+
+```java
+class ExampleThis {
+    int x;
+
+    ExampleThis(int x) {
+        this.x = x;  // 'this' differentiates between instance variable and parameter
+    }
+
+    void show() {
+        System.out.println("Value of x: " + this.x);
+    }
+}
+
+public class TestThis {
+    public static void main(String[] args) {
+        ExampleThis obj = new ExampleThis(10);
+        obj.show();
+    }
+}
+```
+
+✅ `this.x = x;` avoids confusion between local and instance variables.
+
+---
+
+### 2️⃣ Using `super` (Refers to Parent Class)
+
+```java
+class Parent {
+    int x = 100;
+}
+
+class Child extends Parent {
+    int x = 50;
+
+    void display() {
+        System.out.println("Child x: " + this.x);   // Refers to Child class x
+        System.out.println("Parent x: " + super.x); // Refers to Parent class x
+    }
+}
+
+public class TestSuper {
+    public static void main(String[] args) {
+        Child obj = new Child();
+        obj.display();
+    }
+}
+```
+
+✅ `super.x` refers to the parent class variable, while `this.x` refers to the child class variable.
+
+---
+
+### 3️⃣ `this()` vs `super()` (Calling Constructors)
+
+#### Using `this()` to call another constructor in the same class
+
+```java
+class ExampleThisConstructor {
+    int a, b;
+
+    ExampleThisConstructor() {
+        this(10, 20);  // Calls the parameterized constructor
+        System.out.println("Default Constructor");
+    }
+
+    ExampleThisConstructor(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    void display() {
+        System.out.println("a: " + a + ", b: " + b);
+    }
+}
+
+public class TestThisConstructor {
+    public static void main(String[] args) {
+        ExampleThisConstructor obj = new ExampleThisConstructor();
+        obj.display();
+    }
+}
+```
+
+✅ `this(10, 20);` ensures constructor chaining within the same class.
+
+---
+
+#### Using `super()` to call a parent class constructor
+
+```java
+class Parent {
+    Parent() {
+        System.out.println("Parent Constructor");
+    }
+}
+
+class Child extends Parent {
+    Child() {
+        super();  // Calls Parent class constructor
+        System.out.println("Child Constructor");
+    }
+}
+
+public class TestSuperConstructor {
+    public static void main(String[] args) {
+        Child obj = new Child();
+    }
+}
+```
+
+✅ `super();` ensures that the parent constructor is executed before the child constructor.
+
+---
+
+## 📌 Key Takeaways
+
+1. `this` → Refers to the current class, while `super` → Refers to the parent class.
+2. `this()` → Calls another constructor in the same class, while `super()` → Calls the parent class constructor.
+3. Use `this` to differentiate instance variables from parameters.
+4. Use `super` to access overridden methods or hidden variables.
+
+---

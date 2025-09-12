@@ -1,28 +1,24 @@
-abstract class MyInnerClass
-{
+abstract class MyInnerClass {
     abstract public void show();
 }
-//Write interface word instead of the abstarct keyword.
+//Write interface word instead of the abstract keyword.
 
-class Outer
-{
+class Outer {
     public void display() {
         MyInnerClass m = new MyInnerClass() {
             public void show() {
                 System.out.println("hello");
             }
         };
-        //Method and Its body in single line.
+        //Method and Its body in a single line.
 
+        //For interfaces, we can create the reference of the interface class but not object if interface class.
 
-        //For interfaces we can create the reference of the interface class but not object if interface class.
-
-        //m.show(); for the interfaces.\
+        //m.show(); for the interfaces.
     }
 }
 
-class Outer1
-{
+class Outer1 {
     public void display()
     {
         class Inner
@@ -40,10 +36,8 @@ class Outer1
     }
 }
 
-public class LocalInnerClass
-{
-    public static void main(String[] args)
-    {
+public class LocalInnerClass {
+    public static void main(String[] args) {
         Outer1 o=new Outer1();
         o.display();
     }
@@ -52,7 +46,8 @@ public class LocalInnerClass
 /*
 What is a Local Inner Class?
 A Local Inner Class is a class that is defined inside a method and can only be used within that method.
-It has access to all variables and members of the outer class, but it cannot be accessed outside the method in which it is defined.
+It has access to all variables and members of the outer class,
+but it cannot be accessed outside the method in which it is defined.
 
 
 Class Naming Convention:

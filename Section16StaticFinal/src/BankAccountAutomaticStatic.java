@@ -3,7 +3,7 @@ import java.util.Date;
 class BankAccount {
     private String accountNumber;
     private double balance;
-    private static int count = 1;  // Static counter for unique account numbers
+    private static int count = 1;  // Static counter for unique account numbers.
 
     private String generateAccountNumber() {
         Date d = new Date();
@@ -12,7 +12,7 @@ class BankAccount {
 
     public BankAccount() {
         this.accountNumber = generateAccountNumber();
-        this.balance = 0.0; // Default balance
+        this.balance = 0.0; // Default balance.
     }
 
     public String getAccountNumber() {
@@ -76,6 +76,7 @@ public class BankAccountAutomaticStatic {
         c2.getAccount().withdraw(700);  // Should show insufficient funds
     }
 }
+
 /*
 Features:
 Customer Class: Holds details like customer name and associated account.

@@ -8,7 +8,7 @@ class Vehical
     }
 }
 
-class Car extends Vehical
+class Car2 extends Vehical
 {
     /*int maxSpeed = 100;*/
     int maxSpeed = 100;
@@ -32,7 +32,7 @@ public class SuperKeywrd
         Car c = new Car();
         System.out.println(c.maxSpeed);
         */
-        Car c = new Car();
+        Car2 c = new Car2();
         c.displau();
         c.vroom();
     }

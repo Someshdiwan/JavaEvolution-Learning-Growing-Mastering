@@ -1,8 +1,8 @@
 package Devices;
-//Multple Intefrace in JAVA
+
+//Multiple Interface in JAVA
 
 public class SmartPhone implements Camera, MusicPlayer, Phone {
-
     @Override
     public void OpenCamera() {
         System.out.println("Hello Open Camera");

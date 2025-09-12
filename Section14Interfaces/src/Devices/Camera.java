@@ -1,7 +1,6 @@
 package Devices;
 
-interface Camera
-{
+interface Camera {
     void OpenCamera();
     void CloseCamera();
 }

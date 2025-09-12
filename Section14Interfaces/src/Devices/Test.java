@@ -1,7 +1,6 @@
 package Devices;
 
-public class Test extends SmartPhone
-{
+public class Test extends SmartPhone {
     public static void main(String[] args) {
         SmartPhone smartPhone=new SmartPhone();
         smartPhone.CloseCamera();
@@ -10,6 +9,9 @@ public class Test extends SmartPhone
         smartPhone.playMusic();
     }
 }
-//Differnce between abstaract class and interfcae is, Abstract class mai instance vaiable hote hai and unko initialize karne ko constucter hota hai.
-//one class can only extends one abstract class.
-//But in interface this is not and in interface. Interface can implemnts multiple or Extends multiple class.
+
+/* The difference between abstract class and interface is,
+Abstract class mai instance variable hote hai and unko initialize karne ko constructor hota hai.
+one class can only extend one abstract class.
+But in interface this is not and in interface. Interface can implement multiple or Extends multiple class.
+*/

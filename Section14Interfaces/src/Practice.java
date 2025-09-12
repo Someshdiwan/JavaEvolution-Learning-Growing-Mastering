@@ -1,4 +1,4 @@
-interface WaterBottle{
+interface WaterBottle {
     String Color = "Blue";
 
     void fillUp();
@@ -26,6 +26,3 @@ public class Practice implements WaterBottle {
         System.out.println("Pour out");
     }
 }
-
-
-

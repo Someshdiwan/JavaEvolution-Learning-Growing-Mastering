@@ -5,8 +5,8 @@ executed at a later time when a certain event occurs or a condition is met.
 
 How Callbacks Work in Java
 
-Since Java does not support passing functions directly (like JavaScript or Python), **callback methods are typically
-implemented using interfaces, anonymous classes, or lambda expressions.
+Since Java does not support passing functions directly (like JavaScript or Python),
+callback methods are typically implemented using interfaces, anonymous classes, or lambda expressions.
 
 ---
 
@@ -52,9 +52,11 @@ public class CallbackExample {
         });
     }
 }
+
 ```
 Output:
 ```
+
 Working...Callback received: Work is done!
 ```
 
@@ -63,8 +65,7 @@ Example 2: Using Lambda Expressions (Modern Java Approach):
 
 If you're using Java 8+, you can simplify the callback implementation using lambda expressions.
 
-public class LambdaCallbackExample 
-{
+public class LambdaCallbackExample {
     public static void main(String[] args) {
         Worker worker = new Worker();
 

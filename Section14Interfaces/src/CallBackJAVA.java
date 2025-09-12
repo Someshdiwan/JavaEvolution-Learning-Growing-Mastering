@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 /**
  * Java Program to Demonstrate Callback Mechanism Using an Interface
  *
@@ -19,28 +20,25 @@ interface STax {
     double stateTax();
 }
 
-// Implementation class of Punjab state tax
-class Punjab implements STax {
-    public double stateTax()
-    {
+// Implementation class of Mumbai state tax.
+class Mumbai implements STax {
+    public double stateTax() {
         return 3000.0;
     }
 }
 
 // Implementation class of Himachal Pradesh state tax
 class HP implements STax {
-    public double stateTax()
-    {
+    public double stateTax() {
         return 1000.0;
     }
 }
 
 class CallBackJAVA {
-    public static void main(String[] args)
-            throws ClassNotFoundException, IllegalAccessException, InstantiationException
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException
     {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the state name");
+        System.out.println("Enter the state name: ");
         String state = sc.next(); // name of the state
 
         // The state name is then stored in an object c
@@ -59,8 +57,7 @@ class CallBackJAVA {
 
         calculateTax(ref);
     }
-    static void calculateTax(STax t)
-    {
+    static void calculateTax(STax t) {
         // calculate central tax
         double ct = 2000.0;
 
@@ -68,7 +65,6 @@ class CallBackJAVA {
         double st = t.stateTax();
         double totaltax = st + ct;
 
-        // display total tax
-        System.out.println("Total tax =" + totaltax);
+        System.out.println("Total tax = " + totaltax);
     }
 }

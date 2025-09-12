@@ -1,0 +1,143 @@
+import java.util.Scanner;
+
+class Product {
+    private String itemNo;
+    private String name;
+    private double price;
+    private short qty;
+
+    public Product(String itemNo) {
+        this.itemNo = itemNo;
+    }
+
+    public Product(String itemNo, String name) {
+        this.itemNo = itemNo;
+        this.name = name;
+    }
+
+    public Product(String itemNo, String name, double price, short qty) {
+        this.itemNo = itemNo;
+        this.name = name;
+        setPrice(price);
+        setQuantity(qty);
+    }
+
+    public String getItemNo() { return itemNo; }
+    public String getName() { return name; }
+    public double getPrice() { return price; }
+    public short getQuantity() { return qty; }
+
+    public void setPrice(double price) { this.price = price; }
+    public void setQuantity(short qty) { this.qty = qty; }
+}
+
+class Customer {
+    private String custID;
+    private String name;
+    private String address;
+    private String phno;
+
+    public Customer(String custID, String name) {
+        this.custID = custID;
+        this.name = name;
+    }
+
+    public String getCustID() { return custID; }
+    public String getName() { return name; }
+    public String getAddress() { return address; }
+    public String getPhno() { return phno; }
+
+    public void setAddress(String address) { this.address = address; }
+    public void setPhno(String phno) { this.phno = phno; }
+}
+
+public class ProductAndCustomer {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Product Item Number: ");
+        String itemNo = sc.nextLine();
+
+        System.out.println("Enter Product Name: ");
+        String name = sc.nextLine();
+
+        System.out.println("Enter Product Price: ");
+        double price = sc.nextDouble();
+
+        System.out.println("Enter Product Quantity: ");
+        short qty = sc.nextShort();
+
+        Product product = new Product(itemNo, name, price, qty);
+
+        sc.nextLine(); // consume newline
+
+        System.out.println("Enter Customer ID: ");
+        String custID = sc.nextLine();
+
+        System.out.println("Enter Customer Name: ");
+        String custName = sc.nextLine();
+
+        System.out.println("Enter Customer Address: ");
+        String address = sc.nextLine();
+
+        System.out.println("Enter Customer Phone Number: ");
+        String phno = sc.nextLine();
+
+        Customer customer = new Customer(custID, custName);
+        customer.setAddress(address);
+        customer.setPhno(phno);
+
+        System.out.println("\nProduct Details:");
+        System.out.println("Item No: " + product.getItemNo());
+        System.out.println("Name: " + product.getName());
+        System.out.println("Price: " + product.getPrice());
+        System.out.println("Quantity: " + product.getQuantity());
+
+        System.out.println("\nCustomer Details:");
+        System.out.println("Customer ID: " + customer.getCustID());
+        System.out.println("Name: " + customer.getName());
+        System.out.println("Address: " + customer.getAddress());
+        System.out.println("Phone Number: " + customer.getPhno());
+
+        sc.close();
+    }
+}
+
+This program demonstrates object-oriented programming (OOP) in Java using two classes: Product and Customer.
+
+Product Class:
+Represents a product with four fields: itemNo, name, price, and qty.
+
+Has multiple constructors:
+
+One that takes only itemNo.
+
+One that takes itemNo and name.
+
+One that takes all fields (itemNo, name, price, qty).
+
+Provides getters for all fields, and setters only for price and qty (encapsulation).
+
+Customer Class:
+Represents a customer with fields: custID, name, address, and phno.
+
+The constructor requires only custID and name.
+
+Address and phone number can be set later using setter methods.
+
+Provides getters for all fields.
+
+Main Class (ProductAndCustomer)
+
+Uses Scanner to take input from the user for product and customer details.
+
+Creates objects of Product and Customer with those details.
+
+Prints the stored information.
+
+OOP Concepts Used:
+Encapsulation: Data is kept private; only getters and setters provide controlled access.
+
+Constructors: Overloaded constructors show different ways of initializing objects.
+
+Abstraction of real-world objects: Product and Customer are modeled like in real life.

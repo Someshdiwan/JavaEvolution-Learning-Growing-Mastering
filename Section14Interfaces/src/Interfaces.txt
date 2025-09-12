@@ -8,7 +8,11 @@ Objects of these implementing classes can be treated as instances of the interfa
 
 and promoting loose coupling in the code.
 
-This code shows an interface Animal with a method makeSound(). Two classes, Dog and Cat, implement this interface and provide their own implementations of makeSound(). The AnimalSounds class demonstrates how objects of Dog and Cat can be treated as Animal objects, exhibiting polymorphic behavior.
+This code shows an interface Animal with a method makeSound().
+
+Two classes, Dog and Cat, implement this interface and provide their own implementations of makeSound().
+The AnimalSounds class demonstrates how objects of Dog and Cat can be treated as Animal objects,
+exhibiting polymorphic behavior.
 
 // Define an interface
 interface Animal {
@@ -23,7 +27,7 @@ class Dog implements Animal {
     }
 }
 
-// Implement the interface with a Cat class
+// Implement the interface with a Cat class.
 class Cat implements Animal {
     @Override
     public void makeSound() {
@@ -41,6 +45,7 @@ public class AnimalSounds {
         myCat.makeSound(); // Output: Meow!
     }
 }
+
 In this example, the Animal interface defines a contract that both Dog and Cat classes adhere to.
 
 This allows us to treat instances of Dog and Cat as Animal objects, and when we call the makeSound() method,

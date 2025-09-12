@@ -1,26 +1,24 @@
 //Abstract Method
 //Static Constant
 
-interface Animal
-{
+interface Animal {
         public static int MAX_AGE = 100;
 
         public abstract void eat();
+
         void sleep();
 
-
-        //static methods
-        public static void info()
-        {
+        //static methods.
+        public static void info() {
             System.out.println("THis is an animal interface");
         }
 }
 
-class Dog implements Animal
-{
+class Dog implements Animal {
     public void eat(){
         System.out.println("Dog is eating");
     }
+
     public void sleep(){
         System.out.println("nothing just sleeping");
     }
@@ -30,6 +28,7 @@ class Cat implements Animal{
     public void eat(){
         System.out.println("Cat is eating");
     }
+
     public void sleep(){
         System.out.println("just sleeping");
     }

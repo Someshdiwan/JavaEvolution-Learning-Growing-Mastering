@@ -1,4 +1,3 @@
-// Submit to check the output
 import java.util.*;
 
 class Rectangle {
@@ -16,10 +15,8 @@ class NegativeValueException extends Exception {
     }
 }
 
-class CustomExceptions
-{
-    public static void main (String[] args)
-    {
+class CustomExceptions {
+    public static void main (String[] args) {
         try {
             int length = -5;
             int width = 3;

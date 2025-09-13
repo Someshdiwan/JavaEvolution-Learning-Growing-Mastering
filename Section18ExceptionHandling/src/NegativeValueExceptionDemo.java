@@ -1,7 +1,5 @@
-class NegativeValueExceptionDemo
-{
-    public static void main (String[] args)
-    {
+class NegativeValueExceptionDemo {
+    public static void main (String[] args) {
         try {
             int length = -5;
             int width = 3;

@@ -1,4 +1,5 @@
-Best practices for creating custom exceptions
+Best practices for creating custom exceptions.
+
 There are some basic pointers to keep in mind while creating your own custom exceptions:
 
 Use descriptive names: Naming your custom exception clearly and descriptively helps to communicate the cause of the
@@ -11,7 +12,8 @@ what conditions trigger it, and how it should be handled.
 
 This will make it easier for other developers to understand how to use your custom exceptions in their own code.
 
-Don't overuse exceptions: Only use exceptions for exceptional conditions. Overusing exceptions can make your code harder to read and debug.
+Don't overuse exceptions: Only use exceptions for exceptional conditions.
+Overusing exceptions can make your code harder to read and debug.
 
 Be consistent: Follow a consistent naming and formatting convention for your custom exceptions.
 
@@ -22,5 +24,3 @@ Also, test how your code handles the exception, and make sure it reacts appropri
 
 By following these best practices, you can create custom exceptions that are effective,
 easy to use and help improve the overall reliability and maintainability of your code.
-
-So keep these tips in mind as you create your own custom exceptions and happy coding!

@@ -1,33 +1,35 @@
-Below is the generated theory and code exactly as discussed:
+### 1) What is a use static keyword in Java?
 
----
-
-### 1) What is use static keyword in Java?
-
-**Use of static keyword:**  
+Use of static keyword:
 When we are using the static keyword with a variable, block, or method, it becomes independent of the object.  
+
 For example:
+
 ```java
 class Example {
     static int a = 5;
 }
 ```
-Here, `a` is not dependent on any object. If we have two objects (e.g., `obj1` and `obj2`), both objects are able to access this variable. When we use static, it becomes independent of the object.
+
+Here, `a` is not dependent on any object. If we have two objects (e.g., `obj1` and `obj2`),
+both objects are able to access this variable. When we use static, it becomes independent of the object.
 
 ---
 
-### 2) At which place we can use static keyword
+### 2) At which place we can use static keyword:
 
 Four places where we can use the static keyword:
 
-a) **Before variable declaration**  
+a) Before variable declaration:
+
 ```java
 class Calc {
     static int s;
 }
 ```
 
-b) **Before a block**  
+b) Before a block:
+
 ```java
 class Calc {
     static {
@@ -36,14 +38,16 @@ class Calc {
 }
 ```
 
-c) **During method creation**  
+c) During method creation:
+
 ```java
 class Calc {
     public static void add(int num1, int num2) { }
 }
 ```
 
-d) **With the concept of inner class** *(It is not discussed in this lecture)*  
+d) With the concept of inner class (It is not discussed in this lecture):
+
 ```java
 class OuterClass {
     int x = 10;
@@ -55,7 +59,7 @@ class OuterClass {
 
 ---
 
-### 3) When memory get allocated
+### 3) When memory gets allocated:
 
 For that we need to know some terms:  
 a) Stack area  
@@ -73,8 +77,8 @@ c) Class loader system
 
 ```java
 class Calc {
-    static int stA = 100; // independent of object; can be used by class name as well as object
-    int inB = 100;        // dependent on object; can only be used by object
+    static int stA = 100; // independent of an object; can be used by class name as well as object
+    int inB = 100;        // dependent on an object; can only be used by an object
 
     public static void main(String[] args) {
         Calc obj1 = new Calc(); 
@@ -104,10 +108,10 @@ class Calc {
 
 ---
 
-### 5) Static block vs non static block
+### 5) Static block vs. non-static block
 
 - **Static block:** Executed before the execution of the `main` method.
-- **Non static block:** Executed when you create an object and is executed before the constructor is called.
+- **Non-static block:** Executed when you create an object and is executed before the constructor is called.
 
 ```java
 class Calc {
@@ -139,28 +143,25 @@ class Help {
     }
 }
 
-/*
 Output:
 Static Block
-Executed before main
+Executed before
 main method
-Non static block executed before the execution of constructor
+Non-static block executed before the execution of constructor
 Static block of Help class
 Hello
-*/
+
 ```
 
 ---
 
-### 6) Static method vs non static method
+### 6) Static method vs non-static method:
 
 - **Static methods** can be called with an object reference or class name, e.g., `ClassName.staticMethod()` or `objReference.staticMethod()`.
 - **Non static methods** are dependent on the object and can be called only by the object reference, e.g., `objReference.nonStaticMethod()`.
 
 **Remember one thing:**
-i) We can use static properties or members inside non static blocks or methods without object creation.  
-ii) But we cannot use non static properties or methods inside static blocks or methods without object creation.
+i) We can use static properties or members inside non-static blocks or methods without object creation.
+ii) But we cannot use non-static properties or methods inside static blocks or methods without object creation.
 
 ---
-
-This completes the code and theory as discussed without any changes or additions.

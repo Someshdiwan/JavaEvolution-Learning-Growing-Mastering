@@ -13,8 +13,7 @@ public class Animal {
         System.out.println(name + " Make a sound: " + sound);
     }
 
-    protected void changeSound(String newSound)
-    {
+    protected void changeSound(String newSound) {
         this.sound = newSound;
     }
 }

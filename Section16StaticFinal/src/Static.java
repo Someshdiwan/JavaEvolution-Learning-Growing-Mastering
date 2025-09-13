@@ -1,18 +1,15 @@
-class Test
-{
+class Test {
     static int x=10;
     int y=20;
 
-    void show()
-    {
+    void show() {
         System.out.println(x+" "+y);
     }
 
-    static void display()
-    {
+    static void display() {
         System.out.println(x);
         //System.out.println(y);
-        //Not access beacause static method only the access static members.
+        //Not access because static method only the access static members.
     }
 }
 

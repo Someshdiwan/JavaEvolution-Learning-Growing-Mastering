@@ -1,25 +1,23 @@
 import java.util.Date;
 
-class StudentName
-{
+class StudentName {
     private String rollNo;
 
     private static int count=1;
 
-    private String assignRollNo()
-    {
+    private String assignRollNo() {
         Date d = new Date();
 
         String rno="University-"+(d.getYear()+1900)+"-"+count++;
 
         return rno;
     }
-    StudentName()
-    {
+
+    StudentName() {
         rollNo=assignRollNo();
     }
-    public String getRollNo()
-    {
+
+    public String getRollNo() {
         return rollNo;
     }
 }

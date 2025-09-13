@@ -1,7 +1,4 @@
-//Pending solve it onces again.
-
-class CoffeeMachine
-{
+class CoffeeMachine {
     private float coffeQty;
     private float milkQty;
     private float waterQty;
@@ -9,33 +6,32 @@ class CoffeeMachine
 
     static private CoffeeMachine my=null;
 
-    private CoffeeMachine()
-    {
+    private CoffeeMachine() {
         coffeQty=1;
         milkQty=1;
         waterQty=1;
         sugarQty=1;
     }
 
-    public void fillWater(float qty)
-    {
+    public void fillWater(float qty) {
         waterQty=qty;
     }
-    public void fillSugar(float qty)
-    {
+
+    public void fillSugar(float qty) {
         sugarQty=qty;
     }
-    public float getCoffee()
-    {
+
+    public float getCoffee() {
         return 0.15f;
     }
-    static CoffeeMachine getInstance()
-    {
+
+    static CoffeeMachine getInstance() {
         if(my==null)
             my=new CoffeeMachine();
         return my;
     }
 }
+
 public class SingletoneClass {
     public static void main(String[] args) {
         CoffeeMachine m1=CoffeeMachine.getInstance();
@@ -45,6 +41,5 @@ public class SingletoneClass {
         System.out.println(m1+" "+m2+" "+m3);
         if(m1==m2 && m1==m3)
             System.out.println("Same");
-
     }
 }

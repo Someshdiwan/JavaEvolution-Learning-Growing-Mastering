@@ -1,12 +1,10 @@
 public class StaticBlock {
-    //Class lpaded and then executed staic without main method
-    static
-    {
+    //Class loaded and then executed a static without main method.
+    static {
         System.out.println("Block One");
     }
 
-    static
-    {
+    static {
         System.out.println("Block Three");
     }
 
@@ -15,8 +13,8 @@ public class StaticBlock {
         System.out.println("Main");
         System.out.println("Print after the satic execuation block");
     }
-    static
-    {
+
+    static {
         System.out.println("Block Two");
     }
 }

@@ -1,9 +1,10 @@
-The keywords `static` and `final` in Java are both used to define certain characteristics for variables, methods, and classes, but they have different purposes:
+The keywords `static` and `final` in Java are both used to define certain characteristics for variables, methods, and
+classes, but they have different purposes:
 
 1. `static`:
 
-   -   Applies to: Variables, Methods, and Inner Classes
-   -   Purpose: It means that the variable or method belongs to the class, rather than instances of the class (i.e., it is shared by all instances of that class).
+   - Applies to: Variables, Methods, and Inner Classes
+   - Purpose: It means that the variable or method belongs to the class, rather than instances of the class (i.e., it is shared by all instances of that class).
    
    - Key Points:
 
@@ -22,7 +23,6 @@ The keywords `static` and `final` in Java are both used to define certain charac
    }
 
 2. `final`:
-   
      - Applies to: Variables, Methods, and Classes
      - Purpose: It is used to indicate that something cannot be modified.
      
@@ -46,21 +46,17 @@ The keywords `static` and `final` in Java are both used to define certain charac
 Differences:
 
 1. Purpose:
-   
    - `static` is used to indicate that something belongs to the class, not to instances.
    - `final` is used to make something constant or immutable (cannot be changed).
    
 2. Effect on Variables:
-
    - A `static` variable is shared among all instances of the class.
    - A `final` variable cannot be reassigned once its value is set.
 
 3. Effect on Methods:
-
    - A `static` method can be called without creating an instance of the class and can only access other static members.
    - A `final` method cannot be overridden by any subclass.
 
 4. Effect on Classes:
-
    - A `static` class is a nested class inside a class that can be accessed without an instance of the enclosing class.
    - A `final` class cannot be extended or subclassed.

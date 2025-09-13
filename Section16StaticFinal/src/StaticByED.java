@@ -1,19 +1,8 @@
-//It is used for memory management.
-//It can applied on methods, blocks, and nested classes.
-//main concpt behind static is that it belongs to the class rather than instances of the class.
-
-//Static method can not use non-static data members or call non-static method directly.
-
-//this and super cannot be used here.
-//Static is Direct attached to class.
-
 public class StaticByED {
-
     public static int count =0; //Count kar raha hai StaticByED
-    //My aim is not access via instance, but Access via Class. Goal Class se directly access karna hai.
+    //My aim is not access via instance, but Access via Class. Goal Class se directly accesses karna hai.
 
-    public StaticByED()
-    {
+    public StaticByED() {
         count++;
     }
 
@@ -48,20 +37,17 @@ public class StaticByED {
         Name = name;
     }
 
-    public static void getCount()
-    {
+    public static void getCount() {
         System.out.println("Total conunts: " + count);
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
        /*
        Classs ka Object bana kar access kar pa raha hu.
 
        StaticByED ED = new StaticByED();
        ED.setAge(14);
        System.out.println(ED.Age);
-
        */
 
         StaticByED ED = new StaticByED();
@@ -73,3 +59,14 @@ public class StaticByED {
         StaticByED.getCount();
     }
 }
+
+/*
+It is used for memory management.
+It can apply on methods, blocks, and nested classes.
+the main concept behind static is that it belongs to the class rather than instances of the class.
+
+Static methods cannot use non-static data members or call non-static method directly.
+
+this and supper cannot be used here.
+Static is Direct attached to class.
+*/

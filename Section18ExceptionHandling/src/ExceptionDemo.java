@@ -10,16 +10,14 @@ public class ExceptionDemo {
             c = a / b;
          /*
          This is without a try catch block.
-
-         Program terminiate and not printing rest of the statements.n
+         Program terminates and does not print the rest of the statements.n
          Exception in thread "main" java.lang.ArithmeticException: / by zero
          at ExceptionDemo.main(ExceptionDemo.java:7)
          */
 
             System.out.println(c);
         }
-        catch (ArithmeticException e)
-        {
+        catch (ArithmeticException e) {
             System.out.println("Denominator should not be Zero(0) try again: "+e);
         }
         System.out.println("Bye");

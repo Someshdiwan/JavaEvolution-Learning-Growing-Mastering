@@ -1,31 +1,26 @@
-class A
-{
-    public A(){
+class A {
+    public A() {
         System.out.println("in A");
     }
 
-    public A(int n)
-    {
+    public A(int n) {
        super();
        System.out.println("in A int ");
     }
 }
 
-class B extends A
-{
-    public B(){
+class B extends A {
+    public B() {
         System.out.println("in B");
     }
 
-    public B(int m)
-    {
+    public B(int m) {
         super(m);
         System.out.println("in B in int");
     }
 }
 
-public class ThisKeyword
-{
+public class ThisKeyword {
     public static void main(String[] args) {
      /*   B obj = new B(); */
      //calling default constructor without passing a value parameter valur.

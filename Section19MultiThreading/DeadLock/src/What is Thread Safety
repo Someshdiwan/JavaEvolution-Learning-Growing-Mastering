@@ -1,4 +1,5 @@
 What is Thread Safety?
+
 Thread safety means that a piece of code or a program can be safely executed by multiple threads at the same time
 without causing race conditions, data corruption, or inconsistent behavior.
 
@@ -31,7 +32,6 @@ Objects whose state cannot be changed after creation are inherently thread-safe.
 
 Example Interview Question: How do you ensure thread safety?
 Answer:
-
 "Thread safety can be ensured using multiple techniques depending on the requirements. 
 
 If we need to synchronize access to a shared resource, we can use the synchronized keyword or 

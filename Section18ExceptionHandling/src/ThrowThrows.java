@@ -1,5 +1,4 @@
-public class ThrowThrows
-{
+public class ThrowThrows {
     static int area(int l, int b) throws Exception {
         if (l < 0 || b < 0)
             throw new Exception();

@@ -2,10 +2,8 @@ More Real-World Examples of Thread Safety with Deep Explanations:
 
 Now, let’s dive into two more complex and real-world scenarios where thread safety is crucial.
 
+3. Cloud Document Editing – Avoiding Inconsistent Updates (Google Docs Example):
 
-3. Cloud Document Editing – Avoiding Inconsistent Updates (Google Docs Example)
-
-Scenario
 Imagine multiple users are editing the same Google Docs file in real time.
 
 - User 1 (Thread A) edits Line 5 and changes "Hello" to "Hi".
@@ -20,7 +18,7 @@ What Went Wrong?
 Solution
 1. Operational Transformation (OT) or Conflict-Free Replicated Data Types (CRDTs)
    - Google Docs and similar tools use OT or CRDTs to merge changes in real time.
-   - Instead of overwriting, it **tracks individual changes and intelligently merges them**.
+   - Instead of overwriting, it tracks individual changes and intelligently merges them.
 
 2. Locking Mechanism for Critical Sections
    - Some document editing tools lock sections of a document so only one user can edit a specific line at a time.
@@ -62,5 +60,3 @@ just clicked? That’s the system ensuring thread safety to prevent double booki
 -  Thread safety is critical in cloud-based applications, ride-sharing, and banking systems.
 -  Techniques like Operational Transformation (OT), database transactions, and distributed locks prevent data inconsistencies.
 -  Real-world services like Google Docs, Uber, and banking apps use sophisticated thread safety techniques to avoid issues.
-
-deep dive into any specific technique, such as database transactions, locking mechanisms, or atomic operations* 🚀

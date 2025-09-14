@@ -30,7 +30,7 @@ class Task1 implements Runnable {
     }
 
     public void run() {
-        pen.writeWithPenAndPaper(noteNook); //Thread1 locks pen and tries to lock notebook.
+        pen.writeWithPenAndPaper(noteNook); //Thread1 locks pen and tries to lock the notebook.
     }
 }
 
@@ -48,7 +48,7 @@ class Task2 implements Runnable {
         synchronized (pen){
             notebook.writeWithPaperAndPen(pen); //Thread1 locks paper and tries to lock pen.
         }
-//        notebook.writeWithPaperAndPen(pen); //Thread1 locks paper and tries to lock pen.
+        // notebook.writeWithPaperAndPen(pen); //Thread1 locks paper and tries to lock pen.
     }
 }
 
@@ -57,9 +57,9 @@ public class DeadLock {
         Pen pen = new Pen();
         NoteNook notebook = new NoteNook();
 
-        //Via constructor we are sending objects check above code
+        //Via constructor, we are sending objects check above code.
         Thread thread1 = new Thread(new Task1(pen, notebook), "Thread One is running");
-        Thread thread2 = new Thread(new Task2(pen, notebook), "Threead Two is  running");
+        Thread thread2 = new Thread(new Task2(pen, notebook), "Thread Two is  running");
 
         thread1.start();
         thread2.start();

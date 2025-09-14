@@ -1,9 +1,10 @@
-Top 10 Java Multi-Threading Scenarios Every Developer Should Know! 🚀🚀🚀
+Top 10 Java Multi-Threading Scenarios Every Developer Should Know!
 
 1️⃣ Thread Pool Utilization Issue
 
 💡 Scenario:
-You have a thread pool of size 10, but sometimes tasks get stuck, leading to performance degradation. How would you diagnose and fix this issue?
+You have a thread pool of size 10, but sometimes tasks get stuck, leading to performance degradation.
+How would you diagnose and fix this issue?
 
 👉 What strategies would you use to optimize thread pool performance?
 

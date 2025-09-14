@@ -1,8 +1,9 @@
-It is a situation in multi-threading where two or more threads
-are blocked forever waiting for each other to release a resources.
+It is a situation in multi-threading where two or more threads are blocked forever waiting for each other to
+release a resources.
 
 This typically occurs when two or more threads have circular dependencies on a set of locks.
-necessary conditions for a deadlock to occur in a system:
+
+Necessary conditions for a deadlock to occur in a system:
 
 Mutual Exclusion: A resource can only be used by one thread/process at a time.
 Hold and Wait: A thread holding a resource is waiting for another resource held by another thread.
@@ -28,9 +29,8 @@ To prevent deadlocks, we must eliminate at least one of the four necessary condi
   - Example: CPU scheduling can forcefully remove a process from execution.
 
   - Breaking Circular Wait
-  - Impose an **ordering on resource requests** (number resources and require them to be requested in increasing order).
+  - Impose an ordering on resource requests (number resources and require them to be requested in increasing order).
   - Example: If a process holds Resource 1, it must request Resource 2 before Resource 3.
-
 
 2. Deadlock Detection:
 
@@ -51,7 +51,7 @@ If prevention is not feasible, we use detection mechanisms:
 
 Once a deadlock is detected, recovery strategies include:
 
-  - Process Termination**
+  - Process Termination
   - Kill one or more processes involved in the deadlock.
   - Either terminate all deadlocked processes or terminate one at a time until deadlock is resolved.
 
@@ -62,7 +62,6 @@ Once a deadlock is detected, recovery strategies include:
 ---
 
 Choosing the Right Strategy:
-
 - Prevention is best if system design allows.
 - Detection & Recovery are necessary in dynamic systems like OS and databases.
 - Avoidance (Banker’s Algorithm) is used when processes declare maximum resource needs in advance.

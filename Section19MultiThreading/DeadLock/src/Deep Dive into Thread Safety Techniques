@@ -1,4 +1,4 @@
-Deep Dive into Thread Safety Techniques
+Deep Dive into Thread Safety Techniques:
 
 Now, let’s break down three key techniques used to ensure thread safety in real-world applications:
 
@@ -28,8 +28,7 @@ ACID (Atomicity, Consistency, Isolation, Durability) ensures that transactions a
 - Isolation: No two transactions interfere with each other.
 - Durability: Once committed, data is permanently stored, even in case of a crash.
 
-Real-world Example: If you’ve ever had a failed online payment and saw 
-"Transaction Reversed," that’s Atomicity in action!
+Real-world Example: If you’ve ever had a failed online payment and saw "Transaction Reversed," that’s Atomicity in action!
 
 ---
 
@@ -38,7 +37,6 @@ Real-world Example: If you’ve ever had a failed online payment and saw
 Types of Locks:
 
 1. Synchronized Locks (Java's synchronized keyword):
-
    - Ensures only one thread can execute a method at a time.
    - Example: If a user is editing a shared document, another user must wait before making changes.
 
@@ -77,10 +75,9 @@ accurately track likes, views, and shares!
 
 ---
 
-Key Takeaways for Interviews
+Key Takeaways for Interviews:
+
 1. ACID Transactions → Used in banking, stock trading, and online payments to ensure correctness.
-2. Locking Mechanisms** → Used in Uber, Google Docs, and ticket booking systems to prevent double bookings.
+2. Locking Mechanisms → Used in Uber, Google Docs, and ticket booking systems to prevent double bookings.
 3. Atomic Operations & CAS → Used in **social media platforms (likes, shares, views) and 
 distributed systems for high-speed counters.
-
-deadlocks, optimistic locking, or distributed locking techniques? 🚀

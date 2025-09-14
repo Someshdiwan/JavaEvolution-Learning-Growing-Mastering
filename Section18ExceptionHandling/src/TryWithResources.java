@@ -6,12 +6,10 @@ public class TryWithResources {
     static FileInputStream fi;
     static Scanner sc;
 
-    static void Divide() throws Exception
-    {
-        fi=new FileInputStream("C:\\Users\\somes\\Downloads\\JAVA Love\\JavaEvolution-Learning-Growing-Mastering\\Section18ExceptionHandling\\src\\Test.txt");
+    static void Divide() throws Exception {
+        fi=new FileInputStream("/Users/somesh/Java SE/JavaEvolution-Learning-Growing-Mastering/Section18ExceptionHandling/src/TryWithResources.txt");
 
-        try
-        {
+        try {
             sc = new Scanner(fi);
 
             int a = sc.nextInt();
@@ -21,62 +19,23 @@ public class TryWithResources {
             System.out.println(a / c);
         }
         finally {
-            fi.close(); //i;le input stream close
+            fi.close(); //file input stream close
 
-            sc.close(); //Error inside in main because you close scanner.
+            sc.close(); //Error inside in the main because you close the scanner.
         }
     }
-    public static void main(String[] args) throws Exception
-    {
+
+    public static void main(String[] args) throws Exception {
         try {
             Divide(); //50 divide 40 = 1 Remainder
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.println(e);
         }
         //Resources are not close and not error.
-        //Remove Try finally block and them uncomment this
+        //Remove Try finally block, and them uncomment this
 
         //int x= sc.nextInt();
         //System.out.println(x);
     }
 }
-
-
-/*
-public class TryWithResources.java
-{
-
-    static void Divide() throws Exception
-    {
-
-
-        try(FileInputStream fi=new FileInputStream("C:\\Users\\somes\\Downloads\\JAVA SE\\Section18ExceptionHandling\\src\\Test.txt");Scanner sc=new Scanner(fi) )
-        {
-            int a=sc.nextInt();
-            int b=sc.nextInt();
-            int c=sc.nextInt();
-            System.out.println(a/c);
-        }
-
-    }
-
-    public static void main(String[] args) throws Exception
-    {
-        try
-        {
-            Divide();
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
-
-        //int x=sc.nextInt();
-
-        // System.out.println(x);
-
-    }
-
-}*/

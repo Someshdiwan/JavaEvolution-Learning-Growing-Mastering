@@ -1,10 +1,13 @@
 When using multiple catch blocks, it's important to order them from most specific to most general exceptions.
+
 If a more general exception is caught first, it will catch all of its subclasses, preventing more specific catch blocks
 from being reached.
 
-This is why we typically see catch blocks for specific exceptions like NullPointerException before a catch block for the general Exception class.
+This is why we typically see catch blocks for specific exceptions like NullPointerException before a catch block for the
+general Exception class.
 
 The 'throws' clause in a method signature is used to declare that the method might throw certain checked exceptions.
+
 It doesn't actually throw or handle the exception, but rather informs the caller that they need to either catch these
 exceptions or declare them in their own method signature.
 
@@ -21,7 +24,7 @@ interface. This feature, introduced in Java 7, simplifies resource management an
 
 It ensures that resources are closed in the correct order and handles exceptions that might occur during closing.
 
-This leads to cleaner, more reliable code compared to manually closing resources in a finally block.
+This leads to cleaner, more reliable code compared to manually closing resources in a final block.
 
 When an exception is not caught in a method, it is propagated up the call stack to the calling method.
 This process continues until the exception is either caught and handled or reaches the top of the call stack.

@@ -22,8 +22,7 @@ When booking a flight online, multiple users from different locations may try to
 
 Distributed locking ensures that only one person gets the seat while others get a “Sold Out” message.
 
-Key Takeaways for Interviews
-
+Key Takeaways for Interviews:
 1. Deadlocks – Avoid them using fixed lock ordering, timeouts, or deadlock detection mechanisms.
 2. Optimistic Locking – Ideal for high-speed applications like stock trading and e-commerce.
 3. Distributed Locking – Essential for cloud-based systems to prevent conflicts between multiple servers.

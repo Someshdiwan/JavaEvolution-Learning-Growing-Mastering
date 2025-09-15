@@ -1,14 +1,11 @@
-class MyData
-{
+class MyData {
     synchronized public void display(String str)
 
-    //Entire method is synchronized
+    //The entire method is synchronized
     {
-        //Also allow to do this.
-        synchronized (this)
-        {
-            for (int i = 0; i < str.length(); i++)
-            {
+        //Also allow doing this.
+        synchronized (this) {
+            for (int i = 0; i < str.length(); i++) {
                 System.out.print(str.charAt(i));
 
                 //Printing and sleeping and printing and sleeping.
@@ -18,30 +15,27 @@ class MyData
     }
 }
 
-class MyThreadSys extends Thread
-{
+class MyThreadSys extends Thread {
     MyData d;
 
-    //constructor take reference of my object of data d.
+    //constructor takes reference of my object of data d.
     //Assign object of myData.
-    public MyThreadSys(MyData d) //Takes reference of object of MyData
+    public MyThreadSys(MyData d) //Takes reference of an object of MyData.
     {
         this.d = d;
     }
 
-    public void run()
-    {
+    public void run() {
         d.display("Hello World");
     }
 }
 
-class MyThreadSys2 extends Thread
-{
+class MyThreadSys2 extends Thread {
         MyData d;
-        //constructor take reference of my object of data d.
+        //constructor takes reference of my object of data d.
         //Assign Object of myData.
 
-        public MyThreadSys2(MyData d) //Takes reference of object of MyData
+        public MyThreadSys2(MyData d) //Takes reference of an object of MyData
         {
             this.d = d;
         }
@@ -51,10 +45,9 @@ class MyThreadSys2 extends Thread
             d.display("Welcome All");
         }
 }
-public class Synchronization
-{
-    public static void main(String[] args)
-    {
+
+public class Synchronization {
+    public static void main(String[] args) {
             MyData data = new MyData();
 
             MyThreadSys t1 = new MyThreadSys(data);

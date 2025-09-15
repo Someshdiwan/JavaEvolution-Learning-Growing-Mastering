@@ -2,14 +2,14 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 class FairLock {
-    private final Lock lock1 = new ReentrantLock(true); // Fair lock enabled means
-    // Sabko thread ko run hone ka chance milega. Starvation if thread misss to run.
+    private final Lock lock1 = new ReentrantLock(true);
+    // Fair lock enabled means, Sabko thread ko run hone ka chance milega. Starvation if the thread misses running.
 
     public void accessResource() {
-        lock1.lock(); // Correct way to acquire the lock
+        lock1.lock(); // Correct way to acquire the lock.
         try {
             System.out.println(Thread.currentThread().getName() + " acquired the lock.");
-            Thread.sleep(1000); // Simulating some work
+            Thread.sleep(1000); // Simulating some work.
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt(); // Restore the interrupted status
         } finally {

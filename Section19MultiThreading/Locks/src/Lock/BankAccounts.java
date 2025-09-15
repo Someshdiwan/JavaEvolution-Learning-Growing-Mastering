@@ -26,18 +26,18 @@ public class BankAccounts {
             if (lock.tryLock(1000, TimeUnit.MILLISECONDS)) {
                 if (Balance >= amount) {
                     try {
-                        System.out.println(Thread.currentThread().getName() + " proceedfing withdrawal " + Balance);
+                        System.out.println(Thread.currentThread().getName() + " proceeding withdrawal " + Balance);
 
                         Thread.sleep(3000); //Time taken to process transaction
                         Balance -= amount;
-                        System.out.println(Thread.currentThread().getName() + " Completed Withdrawl. Remaining Balances: " + Balance);
+                        System.out.println(Thread.currentThread().getName() + " Completed Withdrawal. Remaining Balances: " + Balance);
                     } catch (Exception e) {
                         Thread.currentThread().interrupt();
                     } finally {
                         lock.unlock();
                     }
                 } else {
-                    System.out.println(Thread.currentThread().getName() + " insufficiant Balance: " + Balance);
+                    System.out.println(Thread.currentThread().getName() + " insufficient Balance: " + Balance);
                 }
             } else {
                 System.out.println(Thread.currentThread().getName() + " could not acquire the lock, will try again later");

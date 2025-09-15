@@ -35,7 +35,7 @@ public class ReadWriteLock {
     public static void main(String[] args) throws InterruptedException {
         ReadWriteLock counter = new ReadWriteLock();
 
-        //Anonymous class of Runnable interface(read)
+        //Anonymous class of Runnable interface(read).
         Runnable readTask = new Runnable() {
             @Override
             public void run() {
@@ -45,7 +45,7 @@ public class ReadWriteLock {
             }
         };
 
-        //Anonymous class of Runnable interface(write)
+        //Anonymous class of Runnable interface(write).
         Runnable writeTask = new Runnable() {
             @Override
             public void run() {

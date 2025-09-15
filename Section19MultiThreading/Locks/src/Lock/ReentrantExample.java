@@ -1,10 +1,11 @@
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-static class ReentrantExample {
-    private final Lock lock = new ReentrantLock(); //Can enter same methods again. enter it again.
-    //One lock hai.
-    //Ek count maintain keya jata hai kitni baar acquire keya Guya hai.
+static class ReentrantExample2 {
+    private final Lock lock = new ReentrantLock();
+    /* Can enter the same methods again. enter it again.
+    One lock hai.
+    Ek count maintain keya jata hai kitni baar acquire keya Guya hai.*/
 
     public void outermethod() {
         lock.lock();
@@ -17,7 +18,7 @@ static class ReentrantExample {
     }
 
     //Both methods try to finish the each others its is called deadlock.
-    //Outer method depends on inner method and inner method depends outer methods to get finish.
+    //Outer method depends on inner method, and inner method depends on outer methods to get finish.
 
     public void innerMethod() {
         lock.lock();
@@ -30,9 +31,12 @@ static class ReentrantExample {
 }
 
 public static void main(String[] args) {
-    ReentrantExample R = new ReentrantExample();
+    ReentrantExample2 R = new ReentrantExample2();
     R.outermethod();
 }
 
-//Reentrant lock:
-// 1. Lock 2.Unlock 3.Try/Lock types: without time and with time. 4. DeadLock(Reentrant lock). 5.lock.Interruptibly();
+/*
+Reentrant lock:
+
+1. Lock 2.Unlock 3.Try/Lock types: without time and with time. 4. DeadLock(Reentrant lock). 5.lock.Interruptibly();
+*/

@@ -3,8 +3,8 @@ class DemoThread {
         A a = new A();
         B b = new B();
 
-        a.start(); // starts thread A
-        b.start(); // starts thread B
+        a.start(); // starts thread A.
+        b.start(); // starts thread B.
     }
 }
 

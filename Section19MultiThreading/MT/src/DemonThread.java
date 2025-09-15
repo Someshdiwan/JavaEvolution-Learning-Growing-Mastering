@@ -1,12 +1,9 @@
-//Demon Threads are working in BackGround is called Demon Threads.
 public class DemonThread extends Thread {
-    public void run(){
-        while(true)
-        {
+    public void run() {
+        while(true) {
             System.out.println("Hello World!");
         }
     }
-
     public static void main(String[] args) {
         DemonThread D = new DemonThread();
         D.setDaemon(true);
@@ -14,3 +11,5 @@ public class DemonThread extends Thread {
         System.out.println("Main done");
     }
 }
+
+//Demon Threads are working in Background is called Demon Threads.

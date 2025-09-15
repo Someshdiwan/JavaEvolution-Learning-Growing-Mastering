@@ -1,0 +1,83 @@
+# ==============================
+# IntelliJ IDEA
+# ==============================
+*.iml
+.idea/
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# ==============================
+# Eclipse
+# ==============================
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+# ==============================
+# NetBeans
+# ==============================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ==============================
+# VS Code
+# ==============================
+.vscode/
+
+# ==============================
+# macOS
+# ==============================
+.DS_Store
+
+# ==============================
+# Windows
+# ==============================
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ==============================
+# Build Output
+# ==============================
+target/
+build/
+*.log
+
+# ==============================
+# Environment Files
+# ==============================
+.env
+.env.local
+*.env
+!sample.env
+
+# ==============================
+# Java / Maven / Gradle
+# ==============================
+*.class
+*.jar
+*.war
+*.ear
+
+# ==============================
+# GitHub Actions
+# ==============================
+# Do NOT ignore workflow files
+!.github/workflows/*.yml
+
+# ==============================
+# YAML Configs (Safe Ignore)
+# ==============================
+# Only ignore IDE/tool YAMLs, not app configs like application.yml
+.idea/*.yml

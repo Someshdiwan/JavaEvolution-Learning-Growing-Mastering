@@ -1,21 +1,16 @@
 public class MyThread extends Thread {
     @Override
-    public void start()
-    {
+    public void start() {
         System.out.println("Running");
-        try
-        {
+        try {
             Thread.sleep(2000);
         }
-        catch (InterruptedException e)
-        {
+        catch (InterruptedException e) {
             System.out.println(e);
         }
     }
 
-    //Checking the states of the Thread.
-    //New, RUNNABLE, BLOCKED, WAITING....
-    public static void main(String[] args) throws InterruptedException //main thread
+    public static void main(String[] args) throws InterruptedException //main thread.
     {
         MyThread t1 = new MyThread();
         System.out.println(t1.getState());
@@ -31,3 +26,6 @@ public class MyThread extends Thread {
         System.out.println(t1.getState());
     }
 }
+
+//Checking the states of the Thread.
+//New, RUNNABLE, BLOCKED, WAITING....

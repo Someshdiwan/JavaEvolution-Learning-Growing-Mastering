@@ -7,9 +7,9 @@ import java.util.concurrent.locks.ReentrantLock;
 public class BankAccounts {
     private int Balance = 100;
 
-    //Customized lock without Synchronized.
-    //Lock lock = new interface; Interface ka obj create karenge and implementation use karna hai
-    //hai lock jaiska ham object create kar rahe hai.
+    /* Customized lock without Synchronized.
+    Lock lock = new interface; Interface ka obj creates karenge, and implementation uses karna hai.
+    hai lock Jiska ham object creates kar rahe hai. */
 
     //Methods Lock:
     //lock.locky()
@@ -45,24 +45,5 @@ public class BankAccounts {
         } catch (Exception e) {
             Thread.currentThread().interrupt();
         }
-
-        /*if (Balance >= amount) {
-            System.out.println(Thread.currentThread().getName() + " proceeding with withdrawal");
-
-            try
-            {
-                Thread.sleep(10000);
-            }
-            catch (InterruptedException e)
-            {
-
-            }
-        Balance -= amount;
-        System.out.println(Thread.currentThread().getName() + " Completed Withdrawl. Remaining Balances: " + Balance);
-    }
-        else
-        {
-            System.out.println(Thread.currentThread().getName() + " insufficiant Balance");
-        }*/
     }
 }

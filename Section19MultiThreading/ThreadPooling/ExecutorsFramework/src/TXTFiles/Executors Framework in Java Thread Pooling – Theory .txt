@@ -1,10 +1,10 @@
 Executors Framework in Java (Thread Pooling) – Theory
 
-The Executors Framework in Java is a high-level concurrency framework introduced in Java 5
+The Executor Framework in Java is a high-level concurrency framework introduced in Java 5
 (part of java.util.concurrent).
 
 It provides a structured way to manage and control thread execution using thread pools,
-improving efficiency and performance in multi-threaded applications.
+improving efficiency and performance in multithreaded applications.
 
 Why Use the Executors Framework?
 
@@ -24,29 +24,25 @@ Why Use the Executors Framework?
    - Eliminates the complexity of manually handling `Thread` objects.  
    - Provides built-in mechanisms for handling scheduled and asynchronous tasks.  
 
-Core Components of Executors Framework**
+Core Components of Executors Framework:
 
 1. Executor Interface:
-
 - The base interface for task execution.  
 - Defines the execute(Runnable command) method for running tasks asynchronously.
 
 2. ExecutorService Interface
-
 - Extends Executor and provides advanced methods for thread management.
 - Supports submitting tasks, shutting down the pool, and retrieving results.  
 
 3. Executors Class
-
 - A utility class that provides factory methods to create different types of thread pools.  
 - Helps in managing thread creation without manually handling Thread objects.
 
 4. Future Interface
-
 - Represents the result of an asynchronous computation.
 - Allows checking if the task is complete and retrieving the result once available.  
 
-Types of Thread Pools in Executors Framework
+Types of Thread Pools in Executors Framework:
 
 | Thread Pool Type                                        | Description                                               | Use Case                                                          |
 |---------------------------------------------------------|-----------------------------------------------------------|-------------------------------------------------------------------|
@@ -56,9 +52,8 @@ Types of Thread Pools in Executors Framework
 | Scheduled Thread Pool (newScheduledThreadPool(n))       | Executes tasks after a fixed delay or periodically.       | Ideal for scheduled and recurring tasks.                          |
 
 Advantages of the Executors Framework:
-
-✔  Improved Performance** – Reduces thread creation overhead by reusing existing threads.
-✔  Better Resource Management – Limits thread count to prevent excessive CPU and memory usage.
-✔  Simplifies Thread Management – Eliminates the need for manual thread handling.
-✔  Scalability – Adapts to workload demands efficiently.
-✔  Flexibility – Provides different thread pool strategies for various use cases.
+Improved Performance – Reduces thread creation overhead by reusing existing threads.
+Better Resource Management – Limits thread count to prevent excessive CPU and memory usage.
+Simplifies Thread Management – Eliminates the need for manual thread handling.
+Scalability – Adapts to workload demands efficiently.
+Flexibility – Provides different thread pool strategies for various use cases.

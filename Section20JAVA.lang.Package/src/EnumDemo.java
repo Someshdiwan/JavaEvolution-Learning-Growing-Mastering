@@ -1,18 +1,20 @@
-enum Dept{
+enum Dept {
     CS,IT,CIVIL,ECE
 }
+
 public class EnumDemo {
     public static void main(String[] args) {
-        Dept d=Dept.CIVIL;
+        Dept d = Dept.CIVIL;
 
-        Dept list[]=Dept.values();
-        for (Dept x: list)
-        {
+        Dept list[] = Dept.values();
+
+        // sabhi enum constants ko print karne ke liye loop
+        for (Dept x : list) {
             System.out.println(x);
         }
-        //Used in Switch Cases.
+        // Switch cases me bhi enum use ho sakta hai
 
         System.out.println(d.ordinal());
-        //Index deta hai output mai.
+        // ordinal() index deta hai enum constant ka (0-based index)
     }
 }

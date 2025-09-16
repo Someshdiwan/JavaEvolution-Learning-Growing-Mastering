@@ -1,10 +1,9 @@
-Executors Framework in Java (Thread Pooling)
+Executors Framework in Java (Thread Pooling):
 
 The Executors framework in Java (introduced in Java 5) provides a high-level API for managing thread pools efficiently.
 It is part of the java.util.concurrent package.
 
 Why Use Executors?
-
 - Manages Thread Pooling Efficiently 🏭
 - Reduces Thread Creation Overhead 🚀
 - Provides Different Pooling Strategies 🎯
@@ -20,7 +19,7 @@ Key Components of the Executors Framework:
 4. Future Interface → Handles asynchronous computation results.
 
 
-Types of Thread Pools in Executors Framework
+Types of Thread Pools in Executors Framework:
 
 | Thread Pool Type              | Description                                          |
 |-------------------------------|------------------------------------------------------|

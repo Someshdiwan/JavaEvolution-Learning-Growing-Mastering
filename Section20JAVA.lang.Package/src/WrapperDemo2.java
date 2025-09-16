@@ -2,7 +2,6 @@ public class WrapperDemo2 {
     public static void main(String[] args) {
         float a =12.5f;
         Float b =12.5f/0;
-
         Float c =(float)Math.sqrt(9); //Square root of 9 is 3. then it is a number.
 
         System.out.println(b.equals(a));

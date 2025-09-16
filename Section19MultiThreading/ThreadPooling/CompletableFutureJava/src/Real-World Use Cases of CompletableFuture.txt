@@ -1,9 +1,9 @@
-Real-World Use Cases of CompletableFuture
+Real-World Use Cases of CompletableFuture:
 
 In real-world applications, CompletableFuture is commonly used for:
 
 1. Calling multiple APIs in parallel (e.g., fetching user details and order history at the same time).
-2. Asynchronous database queries** (e.g., fetching data without blocking the main thread).
+2. Asynchronous database queries (e.g., fetching data without blocking the main thread).
 3. Performing CPU/IO-intensive tasks asynchronously (e.g., processing large datasets).
 
 1️⃣ Parallel API Calls using CompletableFuture
@@ -40,9 +40,8 @@ public class ParallelApiCalls {
         }
     }
 }
-```
 
-✅Output:
+Output:
 
 Fetching user details...
 Fetching order history...
@@ -56,7 +55,7 @@ Explanation:
 
 2️⃣ Asynchronous Database Query
 
-Imagine we are fetching a user’s profile **and** recent transactions from a database **concurrently.
+Imagine we are fetching a user’s profile **and** recent transactions from a database concurrently.
 
 import java.util.concurrent.CompletableFuture;
 
@@ -89,21 +88,21 @@ public class AsyncDatabaseQuery {
     }
 }
 
-✅ Output:
+Output:
 
 Fetching user profile...
 Fetching transactions...
 Profile: [Name: Alice, Age: 30]
 Transactions: [$100, $250, $50]
 
-
 Why use CompletableFuture?
-
 - The database calls execute simultaneously, reducing response time.
 
 3️⃣ Handling Timeouts with orTimeout():
 
-In real-world applications, APIs or database queries may take too long. We can **set a timeout** to prevent waiting indefinitely.
+In real-world applications, APIs or database queries may take too long.
+
+We can set a timeout to prevent waiting indefinitely.
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -124,15 +123,13 @@ public class TimeoutExample {
     }
 }
 
-✅Output:
+Output:
 
 Timeout occurred: java.util.concurrent.TimeoutException
 
 Key Takeaways:
-
 - .orTimeout(3, TimeUnit.SECONDS) stops execution if it exceeds 3 seconds.
 - .exceptionally() handles errors, preventing app crashes.
-
 
 4️⃣ Running Multiple Independent Tasks (allOf())
 
@@ -147,11 +144,9 @@ public class RunMultipleTasks {
             CompletableFuture.runAsync(() -> simulateTask("Task 2")),
             CompletableFuture.runAsync(() -> simulateTask("Task 3"))
         );
-
         allTasks.join(); // Wait for all tasks to complete
         System.out.println("All tasks completed!");
     }
-
     private static void simulateTask(String taskName) {
         try {
             System.out.println(taskName + " started.");
@@ -163,7 +158,7 @@ public class RunMultipleTasks {
     }
 }
 
-✅ Output:
+Output:
 
 Task 1 started.
 Task 2 started.
@@ -173,15 +168,13 @@ Task 2 completed.
 Task 3 completed.
 All tasks completed!
 
-
 Why use allOf()?
 
-- It waits for **all** independent tasks to finish **before moving forward.
+- It waits for all independent tasks to finish before moving forward.
 
 5️⃣ Exception Handling with handle()
 
 Unlike .exceptionally(), .handle() lets us process both successful and failed executions.
-
 
 import java.util.concurrent.CompletableFuture;
 
@@ -204,16 +197,13 @@ public class HandleExceptions {
 Output (Randomly)
 
 Task Completed Successfully!
-
 OR
-
 Handled Error: Something went wrong!
 
 Why use .handle()?
-
 It processes both success and failure cases in one place.
 
-Final Summary
+Final Summary:
 
 | Use Case                       |  CompletableFuture Feature Used  |
 |--------------------------------|----------------------------------|
@@ -226,7 +216,7 @@ Final Summary
 
 Final Thoughts:
 
-✅ CompletableFuture improves performance by running tasks asynchronously.
-✅ It's great for parallel API calls, database queries, and handling errors.
-✅ Use .thenCombine() for dependent tasks and .allOf() for independent tasks.
-✅ Handle timeouts and exceptions properly to prevent blocking issues.
+CompletableFuture improves performance by running tasks asynchronously.
+It's great for parallel API calls, database queries, and handling errors.
+Use .thenCombine() for dependent tasks and .allOf() for independent tasks.
+Handle timeouts and exceptions properly to prevent blocking issues.

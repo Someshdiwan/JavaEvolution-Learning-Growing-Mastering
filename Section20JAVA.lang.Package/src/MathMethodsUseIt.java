@@ -11,21 +11,21 @@ public class MathMethodsUseIt {
         System.out.println(Math.cbrt(27));
 
         /*
-
         int i=Integer.MIN_VALUE;
+
         //i--;
         System.out.println(i);
 
         System.out.println("Exact Decrement: ");
         System.out.println(Math.decrementExact(7));
         System.out.println(Math.decrementExact(Integer.MIN_VALUE));
-
         */
 
         System.out.println("Exponent Value in Floating Point Rep. :");
         System.out.println(Math.getExponent(123456));
 
-        //Mantisain Exponent form mai store hota hai. Power of 10.
+        //Maintain Exponent form mai store hota hai.
+        //Power of 10.
 
         System.out.println("Round Division: ");
         System.out.println(Math.floorDiv(50, 9));
@@ -39,9 +39,11 @@ public class MathMethodsUseIt {
         System.out.println("Maximum: ");
         System.out.println(Math.max(100, 50));
 
-        System.out.println("Tan :"); //Trigonametric fun it take radian value
+        System.out.println("Tan :");
+        //Trigonometric fun it takes radian value.
+
         System.out.println(Math.tan(45*Math.PI/180));
-        //Computaion on Floting number
+        //Computation on Floating number.
 
         System.out.println("Convert To Radians :");
         System.out.println(Math.toRadians(90));

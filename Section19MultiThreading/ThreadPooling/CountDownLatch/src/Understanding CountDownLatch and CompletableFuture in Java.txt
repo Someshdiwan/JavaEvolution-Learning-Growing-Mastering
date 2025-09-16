@@ -9,7 +9,6 @@ CountDownLatch is used for synchronization between multiple threads.
 It allows one or more threads to wait until other threads complete their tasks.
 
 Key Features:
-
 - Starts with a count (number of tasks to wait for).
 - Each time a task completes, the count decreases.
 - Once the count reaches zero, waiting threads are released.
@@ -43,7 +42,7 @@ Thread-1 completed task.
 Thread-2 completed task.
 All tasks completed. Main thread resumes.
 
-✅ Use Case: Waiting for multiple tasks to finish before proceeding
+Use Case: Waiting for multiple tasks to finish before proceeding
 (e.g., batch processing, service startup dependencies).
 
 2️⃣ CompletableFuture:
@@ -52,7 +51,6 @@ CompletableFuture` is an advanced tool for asynchronous programming.
 It allows running tasks in the background, chaining operations, and handling results or exceptions.
 
 Key Features:
-
 - Runs tasks asynchronously without blocking the main thread.
 - Supports chaining (thenApply, thenAccept, etc.).
 - Supports combining multiple futures (thenCombine, allOf, etc.).
@@ -82,7 +80,7 @@ Doing something else...
 Running async task...
 Result: 42
 
-✅Use Case: Performing long-running tasks asynchronously (e.g., API calls, database queries).
+Use Case: Performing long-running tasks asynchronously (e.g., API calls, database queries).
 
 Comparison Table:
 
@@ -96,6 +94,5 @@ Comparison Table:
 
 
 When to Use Which?
-
 - Use CountDownLatch when you need to wait for multiple threads to complete before proceeding.
 - Use CompletableFuture when you need to perform non-blocking async operations and chain results.

@@ -1,4 +1,7 @@
-A CyclicBarrier in Java is commonly used in real-life scenarios where multiple threads must wait for each other to reach a common synchronization point before proceeding further. Here are some real-life use cases where CyclicBarrier can be applied:
+A CyclicBarrier in Java is commonly used in real-life scenarios where multiple threads must wait for each other to
+reach a common synchronization point before proceeding further.
+
+Here are some real-life use cases where CyclicBarrier can be applied:
 
 Real-Life Use Cases of CyclicBarrier:
 Online Gaming Matchmaking - Ensuring all players have joined a game before starting.
@@ -6,8 +9,6 @@ Microservices Initialization - Ensuring all microservices start before processin
 Stock Market Data Aggregation - Waiting for multiple data sources before executing trades.
 Scientific Simulations - Synchronizing different phases of parallel simulations.
 Multithreaded Data Processing - Ensuring all data chunks are processed before moving to the next stage.
-
-
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -36,8 +37,7 @@ class Player implements Runnable {
 public class GameMatchmaking {
     public static void main(String[] args) {
         int totalPlayers = 4;
-        CyclicBarrier barrier = new CyclicBarrier(totalPlayers, () -> 
-            System.out.println("All players are ready. Game starts now!"));
+        CyclicBarrier barrier = new CyclicBarrier(totalPlayers, () -> System.out.println("All players are ready. Game starts now!"));
 
         Thread player1 = new Thread(new Player("Player 1", barrier));
         Thread player2 = new Thread(new Player("Player 2", barrier));
@@ -51,17 +51,16 @@ public class GameMatchmaking {
     }
 }
 
-
 Explanation:
 Player class simulates a game player that waits for others before starting.
 CyclicBarrier (totalPlayers, action) ensures all players are ready before the game starts.
 Main method creates multiple threads representing players.
 
+This code simulates a system startup where multiple subsystems
+(Web Server, Database, Cache, and Messaging Service) must initialize before the system can fully start.
 
-
-
-
-This code simulates a system startup where multiple subsystems (Web Server, Database, Cache, and Messaging Service) must initialize before the system can fully start. The CyclicBarrier ensures that all subsystems reach a common point before proceeding, preventing partial initialization issues.
+The CyclicBarrier ensures that all subsystems reach a common point before proceeding,
+preventing partial initialization issues.
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -86,10 +85,7 @@ public class Main {
         databaseThread.start();
         cacheThread.start();
         messagingServiceThread.start();
-
     }
-
-
 }
 
 class Subsystem implements Runnable {
@@ -102,7 +98,6 @@ class Subsystem implements Runnable {
         this.initializationTime = initializationTime;
         this.barrier = barrier;
     }
-
     @Override
     public void run() {
         try {

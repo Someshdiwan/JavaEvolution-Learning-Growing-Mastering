@@ -1,9 +1,10 @@
-Understanding Executors.newCachedThreadPool() in Java
+Understanding Executors.newCachedThreadPool() in Java:
 
-The newCachedThreadPool() method of the Executors class creates a dynamically resizable thread pool. It creates new
-threads as needed and reuses idle threads to optimize performance.
+The newCachedThreadPool() method of the Executors class creates a dynamically resizable thread pool.
 
-1️⃣ Key Features of newCachedThreadPool()
+It creates new threads as needed and reuses idle threads to optimize performance.
+
+1️⃣ Key Features of newCachedThreadPool():
 
 | Feature                 | Description                                                     |
 |-------------------------|-----------------------------------------------------------------|
@@ -136,11 +137,11 @@ public class CustomThreadPoolExample {
     }
 }
 
-✅ Advantage:
+Advantage:
 - Limits max threads to 10 (prevents excessive thread creation).
 - Uses SynchronousQueue, meaning tasks are directly handed off to threads (similar to newCachedThreadPool()).
 
-📌 Summary
+Summary:
 ✔ newCachedThreadPool() is great for handling short-lived, high-concurrency tasks.
 ✔ Automatically grows/shrinks based on workload demand.
 ✔ Idle threads terminate after 60 seconds.

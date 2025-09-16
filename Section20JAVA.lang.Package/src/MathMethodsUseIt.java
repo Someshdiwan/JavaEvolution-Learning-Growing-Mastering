@@ -67,3 +67,4 @@ public class MathMethodsUseIt {
         System.out.println(Math.nextAfter(12.5, 13));
     }
 }
+

@@ -20,13 +20,11 @@ public class CyclicBarrierExample {
     }
 
     static class DependentService implements Callable<String> {
-        private CyclicBarrier barrier;  // Corrected type
+        private CyclicBarrier barrier;
 
-        // Constructor now correctly accepts CyclicBarrier
         public DependentService(CyclicBarrier barrier) {
             this.barrier = barrier;
         }
-
         @Override
         public String call() throws Exception {
             System.out.println(Thread.currentThread().getName() + " service started.");

@@ -1,44 +1,18 @@
-/*
-Properties of Enum in Java
-There are certain properties followed by Enum as mentioned below:
-
-Class Type: Every enum is internally implemented using the Class type.
-Enum Constants: Each enum constant represents an object of type enum.
-Switch Statements: Enum types can be used in switch statements.
-Implicit Modifiers: Every enum constant is implicitly public static final. Since it is static, it can be accessed using the enum name. Since it is final, enums cannot be extended.
-Main Method: Enums can declare a main() method, allowing direct invocation from the command line.
-*/
-
-// A Java program to demonstrate working on enum
-// in a switch case (Filename Test.java)
-
-/*
-An Enum class
-
-enum Day {
-    SUNDAY,
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY;
-}
-*/
- enum Day1 {
+enum Day1 {
     MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
 }
 
 // Driver class that contains an object of "Day" and main().
 class Enum55 {
-    Day1 day;
+    Day1 day; // enum variable.
 
-    // Constructor
+    //Constructor: object banate time enum value pass hoti hai.
     public Enum55(Day1 day) {
         this.day = day;
     }
 
-    // Prints a message about the day using switch-case
+    // enum ke basis pe switch-case run hota hai.
+    // Prints a message about the day using a switch-case.
     public void dayIsLike() {
         switch (day) {
             case MONDAY:
@@ -56,11 +30,17 @@ class Enum55 {
                 break;
         }
     }
-
-    // Driver method
     public static void main(String[] args) {
         String str = "MONDAY";
         Enum55 t1 = new Enum55(Day1.valueOf(str));
         t1.dayIsLike();
     }
 }
+
+/*
+1. Enum values fixed constants hote hain (MONDAY...SUNDAY).
+2. `Day1.valueOf("MONDAY")` → String ko enum constant me convert karta hai.
+3. Switch-case ke saath enum kaafi readable hai.
+4. Ek case ke niche multiple enum constants bhi handle kar sakte ho.
+5. Enum ka toString() by default constant ka name return karta hai.
+*/

@@ -1,0 +1,66 @@
+1. Fairness Issue in synchronized (Unfair Locking):
+
+- What is fairness? It ensures that threads get the lock in the order they request it (first-come, first-served).
+
+- Problem with synchronized:
+
+- It is not fair —a thread that recently released the lock may acquire it again, even if other threads have been waiting longer.
+- This can cause starvation, where some threads never get access to the resource.
+
+- Example Scenario:
+- Imagine a ticket counter where some customers jump the queue** while others keep waiting.
+
+Better Alternative: ReentrantLock supports fair locking to ensure fairness.
+
+2. Blocking (Threads Forced to Wait):
+
+- What is blocking? If one thread has a lock, all other threads must wait, even if they are only reading data and not modifying it.
+
+- Problem with synchronized:
+
+- It does not distinguish between reading and writing it blocks all threads until the lock is released.
+- Even if a thread just wants to **read** shared data (which doesn’t change anything), it still has to wait.
+
+- Example Scenario:
+- A library where only one person at a time can enter, even if they just want to read a book, while others keep waiting.
+
+Better Alternative: ReadWriteLock allows multiple readers at the same time while still controlling writes.
+
+3. Interruptibility Issue (Cannot Stop a Waiting Thread)
+
+- What is interruptibility? It allows a thread to cancel waiting for a lock if needed.
+
+- Problem with `synchronized`:
+
+- If a thread is waiting for a lock, it cannot be interrupted.
+- If something goes wrong, the thread remains stuck until the lock is available.
+
+- Example Scenario:
+
+- Imagine waiting in a long queue for hours with no way to leave even if you change your mind.
+Better Alternative: ReentrantLock.lockInterruptibly() lets you interrupt waiting threads, so they don’t get stuck.
+
+4. No Read-Write Locking (Poor Scalability)
+
+- What is Read-Write Locking? It allows:
+
+- Multiple threads to read at the same time (safe because reading doesn’t change data).
+- Only one thread to write, ensuring no conflicts.
+
+- Problem with synchronized:
+- It does not differentiate between reading and writing —it blocks all threads.
+- Even if 10 threads only want to read, they must wait for each other.
+
+- Example Scenario:
+- A library with only one seat, where even if many people just want to read, they must wait instead of sitting together.
+
+Better Alternative: ReadWriteLock lets multiple readers access data, improving performance.
+
+Conclusion:
+
+|  Issue                | Problem with synchronized       |   Better Alternative                |
+|-----------------------|---------------------------------|--------------------------------------|
+|  Fairness     ️      | Some threads may starve         |  ReentrantLock (fair mode)           |
+|  Blocking             | All threads must wait           |  ReadWriteLock                       |
+|  Interruptibility     | Cannot stop waiting thread      |  ReentrantLock.lockInterruptibly()   |
+|  Read-Write Locking   | No separate read/write handling |  ReadWriteLock`                      |

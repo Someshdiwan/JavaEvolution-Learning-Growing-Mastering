@@ -2,19 +2,16 @@ Understanding CountDownLatch and ExecutorService Concepts:
 
 Your code uses CountDownLatch, ExecutorService, and Callable, which are key concepts in Java Concurrency.
 
-Let’s break them down:
-
 1. What is CountDownLatch?
 
 CountDownLatch is a synchronization aid that allows one or more threads to wait until a set of tasks are completed.
 
-✅ Key Properties
-
+Key Properties:
 - It starts with a count (initialized via new CountDownLatch(count)).
 - Each time countDown() is called, the count decreases.
 - When the count reaches zero, the waiting thread(s) can proceed.
 
-✅ How It Works in Your Code
+How It Works in Your Code:
 
 CountDownLatch latch = new CountDownLatch(3); // 3 tasks to complete
 executorService.submit(new DependentService(latch));
@@ -28,8 +25,7 @@ executorService.shutdown();
 - The main thread waits at latch.await() until all worker threads complete.
 - Each worker thread calls latch.countDown() after finishing.
 
-✅ When to Use?
-
+When to Use?
 - To ensure that a group of background tasks complete before moving forward.
 - Example: Loading multiple configuration files before starting an application.
 
@@ -37,12 +33,12 @@ executorService.shutdown();
 
 ExecutorService manages thread pools, making it easy to execute tasks asynchronously without manually handling threads.
 
-✅ Why Use It?
+Why Use It?
 - Efficient thread management (reuses threads instead of creating new ones).
 - Prevents resource exhaustion (limits the number of concurrent threads).
 - Graceful shutdown support (shutdown() method).
 
-✅ Types of Thread Pools:
+Types of Thread Pools:
 
 | Method                                    | Description                                        |
 |-------------------------------------------|----------------------------------------------------|
@@ -50,7 +46,7 @@ ExecutorService manages thread pools, making it easy to execute tasks asynchrono
 | Executors.newCachedThreadPool()           | Creates new threads as needed, reuses old ones.    |
 | Executors.newSingleThreadExecutor()       | Single-threaded executor (tasks run sequentially). |
 
-✅ How It Works in Your Code:
+How It Works in Your Code:
 
 ExecutorService executorService = Executors.newFixedThreadPool(3);
 
@@ -59,11 +55,11 @@ ExecutorService executorService = Executors.newFixedThreadPool(3);
 
 3. Callable<V> vs Runnable:
 
-| Feature              | Runnable                           | Callable<V> |
+| Feature              | Runnable                           | Callable<V>               |
 |----------------------|------------------------------------|---------------------------|
-| Return Value?        | ❌ No (void)                       | ✅ Yes (V)             |
-| Exception Handling?  | ❌ No checked exceptions          | ✅ Can throw exceptions   |
-| Usage                | Thread, ExecutorService.submit()  |  ExecutorService.submit()  |
+| Return Value?        | No (void)                          |  Yes (V)                  |
+| Exception Handling?  | No checked exceptions              |  Can throw exceptions     |
+| Usage                | Thread, ExecutorService.submit()   |  ExecutorService.submit() |
 
 
 static class DependentService implements Callable<String> {
@@ -131,12 +127,10 @@ executorService.shutdown();
        new DependentService(latch)
    );
    executorService.invokeAll(tasks);
-
    - Executes all tasks in parallel and waits for them to complete.
 
 2. Use shutdownNow() if Immediate Stop is Needed:
-
-  executorService.shutdownNow();
+   executorService.shutdownNow();
    - Stops all running tasks immediately (not recommended unless necessary).
 
 | Concept           | Description                                              |
@@ -194,11 +188,9 @@ public class FixProblemInExecuterServices {
     }
 }
 
-
-🔥 Key Takeaways:
-
-1. ✅ Use `CountDownLatch` for waiting on multiple tasks.
-2. ✅ Use `ExecutorService` to manage thread pools efficiently.
-3. ✅ Use `Callable<String>` when tasks return results.
-4. ✅ Use `shutdown()` to stop the thread pool gracefully.
-5. ✅ Use `Future<String>` to retrieve task results.
+Key Takeaways:
+1. Use `CountDownLatch` for waiting on multiple tasks.
+2. Use `ExecutorService` to manage thread pools efficiently.
+3. Use `Callable<String>` when tasks return results.
+4. Use `shutdown()` to stop the thread pool gracefully.
+5. Use `Future<String>` to retrieve task results.

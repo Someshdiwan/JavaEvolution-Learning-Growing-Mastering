@@ -1,11 +1,10 @@
-// Enum Declared
 enum Color1 {
     RED,
     GREEN,
     BLUE,
     YELLOW;
 
-    // Enum constructor called separately for each constant
+    // Enum constructor called separately for each constant.
     private Color1() {
         System.out.println("Constructor called for: " + this);
     }
@@ -15,7 +14,7 @@ enum Color1 {
     }
 }
 
-// Demonstrating Enum with Switch Statement
+// Demonstrating Enum with Switch Statement.
 public class Enum6 {
     public static void main(String[] args) {
         Color1 var_1 = Color1.YELLOW;
@@ -37,7 +36,7 @@ public class Enum6 {
     }
 }
 
-// Demonstrating Enum with Constructor and Methods
+// Demonstrating Enum with Constructor and Methods.
 class Enum5 {
     public static void main(String[] args) {
         Color1 c1 = Color1.RED;
@@ -46,26 +45,43 @@ class Enum5 {
     }
 }
 
-
 /*
-FAQs on Enum in Java
-Can we create the instance of Enum by the new keyword?
-No, we can’t create the instance of the Enum keyword because it contains private constructors only.
+1️⃣ Enum ek special class hai jisme fixed constants hote hain
+   (jaise RED, GREEN, BLUE, YELLOW).
 
+2️⃣ Enum constructor:
+   - Har constant ke liye ek baar call hota hai automatically.
+   - Constructor hamesha private hota hai (new keyword se object nahi bana sakte).
 
-Can we have an abstract method in the Enum?
-Yes, we have an abstract method in Enum.
+3️⃣ Methods inside enum:
+   - Enum ke andar normal methods bhi define kar sakte ho.
+   - Abstract methods bhi allow hote hain (fir har constant ko override karna padega).
 
+4️⃣ Switch ke saath enum:
+   - Enum values ko directly switch-case me use kar sakte ho.
+   - Readability aur maintainability badh jaati hai.
 
-What is the purpose of the values() method in the enum?
-        In Java, the values( ) method can be used to return all values present inside the enum.
+5️⃣ Useful built-in methods:
+   - `values()` → saare enum constants ek array me return karta hai.
+     Example: `for(Color1 c : Color1.values()) { ... }`
+   - `valueOf("RED")` → string ko enum constant me convert karta hai.
+   - `ordinal()` → har constant ka index (0-based) deta hai.
+   - `toString()` → by default constant ka name deta hai,
+     but override karke custom string bhi return kar sakte ho.
 
+FAQs Recap:
+❓ new keyword se enum ka instance bana sakte ho?
+👉 Nahi, kyunki constructor private hota hai.
 
-What is the purpose of the valueOf() method in the enum?
-The valueOf() method returns the enum constant of the specified string value if exists.
+❓ Enum me abstract method rakh sakte ho?
+👉 Haan, aur har constant ko implement karna hoga.
 
+❓ values() ka use?
+👉 Saare constants ek array me mil jaate hain.
 
-What is the purpose of the ordinal() method in the enum?
-By using the ordinal() method, each enum constant index can be found, just like an array index.
+❓ valueOf() ka use?
+👉 String ko enum constant me convert karta hai.
 
+❓ ordinal() ka use?
+👉 Enum constant ka index nikalne ke liye.
 */

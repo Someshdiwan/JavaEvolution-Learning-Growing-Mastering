@@ -9,10 +9,11 @@ public class LangDemo {
         /*Object o2=new Object();*/
         /*System.out.println(o1.equals(o2));*/
 
-        //It will return true if the both the reference hold the same object
+        //It will return true if both the references hold the same object
         Object o2=o1;
 
-        //HashCode Unique Number of object given to this oneby JAVA.
+        //HashCode Unique Number of objects given to this one by JAVA.
+        // hashCode() ek unique integer number deta hai har object ke liye (memory address based by default).
         System.out.println(o1.hashCode());
     }
 }

@@ -49,10 +49,9 @@ public class CyclicBarrierExample {
 }
 
 
-Now, when you run this code, it will ensure that all dependent services finish their work before proceeding further. 🚀
+Now, when you run this code, it will ensure that all dependent services finish their work before proceeding further.
 
 CyclicBarrier in Java (Theory):
-
 A CyclicBarrier is a synchronization mechanism that allows multiple threads to wait at a
 common barrier point before proceeding. It is part of `java.util.concurrent` and is useful
 when a group of threads must reach a common execution point before continuing.
@@ -68,7 +67,6 @@ Key Concepts:
 4. Blocking & Exception Handling:
    - await() blocks threads until all required threads reach the barrier.
    - Throws BrokenBarrierException if any thread breaks the barrier.
-
 
 import java.util.concurrent.*;
 public class CyclicBarrierDemo {
@@ -90,12 +88,11 @@ public class CyclicBarrierDemo {
         executor.shutdown();
     }
 }
-```
 
 ---
 
 Key Takeaways:
-✅ Threads wait at `barrier.await()` until all arrive.
-✅ Once all arrive, barrier action executes (`Runnable`).
-✅ Barrier resets and can be reused.
-✅ Useful for phased parallel tasks (e.g., game levels, simulations, or data processing).
+Threads wait at `barrier.await()` until all arrive.
+Once all arrive, barrier action executes (`Runnable`).
+Barrier resets and can be reused.
+Useful for phased parallel tasks (e.g., game levels, simulations, or data processing).

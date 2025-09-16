@@ -1,13 +1,14 @@
-Understanding Executors, ExecutorService, and ScheduledExecutorService in Java
+Understanding Executors, ExecutorService, and ScheduledExecutorService in Java:
 
-The Executors Framework in Java provides a high-level API to manage threads efficiently.
+The Executor Framework in Java provides a high-level API to manage threads efficiently.
+
 Instead of manually creating and managing threads, we use executors to handle task execution in a thread pool.
 
 1️⃣ Executors
 🔹 Executors is a utility class that provides factory methods to create various types of ExecutorService implementations.
 🔹 It simplifies thread pool management.
 
-Common Methods in Executors
+Common Methods in Executors:
 
 | Method                      | Description                                                      |
 |-----------------------------|------------------------------------------------------------------|
@@ -43,16 +44,14 @@ Task executed by: pool-1-thread-3
 Task executed by: pool-1-thread-1
 Task executed by: pool-1-thread-2
 
-✅ Explanation:
-
+Explanation:
 - The thread pool has 3 threads.
 - It reuses them to run 5 tasks.
 
 2️⃣ ExecutorService (Interface)
 🔹 ExecutorService extends Executor and adds methods to manage thread lifecycle & task execution.
 
-
-Key Methods in `ExecutorService`]
+Key Methods in ExecutorService:
 
 | Method                                     | Description |
 |------------------------------------------- |-----------------------------------------------------------------|
@@ -85,29 +84,26 @@ public class ExecutorServiceExample {
         executor.shutdown();
     }
 }
-```
 
 Output:
-
 Task submitted...
 Computing...
 Result: 42
 
-✅ Explanation:
-
+Explanation:
 - submit() is used instead of `execute()` because it returns a `Future<Integer>` to get the result.
 
 3️⃣ ScheduledExecutorService (Interface) and ScheduledExecutorService extends ExecutorService and provides
 methods to schedule tasks with delays or fixed intervals.
 
-Key Methods in ScheduledExecutorService
+Key Methods in ScheduledExecutorService:
 
-| Method                                                            | Description |
+| Method                                                            | Description                                     |
 |-------------------------------------------------------------------|-------------------------------------------------|
 |  schedule(Runnable, delay, TimeUnit)                              | Runs task once after a delay.                   |
 |  scheduleAtFixedRate(Runnable, initialDelay, period, TimeUnit)    | Runs task repeatedly at a fixed rate.           |
-|  scheduleWithFixedDelay(Runnable, initialDelay, delay, TimeUnit)  | Runs task repeatedly with a                     |
-                                                                      fixed delay between completions.                |
+|  scheduleWithFixedDelay(Runnable, initialDelay, delay, TimeUnit)  | Runs task repeatedly with a --                  |
+|                                                                   | -- fixed delay between completions.             |
 
 Example: Using scheduleAtFixedRate();
 
@@ -133,11 +129,11 @@ Running at: 1700000003000
 Running at: 1700000006000
 Running at: 1700000009000
 
-✅ Explanation:
+Explanation:
 
 The task starts after 1 second and then runs every 3 seconds.
 
-Comparing Executors, ExecutorService, and ScheduledExecutorService**
+Comparing Executors, ExecutorService, and ScheduledExecutorService:
 
 | Feature                 | Executors            | ExecutorService        | ScheduledExecutorService |
 |-------------------------|----------------------|------------------------|--------------------------|
@@ -148,8 +144,7 @@ Comparing Executors, ExecutorService, and ScheduledExecutorService**
 | Handles Futures?        | ❌ No                | ✅ Yes                 | ✅ Yes                   |
 
 
-🔥 When to Use What?
-
+When to Use What?
 ✔ Use  Executors when you need a simple way to create a thread pool.
 ✔ Use  ExecutorService when you need advanced task management (like Future).
 ✔ Use  ScheduledExecutorService when you need periodic task execution.

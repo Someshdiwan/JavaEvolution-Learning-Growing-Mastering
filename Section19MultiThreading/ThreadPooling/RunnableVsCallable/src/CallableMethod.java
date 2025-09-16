@@ -1,5 +1,3 @@
-package ExecutorsFramework;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
@@ -31,9 +29,7 @@ public class CallableMethod {
         for (Future<Integer> f : futures) {
             System.out.println(f.get());
         }
-
         executorService.shutdown();
         System.out.println("Hello World");
     }
 }
-//InvokeALL() method done.

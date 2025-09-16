@@ -12,13 +12,14 @@ public class FixProblemInExecuterServices {
         executorService.submit(new DependentService(latch));
         executorService.submit(new DependentService(latch));
         executorService.submit(new DependentService(latch));
+
         latch.await();
 
         System.out.println("Main");
         executorService.shutdown();
 
-
-/*        //Creating 3 Threads. Alternate Method written above check it out.
+        /*
+        //Creating 3 Threads. Alternate Method written above check it out.
         Future<String> future1 = executorService.submit(new DependentService());
         Future<String> future2 = executorService.submit(new DependentService());
         Future<String> future3 = executorService.submit(new DependentService());
@@ -29,10 +30,9 @@ public class FixProblemInExecuterServices {
 
 
         System.out.println("All Dependent services finished. Starting main service...");
-        executorService.shutdown();*/
+        executorService.shutdown();
+        */
     }
-
-
     static class DependentService implements Callable<String> {
         private CountDownLatch latch;
 

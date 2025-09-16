@@ -1,11 +1,11 @@
-enum Status
-{
+enum Status {
     Running, failed, Pending, Success;
 }
 
 public class Enum2 {
     public static void main(String[] args) {
         int i =5;
+
         Status s = Status.Running;
         System.out.println(s);
         System.out.println(s.ordinal());
@@ -26,8 +26,7 @@ public class Enum2 {
             System.out.println("Done");
 
         Status s3=Status.Success;
-        switch(s)
-        {
+        switch(s) {
             case Running:
                 System.out.println("All Good");
                 break;
@@ -46,3 +45,21 @@ public class Enum2 {
         }
     }
 }
+
+/*
+1. ordinal():
+   - Enum constant ki position (0-based index) return karta hai.
+   - Example: Running -> 0, failed -> 1, Pending -> 2, Success -> 3.
+
+2. Comparison:
+   - Enums ko == se compare karte hain (safe hai, equals() ki zaroorat nahi).
+   - if(s2 == Status.Pending) ✅
+
+3. switch-case:
+   - Enums directly switch-case me use hote hain.
+   - Cleaner aur faster than multiple if-else.
+
+4. Enum constants:
+   - Always UPPERCASE likhne ka convention hota hai (Running → RUNNING).
+   - Aapke enum me "failed" lowercase hai, technically valid hai but not standard convention.
+*/

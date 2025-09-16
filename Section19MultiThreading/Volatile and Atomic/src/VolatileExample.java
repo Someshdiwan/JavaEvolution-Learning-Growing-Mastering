@@ -52,7 +52,7 @@ public class VolatileExample {
 
 /*
 Detailed Explanation:
-------------------------
+
 1. Har thread ke paas apna ek CPU cache hota hai.
    By default, variables main memory se copy hoke thread ke cache me stored hote hain.
 

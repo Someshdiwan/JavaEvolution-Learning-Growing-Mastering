@@ -1,1 +1,1 @@
-Living the Dreams
+converting string into byte array

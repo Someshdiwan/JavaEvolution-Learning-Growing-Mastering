@@ -11,13 +11,14 @@ The method canRead() of the File class is used to check if a file is readable.
 This method returns a boolean value indicating whether the application can read the file denoted by the File object.
 
 Key points about file permissions in Java:
+
 1. canRead(): Checks if the file is readable.
 2. canWrite(): Checks if the file is writable.
 3. canExecute(): Checks if the file is executable.
 4. setReadable(), setWritable(), setExecutable(): Methods to change file permissions.
 
 Example usage:
-```java
+
 File file = new File("example.txt");
 
 if (file.canRead()) {
@@ -35,7 +36,6 @@ if (file.canWrite()) {
 // Change permissions
 file.setWritable(true);
 file.setReadable(true, false); // true for all users, false for owner only
-```
 
 It's important to note that these methods work within the constraints of the underlying operating system
 and the Java Security Manager.

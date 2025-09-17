@@ -3,10 +3,11 @@ import java.io.FileReader;
 
 public class BufferReaderExample {
     public static void main(String[] args)throws Exception {
-        // Creating a FileReader to read the file character by character
-        FileReader fis = new FileReader("C://Users//somes//Downloads//JAVA SE//Section23JavaIOStreams//src//MyJAVA//BufferTest.txt");
+        // Creating a FileReader to read the file character by character.
+        FileReader fis = new FileReader("/Users/somesh/Java SE/JavaEvolution-Learning-Growing-Mastering/Section23JavaIOStreams/src/MyJAVA/BufferTest.txt");
+
         BufferedReader bis = new BufferedReader(fis);
-        // BufferedReader is used to read text efficiently from a character-based input stream
+        // BufferedReader is used to read text efficiently from a character-based input stream.
 
         System.out.print(( char ) bis.read());
         System.out.print(( char ) bis.read());
@@ -20,7 +21,7 @@ public class BufferReaderExample {
         System.out.print(( char ) bis.read());
         System.out.print(( char ) bis.read());
 
-        // Reading and printing the remaining line from the file
+        // Reading and printing the remaining line from the file.
         System.out.println("String "+bis.readLine());
 
         bis.close();

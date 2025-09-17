@@ -5,9 +5,10 @@ public class ByteStreamExample {
         byte b[]={'a', 'b','c','d','e','f','g','h','i','j'};
         ByteArrayInputStream bis = new ByteArrayInputStream(b);
 
-        int x; //Reading byte bye byte. one at a time
-        while((x=bis.read())!=-1)
-        {
+        int x;
+
+        //Reading byte bye byte. one at a time.
+        while((x = bis.read())!=-1) {
             System.out.print((char)x);
         }
         bis.close();

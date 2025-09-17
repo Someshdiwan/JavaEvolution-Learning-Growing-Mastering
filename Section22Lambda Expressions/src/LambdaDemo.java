@@ -1,5 +1,5 @@
 @FunctionalInterface
-interface MyLambda{
+interface MyLambda {
     public void display();
 }
 
@@ -27,12 +27,8 @@ public class LambdaDemo {
         };
         */
 
-        //MyLambda Mehtod.Method it self is an object in lambda class.
-        MyLambda m=
-                () ->
-                {
-                    System.out.println("Hello world");
-                };
-                m.display();
+        //MyLambda Method. Method itself is an object in lambda class.
+        MyLambda m= () -> {System.out.println("Hello world");};
+        m.display();
     }
 }

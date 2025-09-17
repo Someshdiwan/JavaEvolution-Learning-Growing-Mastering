@@ -1,1 +1,1 @@
-//This Java program reads a text file character by character using FileInputStream and prints its content to the console.
+This Java program reads a text file character by character using FileInputStream and prints its content to the console.

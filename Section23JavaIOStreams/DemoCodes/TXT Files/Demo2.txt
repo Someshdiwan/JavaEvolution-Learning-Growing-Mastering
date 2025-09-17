@@ -1,4 +1,3 @@
-This Java program reads data from a file named myFile.txt,
-character by character, and prints each character on a new line.
+This Java program reads data from a file named myFile.txt, character by character, and prints each character on a new line.
 
 It uses FileInputStream and handles I/O exceptions if the file doesn't exist or can't be read.

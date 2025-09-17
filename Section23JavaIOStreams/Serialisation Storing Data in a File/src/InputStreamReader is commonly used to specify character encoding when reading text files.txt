@@ -10,7 +10,7 @@ Key points about character encoding in Java I/O:
 4. Common encodings include UTF-8, UTF-16, ISO-8859-1, etc.
 
 Example usage:
-```java
+
 try (FileInputStream fis = new FileInputStream("file.txt");
      InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_8);
      BufferedReader br = new BufferedReader(isr)) {
@@ -22,7 +22,6 @@ try (FileInputStream fis = new FileInputStream("file.txt");
 } catch (IOException e) {
     e.printStackTrace();
 }
-```
 
 In this example, InputStreamReader is used to read the file with UTF-8 encoding.
 This approach is more flexible than using FileReader, as it allows you to specify the encoding explicitly,

@@ -1,19 +1,15 @@
-interface MyLambda1
-{
+interface MyLambda1 {
     public void display();
 }
 
-class UseLambda
-{
-    public void callLambda(MyLambda1 ml)
-    {
+class UseLambda {
+    public void callLambda(MyLambda1 ml) {
         ml.display();
     }
 }
 
-class Demo
-{
-    public void method1(){
+class Demo {
+    public void method1() {
         UseLambda ul=new UseLambda();
         ul.callLambda(()->{System.err.println("Hello");});
 
@@ -35,10 +31,9 @@ class Demo
         ml.display();*/
     }
 }
-public class LambdaDemo2
-{
-    public static void main(String[] args)
-    {
+
+public class LambdaDemo2 {
+    public static void main(String[] args) {
         Demo d=new Demo();
         d.method1();
     }

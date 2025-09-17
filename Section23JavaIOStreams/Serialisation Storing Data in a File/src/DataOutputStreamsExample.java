@@ -2,8 +2,7 @@
 import java.io.*;
 import java.io.FileOutputStream;
 
-class Student1
-{
+class Student11 {
     int rollno;
     String name;
     float avg;
@@ -12,7 +11,7 @@ class Student1
 
 public class DataOutputStreamsExample {
     public static void main(String[] args)throws Exception {
-        FileOutputStream fos=new FileOutputStream("C:\\Users\\somes\\Downloads\\JAVA SE\\Section23JavaIOStreams\\Serialisation Storing Data in a File\\MyJAVA\\Student2.txt");
+        FileOutputStream fos=new FileOutputStream("/Users/somesh/Java SE/JavaEvolution-Learning-Growing-Mastering/Section23JavaIOStreams/src/MyJAVA/Student1.txt");
         DataOutputStream dos=new DataOutputStream(fos);
 
         Student1 s1=new Student1();

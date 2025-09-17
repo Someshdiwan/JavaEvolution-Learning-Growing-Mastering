@@ -10,8 +10,7 @@
  * Class for Library Book
  */
 
-public class JAVADocumentaion
-{
+public class JAVADoc {
 
     /**
      * @value 10 default value
@@ -24,7 +23,7 @@ public class JAVADocumentaion
      * @param s Book Name
      */
 
-    public JAVADocumentaion(String s){
+    public JAVADoc(String s){
     }
 
     /**

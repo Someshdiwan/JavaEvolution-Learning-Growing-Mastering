@@ -34,7 +34,7 @@ class StudentFinal implements Serializable {
 
 public class SerilalizationOutputStreamFinal {
     public static void main(String[] args) throws Exception {
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\somes\\Downloads\\JAVA SE\\Section23JavaIOStreams\\Serialisation Storing Data in a File\\MyJAVA\\Student3.txt");
+        FileOutputStream fos = new FileOutputStream("/Users/somesh/Java SE/JavaEvolution-Learning-Growing-Mastering/Section23JavaIOStreams/src/MyJAVA/Student3.txt");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         StudentFinal s = new StudentFinal(10, "John", 89.9f, "CSE");

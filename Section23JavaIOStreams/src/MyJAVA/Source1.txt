@@ -1,1 +1,1 @@
-COPYING THIS FILE INTO ANOTHER FILE.
+COPYING THIS FILE INTO ANOTHER FILE. and converting the lower case to an upper case letter.

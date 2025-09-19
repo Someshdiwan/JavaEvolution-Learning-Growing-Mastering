@@ -1,50 +1,43 @@
-Piped Stream in Java:
+Piped Stream in Java.
 
 1. What is a Piped Stream?
-
 A Piped Stream is a communication mechanism in Java used for inter-thread communication.
 It allows data to be transferred between a producer thread (which writes data) and a consumer thread
 (which reads data) through an internal buffer.
 
 2. Components of Piped Stream
-
 PipedOutputStream: This is used by the producer thread to write data.
 PipedInputStream: This is used by the consumer thread to read data.
-
 These two streams must be connected before data transfer can occur.
 
 3. How it Works?
-
 The producer writes data into PipedOutputStream.
 The consumer reads data from PipedInputStream.
 The two streams work together like a pipe, transferring data from one thread to another.
 
-4. Key Concepts
-
+4. Key Concepts:
 Inter-Thread Communication:
 The producer writes data continuously.
 The consumer reads the data when available.
 
 Blocking Behavior:
-
 If the buffer is empty, the consumer waits for data.
 If the buffer is full, the producer waits before writing more data.
 
 Connecting Streams:
-
 PipedInputStream and PipedOutputStream must be connected using .connect() before data transfer.
+
 Thread Synchronization:
 Since multiple threads operate on the same data stream, synchronization is crucial.
 
 5. Advantages
-
 Efficient Data Transfer: Used for fast communication between threads.
 No Need for Shared Memory: Unlike shared variables, it allows direct data flow.
 Good for Producer-Consumer Problems: Ensures sequential data handling.
 
 6. Disadvantages
-
 Blocking Issues: If the consumer does not read fast enough, the producer might be blocked.
 Exception Handling Required: If not properly handled, threads may crash.
 Limited Buffer Size: If buffer overflows, performance issues may arise.
+
 This concept is widely used in multithreading scenarios where threads need to exchange data efficiently.

@@ -1,0 +1,12 @@
+Covariance allows a generic type to be assigned to another generic type with a broader bound.
+For example, a List<Integer> can be assigned to a List<? extends Number> but not the other way around.
+
+List<? extends Number> numbers;
+numbers = List.of(1, 2, 3); // List of Integer is valid
+numbers = List.of(1.1, 2.2, 3.3); // List of Double is valid
+You can use the wildcard type <? extends Number> to access elements from the list but cannot add elements to
+the list, except null:
+
+List<? extends Number> numbers = List.of(1, 2, 3);
+// numbers.add(4); // Error: You can't add elements, because it doesn't know the exact type
+numbers.add(null); // Valid: You can add null

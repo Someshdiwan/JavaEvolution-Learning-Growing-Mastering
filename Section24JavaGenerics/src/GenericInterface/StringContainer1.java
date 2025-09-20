@@ -11,8 +11,8 @@ class StringContainer1 implements Container<String> {
         return item;
     }
 }
-//In this example, StringContainer implements the Container interface with String as the specified type parameter.
 
+//In this example, StringContainer implements the Container interface with String as the specified type parameter.
 
 /*
 class GenericContainer<T> implements Container<T> {

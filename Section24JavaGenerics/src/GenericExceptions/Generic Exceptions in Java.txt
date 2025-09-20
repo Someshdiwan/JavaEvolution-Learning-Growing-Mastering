@@ -1,0 +1,78 @@
+In Java, exceptions are objects that represent an error or unexpected condition during the execution of a program.
+
+All exceptions in Java are descendants of Throwable, which has two main subclasses:
+
+Exception: Represents checked exceptions (those that need to be declared or handled).
+RuntimeException: Represents unchecked exceptions (those that don’t need to be declared or handled).
+Here’s an example of a basic custom exception:
+
+class MyException extends Exception {
+    public MyException(String message) {
+        super(message);
+    }
+}
+Understanding Generic Exceptions
+
+Generics allow us to parameterize types (as discussed in earlier points).
+
+The concept of generics can be applied to exceptions as well. However, generic exceptions have certain restrictions
+due to how Java handles exceptions.
+
+Key Restriction:
+You cannot create instances of generic types as exceptions: The Java runtime needs to be able to construct exceptions
+based on the exact type. But due to type erasure (discussed later), the JVM loses the specific type information at runtime.
+
+Thus, the direct usage of generic types in exceptions is limited.
+
+For example, the following is not allowed:
+
+class MyGenericException<T> extends Exception {  // Compilation error
+    private T data;
+
+    public MyGenericException(T data) {
+        this.data = data;
+    }
+}
+
+This will cause a compilation error because the type T is erased at runtime, and Java can't determine what specific
+exception to instantiate.
+
+Advanced Generic Exception Patterns:
+
+Even though you can’t directly instantiate generic exceptions, there are still advanced patterns and techniques to
+incorporate generic behaviour in exceptions. Here’s how:
+
+Using Generics with Exception Messages or Fields:
+
+You can include generic types in the fields or messages of exceptions instead of trying to make the exception class
+itself generic.
+
+Example:
+class DetailedException<T> extends Exception {
+    private T details;
+
+    public DetailedException(String message, T details) {
+        super(message);
+        this.details = details;
+    }
+
+    public T getDetails() {
+        return details;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            throw new DetailedException<Integer>("An error occurred", 404);
+        } catch (DetailedException<Integer> e) {
+            System.out.println(e.getMessage());  // Output: An error occurred
+            System.out.println(e.getDetails());  // Output: 404
+        }
+    }
+}
+
+In this case, the DetailedException class contains a generic field details that can hold extra information about the
+exception.
+
+This information could be anything, such as the problematic value or other diagnostic data.

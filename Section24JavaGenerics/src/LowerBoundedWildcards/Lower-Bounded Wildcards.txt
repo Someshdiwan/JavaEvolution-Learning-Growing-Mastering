@@ -1,0 +1,75 @@
+Lower-bounded wildcards are a feature of Java generics that allow us to specify that a type must be a supertype of a
+given class.
+
+They are written using the ? super syntax.
+
+This helps when you want to define a method or collection that can operate on objects of a given type or any of its
+supertypes.
+
+Let’s break down lower-bounded wildcards, starting from the basics and moving towards more advanced topics.
+
+Basics of Lower-Bounded Wildcards:
+Lower-bounded wildcards restrict the type of the argument to a class and its supertypes (ancestors).
+
+The syntax ? super T means "some unknown type that is a superclass of T."
+
+For example, List<? super Integer> can accept Integer, Number, or Object (since Integer is a subclass of Number,
+which is a subclass of Object).
+
+public static void addNumbers(List<? super Integer> list) {
+    list.add(10);
+    list.add(20);
+}
+
+In the code above, addNumbers() accepts a List that can hold any type which is a supertype of Integer.
+This means you can pass a List<Integer>, List<Number>, or List<Object> to this method.
+
+Use Cases of Lower-Bounded Wildcards:
+
+Adding to a Collection: Lower-bounded wildcards are useful when you want to add objects to a collection.
+You can add objects of the specified type or any of its subclasses.
+Consumer-Producer Pattern: Lower-bounded wildcards are also used in the consumer-producer pattern,
+where a method consumes values but does not produce them.
+
+The method can accept objects that are supertypes of a certain type, so that it can safely add elements to the collection.
+
+public static void addToCollection(List<? super Number> list) {
+    list.add(1);        // Integer (subclass of Number)
+    list.add(1.5);      // Double (subclass of Number)
+}
+
+In this case, list can be a List<Number> or a List<Object>.
+
+You can add both Integer and Double because both are subclasses of Number.
+
+public static void printNumbers(List<? super Integer> list) {
+    for (Object obj : list) {
+        System.out.println(obj);
+    }
+}
+
+Here, you can pass a List<Integer>, List<Number>, or List<Object>, and it will print all the elements in the list,
+regardless of the specific type.
+
+Restrictions with Lower-Bounded Wildcards:
+
+Lower-bounded wildcards have some limitations that you need to be aware of:
+
+Cannot Retrieve Specific Elements: When using lower-bounded wildcards, you lose the ability to retrieve elements of a
+specific type because you don’t know the exact type at runtime.
+
+Cannot Add Subtypes Outside of Bounds: You cannot add elements to the list if they are not compatible with the lower bound.
+
+public static void processList(List<? super Number> list) {
+    // We cannot retrieve a specific type from the list.
+    Object obj = list.get(0);  // This is the only safe type to retrieve.
+}
+
+Since you only know that the list can hold objects of type Number or its supertypes,
+retrieving an element from the list will return an Object.
+
+public static void invalidAddition(List<? super Number> list) {
+    // list.add("String");  // Compilation error
+}
+
+In the code above, trying to add a String will result in a compilation error because String is not a subtype of Number.

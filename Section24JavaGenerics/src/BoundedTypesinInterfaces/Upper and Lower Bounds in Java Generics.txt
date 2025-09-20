@@ -1,24 +1,22 @@
 Upper and Lower Bounds in Java Generics:
 
-In Java Generics, bounded type parameters allow us to restrict the types that can be used as arguments for type parameters (T). 
+In Java Generics, bounded type parameters allow us to restrict the types that can be used as arguments for
+type parameters (T).
 
 Java provides two main types of bounds:
-
 1. Upper Bounded (? extends T) – Restricts the type to be a subclass of T.
 2. Lower Bounded (? super T) – Restricts the type to be a superclass of T.
 
 
-1️⃣ Upper Bounded Wildcards (? extends T)
-
-The ? extends T wildcard ensures that the type argument is either T or a subclass of T. This is useful when reading data but not modifying it.
+1️⃣ Upper Bounded Wildcards (? extends T):
+The ? extends T wildcard ensures that the type argument is either T or a subclass of T.
+This is useful when reading data but not modifying it.
 
 🔹 Use Case: When you want to read data but not modify it.
-
 
 Example: Sum of Numbers
 
 import java.util.List;
-
 class UpperBoundExample {
     static double sumOfNumbers(List<? extends Number> list) {
         double sum = 0.0;
@@ -27,7 +25,6 @@ class UpperBoundExample {
         }
         return sum;
     }
-
     public static void main(String[] args) {
         List<Integer> intList = List.of(1, 2, 3);
         List<Double> doubleList = List.of(1.1, 2.2, 3.3);
@@ -38,23 +35,20 @@ class UpperBoundExample {
 }
 
 Output:
-
 Sum of Integers: 6.0
 Sum of Doubles: 6.6
 
-✅ Key Points:
-
+Key Points:
 - The method sumOfNumbers() works with any subtype of Number (e.g., Integer, Double, Float).
 - We can read elements (num.doubleValue()) but cannot add new elements (except null).
 
-
 2️⃣ Lower Bounded Wildcards (? super T)
-
-The ? super T wildcard ensures that the type argument is either T or a superclass of T.  This is useful when adding data but not reading it in a specific type.
+The ? super T wildcard ensures that the type argument is either T or a superclass of T.
+This is useful when adding data but not reading it in a specific type.
 
 🔹 Use Case: When you want to write data, ensuring elements are of a certain type or its superclass.
 
-Example: Adding Integers to a List
+Example: Adding Integers to a List:
 
 import java.util.List;
 import java.util.ArrayList;
@@ -66,7 +60,6 @@ class LowerBoundExample {
         list.add(30);
         // list.add(3.5);  // ❌ Compilation Error! Only Integer or its superclasses allowed
     }
-
     public static void main(String[] args) {
         List<Number> numList = new ArrayList<>();
         addNumbers(numList);  // Works with Number (superclass of Integer)
@@ -75,24 +68,22 @@ class LowerBoundExample {
 }
 
 Output:
-
 [10, 20, 30]
 
-✅ Key Points:
-
+Key Points:
 - The method addNumbers() ensures that only Integer or its superclasses (Number, Object) can be used.
 - We can add elements of type Integer, but reading requires explicit casting.
 - This prevents accidental modifications with incompatible types.
 
-3️⃣ Difference Between Upper and Lower Bounded Wildcards:
+Difference Between Upper and Lower Bounded Wildcards:
 
-| Feature                |  ? extends T (Upper Bound)                    | ? super T(Lower Bound)                             |
-|------------------------|--------------------------------------------------|-------------------------------------------------------|
-|  Restriction            |   T or its subtypes                            |  T or its supertypes                                |
-|  Use Case             |   Reading elements (covariance)                 |  Writing elements (contravariance)                   |
-| Example              |   List<? extends Number> (allows Integer, Double)  |  List<? super Integer> (allows Number, Object)          |
-| Can Add Elements?     |   ❌ No (except null)                     | ✅ Yes (but only of type T)                 |
-| Can Read Elements? |  ✅ Yes (but as T)                       | ❌ No (requires casting)                       |
+| Feature           | ? extends T (Upper Bound)                  | ? super T (Lower Bound)            |
+|-------------------|--------------------------------------------|------------------------------------|
+| Restriction       | T or any subclass (downward view)          | T or any superclass (upward view)  |
+| Use Case          | Safe for reading (covariant)               | Safe for writing (contravariant)   |
+| Example           | List<? extends Number> → Integer, Double   | List<? super Integer> → Number, Object |
+| Can Add Elements? | ❌ No (except null)                        | ✅ Yes (T or its subclasses)       |
+| Can Read Elements?| ✅ Yes (as T)                              | ❌ No (only as Object)             |
 
 4️⃣ Example Using Both Upper and Lower Bounds
 
@@ -117,25 +108,19 @@ class BoundedExample {
 }
 
 Output:
-
 Processing: 1.1
 Processing: 2.2
 Processing: 3.3
 Numbers List: [1, 2, 3]
 
-
 5️⃣ When to Use Upper and Lower Bounds?
+- Use ? extends T (Upper Bound) when you need to read elements but not modify them.
+- Use ? super T (Lower Bound) when you need to write elements but don’t care about reading.
 
--  ✅ Use ? extends T (Upper Bound) when you need to read elements but not modify them.
-- ✅ Use ? super T (Lower Bound) when you need to write elements but don’t care about reading.
-
-
-Conclusion
+Conclusion:
 - Upper Bounded Wildcards (? extends T) – Use when you need to read data.
 - Lower Bounded Wildcards (? super T) – Use when you need to write data.
 - Avoid using both in the same method unless necessary, as it may lead to ambiguity.
 
-
-bounded type parameters 
-
+bounded type parameters:
 <T extends Number> in classes and methods

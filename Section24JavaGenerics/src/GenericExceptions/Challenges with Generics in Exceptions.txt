@@ -1,0 +1,30 @@
+Type Erasure: As mentioned earlier, Java’s type erasure makes it difficult to retain generic type information at runtime,
+limiting the usefulness of generics in exception handling.
+
+Checked vs. Unchecked Exceptions: Java has strict rules around checked exceptions.
+
+You can’t make a generic method throw arbitrary checked exceptions unless you declare those exceptions explicitly.
+
+Runtime Type Information: Since exceptions are usually thrown and caught at runtime, the type of the generic parameter
+will be lost, which might make generic exceptions less practical in certain scenarios.
+
+Best Practices with Generic Exceptions:
+Use generics in exception fields: Instead of making the exception class itself generic, use generic fields to store
+error-related information.
+
+Avoid overly complex exception hierarchies: Keep the use of generics in exceptions simple to maintain readability and
+prevent confusion.
+
+Type-safe exception handling: Always be mindful of how generic exceptions are used and caught to ensure type safety
+and code clarity.
+
+Conclusion:
+Although Java imposes several limitations on using generics with exceptions
+(primarily due to type erasure and runtime constraints),
+you can still leverage generics in a limited capacity to enhance the functionality and flexibility of exceptions.
+
+These include using generic fields, methods that throw generic exceptions, and handling various types of exceptions
+while maintaining type safety.
+
+Understanding these techniques allows you to make better use of Java’s generic features in advanced exception handling
+scenarios.

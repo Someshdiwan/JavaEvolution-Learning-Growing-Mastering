@@ -1,0 +1,8 @@
+In Java Generics, wildcards (?) are a special kind of type argument that can be used in method arguments or class
+definitions to represent an unknown type.
+
+They allow for more flexible and dynamic code by letting the type be specified later or be more loosely
+defined.
+
+Wildcards are useful when you don’t know the exact type at the time of defining a class or method, or when you want to
+allow a range of types rather than a single specific one.

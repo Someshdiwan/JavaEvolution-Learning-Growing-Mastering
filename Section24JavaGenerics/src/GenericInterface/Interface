@@ -1,4 +1,5 @@
 A generic interface in Java allows you to define an interface with type parameters.
+
 This means that the interface can work with any type specified at the time of implementation.
 Generic interfaces are commonly used when the type of the objects that the interface deals with is not known until runtime.
 
@@ -11,8 +12,8 @@ interface Container<T> {
 }
 
 In this example, T is the generic type parameter for the Container interface.
+
 The add method accepts an argument of type T, and the get method returns a value of type T.
 
-
-When you implement a generic interface, you need to specify the type for the generic parameter, or
-you can continue to make the implementation generic by using type parameters.
+When you implement a generic interface, you need to specify the type for the generic parameter,
+or you can continue to make the implementation generic by using type parameters.

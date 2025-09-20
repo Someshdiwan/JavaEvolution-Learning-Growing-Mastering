@@ -19,6 +19,7 @@ public class DateTimeFormatDemo {
         //S = milliseconds
         //z = time zone
         //Z = offset
+
         LocalDateTime dt = LocalDateTime.now();
         DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         System.out.println(df.format(dt));

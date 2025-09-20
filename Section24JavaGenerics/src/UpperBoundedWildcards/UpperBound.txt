@@ -1,0 +1,28 @@
+Upper-bounded wildcards work well with inheritance in Java.
+
+For instance, you may want to create a method that works with a list of a specific subclass and all its subclasses.
+
+In this example:
+
+The makeSound method works with lists of any type that is a subtype of Animal, such as Dog or Cat.
+The upper-bounded wildcard <? extends Animal> ensures that we can pass in lists of Dog, Cat, or any other subclass of
+Animal.
+
+Common Mistakes with Upper-Bounded Wildcards:
+
+Trying to Add Elements: The most common mistake is trying to add elements to a collection with an upper-bounded wildcard.
+
+As mentioned earlier, you can only safely read from such collections but not add to them (except null).
+
+Confusion with Invariance: Many developers assume that List<Dog> can be assigned to List<Animal>,
+but this is not allowed.
+
+Wildcards help to solve this issue, but you have to use them correctly.
+
+Conclusion:
+Upper-bounded wildcards (<? extends T>) in Java are a powerful way to make your generic methods more flexible.
+
+They allow you to handle a variety of types in a single method or class, especially when you are only interested in
+reading from a collection, not modifying it.
+
+Mastering this concept helps you leverage polymorphism and the flexibility of generics while maintaining type safety.

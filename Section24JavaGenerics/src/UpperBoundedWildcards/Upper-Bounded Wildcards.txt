@@ -1,0 +1,20 @@
+In Java Generics, an upper-bounded wildcard restricts the types that can be passed as arguments to a parameterized type.
+
+We use the wildcard ? with an upper bound to indicate that the type can be any class that is a subclass of a specified
+class (including the class itself).
+
+The syntax for upper-bounded wildcards is:
+
+<? extends SomeClass>
+This means that the type parameter can be any type that is SomeClass or a subclass of SomeClass.
+
+Why Use Upper-Bounded Wildcards?
+
+Upper-bounded wildcards are useful when you want to read data from a generic structure but you don’t need to modify it
+(except in certain restricted ways).
+
+This is sometimes referred to as “covariance.”
+
+For example, if you have a method that processes a list of numbers,
+but it doesn’t need to add any new elements to the list, you can use an upper-bounded wildcard to
+allow the method to accept lists of Integer, Double, or any other subtype of Number.

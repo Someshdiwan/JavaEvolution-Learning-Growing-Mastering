@@ -12,9 +12,10 @@ public class Box {
     }
 }
 
-
 /*
-Generic types allow you to define a class, interface, or method with placeholders (type parameters) for the data types they will work with.
+Generic types allow you to define a class, interface, or method with placeholders (type parameters) for the data
+types they will work with.
+
 This enables code reusability and type safety, as it allows you to create classes, interfaces, or
 methods that can operate on various types without needing to rewrite the code for each type.
 

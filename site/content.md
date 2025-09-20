@@ -784,7 +784,7 @@ Real-world analogies and structured Java files make understanding core OOP princ
   - **Encapsulation & Data Hiding**: `Encapsulation.java`, `DataHidding.java`, `DataHidding1.java`, `GetAndSetMethod.java`, and `GetAndSetMethodSolve.java` explain how access modifiers and getter/setter methods enforce encapsulation.
   - **Classes and Objects**: `ClassBluePrint.java`, `OOPsIMP.java`, `Student.java`, and `TypesOfProperties.java` demonstrate how real-world entities are modeled using Java classes.
   - **Constructor Overloading**: `constructoroverloading.java`, `Constructor.java` explain how multiple constructors can provide flexible object initialization.
-  - **Inheritance & Polymorphism**: The `Test` subfolder (with `Animal.java`, `Cat.java`, `Dog.java`, `TestClass.java`) provides examples of class inheritance and method overriding. `Polymorphism.txt` supports theoretical understanding.
+  - **Inheritance & Polymorphism**: The `GenericClass2.Test` subfolder (with `Animal.java`, `Cat.java`, `Dog.java`, `TestClass.java`) provides examples of class inheritance and method overriding. `Polymorphism.txt` supports theoretical understanding.
   - **Object Arrays & Use Cases**: `ArrayOfObject.java`, `ProductAndCostomer.java`, and `Section11ProductAndCostomer.txt` focus on object manipulation in arrays and real-world modeling.
   - **Practical Implementations**: Classes like `AreaandPerimeter.java`, `Cylinder.java`, `CylinderTest.java`, and `Rectangle.java` apply OOP concepts to geometric computations.
 
@@ -877,7 +877,7 @@ It demonstrates how interfaces promote abstraction, contract-based design, and f
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
   - **Interface Fundamentals**: Interfaces.java, InterfacesIMP.java, and InterfaceDoDont.java cover syntax, rules, and best practices of interface usage in Java.
-  - **Real-world Modeling**: The Devices folder (Camera.java, Phone.java, MusicPlayer.java, SmartPhone.java, and Test.java) models multiple devices and how they implement behavior through interfaces.
+  - **Real-world Modeling**: The Devices folder (Camera.java, Phone.java, MusicPlayer.java, SmartPhone.java, and GenericClass2.Test.java) models multiple devices and how they implement behavior through interfaces.
   - **Multiple Inheritance**: MultipleinheritanceUsingInterfaces.java shows how interfaces overcome the diamond problem in Java.
   - **Callback Pattern**: CallBackJAVA.java, CallBackMethodIMP.java, and Callback Method in Java.txt demonstrate how interfaces enable decoupled communication between objects.
   - **Advanced Interface Usage**: NestedInterface.java introduces nesting interfaces within classes or other interfaces to group logic more meaningfully.
@@ -939,7 +939,7 @@ It also illustrates the concept of singleton classes and demonstrates how this a
   - BankAccountAutomaticStatic.java, BankAccountIMP.java`: Demonstrate shared/static counters and behaviors across instances.
   - SingletoneClass.java: Implements a Singleton pattern using a static instance for controlled object creation.
   - This.java, ThisKeyword.java, ThisVsSuper, SuperKeywrd.java: Explore how this and super help reference instance vs. parent class elements.
-  - vehicles/Vehicle.java, EVCar.java, car.java, Test.java: Realistic object-oriented examples showing static/final usage in inheritance and polymorphism.
+  - vehicles/Vehicle.java, EVCar.java, car.java, GenericClass2.Test.java: Realistic object-oriented examples showing static/final usage in inheritance and polymorphism.
 
 - **Related Concepts:**
   - **static**: Class-level keyword for shared state/methods. Great for counters, utility methods, and factory patterns.
@@ -962,7 +962,7 @@ It features examples of creating custom packages, importing them, and maintainin
 
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
-  - ZOO/Animal.java, Dog.java, Test.java: Demonstrates defining and using a custom package (ZOO) with animal-related classes and a main test driver.
+  - ZOO/Animal.java, Dog.java, GenericClass2.Test.java: Demonstrates defining and using a custom package (ZOO) with animal-related classes and a main test driver.
   - Screenshots (Screenshot 2025-02-07.png): include setup or execution steps, package structure, or configuration from an IDE like IntelliJ.
 
 - **Related Concepts:**
@@ -1183,8 +1183,8 @@ It walks through thread creation, daemon threads, and thread lifecycle managemen
 
 #### 🧠 Combined Summary:
 - **Thread Creation**:
-  - `Thread/Test.java` & `Thread/Test2.java`: Likely demonstrate thread instantiation by extending the Thread class, covering basics like `start()`, `run()`, and naming threads.
-  - `UsingRunable/Test.java` & `Test2.java`: Implement thread creation using Runnable, promoting **better object-oriented design and separation of concerns**.
+  - `Thread/GenericClass2.Test.java` & `Thread/GenericClass2.Test2.java`: Likely demonstrate thread instantiation by extending the Thread class, covering basics like `start()`, `run()`, and naming threads.
+  - `UsingRunable/GenericClass2.Test.java` & `GenericClass2.Test2.java`: Implement thread creation using Runnable, promoting **better object-oriented design and separation of concerns**.
 
 - **Core Utilities**:
   - `MyThread.java`: Possibly a custom implementation or extension showcasing override behavior or additional features.
@@ -1528,7 +1528,7 @@ You’ll learn how to read/write data efficiently using both low-level and high-
 
 - **Character Streams (Text File I/O)**:
   - `BufferReaderExample.java`, `CharArrayReaderExample.java`: Handle **character-by-character** and **line-by-line** reading using BufferedReader and CharArrayReader.
-  - `WithResources.txt` and `Test.txt` show how to read/write with try-with-resources.
+  - `WithResources.txt` and `GenericClass2.Test.txt` show how to read/write with try-with-resources.
 
 - **Buffered Streams (Performance Boost)**:
   - `BufferedInputStreamsExample.java`: Improve I/O performance by minimizing disk access using **buffered wrappers** over streams.
@@ -1623,11 +1623,11 @@ You dive into **generic classes, interfaces, and wildcards** — foundational fo
 | Topic                      | Key Files                                              | Concepts Learned                                                |
 |--------------------------- |--------------------------------------------------------|-----------------------------------------------------------------|
 | Generic Classes            | Box.java, Pair.java, BoxType.java                      | Custom containers with parameterized types                      |
-| Generic Methods            | GenericFunctionsExample.java, GenericDemo.java         | Type-safe utility methods for operations like swap/filter       |
+| Generic Methods            | GenericFunctionsExample.java, Generics.GenericDemo.java         | Type-safe utility methods for operations like swap/filter       |
 | Generic Interfaces         | GenericInterfaces.java, StringContainer1.java          | Reusable service/container interfaces with flexible types       |
-| Bounded Type Parameters    | Upper and Lower Bounds...txt, GenericClassDemo2.java   | Constraining generic types using extends and super              |
+| Bounded Type Parameters    | Upper and Lower Bounds...txt, GenericClass2.GenericClassDemo2.java   | Constraining generic types using extends and super              |
 | Wildcards and Super Bounds | Java Generics Wildcards...txt, Wild Cards file         | Handle flexible method arguments with <?> and bounds            |
-| Why Use Generics?          | WhyGenerics.java, Generics in Java.txt                 | Type safety, code reuse, abstraction, no casting                |
+| Why Use Generics?          | Generics.WhyGenerics.java, Generics in Java.txt                 | Type safety, code reuse, abstraction, no casting                |
 
 ````
 
@@ -1644,7 +1644,7 @@ You dive into **generic classes, interfaces, and wildcards** — foundational fo
     - Useful for APIs that handle collections, services, or containers.
 
 - **Generic Methods & Utilities**:
-    - `GenericFunctionsExample.java`, `GenericDemo.java`, `GenericClassDemo.java`: Use generics in methods for flexible and reusable logic.
+    - `GenericFunctionsExample.java`, `Generics.GenericDemo.java`, `GenericClass2.GenericClassDemo.java`: Use generics in methods for flexible and reusable logic.
     - Great for sorting, swapping, or processing elements in collections.
 
 - **Bounded Types (Upper & Lower Bounds)**:
@@ -1655,7 +1655,7 @@ You dive into **generic classes, interfaces, and wildcards** — foundational fo
     - `Java Generics Wildcards, Generic Methods, and Super Bounds.txt`: Deep dive into when and why to use wildcards, especially for reading/writing from lists.
 
 - **Foundational Notes**:
-    - `WhyGenerics.java`, `Generics in Java.txt`: Explain the motivation behind generics—type safety, DRY code, compile-time checks, and avoiding casting.
+    - `Generics.WhyGenerics.java`, `Generics in Java.txt`: Explain the motivation behind generics—type safety, DRY code, compile-time checks, and avoiding casting.
 
 ---
 
@@ -2843,7 +2843,7 @@ Each subfolder gives practical insights through .java files and supporting notes
   - **Java 11**: `JAVA11.java` – Shows features like var for local variables, new string methods, and file enhancements.
   - **Java 12**: `JAVA12.java` – Demos switch expression previews and performance improvements.
   - **Java 14**: `JAVA14.java`, `Java 14.txt` – Covers records, pattern matching (preview), and the instanceof enhancements.
-  - **Java 24**: `Test.java`, `Test1.java`, `Test2.java` – Custom demos of potential or experimental Java 24 features.
+  - **Java 24**: `GenericClass2.Test.java`, `Test1.java`, `GenericClass2.Test2.java` – Custom demos of potential or experimental Java 24 features.
   - **Misc Files**:
     - `Java Versions.txt` – Summary of features introduced per version.
     - `Links.cmd`, `bat file.txt` – Likely utility scripts or resources to compile/run/test examples.

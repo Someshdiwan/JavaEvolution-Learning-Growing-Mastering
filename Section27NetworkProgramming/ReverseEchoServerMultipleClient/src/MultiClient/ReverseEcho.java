@@ -20,14 +20,21 @@ public class ReverseEcho extends Thread {
 
             //Waiting to accept the connection.
             //For using Readline(); we are using Buffer reader();
-            //BufferedReader to read input from client
-            BufferedReader br = new BufferedReader(new InputStreamReader(stk.getInputStream()));
-            //Reads text from a character-input stream, buffering characters so as to provide for the efficient reading of characters, arrays, and lines.
-            //The buffer size may be specified, or the default size may be used. The default is large enough for most purposes.
-            //In general, each read request made of a Reader causes a corresponding read request to be made of the underlying character or byte stream.
-            //It is therefore advisable to wrap a BufferedReader around any Reader whose read() operations may be costly, such as FileReaders and InputStreamReaders.
-            PrintStream ps = new PrintStream(stk.getOutputStream());
 
+            //BufferedReader to read input from a client
+            BufferedReader br = new BufferedReader(new InputStreamReader(stk.getInputStream()));
+            /*
+            Reads text from a character-input stream, buffering characters to provide for the efficient reading of
+            characters, arrays, and lines.
+            The buffer size may be specified, or the default size may be used. The default is large enough for most
+            purposes.
+            In general, each read request made of a Reader causes a corresponding read request to be made of the
+            underlying character or byte stream.
+            It is therefore advisable to wrap a BufferedReader around any Reader whose read() operations may be
+            costly, such as FileReaders and InputStreamReaders.
+            */
+
+            PrintStream ps = new PrintStream(stk.getOutputStream());
 
             String msg;
             StringBuilder sb;
@@ -49,18 +56,20 @@ public class ReverseEcho extends Thread {
 
     // Main server method to accept multiple client connections
     public static void main(String[] args) throws Exception {
-        /*Now, we want to allow server multiple client using multi threading.
+        /*
+        Now, we want to allow a server multiple client using multi threading.
         Client ------ Server
         Network --IP Add
         Transport layer ==Establish connection
         Connection-Oriented server.
-        Client software will communicate server soft which are on other machine.
+        Client software will communicate with server software that is on another machine.
         Server -- PORT Number 6000.
-        Client need Server IP and port address. to connect the server*/
-
+        Client needs Server IP and port address. to connect the server
+        */
 
         ServerSocket ss = new ServerSocket(6000);
-        //Accept the connection and it should now gave connection to the thread.
+        //Accept the connection, and it should now give connection to the thread.
+
         Socket stk;
         ReverseEcho re; //references
 
@@ -74,10 +83,11 @@ public class ReverseEcho extends Thread {
             re = new ReverseEcho(stk); //Creating and object here.
             re.start();
         }
-        while (true); //Server is running Infinitely. most of the server running in infinite loop.
+        while (true);
+        //Server is running Infinitely. most of the servers running in infinite loop.
     }
 
-    //Client connected to server
+    //Client connected to server.
     public static class Client {
         public static void main(String[] args) throws Exception {
 
@@ -85,7 +95,7 @@ public class ReverseEcho extends Thread {
             Socket stk = new Socket("Add Your IP Address, Go CMD type ipconfig", 6000);
             System.out.println("Connected to the server.");
 
-            //KeyBoard Stream
+            //KeyBoard Stream.
             BufferedReader keyb = new BufferedReader(new InputStreamReader(System.in));
 
 
@@ -118,6 +128,6 @@ Terminates connection when the client sends "dne".
 Client:
 Connects to the server at IP Add Your IP Address, Go CMD type ipconfig on port 6000.
 Reads input from the keyboard, sends it to the server.
-Receives reversed message from the server and displays it.
+Receives a reversed message from the server and displays it.
 Continues until "dne" is entered, then closes the connection.
 */

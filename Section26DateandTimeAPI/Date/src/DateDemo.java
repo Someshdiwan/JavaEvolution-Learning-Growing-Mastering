@@ -1,24 +1,25 @@
-package JodaTimeAPI;
-
 import java.time.*;
 import java.util.Date;
-import java.util.Locale;
 
 public class DateDemo {
     public static void main(String[] args) {
         Date d = new Date();
-        System.out.println("Todays Date and Time: "+d);
+
+        System.out.println("Today's Date and Time: "+d);
 
         //d.setTime(21);
         d.setHours(21);
+
         System.out.println(d);
 
-        //LocalDate dt = new LocalDate(); //you can not create a new date.
+        //LocalDate dt = new LocalDate();
+        //you can not create a new date.
 
         LocalDate dt = LocalDate.now();
         System.out.println(dt);
 
-        LocalDate d2 = LocalDate.now(Clock.systemDefaultZone()); //new date not able to create . Now means today date.
+        LocalDate d2 = LocalDate.now(Clock.systemDefaultZone());
+        //the new date is not able to create. Now means date today.
         System.out.println(d2);
 
         LocalDate d3 = LocalDate.now(ZoneId.of("Asia/Kolkata"));

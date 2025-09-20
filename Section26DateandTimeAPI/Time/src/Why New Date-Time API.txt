@@ -1,0 +1,66 @@
+Why New Date-Time API (java.time)?
+
+1. Problems with Old API (java.util.Date, java.util.Calendar):
+   - Mutable: `Date` and `Calendar` objects can be modified → not thread-safe.
+   - Poor Design: Months start from 0 (January = 0), causing confusion.
+   - Ambiguous: `java.util.Date` stores both date & time, but names like `getYear()`, `getMonth()` are misleading.
+   - Time Zone Issues: Very limited and error-prone handling of zones.
+   - Not Immutable: Harder to use in multi-threaded apps safely.
+
+2. Java 8 Date-Time API Advantages:
+   - Immutable → Once created, cannot be changed (thread-safe).
+   - Clear separation of concerns:
+     ✔ `LocalDate` → Date only (no time).
+     ✔ `LocalTime` → Time only (no date).
+     ✔ `LocalDateTime` → Date + Time (no zone).
+     ✔ `ZonedDateTime` → Date + Time + Zone.
+   - Better formatting and parsing with `DateTimeFormatter`.
+   - Inspired by the popular Joda-Time library.
+
+=========================
+Core Classes
+=========================
+
+1. LocalDate:
+   - Represents only a calendar date (year, month, day).
+   - Example: `LocalDate today = LocalDate.now();`
+   - Immutable → You cannot change the date directly.
+   - Instead, use methods like:
+     - `plusDays(5)`, `minusMonths(2)`, `withYear(2020)` → returns new objects.
+
+2. LocalTime:
+   - Represents only the time (hour, minute, second, nanosecond).
+   - Example: `LocalTime now = LocalTime.now();`
+   - No date, no time zone.
+
+3. LocalDateTime:
+   - Represents date + time, down to nanoseconds.
+   - Example: `LocalDateTime dt = LocalDateTime.now();`
+   - Useful for timestamps without zones.
+   - Still immutable → all modifications return new instances.
+
+=========================
+Old API vs New API
+=========================
+
+Old (java.util.Date):
+----------------------
+Date d = new Date();
+// Stores date-time internally as milliseconds since 1 Jan 1970 (epoch).
+
+✔ Can modify:
+   d.setTime(1234567890L);
+   d.setYear(2025);  // Deprecated, mutable, error-prone.
+
+New (java.time):
+----------------------
+LocalDate date = LocalDate.now();
+LocalDate newDate = date.plusDays(5); // Creates a NEW object, original unchanged.
+
+✔ Immutable and thread-safe.
+✔ Easier to read, maintain, and extend.
+
+✔ Old API (`Date`, `Calendar`) → mutable, buggy, confusing.
+✔ New API (`LocalDate`, `LocalTime`, `LocalDateTime`) → immutable, clean, safe.
+✔ Separation of Date, Time, and DateTime = better clarity.
+✔ Use `Period` (date-based) or `Duration` (time-based) for differences.

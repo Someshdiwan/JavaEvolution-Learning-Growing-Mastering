@@ -1,3 +1,6 @@
+generic types allow you to define a class, interface, or method with placeholders(type parameters) for the
+datatypes they will work with.
+
 The syntax for a generic type is:
 
 class ClassName<T> {
@@ -5,4 +8,6 @@ class ClassName<T> {
 }
 
 Where T is the type parameter, which can be any valid identifier.
-Conventionally, single-letter names are used for type parameters, such as T for Type, E for Element, K for Key, V for Value, etc.
+
+Conventionally, single-letter names are used for type parameters,
+such as T for Type, E for Element, K for Key, V for Value, etc.

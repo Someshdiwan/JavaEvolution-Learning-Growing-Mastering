@@ -1,17 +1,12 @@
-/*
-We can also write generic functions that can be called with different types of arguments based on the type of arguments passed to the generic method. The compiler handles each method.
-*/
+package GenericMethods;
 
-class Test4
-{
+class Test4 {
     // A Generic method example
-    static <T> void genericDisplay(T element)
-    {
+    static <T> void genericDisplay(T element) {
         System.out.println(element.getClass().getName() + " = " + element);
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Calling generic method with Integer argument
         genericDisplay(11);
 
@@ -21,3 +16,9 @@ class Test4
         genericDisplay(1.0);
     }
 }
+
+/*
+We can also write generic functions that can be called with different types of arguments based on the type of arguments
+passed to the generic method.
+The compiler handles each method.
+*/

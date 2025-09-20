@@ -10,5 +10,6 @@ public class ChronoFieldDemo {
         System.out.println(dt.get(ChronoField.DAY_OF_MONTH));
         System.out.println(dt.get(ChronoField.AMPM_OF_DAY));
         System.out.println(dt.get(ChronoField.YEAR_OF_ERA));
+        System.out.println(dt.get(ChronoField.YEAR));
     }
 }

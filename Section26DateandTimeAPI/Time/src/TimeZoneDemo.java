@@ -14,7 +14,5 @@ public class TimeZoneDemo {
         gc.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
         TimeZone tz1 = gc.getTimeZone();
         System.out.println(tz1.getID());
-
-
     }
 }

@@ -1,9 +1,8 @@
 Java Generics: Wildcards, Generic Methods, and Super Bounds
 
-Java Generics provides flexibility and type safety. 
+Java Generics provides flexibility and type safety.
 
 Important concepts include:
-
 - Wildcards (?)
 - Generic Methods
 - Bounded Types (extends and super)
@@ -40,13 +39,13 @@ class WildcardExample {
     public static void main(String[] args) {
         List<String> stringList = List.of("Apple", "Banana", "Cherry");
         List<Integer> intList = List.of(1, 2, 3);
-        
+
         printList(stringList);
         printList(intList);
     }
 }
 
-✅ Output:
+Output:
 Apple
 Banana
 Cherry
@@ -73,14 +72,13 @@ class GenericMethodExample {
         display(10.5);         // Double
     }
 }
-✅ Output:
 
+Output:
 100
 Hello
 10.5
 
-✅ Key Points:
-
+Key Points:
 - <T> before return type means T is a generic type.
 - The method can be called with any type.
 
@@ -106,18 +104,16 @@ class UpperBoundExample {
         List<Integer> intList = List.of(1, 2, 3);
         List<Double> doubleList = List.of(1.1, 2.2, 3.3);
 
-        System.out.println(sumOfNumbers(intList));  // ✅ Works
-        System.out.println(sumOfNumbers(doubleList)); // ✅ Works
+        System.out.println(sumOfNumbers(intList));
+        System.out.println(sumOfNumbers(doubleList));
     }
 }
 
-✅ Output:
-
+Output:
 6.0
 6.6
 
-✅ Key Points:
-
+Key Points:
 - ? extends Number means the method works with Integer, Double, Float, etc.
 - We cannot add elements to list (except null).
 
@@ -139,17 +135,15 @@ class LowerBoundExample {
 
     public static void main(String[] args) {
         List<Number> numList = new ArrayList<>();
-        addNumbers(numList);  // ✅ Works because Number is a superclass of Integer
+        addNumbers(numList);  // Works because Number is a superclass of Integer
         System.out.println(numList);
     }
 }
 
-✅ Output:
-
+Output:
 [10, 20, 30]
 
-✅ Key Points:
-
+Key Points:
 - ? super Integer means we can add Integer, but reading requires casting.
 - We cannot add Double, Float, etc.
 
@@ -176,14 +170,14 @@ class BoundedExample<T extends Number> {
     }
 }
 
-✅ Key Points:
+Key Points:
 
 - <T extends Number> means T can be Integer, Double, Float, etc.
 - Cannot use non-subclasses of Number (like String).
 
 6️⃣ Type Erasure
 
-Java  removes generic type parameters at runtime.
+Java removes generic type parameters at runtime.
 
 Example: Proof of Type Erasure
 
@@ -194,15 +188,14 @@ class TypeErasureExample {
         ArrayList<String> list1 = new ArrayList<>();
         ArrayList<Integer> list2 = new ArrayList<>();
 
-        System.out.println(list1.getClass() == list2.getClass()); // ✅ True
+        System.out.println(list1.getClass() == list2.getClass());
     }
 }
-✅ Output:
 
+Output:
 true
 
-✅ Key Points:
-
+Key Points:
 - Java removes type parameters and treats all generic classes as Object at runtime.
 - Generic information only exists at compile-time.
 
@@ -230,12 +223,10 @@ class Main {
     }
 }
 
-✅ Key Points:
-
+Key Points:
 - GenericInterface<T> allows different types to implement it.
 
-8️⃣ Generic Constructors:
-
+Generic Constructors:
 A constructor can also be generic.
 
 Example: Generic Constructor:
@@ -251,16 +242,14 @@ class GenericConstructor {
     }
 }
 
-✅ Output:
-
+Output:
 Value: 10
 Value: Java
 
-✅ Key Points:
-
+Key Points:
 - <T> in a constructor allows it to accept different types.
 
-📌 Summary Table
+Summary Table:
 
 | Concept                     | Syntax                      | Use Case                                      |
 |-----------------------------|-----------------------------|-----------------------------------------------|
@@ -272,11 +261,11 @@ Value: Java
 | Bounded Type Parameters     | <T extends Number>          | Restricts generic types to a certain hierarchy|
 | Type Erasure                | Removes generics at runtime | Ensures backward compatibility                |
 
-🚀 Conclusion
+Conclusion
 
 - Generics provide type safety and reusability.
 - Use wildcards for flexibility (? extends for reading, ? super for writing).
 - Use bounded type parameters (<T extends X>) for constraints.
 - Type erasure removes generics at runtime.
 
-generic collections or custom data structures
+generic collections or custom data structures.

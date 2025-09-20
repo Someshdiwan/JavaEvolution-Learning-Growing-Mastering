@@ -1,12 +1,12 @@
 package GenericInterface;
 
-// Define a generic interface
+// Define a generic interface.
 interface Container<T> {
     void add(T item);
     T get();
 }
 
-// Specific implementation for String
+// Specific implementation for String.
 class StringContainer implements Container<String> {
     private String item;
 
@@ -19,7 +19,7 @@ class StringContainer implements Container<String> {
     }
 }
 
-// Generic implementation for any type
+// Generic implementation for any type.
 class GenericContainer<T> implements Container<T> {
     private T item;
 
@@ -36,20 +36,19 @@ class GenericContainer<T> implements Container<T> {
 
 public class Main {
     public static void main(String[] args) {
-        // Using StringContainer
+        // Using StringContainer.
         StringContainer strContainer = new StringContainer();
         strContainer.add("Hello, Generics!");
         System.out.println(strContainer.get());
 
-        // Using GenericContainer
+        // Using GenericContainer.
         GenericContainer<Integer> intContainer = new GenericContainer<>();
         intContainer.add(42);
         System.out.println(intContainer.get());
     }
 }
+
 //In this example, StringContainer implements the Container interface with String as the specified type parameter.
-
-
 
 /*
 class GenericContainer<T> implements Container<T> {

@@ -1,0 +1,39 @@
+1. DatagramSocket:
+   - UDP protocol ke liye use hota hai (connectionless).
+   - Client side: `new DatagramSocket()` → system automatic free port allocate karta hai.
+   - Server side: `new DatagramSocket(2000)` → explicitly port bind kiya jata hai.
+
+2. DatagramPacket:
+   - Ek packet = data + destination address + port.
+   - Client `send()` karta hai → packet server ke port tak pahunchta hai.
+   - Server `receive()` karta hai → blocking call (jab tak data nahi aata, rukta hai).
+
+3. Client Flow:
+   - Message `"Hello Server"` ko byte[] me convert kiya.
+   - `DatagramPacket` banaya with `serverAddress = localhost, port=2000`.
+   - `ds.send(dp)` → message server tak chala gaya.
+   - Fir ek naya empty packet bana → server ka response receive kiya.
+   - `response.getData()` se byte[] nikaal kar string me convert kiya.
+
+4. Server Flow:
+   - Port `2000` pe continuously listen karta hai.
+   - Har aane wale packet ko `dp.getData()` se String banata hai.
+   - Message ko reverse karta hai → `"Hello Server"` → `"revreS olleH"`.
+   - Response packet bana ke wapas client ke address + port pe send karta hai.
+
+5. Output Pattern (Example):
+
+Server:   
+Server: Listening on port 2000…
+Server: Received -> Hello Server
+Server: Sent back reversed message.
+
+Client:
+Client: Message sent to Server.
+Client: Response from Server -> revreS olleH
+
+✔ UDP = fast, lightweight, but connectionless (no guarantee).  
+✔ DatagramSocket (server bind to port, client no bind needed).  
+✔ DatagramPacket = actual container of data.  
+✔ Example: client sends message → server reverses → sends back.  
+✔ Real-world: chat apps, multiplayer games, DNS, where speed > reliability.

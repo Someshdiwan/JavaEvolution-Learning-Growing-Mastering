@@ -7,16 +7,17 @@ public class DatagramClient {
 
         String msg = "Hello Server: ";
 
-        //Array of Bytes. That you want to send using a datagram packets.
+        //Array of Bytes. That you want to send using a datagram packet.
         DatagramPacket dp = new DatagramPacket(msg.getBytes(),msg.length(),InetAddress.getByName("localHost"),2000);
         //msg.length = What is the length of the array of the bytes that is msg.length.
         //Inet = Ip address you want to send.
 
-        //Now lets the this above packets to the server.
+        //Now lets this above packet to the server.
         ds.send(dp);
-        //Client has send the packet.
+        //Client has sent the packet.
 
-        byte b[]=new byte[1024]; //receiving the size of the packets from the Server.
+        byte b[]=new byte[1024];
+        //receiving the size of the packets from the Server.
         //For received the packets and display it from the server.
         dp=new DatagramPacket(b,1024);
 
@@ -29,12 +30,13 @@ public class DatagramClient {
         ds.close();
     }
 }
+
 class Server{
     public static void main(String[] args)throws Exception {
         //Server Address and port number needed.
         DatagramSocket ds = new DatagramSocket(2000);
 
-        //First done. next what server has to do receiving a packet.
+        //First done. next what the server has to do is receive a packet.
         byte b[]=new byte[1024];
         //Packet is received
         DatagramPacket dp = new DatagramPacket(b,1024);
@@ -42,17 +44,18 @@ class Server{
         ds.receive(dp);
 
         //Now it has to create a string and reverse the string from
-        //that receiving the packets from client.
+        //that receiving the packets from a client.
 
         String msg = new String(dp.getData()).trim();
         System.out.println("From Client: "+msg);
 
-        //Reverse
+        //Reverse.
         StringBuilder sb = new StringBuilder(msg);
         sb.reverse();
-        msg = sb.toString(); //getting a string.
+        msg = sb.toString();
+        //getting a string.
 
-        //This msg it sending it to the Client using a datagram packets.
+        //This msg it sending it to the Client using a datagram packet.
         dp = new DatagramPacket(msg.getBytes(),msg.length(),InetAddress.getByName("localHost"),2001);
         ds.send(dp);
         ds.close();

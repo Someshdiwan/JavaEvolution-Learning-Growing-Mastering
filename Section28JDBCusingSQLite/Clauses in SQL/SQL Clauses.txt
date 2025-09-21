@@ -1,7 +1,7 @@
 In SQL, clauses are components of a query that specify conditions, constraints, or instructions on
 how to retrieve and manipulate data.
 
-Here’s an explanation of key SQL components used in your queries:  
+Here’s an explanation of key SQL parts used in your queries:
 
 1. SELECT Clause 
    - The SELECT statement is used to retrieve data from a database.  
@@ -29,17 +29,13 @@ Here’s an explanation of key SQL components used in your queries:
 
 4. Error Handling in SQL Queries
    - Common errors encountered in your queries:  
-     - Table not found: no such table: studetns (typo in the table name). 
- 
-     - Column not found: no such column: dept (column doesn’t exist in students).  
-      
-     - Syntax error: Incorrect placement of FROM.  
+     - Table not found: no such table: studetns (typo in the table name).
+     - Column isn't found: no such column: dept (column doesn’t exist in students).
+     - Syntax error: Incorrect placement of FROM.
 
 5. Usage of WHERE Clause (Not Used in Your Queries, But Useful)
-  
    - The WHERE clause filters records based on conditions.  
-   - Example:  
-    
+   - Example:
      SELECT * FROM students WHERE deptno = 10;
     
      Retrieves students belonging to department number 10.

@@ -2,36 +2,16 @@ In SQL, clauses are the components of a query that define its structure and beha
 
 They help filter, sort, group, and manipulate data within a database.
 
-Here are some key SQL clauses:
-
 SELECT – Retrieves data from a table.
-
-FROM – Specifies the table from which to fetch
-data.
-
+FROM – Specifies the table from which to fetch data.
 WHERE – Filters records based on conditions.
-
-GROUP BY – Groups rows that have the same
-values in specified columns.
-
-HAVING – Filters grouped records (used with
-GROUP BY).
-
-ORDER BY – Sorts the result set in ascending or
-descending order.
-
+GROUP BY – Groups rows that have the same values in specified columns.
+HAVING – Filters grouped records (used with GROUP BY).
+ORDER BY – Sorts the result set in ascending or descending order.
 LIMIT – Restricts the number of rows returned.
-
-JOIN – Combines rows from multiple tables base
-on related columns.
-
+JOIN – Combines rows from multiple tables base on related columns.
 ON – Defines the condition for joining tables.
-
-UNION – Merges results from multiple SELECT
-statements.
-
+UNION – Merges results from multiple SELECT statements.
 INSERT INTO – Adds new records to a table.
-
 UPDATE – Modifies existing records in a table.
-
 DELETE – Removes records from a table.

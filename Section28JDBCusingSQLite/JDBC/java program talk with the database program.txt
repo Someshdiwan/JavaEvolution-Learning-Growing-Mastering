@@ -1,18 +1,20 @@
-What are the things required to java program talk with the database program.
-Ans: Need a driver
+What are the things required to java program talk with the database program?
+Ans:
+Need a driver
 Need a connection
 Need a statement(SQL).
 
 In last Result Set.
 
-Drivers: Helps the establish the connection. Using JAVA Program help to establish connection to the database.
-it understand the JAVA And other database lang.
+Drivers: Helps the establish the connection.
+
+Using JAVA Program helps to establish connection to the database. it understands the JAVA And another database lang.
 
 
-Driver will converted datatypes of java to the database of datatype.
+Driver will convert datatypes of java to the database of datatype.
 
-Using the driver , We create statement using a connection and using this statement we write our Query.
-Query is send via connection, to the database and it execute and results is return.
+Using the driver, We create a statement using a connection, and using this statement, we write our Query.
+Query is sent via connection, to the database, and it executes, and results is return.
 
 how a Java program talks to a database:
 
@@ -40,8 +42,7 @@ Essentially:
 - The Statement sends queries.  
 - The ResultSet carries the returned data.
 
-
-Short Explanation of JDBC Components
+Short Explanation of JDBC Components:
 1. Driver  
    - Acts as a bridge between your Java application and the database.  
    - Understands Java data types and converts them to the database’s data types (and vice versa).

@@ -4,7 +4,6 @@ The conditions can include various operators and logical connectors.
 
 SQL WHERE Clause with Various Conditions.
 
-
 list of the conditions you can use in the WHERE clause:
 
 = : Equal to a specific value.

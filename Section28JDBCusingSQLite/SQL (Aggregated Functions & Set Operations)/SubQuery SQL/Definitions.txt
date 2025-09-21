@@ -1,5 +1,4 @@
 Definitions:
-
 -  Query: A query is a request to retrieve or manipulate data from a database. It can be a simple or complex
    statement written in SQL.
 
@@ -12,20 +11,21 @@ Definitions:
 
 -  Nested Query: A nested query is another term for a subquery, as it is placed inside another SQL query.
 
-Subqueries are commonly used for filtering, calculations, or comparisons within the main query. 🚀
+Subqueries are commonly used for filtering, calculations, or comparisons within the main query.
 
 
-### Usage of IN, =, and > in SQL  
+### Usage of IN, =, and > in SQL
 
 -  IN → Used when checking if a value exists within a list or the result of a subquery.
    It is useful when expecting multiple possible values.
 
-   Example: Find students who live in any of the given cities.
+Example: Find students who live in any of the given cities.
 
 -  = → Used for exact matches, typically in comparisons with a single value.
    It is used when the subquery or condition returns only one value.
-   Example: "Find students whose department number is exactly the same as Smith’s. 
+
+Example: "Find students whose department number is exactly the same as Smith’s.
 
 -  > → Used for comparing numerical values to check if one is greater than the other.
    It is used when filtering records based on conditions involving numerical magnitude.
-   Example: Find students with marks greater than 50.
+Example: Find students with marks greater than 50.

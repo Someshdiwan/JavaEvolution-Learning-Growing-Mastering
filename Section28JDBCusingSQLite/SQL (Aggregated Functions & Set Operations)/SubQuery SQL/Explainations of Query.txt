@@ -6,7 +6,6 @@ SELECT * FROM students
 WHERE city = (SELECT city FROM students WHERE name = 'Smith');
 
 Explanation:
-
 1. The subquery (inner query) executes first: 
 
 SELECT city FROM students WHERE name = 'Smith';
@@ -17,15 +16,15 @@ This retrieves the city where Smith is living (e.g., 'Delhi').
 3. As a result, all students from the same city as 'Smith' will be displayed.
 
 
-### Meaning of the Query:  
+Meaning of the Query:
 
 The query retrieves all students who belong to the same department (deptno) as Smith.  
 
-### Statement: 
- 
+Statement:
+
 Find all students who are in the same department as the student named Smith.  
 
-### Explanation:  
+Explanation:
 
 1. The subquery first finds the deptno of Smith.  
 2. The outer query then selects all students who have the same deptno.  

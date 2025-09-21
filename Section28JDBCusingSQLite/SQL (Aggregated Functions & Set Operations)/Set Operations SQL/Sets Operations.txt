@@ -1,10 +1,10 @@
 Set operations allow you to combine the results of multiple SELECT queries into a single result set.
 
 The most common set operations are:
-     UNION: Combines the results of two queries and removes duplicate rows.
-     UNION ALL: Combines the results of two queries and includes all duplicates. 
-     INTERSECT: Returns only the rows that appear in both queries.
-     EXCEPT (or MINUS in some SQL dialects): Returns rows from the first query that are not in the second query.
+UNION: Combines the results of two queries and removes duplicate rows.
+UNION ALL: Combines the results of two queries and includes all duplicates.
+INTERSECT: Returns only the rows that appear in both queries.
+EXCEPT (or MINUS in some SQL dialects): Returns rows from the first query that are not in the second query.
 
 Important points:
 1. Each SELECT statement must have the same number of columns.
@@ -13,9 +13,10 @@ Important points:
 
 Example usage from your commands:
 Combining student names from 'Delhi' and 'Mumbai' cities:
-       SELECT name FROM students WHERE city = 'Delhi'
-       UNION
-       SELECT name FROM students WHERE city = 'Mumbai';
+SELECT name FROM students WHERE city = 'Delhi'
+UNION
+SELECT name FROM students WHERE city = 'Mumbai';
+
 This returns a list of unique names from both cities.
 
 When selecting different columns (like name from one query and roll, name from another),

@@ -2,16 +2,14 @@ SQL set operations in theory, all common set operation types.
 
 ---
 
-# SQL Set Operations: Theory and Concepts
-
+# SQL Set Operations: Theory and Concepts:
 SQL set operations are used to combine the results of two or more SELECT queries into a single result set.
 They work similarly to mathematical set operations. Each operation has its own characteristics, and
 understanding them is important when designing queries that require the merging of data from multiple queries.
 
-## Key Set Operations in SQL
+Key Set Operations in SQL:
 
-### 1. UNION
-
+1. UNION
 - Purpose:
   Combines the results of two SELECT queries and returns only distinct rows.
 
@@ -25,8 +23,7 @@ understanding them is important when designing queries that require the merging 
   Use UNION when you want to merge similar datasets and remove duplicates, such as combining student names
   from different cities while ensuring each name appears only once.
 
-### 2. UNION ALL
-
+2. UNION ALL
 - Purpose:
   Similar to UNION, but includes all duplicate rows in the result set.
 
@@ -39,8 +36,7 @@ understanding them is important when designing queries that require the merging 
   Use UNION ALL when duplicate rows are meaningful or when performance is a concern and you know
   duplicates do not affect the outcome.
 
-### 3. INTERSECT
-
+3. INTERSECT
 - Purpose:
   Returns only the rows that are common to both SELECT query results.
 
@@ -53,8 +49,8 @@ understanding them is important when designing queries that require the merging 
   Use INTERSECT when you need to find common records between two datasets, such as the list of students enrolled in
   both two different courses.
 
-### 4. EXCEPT (or MINUS)
 
+4. EXCEPT (or MINUS)
 - Purpose:
   Returns rows from the first SELECT query that are not present in the second SELECT query.
 
@@ -68,8 +64,7 @@ understanding them is important when designing queries that require the merging 
   Use EXCEPT when you need to identify differences between two datasets, such as finding students
   who are enrolled in one course but not in another.
 
-## Important Considerations for All Set Operations
-
+Important Considerations for All Set Operations:
 - Column Consistency:
   Every SELECT statement combined by a set operator must return the same number of columns.
   The data types of corresponding columns must be compatible to ensure the operations can be performed without errors.

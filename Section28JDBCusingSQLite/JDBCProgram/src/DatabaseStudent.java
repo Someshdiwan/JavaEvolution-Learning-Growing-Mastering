@@ -8,10 +8,10 @@ class DatabaseStudent {
 
             // Establish the connection to your database.
             // Add a path. to yur DB
-            Connection con = DriverManager.getConnection("jdbc:sqlite:C:/sqlite/univ.db");
+            Connection con = DriverManager.getConnection("jdbc:sqlite:/Users/somesh/Java SE/JavaEvolution-Learning-Growing-Mastering/Section28JDBCusingSQLite/univ.db");
 
             // Create a statement object to execute the query
-            Statement stm = con.createStatement(); //It Create-select statement.
+            Statement stm = con.createStatement(); //It Creates-select statement.
 
             // Execute the query (ensure the SQL statement is enclosed in quotes)
             ResultSet rs = stm.executeQuery("SELECT * FROM students");

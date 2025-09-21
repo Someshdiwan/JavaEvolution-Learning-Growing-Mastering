@@ -1,4 +1,4 @@
-Explanation of JDBC Driver Types
+Explanation of JDBC Driver Types:
 
 1. Type-1 Driver (JDBC-ODBC Bridge)
    - How it works:
@@ -40,7 +40,7 @@ Explanation of JDBC Driver Types
      - Tied to a specific database’s protocol (e.g., MySQL, Oracle, etc.).  
      - If you need to support multiple databases, you need multiple Type-4 drivers (one for each database).
 
-Key Points to Remember
+Key Points to Remember:
 - Type-1 and Type-2 often require native code or ODBC, which adds dependencies and can affect portability.  
 - Type-3 and Type-4 are fully written in Java, making them more platform-independent and usually more
   performant for modern applications.

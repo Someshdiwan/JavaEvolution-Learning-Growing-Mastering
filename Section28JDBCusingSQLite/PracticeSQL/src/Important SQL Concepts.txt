@@ -1,4 +1,4 @@
-most useful and important SQL concepts you should know for efficient querying:
+the most useful and important SQL concepts you should know for efficient querying:
 
 ---
 
@@ -6,22 +6,20 @@ SELECT Clause → Fetch Data
    Retrieves data from a table.  
   
    SELECT column1, column2 FROM table_name;
-   Example: 
-  
+   Example:
    SELECT name, roll FROM students;
   
 ---
 
 FROM Clause → Specify Table:
-   Indicates the table from which to fetch data.  
-  
+   Indicates the table from which to fetch data.
    SELECT * FROM students;
 
 ---
 
 WHERE Clause → Filter Data  
    Retrieves rows based on conditions.  
-   
+
    SELECT * FROM students WHERE deptno = 10;
    
    Operators: 
@@ -47,22 +45,22 @@ SELECT name, roll FROM students ORDER BY name ASC;
 ---
 
 LIMIT Clause → Restrict Number of Rows  
-   Fetches a specific number of rows.  
+
+Fetches a specific number of rows.
    
-   SELECT * FROM students LIMIT 5;
+SELECT * FROM students LIMIT 5;
 
 ---
 
-JOINs (Combining Tables)*
-   INNER JOIN (common values in both tables)  
-   
-   SELECT students.name, dept.deptname 
-   FROM students 
-   
-  INNER JOIN dept ON students.deptno = dept.deptno;
+JOINs (Combining Tables)
+INNER JOIN (common values in both tables)
+
+SELECT students.name, dept.deptname
+FROM students
+INNER JOIN dept ON students.deptno = dept.deptno;
   
-   -  LEFT JOIN  (all rows from the left table, matching from right)  
-   -  RIGHT JOIN  (all rows from the right table, matching from left)  
+-  LEFT JOIN  (all rows from the left table, matching from right)
+-  RIGHT JOIN  (all rows from the right table, matching from left)
 
 ---
 
@@ -70,34 +68,30 @@ GROUP BY & Aggregate Functions → Group & Calculate
    - COUNT(), SUM(), AVG(), MAX(), MIN()
      
      SELECT deptno, COUNT(*) FROM students GROUP BY deptno;
-  
 ---
 
-HAVING Clause* → Filter Groups  
-   Used after GROUP BY (unlike WHERE).  
+HAVING Clause → Filter Groups
+Used after GROUP BY (unlike WHERE).
   
-   SELECT deptno, COUNT(*) 
-   FROM students 
-   GROUP BY deptno 
-   HAVING COUNT(*) > 3;
+SELECT deptno, COUNT(*)
+FROM students
+GROUP BY deptno
+HAVING COUNT(*) > 3;
   
 ---
 
 INSERT, UPDATE, DELETE (Modify Data)
-   - INSERT → Add new records  
-     
+   - INSERT → Add new records
      INSERT INTO students (roll, name, deptno) VALUES (16, 'Ravi', 30);
      
-   - UPDATE → Modify existing records  
- 
+   - UPDATE → Modify existing records
      UPDATE students SET name = 'Raj' WHERE roll = 1;
     
-   - DELETE → Remove records  
-    
+   - DELETE → Remove records
      DELETE FROM students WHERE roll = 1;
     
 ---
 
-💡 Bonus: Use Indexes to speed up searches:  
-   
-   CREATE INDEX idx_deptno ON students(deptno);
+Bonus: Use Indexes to speed up searches:
+
+CREATE INDEX idx_deptno ON students(deptno);

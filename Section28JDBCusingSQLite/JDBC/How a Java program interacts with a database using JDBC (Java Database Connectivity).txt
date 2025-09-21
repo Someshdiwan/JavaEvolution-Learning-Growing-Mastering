@@ -1,12 +1,13 @@
 flow of how a Java program interacts with a database using JDBC (Java Database Connectivity).
 
-It highlights the core java.sql interfaces** involved in the process.
+It highlights the core java.sql interfaces involved in the process.
 
 ---
 
-Components Explained
+Components Explained:
+
 1. Class.forName()
-   - This method dynamically loads the **JDBC driver** for the database you want to connect to.  
+   - This method dynamically loads the JDBC driver for the database you want to connect to.
    - Example:
      Class.forName("org.sqlite.JDBC");
    - Why is it important?
@@ -16,9 +17,9 @@ Components Explained
 
 2. DriverManager
    - It is responsible for managing a list of database drivers.  
-   - Establishes a connection between the **Java application** and the database.
+   - Establishes a connection between the Java application and the database.
    - Example:
-     Connection con = DriverManager.getConnection("jdbc:sqlite:C:/sqlite/univ.db");
+     Connection con = DriverManager.getConnection("jdbc:sqlite:your path:/sqlite/univ.db");
 
    - Why is it important?
      Without DriverManager, your program cannot interact with the database.
@@ -83,7 +84,7 @@ Components Explained
 
 ---
 
-Full JDBC Example
+Full JDBC Example:
 
 import java.sql.*;
 

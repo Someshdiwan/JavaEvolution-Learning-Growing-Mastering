@@ -3,18 +3,23 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class Database {
-    public static void main(String[] args)throws Exception {
+    public static void main(String[] args) throws Exception {
+        // Load SQLite JDBC driver
         Class.forName("org.sqlite.JDBC");
 
-        Connection con = DriverManager.getConnection("jdbc:sqlite:C:/sqlite/univ.db");
+        String url = "jdbc:sqlite:/Users/somesh/Java SE/JavaEvolution-Learning-Growing-Mastering/Section28JDBCusingSQLite/univ.db";
+        Connection con = DriverManager.getConnection(url);
 
         Statement stm = con.createStatement();
 
-        //stm.executeUpdate("create table Temp(a integer, b float)");
+        // Uncomment if you want to create a table.
+        // stm.executeUpdate("CREATE TABLE Temp(a INTEGER, b FLOAT)");
 
-        //stm.executeUpdate("drop table Temp");
+        // Uncomment if you want to drop a table.
+        // stm.executeUpdate("DROP TABLE Temp");
 
         stm.close();
         con.close();
+        System.out.println("Database connected successfully!");
     }
 }

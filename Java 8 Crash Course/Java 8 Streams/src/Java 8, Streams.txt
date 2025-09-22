@@ -1,10 +1,13 @@
-In Java 8, Streams are a powerful and versatile API that allows you to process collections of data (like List, Set, and Map) in a functional and declarative way. They enable you to perform complex data transformations with minimal code by chaining operations together.
+In Java 8, Streams are a powerful and versatile API that allows you to process collections of
+data (like List, Set, and Map) in a functional and declarative way.
 
-✅ What is a Stream?
+They enable you to perform complex data transformations with minimal code by chaining operations together.
 
-A Stream is a sequence of elements that you can process in a pipeline of operations. It does not store data; instead, it works on the data from a source (like a collection, array, or I/O channel).
+What is a Stream?
+A Stream is a sequence of elements that you can process in a pipeline of operations.
+It does not store data; instead, it works on the data from a source (like a collection, array, or I/O channel).
 
-✅ Key Characteristics of Streams:
+Key Characteristics of Streams:
 
 Functional Style – Emphasizes the use of lambda expressions and method references for concise and readable code.
 Lazy Evaluation – Operations are executed only when a terminal operation is called.
@@ -12,9 +15,11 @@ Pipeline Processing – Streams support a pipeline of operations: Source → Int
 No Side Effects – Streams encourage pure functions that do not modify the original data.
 Parallel Execution – Can process data in parallel using the parallelStream() method.
 
-✅ Stream Operations:
+Stream Operations:
 
-Intermediate Operations – Transform the stream (lazy evaluation). Examples:
+Intermediate Operations – Transform the stream (lazy evaluation).
+
+Examples:
 
 filter() – Filters elements based on a condition.
 map() – Transforms each element.
@@ -25,13 +30,13 @@ forEach() – Iterates over each element.
 collect() – Collects results into a collection.
 count() – Counts the elements.
 
-✅ Stream Workflow:
+Stream Workflow:
 
 Create a Stream – From collections, arrays, or other data sources.
 Apply Intermediate Operations – Transform or filter the stream.
 Perform Terminal Operation – Generate output or apply side effects.
 
-✅ Example 1: Basic Stream Operations
+Example 1: Basic Stream Operations
 
 import java.util.*;
 import java.util.stream.*;
@@ -48,10 +53,9 @@ public class Java8Demo {
 }
 
 Output:
-
 Alice
 
-✅ Example 2: Collecting Results
+Example 2: Collecting Results
 
 import java.util.*;
 import java.util.stream.*;
@@ -70,10 +74,9 @@ public class Java8Demo {
 }
 
 Output:
-
 [2, 4]
 
-✅ Example 3: Mapping and Reducing
+Example 3: Mapping and Reducing
 
 import java.util.*;
 
@@ -90,13 +93,10 @@ public class Java8Demo {
 }
 
 Output:
-
 Sum: 15
 
-✅ Parallel Streams
-
+Parallel Streams:
 For large datasets, you can use parallelStream() to process data in parallel:
-
 
 import java.util.*;
 
@@ -110,8 +110,7 @@ public class Java8Demo {
     }
 }
 
-✅ Advantages of Streams:
-
+Advantages of Streams:
 Simplifies Code – Reduces boilerplate code using functional style.
 Efficient Processing – Supports lazy evaluation and parallel execution.
 Better Readability – Clear and expressive pipeline for data transformations.

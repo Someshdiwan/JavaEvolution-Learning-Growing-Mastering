@@ -1,0 +1,40 @@
+🔹 Functional Interface in Java:
+	1.	Definition
+	•	A Functional Interface is an interface that contains exactly one abstract method.
+	•	It can have multiple default or static methods, but only one abstract method.
+	•	They are the foundation for Lambda Expressions.
+
+	2.	Annotation
+	•	Marked with @FunctionalInterface annotation (optional, but recommended).
+	•	Compiler enforces that only one abstract method is present.
+
+	3.	Why Functional Interface?
+	•	Lambda expressions need a target type (something to map them to).
+	•	Functional Interfaces provide that single abstract method → so lambda knows what to implement.
+
+	4.	Examples of Built-in Functional Interfaces (from java.util.function package):
+	•	Runnable → void run()
+	•	Callable<T> → T call()
+	•	Comparator<T> → int compare(T a, T b)
+	•	Function<T, R> → R apply(T t)
+	•	Predicate<T> → boolean test(T t)
+	•	Consumer<T> → void accept(T t)
+	•	Supplier<T> → T get()
+
+	5.	Relation with Lambdas
+	•	A lambda expression is just a shorter way of implementing the single abstract method of a functional interface.
+	•	Example: Instead of writing an anonymous class for Runnable, you just write a lambda.
+
+	6.	Benefits
+	•	Reduces boilerplate code (no need for long anonymous class definitions).
+	•	Provides a contract for lambda expressions.
+	•	Improves readability, especially in APIs like Streams, where behavior (functions) is passed around.
+
+⸻
+
+Quick Recap:
+•	Functional Interface = exactly one abstract method.
+•	Marked with @FunctionalInterface.
+•	Used as the target type for lambdas.
+•	Java provides many built-in ones (Predicate, Function, Supplier, Consumer).
+•	Enables functional programming style in Java.

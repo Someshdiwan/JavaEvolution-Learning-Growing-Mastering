@@ -1,0 +1,52 @@
+1. What is Declarative Programming?
+•	Declarative programming is a style of programming where you focus on what the program should achieve,
+rather than how to achieve it step by step.
+•	You describe the logic of computation, not the control flow.
+
+•	Contrast:
+•	Imperative style: “How to do it” (explicit loops, conditions, assignments).
+•	Declarative style: “What result do you want” (expressions, rules, queries).
+
+⸻
+
+2. Key Characteristics
+•	High-level abstraction: You don’t manage low-level steps.
+•	Focus on a desired outcome: The program reads like a description of the result.
+•	Less boilerplate: Fewer lines of code compared to imperative.
+•	Underlying system decides execution strategy.
+
+⸻
+
+3. Examples in Package2.Practice
+•	SQL:
+•	Declarative: SELECT * FROM students WHERE marks > 90;
+(You specify what you want, not how to fetch row by row.)
+•	Functional Programming (Java Streams, Lambdas):
+•	Declarative: list.stream().filter(x -> x > 10).map(x -> x*2).toList();
+(You describe transformations, not write for loops.)
+•	HTML/CSS:
+•	HTML declares what the page contains, not how to render.
+
+⸻
+
+4. Benefits:
+•	Conciseness – less code, fewer bugs.
+•	Readability – reads like “business logic” or natural language.
+•	Maintainability – easier to change rules/logic without touching flow.
+•	Parallelism – declarative constructs (e.g., Streams) can optimize execution internally.
+
+⸻
+
+5. In Java
+•	Java supports declarative programming mainly through Streams API, Lambdas, and functional style constructs.
+•	Instead of loops and mutating state, you chain operations (map, filter, reduce).
+•	Example: Summing even numbers in a list
+•	Imperative: loop + if + accumulator.
+•	Declarative: list.stream().filter(x -> x % 2 == 0).mapToInt(Integer::intValue).sum();.
+
+⸻
+
+Quick Recap:
+✔ Declarative = what to do, Imperative = how to do.
+✔ SQL, Streams, HTML are all declarative approaches.
+✔ Declarative style improves readability, reduces boilerplate, and makes parallelism easier.

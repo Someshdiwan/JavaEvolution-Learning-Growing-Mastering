@@ -5,7 +5,6 @@ interface MathOperation {
 
 // Making the implementing class public so it can be used outside its package if needed.
 class SumOperation implements MathOperation {
-
     @Override
     public int operate(int a, int b) {
         // Delegate to the add method.
@@ -22,7 +21,6 @@ class SumOperation implements MathOperation {
 }
 
 public class LambdaExpressionHard {
-
     public static void main(String[] args) {
         // Lambda expression for addition (explicit parameter types can be omitted due to type inference)
         MathOperation addOperation = (a, b) -> a + b;
@@ -54,3 +52,43 @@ public class LambdaExpressionHard {
         // The result can be used internally without printing to the console.
     }
 }
+
+/*
+1. @FunctionalInterface:
+   - Ek interface jisme sirf ek abstract method hota hai.
+   - `MathOperation` ke andar `operate(int a, int b)` method define hai.
+   - Isko lambda expressions ke saath use kiya ja sakta hai.
+
+2. SumOperation Class:
+   - `implements MathOperation` → means interface ka contract follow karna.
+   - `operate(a, b)` ko override kiya aur andar `add()` method ko call karaya.
+   - Additional methods bhi banaye:
+     ✔ add(a, b) → numbers ko add karega.
+     ✔ multiply(a, b) → numbers ko multiply karega.
+
+3. Lambda Expressions:
+   - `MathOperation addOperation = (a, b) -> a + b;`
+     → addition ke liye ek inline implementation (lambda).
+   - `MathOperation subtractOperation = (a, b) -> a - b;`
+     → subtraction ke liye lambda.
+
+   ✔ Lambdas = concise alternative instead of creating full classes.
+
+4. Main Logic:
+   - a = 10, b = 5
+   - `addOperation.operate(a, b)` → 15
+   - `subtractOperation.operate(a, b)` → 5
+   - `SumOperation sumOp.add(a, b)` → 15
+   - `SumOperation sumOp.multiply(a, b)` → 50
+
+5. processOperation Method:
+   - Ek helper method jo `MathOperation` ko input leta hai.
+   - Isme operation performs hota hai aur result internally handle hota hai.
+   - Private rakha hai, kyunki sirf is class ke andar kaam karna hai.
+
+✔ FunctionalInterface = single abstract method (SAM).
+✔ Lambda = short & clean way to implement functional interfaces.
+✔ `SumOperation` class → traditional way, Lambda → modern concise way.
+✔ Helper method `processOperation()` dikhata hai kaise reusable lambdas pass karke operations handle karte ho.
+✔ Ye program ek mini calculator example hai using both OOP (class) and FP (lambda).
+*/

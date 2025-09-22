@@ -1,6 +1,6 @@
 import java.util.concurrent.*;
 
-public class CompletableFutureAdvancedExample {
+public class CompletableFutureDemo {
     public static void main(String[] args) {
         // Start both tasks in parallel
         CompletableFuture<String> userFuture = CompletableFuture.supplyAsync(() -> fetchUserDetails());
@@ -23,7 +23,7 @@ public class CompletableFutureAdvancedExample {
         System.out.println(result);
     }
 
-    // Simulates fetching user details (may be slow)
+    // Simulates fetching user details (maybe slow)
     private static String fetchUserDetails() {
         sleep(1000); // Simulate network delay
         return "John Doe, Age 30";
@@ -50,37 +50,38 @@ public class CompletableFutureAdvancedExample {
     }
 }
 
+/*
+Complex Example: Making Parallel API Calls with Timeout & Error Handling
 
-//### **🔥 Complex Example: Making Parallel API Calls with Timeout & Error Handling**
-//#### **Scenario:**
-//We need to fetch user details and their order history **simultaneously** from two different services.
-//- **User Service** → Returns user details
-//- **Order Service** → Returns the user's past orders
-//- Both should run **in parallel**.
-//- If either fails, we should **handle errors gracefully**.
-//- If the response takes too long, we should **timeout** the request.
-//
-//### **🔍 Step-by-Step Explanation**
-//1. **Parallel Execution**:
-//   - `CompletableFuture.supplyAsync(fetchUserDetails())` runs **user service** in a separate thread.
-//   - `CompletableFuture.supplyAsync(fetchOrderHistory())` runs **order service** in parallel.
-//
-//2. **Combining Results (`thenCombine()`)**
-//   - When both futures are done, we combine the responses:
-//     - `"User: John Doe\nOrders: Laptop, Phone"`
-//
-//3. **Timeout Handling (`applyToEither()`)**
-//   - If the API call takes longer than **2 seconds**, it returns `"Request timed out!"`.
-//
-//4. **Error Handling (`exceptionally()`)**
-//   - If any API fails, it catches the exception and returns `"Error fetching data"`.
-//
-//### **📌 Why is this "Hard"?**
-//- **Runs tasks in parallel** to improve performance.
-//- **Handles failures** without crashing the app.
-//- **Implements a timeout** mechanism using `applyToEither()`.
-//- **Combines API results dynamically**.
-//
-//This is a real-world pattern used in **microservices, web applications, and high-performance systems**. 🚀
-//
-//Would you like a breakdown of any part? 😊
+Scenario:
+We need to fetch user details and their order history simultaneously from two different services.
+- User Service → returns user details.
+- Order Service → returns the user's past orders.
+- Both should run in parallel.
+- If either fails, we should handle errors gracefully.
+- If the response takes too long, we should timeout the request.
+
+Step-by-Step Explanation:
+
+1. Parallel Execution:
+   - CompletableFuture.supplyAsync(fetchUserDetails()) runs the user service in a separate thread.
+   - CompletableFuture.supplyAsync(fetchOrderHistory()) runs the order service in parallel.
+
+2. Combining Results (thenCombine):
+   - When both futures are completed, we combine the responses into a single result,
+     for example: "User: John Doe\nOrders: Laptop, Phone".
+
+3. Timeout Handling (applyToEither):
+   - If an API call takes longer than 2 seconds, it returns a default response such as "Request timed out!".
+
+4. Error Handling (exceptionally):
+   - If any API fails, the exception is caught, and a safe fallback like "Error fetching data" is returned.
+
+Why is this considered a "hard" example?
+- Tasks run in parallel, improving performance.
+- Failures are handled without crashing the application.
+- A timeout mechanism is implemented with applyToEither().
+- Results from multiple APIs are combined dynamically.
+
+This pattern is commonly used in microservices, web applications, and high-performance systems.
+*/

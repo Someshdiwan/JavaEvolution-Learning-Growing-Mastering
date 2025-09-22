@@ -1,0 +1,69 @@
+Volatile vs AtomicInteger in Java:
+
+1. Volatile
+- volatile is a Java keyword used to mark a variable so that:
+  - Reads and writes go directly to main memory (no thread-local caching).
+  - Visibility is guaranteed: when one thread updates a volatile variable,
+    other threads see the updated value immediately.
+
+What it does:
+- Ensures **visibility** across threads.
+
+What it does not do:
+- Does NOT ensure **atomicity**.
+- Operations like count++ are not atomic, since they involve
+  read → modify → write.
+
+Example where volatile fails:
+
+volatile int count = 0;
+
+public void increment() {
+    count++; // Not atomic: multiple threads may overwrite each other.
+}
+
+Problem:
+- If two threads read the same value of count (say 10),
+  both increment and write back 11, losing one update.
+
+2. AtomicInteger
+- AtomicInteger is part of `java.util.concurrent.atomic` package.
+- Provides atomic operations such as:
+  - incrementAndGet()
+  - getAndIncrement()
+  - compareAndSet()
+
+- Ensures **atomicity** and **thread safety** without explicit synchronization.
+- Uses lock-free, non-blocking CAS (Compare-And-Swap) under the hood.
+
+Example with AtomicInteger:
+
+import java.util.concurrent.atomic.AtomicInteger;
+
+AtomicInteger count = new AtomicInteger(0);
+
+public void increment() {
+    count.incrementAndGet(); // Atomic and thread-safe
+}
+
+Behavior:
+- Each thread increments safely.
+- No lost updates.
+- Faster than synchronized methods in many cases.
+
+3. When to Use What?
+- Use volatile when:
+  - You only need a **flag** (true/false, ready/done).
+  - You just care about visibility of a single write/read.
+  - Example: volatile boolean isRunning;
+
+- Use AtomicInteger when:
+  - You need **atomic operations** like counting, accumulating,
+    or compare-and-set in multi-threaded contexts.
+  - Example: safely counting user requests in a server.
+
+
+
+- volatile → Guarantees visibility, but not atomicity.
+- AtomicInteger → Guarantees both visibility and atomicity for integer operations, using efficient
+                  CAS-based lock-free mechanisms.

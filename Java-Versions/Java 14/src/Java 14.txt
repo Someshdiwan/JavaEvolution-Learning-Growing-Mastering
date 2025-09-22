@@ -1,0 +1,58 @@
+Understanding `yield` in Java 12+ Switch Expressions:
+
+1. What is `yield`?
+- In traditional `switch` statements:
+  - You used `break` to exit a case.
+  - No value was returned directly.
+
+- In Java 12+, switch expressions allow cases to **return values**.
+- `yield` is the keyword that returns a value from a `case` block (especially multi-line blocks with `{}`).
+
+
+2. When to Use `yield`
+- When you have multi-line logic in a case.
+- When you need to return a computed value back to the switch expression.
+- When arrow syntax (`->`) is not enough.
+
+3. Examples
+
+Arrow style (no `yield` needed):
+String result = switch (value) {
+    case 1 -> "One";
+    case 2 -> "Two";
+    default -> "Other";
+};
+
+Block style (must use `yield`):
+String result = switch (value) {
+    case 1 -> {
+        System.out.println("Matched one");
+        yield "One";  // returns "One" from this case block
+    }
+    case 2 -> {
+        System.out.println("Matched two");
+        yield "Two";  // returns "Two"
+    }
+    default -> {
+        yield "Other";
+    }
+};
+
+
+4. Why Not `return`?
+- `return` exits the whole method.
+- `yield` only exits the current `case` block and provides a value back to the `switch`.
+
+
+5. Quick Comparison
+| Keyword  | Use Case                  | Returns Value? | Scope                      |
+|----------|---------------------------|----------------|----------------------------|
+| break    | Old-style `switch` exit   | No             | Exits switch, not method   |
+| return   | Exit method completely    | Yes            | Whole method               |
+| yield    | Switch expression (Java 12+)| Yes           | Current case → switch expr |
+
+
+6. Summary
+- Use `yield` in **multi-line switch expression cases** to provide a value.
+- Arrow (`->`) cases don’t need `yield` because they are single-expression.
+- `yield` is a safer, modern replacement for `break` in the context of expressions.

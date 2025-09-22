@@ -1,0 +1,24 @@
+What is a .sh File?
+
+A .sh file is a shell script used in Linux and macOS.
+It contains a series of Unix commands executed by the shell (bash, zsh, etc.).
+
+Key Features of a .sh File:
+- Plain text file with .sh extension.
+- Must be given execute permission (chmod +x file.sh).
+- Runs commands in sequence inside the terminal.
+- Used for automation, system tasks, software builds, etc.
+
+Example 1: Simple Hello World
+#!/bin/bash
+echo "Hello, World from Shell Script!"
+
+Example 2: Open IntelliJ IDEA on Linux
+#!/bin/bash
+"/opt/idea-IU-2023.3/bin/idea.sh" "/home/user/Projects/JavaTutorials/src/Main.java" &
+
+How It Works:
+- #!/bin/bash specifies the interpreter.
+- Path "/opt/idea-IU-2023.3/bin/idea.sh" is IntelliJ startup script.
+- Second path points to the Java file to open.
+- & runs the program in the background.

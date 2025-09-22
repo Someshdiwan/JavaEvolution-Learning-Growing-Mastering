@@ -70,8 +70,8 @@ while interfaces focus on defining a contract for implementing classes.
 When overriding an abstract method in a subclass, you can use the same access modifier as the abstract method or a less 
 restrictive one. 
 
-This follows the general rule for method overriding in Java. For example, if an abstract method is declared as protected, 
-the overriding method in the subclass can be declared as protected or public, but not private. 
+This follows the general rule for method overriding in Java. For example, if an abstract method is declared as 
+protected, the overriding method in the subclass can be declared as protected or public, but not private. 
 
 This allows for greater flexibility in the subclass while maintaining the contract defined by the abstract class. 
 
@@ -84,7 +84,8 @@ abstract class Parent {
 
 class Child extends Parent {
     @Override
-    public void method() { // Less restrictive, so it's allowed
+    public void method() { 
+        // Less restrictive, so it's allowed
         // implementation
     }
 }

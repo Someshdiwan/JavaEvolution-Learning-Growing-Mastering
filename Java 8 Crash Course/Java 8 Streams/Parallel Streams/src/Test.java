@@ -43,4 +43,3 @@ public class Test {
         System.out.println("Distinct + Sorted (Parallel): " + distinctSortedParallel);
     }
 }
-

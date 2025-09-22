@@ -1,43 +1,39 @@
 Java Lambda Expression Cheat Sheet
 
-✅ Basic Syntax:
+Basic Syntax:
 
 (parameters) -> { body }
 
-✅ 1. No Parameters
+1. No Parameters
 
 Runnable r = () -> System.out.println("Hello, World!");
 
-✅ **Explanation:
-
+Explanation:
 -  ()  → No parameters.  
 -  -> → Lambda arrow.  
 -  System.out.println() → Action (body).
 
-
-✅ 2. Single Parameter
+2. Single Parameter
 
 Consumer<String> printer = name -> System.out.println(name);
 printer.accept("Alice");
 
 
-✅ Explanation:  
+Explanation:
 - One parameter doesn't need parentheses.  
 - Uses the Consumer functional interface to print.
 
-
-✅ 3. Multiple Parameters
+3. Multiple Parameters
 
 BiFunction<Integer, Integer, Integer> sum = (a, b) -> a + b;
 System.out.println(sum.apply(5, 10));
 
 
-✅ Explanation:
-
+Explanation:
 - Multiple parameters must be in parentheses.  
 - BiFunction takes two inputs and returns a result.  
 
-✅ 4. With Code Block (Multiple Statements)
+4. With Code Block (Multiple Statements)
 
 BiFunction<Integer, Integer, Integer> sum = (a, b) -> {
     int result = a + b;
@@ -46,26 +42,23 @@ BiFunction<Integer, Integer, Integer> sum = (a, b) -> {
 };
 sum.apply(5, 10);
 
-✅ Explanation:
-
+Explanation:
 - Use curly braces {} when the body has more than one statement.  
 - Must use return if the method has a return type.  
 
 
-✅ 5. Using Method Reference (Shortcut for Lambdas):
-
+5. Using Method Reference (Shortcut for Lambdas):
 List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
 names.forEach(System.out::println);
 
-
-✅ Explanation:
-
+Explanation:
 - System.out::println is a method reference —a cleaner way to call existing methods.  
 - Equivalent to:  
  
   names.forEach(name -> System.out.println(name));
  
-✅ 6. With Functional Interfaces
+
+6. With Functional Interfaces
 
 | Functional Interface       | Parameters | Return Type | Example Lambda                  |
 |----------------------------|------------|-------------|---------------------------------|
@@ -77,7 +70,7 @@ names.forEach(System.out::println);
 |  Predicate<T>              | 1          | boolean     | x -> x > 10                     |
 
 
-✅ 7. Common Examples:
+7. Common Examples:
 
 1.Filter a List (with filter())
 
@@ -96,21 +89,21 @@ List<String> upperCaseNames = names.stream()
 System.out.println(upperCaseNames);
 
 
-3. Sort a List
+3. Sort a List:
 
 List<String> names = Arrays.asList("Charlie", "Alice", "Bob");
 names.sort((a, b) -> a.compareTo(b));
 System.out.println(names);
 
-4. Sum of Numbers (with reduce())
+4. Sum of Numbers (with reduce()):
 
 List<Integer> numbers = Arrays.asList(1, 2, 3);
 int sum = numbers.stream()
                  .reduce(0, (a, b) -> a + b);
 System.out.println(sum);
 
-🎯 Quick Rules:
 
+Quick Rules:
 1. 0 Parameters: () -> System.out.println("Hello"); 
 2. 1 Parameter:  x -> x * 2;  
 3. Multiple Parameters: (a, b) -> a + b;  

@@ -1,0 +1,100 @@
+Java 8:
+Released in March 2014, Java 8 was a landmark release that introduced true functional programming constructs to the language.
+
+- Lambda Expressions:
+  Treat functionality as data, passing behavior directly into methods for more concise, readable code.
+
+  List<String> list = Arrays.asList("a", "b", "c");
+  list.forEach(element -> System.out.println(element));
+
+- Stream API:
+  Process collections in a declarative, pipeline-oriented style—filtering, mapping, and reducing with ease.
+
+  List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+  int sum = numbers.stream()
+                   .filter(n -> n % 2 == 0)
+                   .mapToInt(Integer::intValue)
+                   .sum();
+
+- Default Methods in Interfaces:
+  Add new methods to interfaces without breaking existing implementations, enabling library evolution.
+
+
+Java 11:
+Released in September 2018 as a Long-Term Support (LTS) version, Java 11 modernized I/O and refined syntax.
+
+- HTTP Client API:
+  A new, fluent API (sync and async) to replace the legacy HttpURLConnection.
+
+  HttpClient client = HttpClient.newHttpClient();
+  HttpRequest request = HttpRequest.newBuilder()
+      .uri(URI.create("https://example.com"))
+      .build();
+  HttpResponse<String> response =
+      client.send(request, BodyHandlers.ofString());
+  System.out.println(response.body());
+
+- var in Lambda Parameters:
+  Use local-variable type inference (`var`) for lambda parameters, improving consistency with local declarations.
+
+  BiFunction<Integer, Integer, Integer> sum = (var x, var y) -> x + y;
+
+
+Java 12:
+Released in March 2019 as a feature-release (non-LTS), Java 12 introduced experimental and preview features.
+
+- Switch Expressions (Preview):
+  Treat switch as an expression that returns a value, with concise `->` labels and optional `yield`.
+
+  int day = 2;
+  String dayType = switch (day) {
+      case 1, 2, 3, 4, 5 -> "Weekday";
+      case 6, 7          -> "Weekend";
+      default            -> "Invalid day";
+  };
+  System.out.println(dayType);
+
+- Shenandoah GC (Experimental):
+  A low-pause garbage collector targeting large heaps and minimal stop-the-world pauses.
+
+
+Java 14:
+Released in March 2020 (non-LTS), Java 14 finalized several preview features.
+
+- Switch Expressions (Standard):
+  The previewed switch expressions from Java 12 were refined and officially added to the language.
+  The syntax remains the same, with `yield` used for multi-statement branches when necessary.
+
+Java 21 (2023, LTS)
+	•	Virtual Threads (Project Loom): Lightweight threads for massive concurrency.
+	•	Pattern Matching for switch (Standard): More expressive switch with type patterns.
+	•	Sequenced Collections: Preserve element encounter order.
+	•	String Templates (Preview): Safer, cleaner string interpolation.
+
+⸻
+
+Java 24 (2025, Feature)
+	•	Classfile API (Preview): Programmatic manipulation of .class files.
+	•	Scoped Values (Standard): Safer alternative to thread-local storage.
+	•	Structured Concurrency (2nd Preview): Simplified concurrent task management.
+	•	Faster G1/Parallel GC improvements.
+
+⸻
+
+Java 25 (2025, Latest Release - Sep 2025)
+	•	Key Feature:
+	•	Primitive Types in Generics (Preview) – finally allows generics like List<int> (instead of List<Integer>), a huge performance and memory improvement.
+	•	Ongoing Project Valhalla and Project Panama enhancements (value objects, better native interop).
+	•	Virtual Thread refinements for even better performance.
+	•	Latest GC tuning for very large heaps.
+
+Evolution in a Nutshell:
+- Java 8: Brought functional paradigms—lambdas, streams, and interface evolution.
+- Java 11: Modernized HTTP communication and allowed `var` in lambdas.
+- Java 12: Previewed switch expressions and experimented with Shenandoah GC.
+- Java 14: Cemented switch expressions as a core language feature.
+- Java 21 (LTS) → Virtual threads and powerful pattern matching.
+- Java 24 → Scoped values, structured concurrency.
+- Java 25 → Generics with primitives + performance boosts.
+
+Each release builds incrementally on its predecessors, enhancing expressiveness, performance, and modern API support.

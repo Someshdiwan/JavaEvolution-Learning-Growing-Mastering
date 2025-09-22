@@ -67,8 +67,8 @@ Think of a vehicle in the real world:
 - A Vehicle class could have a method called `move()`.
 - Different types of vehicles (Car, Bike, Truck) may override the `move()` method to implement how they move.
 - At runtime, if you have a reference to a `Vehicle` object, you might not know whether it is a `Car`, `Bike`, or
-`Truck`, but when you call `move()`, the correct method for the actual object type will be executed
-(this is dynamic polymorphism).
+  `Truck`, but when you call `move()`, the correct method for the actual object type will be executed
+  (this is dynamic polymorphism).
 
 ---
 

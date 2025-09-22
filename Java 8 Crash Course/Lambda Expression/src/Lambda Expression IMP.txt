@@ -1,0 +1,55 @@
+🔹 What is a Lambda Expression?
+
+A lambda expression in Java is a short, anonymous function that you can use in place of writing a full method.
+It’s mainly used to provide implementation of functional interfaces (interfaces with a single abstract method).
+
+⸻
+🔹 How to Create a Lambda Expression (Step by Step)
+	1.	Start from a normal method
+	•	Normally, a method in Java has:
+	•	access modifier (public, private, etc.)
+	•	return type (int, void, etc.)
+	•	method name
+	•	parameter list in brackets ( )
+	•	method body inside { }
+
+	2.	Remove modifiers and method name
+	•	In a lambda expression, you don’t need public, static, or even the method name.
+	•	The lambda will be treated as an implementation of the abstract method.
+
+	3.	Keep only parameters
+	•	The parameters of the abstract method remain.
+	•	Example: if the method takes (int a, int b), you keep (a, b).
+
+	4.	Insert the arrow operator ->
+	•	Place -> after the parameter list.
+	•	This arrow separates the input parameters from the implementation body.
+
+	5.	Write the body
+	•	After the arrow, write the method body.
+	•	If the body has only one line of code, you don’t need curly braces { }.
+	•	If it has multiple statements, use { } to group them.
+
+	6.	Return keyword is optional for single expressions
+	•	If your body is just a single expression that returns a value, you can skip return.
+	•	Java will automatically return that value.
+⸻
+
+🔹 General Syntax
+(parameters) -> { body }
+
+⸻
+
+🔹 Variations
+	•	No parameters: use empty parentheses () -> { body }
+	•	One parameter: parentheses can be omitted x -> { body }
+	•	Multiple parameters: must use parentheses (a, b) -> { body }
+	•	Single statement body: no braces or return needed
+	•	Multi-statement body: braces { } required
+
+⸻
+
+In short:
+Take the method → drop modifiers + return type + method name → keep only parameters → insert -> → then write the body.
+
+⸻

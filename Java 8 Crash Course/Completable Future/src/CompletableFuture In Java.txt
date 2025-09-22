@@ -18,6 +18,7 @@ Why Use CompletableFuture?
 Basic Example:
 
 Let's start with a simple example:
+
 import java.util.concurrent.CompletableFuture;
 
 public class CompletableFutureExample {
@@ -31,13 +32,15 @@ public class CompletableFutureExample {
     }
 }
 
-✅ Output:
+Output:
 
 Running async task in: ForkJoinPool.commonPool-worker-1
 
-Common Use Cases & Methods**
+---
 
-1️⃣ Run a Task & Return a Value**
+Common Use Cases & Methods
+
+1. Run a Task & Return a Value
 
 CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
     return "Hello, World!";
@@ -45,20 +48,24 @@ CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
 
 System.out.println(future.join()); // Output: Hello, World!
 
-🟢 .supplyAsync() runs in the background and returns a value.
+.supplyAsync() runs in the background and returns a value.
 
-2️⃣ Chaining Tasks (`thenApply()`)
+---
 
-If you want to **transform** the result of a future:
+2. Chaining Tasks (thenApply)
+
+If you want to transform the result of a future:
 
 CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> "Java")
     .thenApply(name -> "Hello, " + name);
 
 System.out.println(future.join()); // Output: Hello, Java
 
-🟢 .thenApply() is used to process and transform the result.
+.thenApply() is used to process and transform the result.
 
-3️⃣ Running a Task After Another (`thenRun()`)
+---
+
+3. Running a Task After Another (thenRun)
 
 If the second task doesn’t need the result from the first task:
 
@@ -66,9 +73,11 @@ CompletableFuture.supplyAsync(() -> "Task 1 Completed")
     .thenRun(() -> System.out.println("Task 2 Started"))
     .join();
 
-✅ The second task runs after the first task but doesn’t take input.
+The second task runs after the first task but doesn’t take input.
 
-4️⃣ Combining Two `CompletableFuture` (`thenCombine()`)**
+---
+
+4. Combining Two CompletableFutures (thenCombine)
 
 Run two async tasks and combine their results:
 
@@ -78,9 +87,11 @@ CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> "World")
 CompletableFuture<String> result = future1.thenCombine(future2, (res1, res2) -> res1 + " " + res2);
 System.out.println(result.join()); // Output: Hello World
 
-🟢 .thenCombine() takes results from two async tasks and merges them.
+.thenCombine() takes results from two async tasks and merges them.
 
-5️⃣ Handling Errors (exceptionally())
+---
+
+5. Handling Errors (exceptionally)
 
 Handle errors without crashing the application:
 
@@ -94,7 +105,9 @@ CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
 
 System.out.println(future.join()); // Output: 0
 
-🟢 .exceptionally() allows fallback values when an exception occurs.
+.exceptionally() allows fallback values when an exception occurs.
+
+---
 
 Using CompletableFuture for Parallel Execution
 
@@ -108,18 +121,22 @@ CompletableFuture<Void> future = CompletableFuture.allOf(
 
 future.join();
 
-✅ All tasks execute in parallel.
+All tasks execute in parallel.
+
+---
 
 CompletableFuture vs Future:
 
 | Feature             | Future                           | CompletableFuture                    |
 |---------------------|----------------------------------|--------------------------------------|
-| Blocking Call       | ✅ Yes (needs .get())            | ❌ No (async methods)                |
-| Chaining Tasks      | ❌ No                            | ✅ Yes (thenApply(), thenRun())      |
-| Exception Handling  | ❌ No                            | ✅ Yes (exceptionally())             |
-| Combining Results   | ❌ No                            | ✅ Yes (thenCombine(), allOf())      |
+| Blocking Call       | Yes (needs .get())               | No (async methods)                   |
+| Chaining Tasks      | No                               | Yes (thenApply(), thenRun())         |
+| Exception Handling  | No                               | Yes (exceptionally())                |
+| Combining Results   | No                               | Yes (thenCombine(), allOf())         |
 
+---
 
-✅ CompletableFuture makes asynchronous programming easy in Java.
-✅ It's non-blocking, supports chaining, and parallel execution.
-✅ Use it to improve performance in applications with I/O operations, network calls, or database queries.
+Summary:
+CompletableFuture makes asynchronous programming easy in Java.
+It's non-blocking, supports chaining, and parallel execution.
+Use it to improve performance in applications with I/O operations, network calls, or database queries.

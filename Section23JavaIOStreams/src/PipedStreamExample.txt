@@ -10,7 +10,7 @@ PipedOutputStream: This is used by the producer thread to write data.
 PipedInputStream: This is used by the consumer thread to read data.
 These two streams must be connected before data transfer can occur.
 
-3. How it Works?
+3. How does it Work?
 The producer writes data into PipedOutputStream.
 The consumer reads data from PipedInputStream.
 The two streams work together like a pipe, transferring data from one thread to another.

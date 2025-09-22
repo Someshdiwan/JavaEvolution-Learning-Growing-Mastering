@@ -1,0 +1,27 @@
+# Section 21 – Annotations and JavaDoc (Quick Notes)
+
+## Annotations
+- Metadata that provides extra information to the compiler or JVM
+- Common built-in annotations:
+  - @Override → ensures a method overrides a parent method
+  - @Deprecated → marks a method or class as outdated
+  - @SuppressWarnings → tells the compiler to ignore specific warnings
+- You can also create custom annotations using @interface
+
+## JavaDoc
+- Tool to generate documentation directly from comments in source code
+- Special format:
+  /**
+    This is a JavaDoc comment
+    @param x description
+    @return result
+   */
+- Common tags:
+  - @param → describes method parameters
+  - @return → describes the return value
+  - @throws → describes exceptions
+  - @author, @version
+
+## Why Important?
+- Annotations help write cleaner code, reduce boilerplate, and are widely used in frameworks like Spring and JPA
+- JavaDoc helps generate professional documentation and improves maintainability

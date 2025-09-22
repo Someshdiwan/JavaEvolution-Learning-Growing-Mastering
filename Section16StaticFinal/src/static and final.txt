@@ -39,7 +39,7 @@ classes, but they have different purposes:
        System.out.println("This is a final method");
    }
    
-   final class MyClass {  // final class (cannot be subclassed)
+   final class Package2.MyClass {  // final class (cannot be subclassed)
        // Class implementation
    }
   

@@ -9,8 +9,7 @@ public class ConsumerDemo {
         print.accept(7);
 
         List<Integer> list = Arrays.asList(1, 2, 3);
-        Consumer<List<Integer>> printList = x ->
-        {
+        Consumer<List<Integer>> printList = x -> {
             for (int i : x) {
                 System.out.println(i);
             }

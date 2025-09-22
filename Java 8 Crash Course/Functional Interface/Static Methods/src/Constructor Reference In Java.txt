@@ -1,0 +1,72 @@
+Constructor Reference in Java
+
+What is a Constructor Reference?
+- A constructor reference (ClassName::new) is shorthand to tell the compiler
+  to use a specific constructor when creating objects.
+- Example: MobilePhone::new refers to the constructor of MobilePhone that takes a String parameter.
+- Equivalent to a lambda expression: name -> new MobilePhone(name).
+- More concise and expressive than writing the lambda manually.
+
+Step-by-Step Explanation:
+
+1. Creating a List of Names:
+   List<String> names = Arrays.asList("A", "B", "C");
+   → Creates a list with values "A", "B", "C".
+
+2. Mapping Each String to a MobilePhone:
+   List<MobilePhone> mobilePhoneList = names.stream()
+                                            .map(MobilePhone::new)
+                                            .collect(Collectors.toList());
+   - names.stream(): Converts list into a Stream.
+   - map(MobilePhone::new): Creates a MobilePhone for each string using the constructor reference.
+   - collect(Collectors.toList()): Collects MobilePhone objects into a List.
+
+3. Printing the List:
+   System.out.println(mobilePhoneList);
+   - By default, prints object references (MobilePhone@hashcode).
+   - To make output readable, override toString() in MobilePhone class.
+
+Improving the Code:
+- Override toString() to display MobilePhone{name='A'} instead of default reference.
+*/
+
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class MobilePhone {
+    String name;
+
+    public MobilePhone(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "MobilePhone{name='" + name + "'}";
+    }
+}
+
+public class ConstructorReference {
+    public static void main(String[] args) {
+        // List of names
+        List<String> names = Arrays.asList("A", "B", "C");
+
+        // Constructor reference to create MobilePhone objects
+        List<MobilePhone> mobilePhoneList = names.stream()
+                                                 .map(MobilePhone::new)
+                                                 .collect(Collectors.toList());
+
+        // Print the MobilePhone objects
+        System.out.println(mobilePhoneList);
+    }
+}
+
+Expected Output:
+[MobilePhone{name='A'}, MobilePhone{name='B'}, MobilePhone{name='C'}]
+
+Quick Recap:
+✔ Constructor reference simplifies object creation (MobilePhone::new).
+✔ Stream map() transforms Strings into MobilePhone objects.
+✔ Overriding toString() makes printed output readable.

@@ -1,7 +1,8 @@
-explore lambda expressions with collections in Java 8. Here are some practical examples:
+Explore lambda expressions with collections in Java 8.
 
+Here are some practical examples:
 
-✅1. Using Lambda with forEach()
+1. Using Lambda with forEach()
 
 You can loop through a collection in a concise way using *forEach().
 
@@ -21,18 +22,16 @@ public class LambdaDemo {
     }
 }
 
-Output: 
-
+Output:
 Alice  
 Bob  
 Charlie
 
-
-💡 Shortcut: If your lambda only calls a method, use **method reference**:
+Shortcut: If your lambda only calls a method, use **method reference**:
 
 names.forEach(System.out::println);
 
-✅ 2. Using map() to Transform a List
+2. Using map() to Transform a List
 
 You can modify each element using map().
 
@@ -53,10 +52,9 @@ public class LambdaDemo {
 }
 
 Output:
-
 [2, 4, 6, 8]
 
-✅ 3. Using filter() to Select Specific Items
+3. Using filter() to Select Specific Items
 
 You can filter elements that match a condition.
 
@@ -77,13 +75,11 @@ public class LambdaDemo {
 }
 
 Output:
-
 [10, 40]
 
-✅ 4. Using sorted() to Sort a Collection
+4. Using sorted() to Sort a Collection
 
 You can sort elements in ascending or custom order.
-
 
 import java.util.*;
 import java.util.stream.*;
@@ -102,7 +98,6 @@ public class LambdaDemo {
 }
 
 Output:
-
 [Alice, Bob, Charlie]
 
 Custom Sorting (Descending Order):
@@ -115,14 +110,12 @@ List<Integer> sortedDesc = numbers.stream()
 System.out.println(sortedDesc);
 
 Output:
-
 [8, 5, 3, 1]
 
 
-✅ 5. Using reduce() for Aggregation
+5. Using reduce() for Aggregation
 
 You can use reduce() to perform calculations like sum or product.
-
 
 import java.util.*;
 
@@ -138,12 +131,10 @@ public class LambdaDemo {
     }
 }
 
-
 Output:
-
 Sum: 15
 
-✅ 6. Using removeIf() to Modify Collections
+6. Using removeIf() to Modify Collections
 
 You can remove elements that match a condition directly from a collection.
 
@@ -161,10 +152,9 @@ public class LambdaDemo {
 }
 
 Output:
-
 [Bob, Charlie]
 
-✅ 7. Using `Comparator` with Lambda
+7. Using `Comparator` with Lambda:
 
 You can sort custom objects easily using a lambda expression.
 
@@ -200,11 +190,9 @@ public class LambdaDemo {
 }
 
 Output:
-
 [Bob (25), Alice (30), Charlie (35)]
 
-💡 Summary:
-
+Summary:
 - forEach() – Perform actions on each element.
 - map() – Transform elements.
 - filter() – Select elements matching a condition.

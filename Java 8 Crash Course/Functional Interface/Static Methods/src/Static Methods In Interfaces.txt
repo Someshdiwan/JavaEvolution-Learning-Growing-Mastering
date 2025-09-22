@@ -1,0 +1,61 @@
+What are static methods in interfaces and why they exist:
+
+•	Since Java 8 interfaces can contain both default and static methods.
+•	A static method in an interface is a utility/helper method that belongs to the interface itself —
+not to instances or implementing classes.
+•	Call it only with the interface name: MyInterface.helper().
+•	Cannot be overridden by implementing classes. If a class defines a method with the same signature,
+it is a different method (not overriding the interface static).
+•	Static interface methods are useful for grouping related helpers with the API (like Collections, Map.of, etc.).
+•	Visibility: public by default if you declare it static—you can also use other modifiers
+(e.g., private static inside interfaces since Java 9 for helper methods).
+•	They do not participate in inheritance polymorphism: neither super dispatch nor virtual dispatch.
+
+
+2) Rules / Behavior (concise):
+•	Declaration: static methods must have a body in the interface.
+•	Call site: InterfaceName.staticMethod(...).
+•	Implementing class cannot override or change the interface static method behavior for callers that use
+InterfaceName.method().
+•	If both interface and class have the same signature static method,
+the call depends on reference (className.method vs interfaceName.method) — no polymorphism.
+•	private static methods (Java 9+) can be used inside the interface to factor out code used by other default/static
+methods.
+
+1. Kya hai:
+   - Interface ke andar `static` method = helper / utility method jo interface ka hi hota hai.
+   - Isko call karna hai: InterfaceName.method().
+
+2. Key Rules:
+   - Implementing class static method = NOT overriding; alag method samjho.
+   - Instance se call nahi kar sakte (obj.method() nahi chalega).
+   - Default methods = instance-level (override kar sakte ho), static = interface-level (cannot override).
+
+3. Use-cases:
+   - API-level utilities related to interface.
+   - Group helper functions with the interface for discoverability.
+
+4. Java 9+:
+   - `private static` allowed inside interface for internal helpers.
+
+5. Quick Examples:
+   - `A.util()` → calls interface A's static util.
+   - `Package2.MyClass.util()` → class-level static method (different).
+   - `obj.util()` → compile error.
+
+
+✔ interface static = belongs to interface only.
+✔ call: InterfaceName.method().
+✔ cannot be overridden; the implementing class can define its own static method but they are independent.
+✔ default ≠ static: default is instance-level and can be overridden.
+
+
+Short FAQ:
+•	Q: Can I call interface static method from implementing class without interface name?
+A: You should call it with the interface name. You can call it from the class, but still use InterfaceName.method().
+
+•	Q: Are interface static methods inherited?
+A: No polymorphic inheritance. They belong to the interface declaration; call them by their interface.
+
+•	Q: Can static methods be abstract?
+A: No — static methods must have a body in interfaces.

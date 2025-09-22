@@ -10,7 +10,6 @@ It helps in **organizing code**, **avoiding name conflicts**, and **controlling 
 ## How to Create a Package
 
 ```java
-// File: MyClass.java
 package mypack;
 
 public class MyClass {
@@ -29,7 +28,7 @@ Run with:
 java mypack.MyClass
 
 Benefits
-	•	Better code organization
-	•	Reusability of classes
-	•	Encapsulation and access control
-	•	Avoids class name collisions
+•	Better code organization
+•	Reusability of classes
+•	Encapsulation and access control
+•	Avoids class name collisions

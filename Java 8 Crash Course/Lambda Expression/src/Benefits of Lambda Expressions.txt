@@ -1,0 +1,41 @@
+🔹 Benefits of Lambda Expressions:
+	1.	Concise and Readable Code
+	•	Without lambdas, you usually need anonymous inner classes for functional interfaces.
+	•	Lambdas replace that with a few lines of compact code, making it cleaner and easier to read.
+
+	2.	Less Boilerplate
+	•	No need to repeat method names, access modifiers, or return types.
+	•	Just focus on what the function does, not on all the syntax overhead.
+
+	3.	Improved Maintainability
+	•	Shorter, clearer code is easier to debug and maintain.
+	•	Reduces clutter from anonymous classes.
+
+	4.	Functional Programming Style
+	•	Lambdas bring functional programming concepts into Java.
+	•	They let you pass behavior (functions) as arguments, enabling higher-order functions.
+
+	5.	Better with Collections API
+	•	Lambdas work seamlessly with the Streams API and Collections framework (introduced in Java 8).
+	•	Example: filtering, mapping, reducing collections becomes one-liner operations.
+
+	6.	Encourages Declarative Programming
+	•	Instead of describing how to do something (loops, iteration), you describe what you want.
+	•	Makes code closer to natural language.
+
+	7.	Supports Parallelism
+	•	When combined with parallel streams, lambdas allow simpler parallel processing of data,
+	    making multi-core utilization easier.
+
+	8.	Increased Flexibility
+	•	Functions can be stored in variables, passed as arguments, or returned from methods.
+	•	This was harder before lambdas.
+
+⸻
+
+Quick Recap:
+•	Cleaner and shorter code
+•	Reduces boilerplate
+•	Works great with Streams & Collections
+•	Supports functional and declarative style
+•	Easier parallelism

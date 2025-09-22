@@ -1,0 +1,24 @@
+🔹 Key Concept:
+	•	A functional interface = only 1 abstract method.
+	•	But it can inherit from another interface if the parent also has only 1 abstract method.
+	•	It can also inherit default methods and static methods without breaking functional interface rules.
+
+🔹 Explanation (for your notes later)
+    1.	Parent interface
+   	•	Has 1 abstract method → show(String msg)
+   	•	Has 1 default + 1 static method (these don’t break functional interface rule).
+
+   	2.	Child interface
+   	•	Extends Parent.
+   	•	Since Parent already has exactly 1 abstract method, Child can remain a functional interface.
+    •	You can override the same method, but you cannot add another abstract method.
+
+    3.	Main class
+    	•	Implemented Child with a lambda expression.
+    	•	Used defaultMethod() and staticMethod() to show they also work with functional interfaces.
+
+🔹 Quick Recap:
+✔ Functional interface can extend another functional interface.
+✔ Must ensure total = only 1 abstract method across hierarchy.
+✔ Default + static methods are allowed.
+✔ Can override parent’s abstract method but cannot add new abstract methods.

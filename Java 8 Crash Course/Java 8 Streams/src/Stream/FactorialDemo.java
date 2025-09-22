@@ -1,7 +1,8 @@
+package Stream;
+
 import java.util.stream.IntStream;
 
-class Factorial {
-
+class FactorialDemo {
     static void printFactorial(int n) {
         long factorial = IntStream.rangeClosed(1, n)
                 .reduce(1, (int a, int b) -> a * b);

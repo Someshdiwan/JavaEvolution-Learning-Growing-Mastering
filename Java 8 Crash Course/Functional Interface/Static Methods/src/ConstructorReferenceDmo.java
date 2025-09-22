@@ -5,7 +5,7 @@ class Example {
         System.out.println("Example constructor called!");
     }
 }
-public class ConstructorReference {
+public class ConstructorReferenceDmo {
     public static void main(String[] args) {
         // Using a constructor reference
         Supplier<Example> supplier = Example::new;

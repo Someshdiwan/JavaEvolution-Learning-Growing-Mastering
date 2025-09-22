@@ -1,0 +1,29 @@
+# Section 24 – Java Generics (Quick Notes)
+
+## What Are Generics?
+- Generics allow you to write classes, interfaces, and methods with type parameters.
+- They provide type safety and eliminate the need for explicit casting.
+- Example: List<String> ensures only Strings are stored.
+
+## Benefits
+- Type Safety → Catch errors at compile time instead of runtime.
+- Code Reusability → Write flexible code that works with different data types.
+- Cleaner Code → No need for casting, better readability.
+
+## Syntax
+- Generic Class: class Box<T> { T value; }
+- Generic Method: <T> void print(T data)
+- Bounded Types: <T extends Number> restricts T to subclasses of Number
+- Wildcards:
+  - <?> → unknown type
+  - <? extends T> → upper bounded wildcard
+  - <? super T> → lower bounded wildcard
+
+## Real-World Usage
+- Collections Framework (List<T>, Set<T>, Map<K, V>)
+- Generic algorithms like sort, search
+- Dependency injection and frameworks (Spring, Hibernate)
+
+## Why Important?
+- Generics make APIs flexible and type-safe.
+- Widely used in modern Java applications for collections, utility classes, and framework design.

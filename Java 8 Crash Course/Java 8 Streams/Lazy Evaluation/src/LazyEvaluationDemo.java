@@ -19,7 +19,5 @@ public class LazyEvaluationDemo {
 
         System.out.println("After terminal operation");
         System.out.println(result);
-
-
     }
 }

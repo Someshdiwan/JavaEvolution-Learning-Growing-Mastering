@@ -29,7 +29,8 @@ This leads to cleaner, more reliable code compared to manually closing resources
 When an exception is not caught in a method, it is propagated up the call stack to the calling method.
 This process continues until the exception is either caught and handled or reaches the top of the call stack.
 
-If it reaches the top without being caught, the default exception handler prints the stack trace and terminates the program.
+If it reaches the top without being caught, the default exception handler prints the stack trace and terminates
+the program.
 
 This mechanism allows for centralized exception handling and gives flexibility in where exceptions are handled.
 

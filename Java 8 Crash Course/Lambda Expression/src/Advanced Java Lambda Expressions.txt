@@ -1,8 +1,6 @@
-Advanced Java Lambda Expressions Cheat Sheet
+Advanced Java Lambda Expressions:
 
-
-✅ 1. Return Complex Objects
-
+1. Return Complex Objects
 You can return objects from lambda expressions.
 
 import java.util.function.*;
@@ -24,12 +22,10 @@ public class LambdaDemo {
     }
 }
 
-✅ Output:
-
+Output:
 Alice
 
-✅ 2. Using Comparator for Custom Sorting
-
+2. Using Comparator for Custom Sorting
 Sort custom objects using lambdas with the Comparator interface.
 
 import java.util.*;
@@ -63,14 +59,11 @@ public class LambdaDemo {
     }
 }
 
-✅ Output:
-
+Output:
 [Bob (25), Alice (30), Charlie (35)]
 
-✅ 3. Chaining Predicates
-
+3. Chaining Predicates
 Use multiple conditions with and(), or(), and negate().
-
 
 import java.util.function.*;
 
@@ -86,15 +79,12 @@ public class LambdaDemo {
         System.out.println(isEvenAndPositive.test(-4)); // false
     }
 }
-```
 
-✅ Output:
-
+Output:
 true  
 false
 
-✅ 4. Function Chaining
-
+4. Function Chaining
 Chain transformations using andThen() and compose().
 
 import java.util.function.*;
@@ -111,15 +101,12 @@ public class LambdaDemo {
     }
 }
 
-
-✅ Output:
-
+Output:
 18
 
-✅ 5. Handling Exceptions in Lambda
+5. Handling Exceptions in Lambda
 
 Use try-catch inside lambdas for error handling.
-
 
 import java.util.function.*;
 
@@ -138,12 +125,11 @@ public class LambdaDemo {
     }
 }
 
-✅ Output:
-
+Output:
 42  
 0
 
-✅ 6. Parallel Streams with Lambda
+6. Parallel Streams with Lambda
 
 Use parallel streams for faster execution on large datasets.
 
@@ -160,8 +146,7 @@ public class LambdaDemo {
     }
 }
 
-✅ Output: (Order may vary)
-
+Output: (Order may vary)
 2  
 4  
 6  
@@ -169,8 +154,7 @@ public class LambdaDemo {
 10  
 12
 
-✅ 7. Custom Functional Interface
-
+7. Custom Functional Interface
 You can define your own functional interface.
 
 @FunctionalInterface
@@ -186,12 +170,10 @@ public class LambdaDemo {
 }
 
 
-✅ Output:
-
+Output:
 Sum: 12
 
-✅ 8. Stream.collect() for Grouping Data
-
+8. Stream.collect() for Grouping Data
 Group elements using Collectors.groupingBy().
 
 import java.util.*;
@@ -223,12 +205,10 @@ public class LambdaDemo {
     }
 }
 
-✅ Output:
-
+Output:
 {NY=[Alice, Charlie], LA=[Bob]}
 
-✅ 9. Use Lambdas with Optional
-
+9. Use Lambdas with Optional
 Handle null values safely with Optional.
 
 import java.util.Optional;
@@ -245,11 +225,10 @@ public class LambdaDemo {
     }
 }
 
-✅ Output:
-
+Output:
 Name not found
 
-✅ 10. Combining Streams and Lambdas
+10. Combining Streams and Lambdas
 
 Example of map, filter, and reduce together:
 
@@ -269,12 +248,10 @@ public class LambdaDemo {
     }
 }
 
-✅ Output:
-
+Output:
 Result: 24
 
-🎯 Quick Recap:
-
+Quick Recap:
 1. Chain operations with andThen() and compose().  
 2. Handle exceptions using try-catch inside lambdas.  
 3. Parallel streams improve performance.  

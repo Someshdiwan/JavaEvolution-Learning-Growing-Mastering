@@ -1,0 +1,68 @@
+Unary and Binary Operators in Java:
+
+1. Unary Operator
+- Takes a single argument and returns a value of the same type.
+- Represented by the `UnaryOperator<T>` interface.
+- Specialized version of `Function<T, T>`.
+
+Example: Increment an integer by 1
+
+import java.util.function.UnaryOperator;
+
+public class UnaryOperatorDemo {
+    public static void main(String[] args) {
+        // Define a unary operator that increments its input by 1
+        UnaryOperator<Integer> increment = x -> x + 1;
+
+        // Use the operator by calling apply method
+        int result = increment.apply(5);
+        System.out.println("Increment 5: " + result);  // Output: 6
+    }
+}
+
+Explanation:
+- UnaryOperator<Integer> increment → function from Integer → Integer.
+- Lambda expression (x -> x + 1) → adds 1 to input.
+- increment.apply(5) → returns 6.
+
+
+2. Binary Operator
+- Takes two arguments of the same type and returns a result of the same type.
+- Represented by the `BinaryOperator<T>` interface.
+- Specialized version of `BiFunction<T, T, T>`.
+
+Example: Add two integers
+
+import java.util.function.BinaryOperator;
+
+public class BinaryOperatorDemo {
+    public static void main(String[] args) {
+        // Define a binary operator that adds two integers
+        BinaryOperator<Integer> add = (x, y) -> x + y;
+
+        // Use the operator by calling apply method
+        int result = add.apply(5, 10);
+        System.out.println("Add 5 and 10: " + result);  // Output: 15
+    }
+}
+
+Explanation:
+- BinaryOperator<Integer> add → function from (Integer, Integer) → Integer.
+- Lambda expression ((x, y) -> x + y) → adds inputs.
+- add.apply(5, 10) → returns 15.
+
+
+3. When to Use
+- UnaryOperator<T>
+  - Use when you need to perform an operation on a single object and return the same type.
+  - Example: squaring a number, converting a string to uppercase.
+
+- BinaryOperator<T>
+  - Use when you need to combine two objects of the same type into one.
+  - Example: summing numbers, concatenating strings, finding a maximum.
+
+
+Summary
+- UnaryOperator<T> → one input, same type output.
+- BinaryOperator<T> → two inputs, same type output.
+- Both are useful in Java Streams (map, reduce, collect) and functional-style programming.

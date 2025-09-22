@@ -1,0 +1,69 @@
+🔹 What is a Functional Interface?
+	•	An interface with exactly one abstract method.
+	•	Can have any number of default or static methods.
+	•	Acts as a contract for lambda expressions or method references.
+	•	Annotated with @FunctionalInterface (optional but recommended).
+⸻
+
+🔹 How to Create a Functional Interface?
+	1.	Use the interface keyword.
+	2.	Define only one abstract method inside it.
+	3.	(Optional) Add @FunctionalInterface annotation to enforce compiler checks.
+
+⸻
+
+🔹 General Syntax:
+@FunctionalInterface
+interface InterfaceName {
+    ReturnType methodName(ParameterType parameters);
+
+    // You may also define default/static methods
+    default void helperMethod() { ... }
+    static void utilityMethod() { ... }
+}
+
+⸻
+
+🔹 Short Example:
+@FunctionalInterface
+interface MyFunctionalInterface {
+    void sayMessage(String msg); // Single Abstract Method
+}
+
+public class Package.Package2.Test {
+    public static void main(String[] args) {
+        // Using lambda expression
+        MyFunctionalInterface message = (msg) -> System.out.println("Hello, " + msg);
+        message.sayMessage("Java");
+    }
+}
+
+⸻
+
+Quick Recap:
+•	What? Interface with one abstract method.
+•	How? Use @FunctionalInterface, define one abstract method.
+•	Syntax: ReturnType methodName(ParameterType parameters);
+•	Usage: Ideal with lambda expressions for cleaner, concise code.
+
+
+Example of `Function<T, R>` in Java 8:
+
+- `Function<T, R>` is a functional interface from `java.util.function` package.
+- `T` is the input type (`String` in this case).
+- `R` is the return type (`Integer` in this case).
+- The lambda expression (`str -> str.length()`) defines the function body.
+- `.apply("Java 8")` executes the function.
+
+
+Function<String, Integer> func = str -> str.length();
+System.out.println(func.apply("Java 8")); // Output: 6
+
+Other Useful Java 8 Functional Interfaces:
+
+| Functional Interface| Description                             |
+|---------------------|-----------------------------------------|
+| `Function<T, R>`    | Takes an argument `T` and returns `R`.  |
+| `Predicate<T>`      | Returns `boolean` (used for filtering). |
+| `Consumer<T>`       | Consumes `T` without returning a value. |
+| `Supplier<T>`       | Supplies a value of `T` (no input).     |

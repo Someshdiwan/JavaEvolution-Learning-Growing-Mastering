@@ -1,0 +1,14 @@
+🔹 Key Concept:
+•	Before Java 8 → interfaces could only have abstract methods.
+•	From Java 8 onwards → we can add default methods inside interfaces.
+•	Default methods provide a body/implementation inside the interface.
+
+• Useful for:
+✔ Backward compatibility (adding new methods to existing interfaces).
+✔ Avoiding duplicate code in all implementing classes.
+
+🔹 Quick Recap:
+✔ Default methods = methods with implementation inside interface.
+✔ Help in backward compatibility and reducing duplicate code.
+✔ Can be used as is or overridden in implementing classes.
+✔ Static methods are also allowed in interfaces (called using interface name).

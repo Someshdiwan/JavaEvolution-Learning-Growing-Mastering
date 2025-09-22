@@ -1,0 +1,112 @@
+# Java Streams: Intermediate and Terminal Operations
+
+Java Streams API operations are divided into two categories:
+
+1. Intermediate Operations
+   - Build a stream pipeline.
+   - Evaluated lazily (nothing executes until a terminal operation is called).
+
+2. Terminal Operations
+   - Trigger execution of the stream pipeline.
+   - Produce a result (collection, value, side effect).
+
+---
+
+## Intermediate Operations (Lazy)
+
+1. filter
+   Filters elements based on a predicate.
+   Example:
+   ```java
+   Stream<String> filteredStream = stream.filter(s -> s.startsWith("A"));
+   ```
+
+2. map
+   Transforms each element using a function.
+   ```java
+   Stream<Integer> mappedStream = stream.map(String::length);
+   ```
+
+3. flatMap
+   Flattens nested streams into a single stream.
+   ```java
+   Stream<String> flatMappedStream = stream.flatMap(s -> Arrays.stream(s.split(" ")));
+   ```
+
+4. distinct
+   Removes duplicate elements.
+   ```java
+   Stream<String> distinctStream = stream.distinct();
+   ```
+
+5. sorted
+   Sorts the elements of the stream.
+   ```java
+   Stream<String> sortedStream = stream.sorted();
+   ```
+
+6. peek
+   Performs an action on each element as it flows through the pipeline (useful for debugging).
+   ```java
+   Stream<String> peekedStream = stream.peek(System.out::println);
+   ```
+
+---
+
+## Terminal Operations (Eager)
+
+Terminal operations cause the stream pipeline to execute.
+
+1. forEach
+   Iterates over elements and performs an action.
+   ```java
+   stream.forEach(System.out::println);
+   ```
+
+2. collect
+   Collects elements into a collection or another result container.
+   ```java
+   List<String> list = stream.collect(Collectors.toList());
+   ```
+
+3. reduce
+   Reduces elements to a single value using an accumulator.
+   ```java
+   int sum = stream.reduce(0, Integer::sum);
+   ```
+
+4. count
+   Returns the number of elements in the stream.
+   ```java
+   long count = stream.count();
+   ```
+
+5. min / max
+   Finds the minimum or maximum element using a comparator.
+   ```java
+   Optional<Integer> min = stream.min(Integer::compareTo);
+   Optional<Integer> max = stream.max(Integer::compareTo);
+   ```
+
+6. anyMatch / allMatch / noneMatch
+   Test whether elements match a predicate.
+   ```java
+   boolean hasEven = stream.anyMatch(x -> x % 2 == 0);
+   boolean allEven = stream.allMatch(x -> x % 2 == 0);
+   boolean noneNegative = stream.noneMatch(x -> x < 0);
+   ```
+
+7. findFirst / findAny
+   Retrieve an element from the stream.
+   ```java
+   Optional<String> first = stream.findFirst();
+   Optional<String> any = stream.findAny();
+   ```
+
+---
+
+## Summary
+
+- Intermediate operations build the pipeline but don’t execute immediately (lazy).
+- Terminal operations trigger the pipeline execution (eager).
+- Together, they allow powerful, declarative, and optimized data processing in Java.

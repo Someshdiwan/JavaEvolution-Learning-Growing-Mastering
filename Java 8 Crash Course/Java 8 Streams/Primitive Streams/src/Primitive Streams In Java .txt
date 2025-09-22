@@ -1,4 +1,4 @@
-Primitive Streams in Java
+Primitive Streams in Java:
 
 Primitive streams are specialized versions of the Java Streams API that deal specifically with primitive data
 types (such as int, long, and double).

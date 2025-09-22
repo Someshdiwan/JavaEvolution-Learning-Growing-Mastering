@@ -1,0 +1,74 @@
+What is a .bat File?
+
+A .bat (Batch) file is a script file used in Windows to automate tasks.
+It contains a series of commands that are executed sequentially when the file is run.
+
+Key Features of a .bat File
+- It is a text file with the .bat extension.
+- Executes Command Prompt (CMD) commands automatically.
+- Used to automate tasks like opening programs, running scripts, or managing files.
+- Can be run by double-clicking or via the command line.
+
+---
+
+Example 1: A Simple .bat File
+This .bat file prints "Hello, World!" and waits for user input before closing.
+
+@echo off
+echo Hello, World!
+pause
+
+Explanation:
+- @echo off → Hides the commands from being displayed in the console.
+- echo Hello, World! → Prints "Hello, World!" in the command prompt.
+- pause → Waits for user input before closing the window.
+
+---
+
+Example 2: Opening Notepad via .bat
+This script will open Notepad when executed:
+
+@echo off
+start notepad.exe
+
+---
+
+Example 3: Open IntelliJ IDEA via .bat
+If you want to open IntelliJ IDEA and a specific Java file, use:
+
+@echo off
+start "" "C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2023.3\bin\idea64.exe" "D:\Projects\JavaTutorials\src\Main.java"
+
+How It Works:
+- start "" → Opens a new window (the empty "" prevents command prompt issues).
+- The first path is IntelliJ's .exe file (updated to 2023.3 version in Program Files).
+- The second path is a sample Java file (Main.java) inside a generic project folder on D: drive.
+
+---
+
+📂 How to Create & Run a .bat File
+1. Open Notepad (or any text editor).
+2. Write your batch script (e.g., echo Hello, World!).
+3. Save the file with a .bat extension (e.g., hello.bat).
+4. Double-click the .bat file to execute it.
+
+---
+
+💡 What Can You Do with a .bat File?
+- Automate opening software (IntelliJ, Notepad, Chrome, etc.)
+- Execute multiple commands at once
+- Run scripts and batch jobs
+- Automate file management (copy, move, delete files)
+- Schedule tasks in Windows Task Scheduler
+
+---
+
+Final Summary
+
+| Feature        | Description                         |
+|----------------|-------------------------------------|
+| File Extension | .bat                                |
+| Runs On        | Windows (CMD)                       |
+| Purpose        | Automate tasks & run commands       |
+| Execution      | Double-click or run in CMD          |
+| Example        | Open Notepad: start notepad.exe     |

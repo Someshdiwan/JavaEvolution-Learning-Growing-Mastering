@@ -1,0 +1,24 @@
+What is a .cmd File?
+
+A .cmd file is very similar to a .bat file.
+It is used in Windows to automate tasks in the Command Prompt.
+
+Key Features of a .cmd File:
+- Text file with .cmd extension.
+- Runs sequential commands in CMD.
+- Almost identical to .bat, but introduced in Windows NT.
+- Preferred when using modern Windows scripting over legacy .bat.
+
+Example 1: Simple Hello World
+@echo off
+echo Hello, World from CMD!
+pause
+
+Example 2: Open IntelliJ IDEA
+@echo off
+start "" "C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2023.3\bin\idea64.exe" "D:\Projects\JavaTutorials\src\Main.java"
+
+How It Works:
+- start "" launches a program in a new window.
+- First path → IntelliJ executable.
+- Second path → Java file to open.

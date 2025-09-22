@@ -2,10 +2,10 @@ An interface in Java contributes to polymorphism by defining a contract for impl
 
 It declares a set of abstract methods that must be implemented by any class that implements the interface.
 
-This allows for polymorphic behavior, as different classes can provide their own implementations of the interface methods.
+This allows for polymorphic behavior, as different classes can provide their own implementations of the interface
+methods.
 
 Objects of these implementing classes can be treated as instances of the interface type, enabling runtime polymorphism
-
 and promoting loose coupling in the code.
 
 This code shows an interface Animal with a method makeSound().

@@ -13,7 +13,6 @@ public class Test {
             case 500 -> "Internal Error";
             case 502 -> "Bad Gateway";
 
-
             case int i when i > 100 && i < 200 -> "Informational";
             case int i when i > 200 && i < 300 -> "Successful";
             case int i when i > 302 && i < 400 -> "Redirection";

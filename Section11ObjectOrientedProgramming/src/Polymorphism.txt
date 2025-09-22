@@ -1,4 +1,4 @@
-Polymorphism is a core concept in Object-Oriented Programming (OOP) that refers to the ability of a single function,
+Polymorphism is a core concept in Object-Oriented Programming that refers to the ability of a single function,
 method, or object to behave in multiple ways.
 
 The term polymorphism comes from Greek, where "poly" means "many" and "morph" means "form"

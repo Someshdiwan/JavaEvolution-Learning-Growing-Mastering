@@ -27,7 +27,7 @@ public class LambdaDemo {
         };
         */
 
-        //MyLambda Method. Method itself is an object in lambda class.
+        //MyLambda Method. Method itself is an object in a lambda class.
         MyLambda m= () -> {System.out.println("Hello world");};
         m.display();
     }

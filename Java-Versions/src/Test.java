@@ -2,7 +2,7 @@ public class Test {
     public static void main(String[] args) {
         System.out.println(
                 "Java Versions Repository\n" +
-                        "-------------------------\n" +
+                        "------------------------\n" +
                         "This project is organized by major Java releases (Java 8, 11, 17, 21, etc).\n" +
                         "Each folder contains examples, notes, and code snippets for features introduced in that version.\n\n" +
 

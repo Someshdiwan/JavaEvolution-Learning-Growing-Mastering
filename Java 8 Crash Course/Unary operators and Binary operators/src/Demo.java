@@ -12,8 +12,8 @@ public class Demo {
         BinaryOperator<Integer> addValues = (x, y) -> x + y;
 
         // Using the apply method to execute the lambda expressions:
-        int unaryResult = doubleValue.apply(5);           // 5 * 2 = 10
-        int binaryResult = addValues.apply(3, 4);           // 3 + 4 = 7
+        int unaryResult = doubleValue.apply(5);
+        int binaryResult = addValues.apply(3, 4);
 
         System.out.println("Result of UnaryOperator (5 * 2): " + unaryResult);
         System.out.println("Result of BinaryOperator (3 + 4): " + binaryResult);

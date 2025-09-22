@@ -3,7 +3,7 @@ class Rectangle {
     int breadth;
 
     Rectangle(int length, int breadth) {
-        this.length = length;  // Fixed the typo
+        this.length = length;
         this.breadth = breadth;
     }
 

@@ -15,12 +15,12 @@ public class PrimitiveStreams {
         IntStream.of(1, 2, 3);
 
         DoubleStream doubles = new Random().doubles(5);
-//        System.out.println(doubles.sum());
-//        System.out.println(doubles.min());
-//        System.out.println(doubles.max());
-//        System.out.println(doubles.average());
-//        doubles.summaryStatistics()
-//        doubles.mapToInt(x -> (int) (x + 1));
+        // System.out.println(doubles.sum());
+        // System.out.println(doubles.min());
+        // System.out.println(doubles.max());
+        // System.out.println(doubles.average());
+        // doubles.summaryStatistics()
+        // doubles.mapToInt(x -> (int) (x + 1));
         System.out.println(doubles.boxed().toList());
 
         IntStream intStream = new Random().ints(5);

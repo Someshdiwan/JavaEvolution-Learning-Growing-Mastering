@@ -76,8 +76,7 @@ build/
 # Do NOT ignore workflow files
 !.github/workflows/*.yml
 
-# ==============================
+
 # YAML Configs (Safe Ignore)
-# ==============================
 # Only ignore IDE/tool YAMLs, not app configs like application.yml
 .idea/*.yml

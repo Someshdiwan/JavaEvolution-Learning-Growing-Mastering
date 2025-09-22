@@ -12,7 +12,7 @@ public class OperatorInterfaceDemo {
         // BinaryOperator: adds two integers
         BinaryOperator<Integer> b = (x, y) -> x + y;
 
-        // actual results, call apply() on the operators.
+        // for actual results, call apply() on the operators.
         System.out.println("Unary result (2 * 5): " + a.apply(5));
         System.out.println("Binary result (5 + 5): " + b.apply(5, 5));
     }
@@ -20,9 +20,11 @@ public class OperatorInterfaceDemo {
 
 /*
 Lambda Expression Execution:
-Use the apply method (for both UnaryOperator and BinaryOperator) to execute the lambda and obtain a result.
+Use the apply method (for both UnaryOperator and BinaryOperator) to execute the lambda and obtain a
+result.
 
-Simply printing the lambda variable (e.g., System.out.println(a);) shows the reference, not the computed value.
+Simply printing the lambda variable (e.g., System.out.println(a);) shows the reference,
+not the computed value.
 
 Unused Methods:
 In Version 1, the sum method is defined but not used.

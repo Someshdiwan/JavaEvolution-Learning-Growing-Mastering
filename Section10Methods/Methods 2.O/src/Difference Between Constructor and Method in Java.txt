@@ -1,0 +1,88 @@
+# Difference Between Constructor and Method in Java
+
+In Java, constructors and methods look similar because both can have parameters and a body of code.  
+However, they serve different purposes and have distinct rules.  
+
+Understanding their differences is crucial for writing clear and maintainable Java programs.  
+
+---
+
+## Key Differences
+
+1. Purpose
+   - Constructor: Used to initialize objects.
+   - Method: Used to define behavior or functionality of an object.
+
+2. Name
+   - Constructor: Must have the same name as the class.
+   - Method: Can have any valid identifier except the class name.
+
+3. Return Type
+   - Constructor: Has no return type, not even void.
+   - Method: Must declare a return type (void, int, String, etc.).
+
+4. Invocation
+   - Constructor: Called automatically when new is used to create an object.
+   - Method: Must be invoked explicitly using the object reference or class name (for static).
+
+5. Inheritance
+   - Constructor: Not inherited by subclasses, but subclass constructors may call superclass constructors via super().
+   - Method: Inherited by subclasses (unless declared private or final).
+
+6. Overloading and Overriding
+   - Constructor: Can be overloaded (multiple constructors with different parameter lists). Cannot be overridden.
+   - Method: Can be both overloaded and overridden.
+
+7. Modifiers
+   - Constructor: Can use access modifiers (public, protected, private). Cannot be abstract, static, final, or
+     synchronized.
+   - Method: Can use a wider range of modifiers (public, protected, private, abstract, static, final, synchronized,
+     native).
+
+8. Execution Order
+   - Constructor: Executes automatically during object creation, before any method calls.
+   - Method: Executes only when explicitly invoked.
+
+---
+
+## Example
+
+class Student {
+    String name;
+    int age;
+
+    // Constructor
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Method
+    public void displayDetails() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        // Constructor is called automatically when creating an object
+        Student s1 = new Student("Alice", 21);
+
+        // Method is called explicitly using the object reference
+        s1.displayDetails();
+    }
+}
+
+| Feature            | Constructor                                                                  | Method                                                                                 |
+|--------------------|------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| Purpose            | Initializes object state                                                     | Defines object behavior / functionality                                                |
+| Name               | Must match the class name exactly                                            | Any valid identifier (cannot be the same as the class name if intended as a method)    |
+| Return Type        | None (not even void)                                                         | Must declare a return type (void, primitive, or object type)                           |
+| When Called        | Automatically, at the time of object creation using new                      | Explicitly, after object creation or via class reference (if static)                   |
+| Invocation         | Implicit via new ClassName()                                                 | Explicit: objectName.methodName() or ClassName.methodName()                            |
+| Inheritance        | Not inherited; subclass must explicitly call with super() if needed          | Inherited by subclasses (unless private or final)                                      |
+| Overloading        | Supported (multiple constructors with different parameter lists)             | Supported                                                                              |
+| Overriding         | Not possible                                                                 | Supported                                                                              |
+| Modifiers          | Allowed: public, protected, private<br>Not allowed: abstract, static, final, synchronized | Allowed: public, protected, private, abstract, static, final, synchronized, native |
+| Execution Order    | Runs before any method, when object is instantiated                          | Runs only when explicitly invoked                                                      |
+| Special Use        | Ensures mandatory fields are set and object is ready to use                  | Encapsulates business logic or reusable functionality                                  |

@@ -1,0 +1,129 @@
+ImmutableMap — Internal Working
+
+Java provides multiple ways to create "immutable" or unmodifiable maps. There are two common patterns:
+ 1) an immutable *view* over a mutable map (`Collections.unmodifiableMap(...)`),
+ 2) truly immutable maps created by factory methods (`Map.of(...)` and `Map.ofEntries(...)`).
+Each has different internal characteristics and use-cases.
+
+1. Collections.unmodifiableMap(map)
+----------------------------------
+- What it is:
+  Creates an *immutable view* (a read-only wrapper) of an existing Map instance.
+
+- Internal working:
+  - `Collections.unmodifiableMap(m)` returns a wrapper object (an instance of a private static class
+    inside `Collections`) that implements `Map`.
+  - The wrapper delegates all read operations (get, containsKey, entrySet, etc.) directly to the underlying map instance.
+  - Mutating calls (put, remove, clear, putAll, etc.) on the wrapper throw `UnsupportedOperationException`.
+  - The wrapper is a *shallow* wrapper — it does not copy entries. It only prevents modifications via the wrapper reference.
+
+- Important consequences:
+  - If the original map (`map1`) is modified directly (not via the wrapper), those changes are visible through the wrapper.
+  - The wrapper is lightweight and cheap because it only stores a reference to the original map.
+  - Not a true immutable snapshot — use only for defensive read-only sharing when you control who can modify the original.
+
+- Use-cases:
+  - Provide read-only access to an internal data structure without copying.
+  - Protect a map from modification by API consumers while still allowing internal updates.
+
+- ASCII (conceptual)
+  [map1 (modifiable)] <---- wrapper delegates reads ---- [unmodifiableMap (view)]
+       put("A",1)  --> map1 changes visible via unmodifiableMap.get("A")
+
+2. Map.of()
+-----------
+- What it is:
+  - Factory methods introduced in Java 9 to create truly immutable small maps.
+  - Example: `Map.of("A", 1, "B", 2)`.
+
+- Internal working:
+  - `Map.of(...)` implementations create an internal compact, immutable map representation (not a wrapper).
+  - The returned instance contains its own internal arrays/structures for keys and values.
+  - It is not backed by any external map; it cannot be changed after creation.
+  - Typically optimized for small fixed sizes (special-cased implementations for 0..10 entries).
+
+- Important consequences:
+  - Truly immutable — no external modification possible and no view semantics.
+  - Attempting `put` or `remove` throws `UnsupportedOperationException`.
+  - Very memory- and CPU-efficient for small constant maps.
+  - Limited convenience overloads: `Map.of` has overloaded variants up to 10 key-value pairs.
+
+- Use-cases:
+  - Small fixed configuration maps or constants defined at startup.
+  - When you want a true immutable map with no risk of external mutation.
+
+- ASCII (conceptual)
+  [Map.of instance] -> independent immutable storage of {A=1, B=2}
+  Changes to other maps do not affect it.
+
+3. Map.ofEntries()
+------------------
+- What it is:
+  - Also Java 9; flexible factory method that accepts many `Map.entry(...)` items and returns a truly immutable map.
+  - Not limited to 10 entries.
+
+- Internal working:
+  - Builds an independent immutable internal structure from the provided entries.
+  - Likely uses an optimized internal representation to store the entries compactly (array-based or similar).
+  - Not a wrapper; it is a separate object with no references to any source map.
+
+- Important consequences:
+  - Same immutability guarantees as `Map.of`.
+  - Useful when you need more than 10 entries or want to construct an immutable map programmatically.
+
+- Use-cases:
+  - Large constant maps at initialization, configuration mapping, read-only lookup tables.
+
+Comparison summary (quick)
+--------------------------
+- Backing:
+  - `Collections.unmodifiableMap`: wrapper around existing map (delegates reads).
+  - `Map.of` / `Map.ofEntries`: independent immutable instances (no backing map).
+
+- Mutability:
+  - `unmodifiableMap`: prevents modification via wrapper but underlying map can still change.
+  - `Map.of` / `Map.ofEntries`: fully immutable (cannot change at all).
+
+- Memory & performance:
+  - `unmodifiableMap`: minimal overhead, cheap to create.
+  - `Map.of` / `Map.ofEntries`: optimized internal structures, efficient for lookups, slightly higher creation cost but immutable.
+
+Practical examples and notes
+----------------------------
+- When to choose which:
+  - Want to expose internal map read-only while still updating it internally? Use `Collections.unmodifiableMap`.
+  - Need a true constant map that never changes and is safe to share across threads without synchronization? Use `Map.of` or `Map.ofEntries`.
+  - Need >10 entries and immutability? Use `Map.ofEntries`.
+
+- Thread-safety:
+  - `Map.of` / `Map.ofEntries` are inherently thread-safe (immutable).
+  - `Collections.unmodifiableMap` is thread-safe for reads only if the underlying map is thread-safe; otherwise concurrent modifications of the backing map can lead to race conditions.
+
+- Example patterns:
+  - Defensive API:
+      `public Map<K,V> getSettings() { return Collections.unmodifiableMap(this.settings); }`
+    (internal code can still update `settings`.)
+
+  - Constant config:
+      `private static final Map<String,Integer> LIMITS = Map.of("A", 1, "B", 2);`
+
+ASCII diagram: wrapper vs independent
+------------------------------------
+ Wrapper (unmodifiableMap):
+   +-----------------+                 +--------------------+
+   | unmodifiableMap | --delegates-->  | backing HashMap    |
+   | (throws on put) |                 | {A=1, B=2}         |
+   +-----------------+                 +--------------------+
+
+ Independent immutable (Map.of / Map.ofEntries):
+   +-------------------------+
+   | immutableMap (Map.of)   |
+   | internal storage {A=1}  |
+   +-------------------------+
+   (no link to any other map, cannot change)
+
+Final takeaways
+---------------
+- `Collections.unmodifiableMap` is a cheap defensive view; use when you must share a mutable map read-only.
+- `Map.of` and `Map.ofEntries` produce true immutable maps suitable for constants and thread-safe shared data.
+- Choose the one that matches whether you need a view-on-existing-data or a separate immutable snapshot.

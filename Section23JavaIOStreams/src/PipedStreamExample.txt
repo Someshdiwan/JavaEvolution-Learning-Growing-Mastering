@@ -38,6 +38,6 @@ Good for Producer-Consumer Problems: Ensures sequential data handling.
 6. Disadvantages
 Blocking Issues: If the consumer does not read fast enough, the producer might be blocked.
 Exception Handling Required: If not properly handled, threads may crash.
-Limited Buffer Size: If buffer overflows, performance issues may arise.
+Limited Buffer Size: If a buffer overflows, performance issues may arise.
 
 This concept is widely used in multithreading scenarios where threads need to exchange data efficiently.

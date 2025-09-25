@@ -1,0 +1,160 @@
+ConcurrentSkipListMap and ConcurrentSkipList — Detailed Explanation
+
+Quick summary
+•	ConcurrentSkipListMap
+A concurrent, sorted map implementation in java.util.concurrent. It implements ConcurrentNavigableMap<K,V>.
+Internally it uses a skip-list to store key/value entries in sorted order.
+It is designed for high concurrency: reads are essentially non-blocking and many writes can proceed without global locks.
+Iterators are weakly consistent (they tolerate concurrent updates and do not throw ConcurrentModificationException).
+
+•	ConcurrentSkipList (usually referring to ConcurrentSkipListSet)
+A concurrent, sorted set built on top of a ConcurrentSkipListMap (the set is essentially the map’s keys).
+In Java the class is ConcurrentSkipListSet<E>; it implements ConcurrentNavigableSet<E>.
+It provides the same concurrency and ordering properties as the map, but for unique keys only.
+
+⸻
+
+Core idea: what is a skip list?
+
+A skip list is a layered linked-list structure that provides probabilistic balancing:
+•	Level 0: a standard sorted singly linked list containing all nodes.
+•	Level 1..L: higher levels contain a subset of nodes, allowing you to “skip” many items quickly.
+•	Searching: start at the top level, move right until the next key would overshoot,
+    then drop down one level and repeat until level 0.
+•	Average-case performance: operations (search/insert/delete) are expected O(log n).
+    The balancing comes from random or probabilistic promotion of nodes to higher levels.
+
+ASCII sketch (small):
+
+Level 3: HEAD -------------------------> [50] -----------------> null
+Level 2: HEAD --------------> [20] -> [50] -> [90] -> null
+Level 1: HEAD -----> [10] -> [20] -> [30] -> [50] -> null
+Level 0: HEAD -> [5] -> [10] -> [15] -> [20] -> [25] -> [30] -> [40] -> [50] -> null
+
+
+⸻
+
+Why skip lists for concurrent sorted maps/sets?
+•	Skip lists are simpler to make concurrent than balanced trees. Their updates are local (affect a few pointers)
+    and can be implemented using CAS (compare-and-swap) on pointer fields.
+•	They allow a high degree of concurrency because different threads often touch different parts of the structure.
+•	Readers can traverse with minimal synchronization and remain safe (weakly consistent) while writers make changes.
+
+⸻
+
+Internal structure (high level)
+•	Node: contains key, value (map only), and an array or sequence of forward/next pointers—one per level that node appears in.
+•	Head: a sentinel node with highest level pointers.
+•	Level management: when inserting a node, you choose how many levels it participates in
+    (traditionally by coin-flip probability or an equivalent RNG). Higher-level pointers skip farther.
+•	Atomic updates: link/unlink operations use atomic CAS on next pointers.
+    A removal may be done in two phases: logical removal (marking) then physical unlinking (CAS to remove).
+•	Helping: concurrent algorithms often let other threads “help” finish a partially-completed update to avoid
+    inconsistent state and reduce retries.
+•	Weakly-consistent iterators: iteration walks next pointers and tolerates concurrently inserted/removed nodes.
+    The iterator may or may not see every concurrent update.
+
+⸻
+
+How operations work (conceptually)
+
+Search (get / contains):
+•	Start at top level, move right while next key < target. When you cannot move right, drop down a level.
+    Continue until level 0 and then inspect candidate node.
+
+Insert (put / add):
+1.	Locate predecessor nodes at each level where new node will link in.
+2.	Allocate new node and set its forward pointers to successors.
+3.	Using CAS, splice the new node at each level, typically from lowest to highest or vice versa, with retries on CAS failure.
+4.	If collisions or competing updates occur, retry the local CAS or help complete concurrent updates.
+
+Remove (delete / remove):
+1.	Find node and mark it logically removed (often by setting a flag or special value in the next pointer).
+2.	Physically unlink node by CAS on predecessor.next to bypass the removed node.
+3.	Other threads may help unlink.
+
+Because operations touch a small neighbourhood of pointers, different keys can be manipulated concurrently with low contention.
+
+⸻
+
+Concurrency model & guarantees
+•	Thread-safety: built-in; no external synchronization needed.
+•	Locking: mostly lock-free or fine-grained CAS; no single global lock.
+•	Iterators: weakly consistent — they traverse elements reflecting some state between creation and end, but they do
+    not throw ConcurrentModificationException.
+•	Progress: operations make progress without blocking; writers may retry operations under contention but do not block
+    other threads generally.
+
+⸻
+
+Complexity
+•	Average/expected time: O(log n) for get, put, remove, contains.
+•	Memory: extra pointers per node (one per level) increase memory overhead compared to a plain linked list;
+    expected levels per node is constant (geometric distribution).
+•	Worst-case (degenerate) is O(n) but rare because of probabilistic balancing.
+
+⸻
+
+Key differences: ConcurrentSkipListMap vs ConcurrentSkipListSet
+•	ConcurrentSkipListMap<K,V>
+•	Stores key→value entries; supports full Map and NavigableMap APIs.
+•	Supports operations like put, get, remove, firstKey, subMap, ceilingKey, and other navigable methods.
+•	Good when you need sorted associations (key → value).
+•	ConcurrentSkipListSet
+•	Backed by a ConcurrentSkipListMap<E, Boolean> or similar internal structure (the set is basically the map’s keys).
+•	Provides set-style API (add, remove, contains, first, etc.).
+•	Use when you only need a sorted collection of unique elements.
+
+⸻
+
+Typical use cases
+•	Concurrent ordered indexes (time-based events, scheduling).
+•	Concurrent caches or registries where keys must be sorted or you need navigable operations (range queries).
+•	Multi-threaded environments where you need non-blocking reads with frequent concurrent updates.
+•	Implementing priority-like behavior when keys represent priorities or time-stamps.
+
+⸻
+
+Comparisons with other concurrent maps
+•	ConcurrentSkipListMap vs TreeMap
+•	TreeMap is not thread-safe and is based on red-black trees. ConcurrentSkipListMap is thread-safe and better for
+    concurrent access with similar O(log n) guarantees.
+•	ConcurrentSkipListMap vs ConcurrentHashMap
+•	ConcurrentHashMap is unordered and optimized for raw throughput (hash-based).
+    If you do not need ordering, prefer ConcurrentHashMap for higher throughput.
+    If you need ordering or navigable methods, use ConcurrentSkipListMap.
+•	ConcurrentSkipListMap vs ConcurrentSkipListSet
+•	Set is just the keys view; choose whichever matches your need (map for key→value, set for unique keys only).
+
+⸻
+
+Practical considerations & tips
+•	Avoid null keys and values: these implementations do not permit null keys or null values.
+•	Iterators are good for monitoring and non-critical scans; they are not snapshots and may not reflect all updates.
+•	If you need strict, consistent snapshots for range queries, consider copying data to a separate structure or using external synchronization.
+•	Memory: be mindful of the per-node pointers — skip lists typically consume more memory than hash maps or single linked lists.
+•	For ordered concurrent maps with navigational operations, ConcurrentSkipListMap is one of the best standard options.
+
+⸻
+
+ASCII example of concurrent insertion (conceptual)
+
+Thread A inserts key 40:
+ - Locates prev nodes at each needed level.
+ - Attempts CAS on prev.level0.next from old -> new(40)->oldNext
+ - If CAS succeeds at level0, proceeds to higher levels.
+ - If level0 CAS loses (another thread inserted nearby), Thread A retries search and CAS.
+
+Thread B concurrently inserts key 35:
+ - It operates in a nearby region but uses CAS on pointers for its own prev nodes.
+ - Both can succeed as long as they update different next pointers or CAS ordering allows.
+
+⸻
+
+Final summary
+•	ConcurrentSkipListMap and ConcurrentSkipListSet are high-quality, concurrent, sorted collections built on skip lists.
+•	They provide expected O(log n) performance, excellent concurrency (non-blocking reads, fine-grained updates), and navigable APIs.
+•	Use them when you need sorted, thread-safe access with many concurrent readers/writers;
+    use ConcurrentHashMap instead when ordering is not required and raw throughput is the highest priority.
+
+⸻

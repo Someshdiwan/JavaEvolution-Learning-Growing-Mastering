@@ -1,0 +1,47 @@
+"ABC" string ka hashCode step-by-step ASCII flow bana dete hain.
+
+Yeh Java ka String.hashCode() ka actual formula hai:
+
+h = 31*h + char
+
+⸻
+
+Example: "ABC"
+
+Initial:
+h = 0
+
+Step 1: 'A' = 65
+h = 31*0 + 65 = 65
+
+Step 2: 'B' = 66
+h = 31*65 + 66
+  = 2015 + 66
+  = 2081
+
+Step 3: 'C' = 67
+h = 31*2081 + 67
+  = 64511 + 67
+  = 64578
+
+⸻
+
+ASCII Flow Diagram
+
+   String = "ABC"
+
+   h = 0
+    │
+    ├── 'A' (65) → h = 31*0 + 65 = 65
+    │
+    ├── 'B' (66) → h = 31*65 + 66 = 2081
+    │
+    └── 'C' (67) → h = 31*2081 + 67 = 64578
+
+Final hashCode("ABC") = 64578
+
+⸻
+
+Isliye "ABC".hashCode() = 64578 Java me.
+
+⸻

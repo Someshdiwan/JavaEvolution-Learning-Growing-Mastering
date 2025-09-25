@@ -1,0 +1,123 @@
+CopyOnWriteArraySet — Internal Working:
+
+Overview
+--------
+`CopyOnWriteArraySet` is a **thread-safe Set implementation** backed by a `CopyOnWriteArrayList`.
+It belongs to the `java.util.concurrent` package and is designed for **concurrent read-mostly scenarios**.
+
+Key properties:
+- Implements **Set** → does not allow duplicates.
+- Backed internally by a `CopyOnWriteArrayList`.
+- Provides **thread safety** without explicit synchronization (uses internal array copying).
+- Good for scenarios with **many reads and few writes**.
+
+Why it exists:
+- In multi-threaded applications, normal `HashSet` or `LinkedHashSet` need external synchronization.
+- `CopyOnWriteArraySet` solves this by using **copy-on-write semantics**, making reads lock-free and safe.
+
+Internal Data Structure
+-----------------------
+- Backed by a **CopyOnWriteArrayList**.
+- Internally stores elements in an **array**.
+- On modification (add/remove), it creates a **new copy** of the entire array with the change applied.
+- Ensures **immutability of the current snapshot** for iterators and readers.
+
+ASCII Example
+-------------
+Suppose we create:
+
+```java
+CopyOnWriteArraySet<String> set = new CopyOnWriteArraySet<>();
+set.add("A");
+set.add("B");
+```
+
+Internal representation:
+
+Underlying array inside CopyOnWriteArrayList:
+
+```
+[ "A", "B" ]
+```
+
+Now if we add `"C"`:
+
+```
+Copy old array: [ "A", "B" ]
+New array created: [ "A", "B", "C" ]
+```
+
+Readers still see the old snapshot until the reference switches.
+
+Operation Flow
+--------------
+1. **Add(e)**
+   - Checks if element already exists (linear search in array).
+   - If not present → creates new array with element added.
+
+2. **Remove(e)**
+   - Creates new array with element removed.
+
+3. **Contains(e)**
+   - Linear search in array → O(n).
+
+4. **Iteration**
+   - Snapshot-based. Iterator works on the array snapshot at creation time.
+   - Iterators are **fail-safe** (not fail-fast). Modifications after iterator creation are not reflected.
+
+Performance
+-----------
+- **Read operations** (contains, iteration): O(n) but very fast due to array cache locality.
+- **Write operations** (add/remove): O(n) because new array is created each time.
+- **Iteration** is safe and does not require locking.
+
+Special Properties
+------------------
+- **Fail-safe iterators**: Iterator never throws `ConcurrentModificationException`.
+- **Duplicate prevention**: Checks array before inserting new element.
+- **Thread safety**: Achieved through atomic reference updates to the backing array.
+
+Differences vs Other Sets
+--------------------------
+| Feature                 | HashSet                    | LinkedHashSet               | CopyOnWriteArraySet               |
+|-------------------------|----------------------------|-----------------------------|-----------------------------------|
+| Ordering                | Unordered                  | Maintains insertion order   | Maintains insertion order (array) |
+| Thread-safety           | ❌ No                      | ❌ No                       | ✅ Yes (copy-on-write)            |
+| Backing structure       | HashMap                    | HashMap + LinkedList        | CopyOnWriteArrayList              |
+| Iterator type           | Fail-fast                  | Fail-fast                   | Fail-safe (snapshot)              |
+| Modification cost       | O(1) avg (hashing)         | O(1) avg + link updates     | O(n) (array copy)                 |
+| Use case                | General purpose            | Preserve order              | Read-mostly concurrent scenarios  |
+
+Thread Safety
+-------------
+- Every modifying operation creates a **new copy** of the internal array.
+- Readers always see a consistent snapshot.
+- No need for external synchronization.
+
+ASCII Flow of "Add"
+-------------------
+1. Current array: [ "A", "B" ]
+2. Add "C":
+   - Create new array with +1 size.
+   - Copy old elements.
+   - Append "C".
+3. Replace reference to new array.
+
+```
+Before: oldArray -> [ "A", "B" ]
+After:  newArray -> [ "A", "B", "C" ]
+```
+
+Use Cases
+---------
+- **Event listener registries** → Many threads read listeners; few updates.
+- **Caches with rare writes but frequent lookups**.
+- **Observer patterns** → Subscriber list changes rarely, but notifications are frequent.
+- **Thread-safe read-heavy applications** where iteration must not block writes.
+
+Key Notes
+---------
+- Best when **reads ≫ writes**.
+- Avoid if frequent modifications are required (too costly).
+- Provides **safe iteration** even under concurrent updates.
+- Preferred for **immutable-like sets with occasional changes**.

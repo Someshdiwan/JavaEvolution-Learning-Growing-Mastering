@@ -1,9 +1,7 @@
-package CustomHashMapDemo;
-
 /*
 build a custom HashMap from scratch!
 
-We'll implement a simple version of Java’s HashMap<K, V> using:
+We'll implement a simple version of Java HashMap<K, V> using:
 
 - Array of LinkedLists (Separate Chaining for Collision Handling)
 - Custom put(), get(), and remove() methods
@@ -25,6 +23,7 @@ We'll implement a simple version of Java’s HashMap<K, V> using:
 - resize() ? Expands capacity when needed.
 
 */
+
 import java.util.LinkedList;
 
 class CustomHashMap<K, V> {

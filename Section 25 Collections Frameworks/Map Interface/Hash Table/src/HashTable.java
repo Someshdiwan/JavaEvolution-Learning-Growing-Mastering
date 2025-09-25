@@ -1,17 +1,12 @@
-package HashMapDemo;
-
 import java.util.Hashtable;
 
 public class HashTable {
     public static void main(String[] args) {
         Hashtable<Integer, String> hashtable = new Hashtable<>();
 
-        //HashTable is Synchronized
-        //No Null key or value
-        //Legacy class, ConcurrentHashMap
-        //Slower than HashMap
-        //only linked list in case of collision
-        //all methods are synchronized
+        // HashTable is Synchronized, No Null key or value
+        // Legacy class, ConcurrentHashMap and Slower than HashMap, only linked list in case of collision
+        // all methods are synchronized
 
         hashtable.put(1,"Apple");
         hashtable.put(2,"Banana");
@@ -21,7 +16,7 @@ public class HashTable {
 
         System.out.println(hashtable.containsKey(2));
 
-        hashtable.put(null, "value"); // Throws exception
-        hashtable.put(4, null);   // Throws exception*/
+        hashtable.put(null, "value");
+        hashtable.put(4, null);
     }
 }

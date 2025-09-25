@@ -1,12 +1,10 @@
-package HashMapDemo.LinkedHashMapDemo;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class LRUCache<K, V> extends LinkedHashMap<K, V> {
+public class LRUCacheDemo<K, V> extends LinkedHashMap<K, V> {
     private int capacity;
 
-    public LRUCache(int capacity) {
+    public LRUCacheDemo(int capacity) {
         super(capacity, 0.75f, true);
         this.capacity = capacity;
     }
@@ -17,7 +15,8 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V> {
     }
 
     public static void main(String[] args) {
-        LRUCache<String, Integer> studentMap = new LRUCache<>(3);
+        LRUCacheDemo<String, Integer> studentMap = new LRUCacheDemo<>(3);
+
         studentMap.put("Bob", 99);
         studentMap.put("Alice", 89);
         studentMap.put("Ram", 91);
@@ -27,8 +26,8 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V> {
         System.out.println(studentMap);
     }
 }
-/*
-the most recently accessed element moves to the end. This method ensures that the eldest entry (least recently used)
+
+/* the most recently accessed element moves to the end. This method ensures that the eldest entry (least recently used)
 is removed once the cache exceeds the given capacity.
 
 studentMap.put("Bob", 99);   ["Bob"]

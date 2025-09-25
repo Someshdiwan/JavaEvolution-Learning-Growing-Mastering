@@ -1,0 +1,96 @@
+Understanding SortedSet in Java:
+
+## What is SortedSet?
+
+- `SortedSet` is an **interface** in the Java Collections Framework (part of `java.util`).
+- Extends the `Set` interface.
+- Represents a **set of unique elements** arranged in **ascending sorted order**.
+- Sorting is based on:
+  - **Natural ordering** (defined by `Comparable` of elements), or
+  - A **custom Comparator** provided at set creation.
+
+---
+
+## Key Characteristics
+
+- **Ordering:** Elements are always stored in sorted order.
+- **No Duplicates:** Inherits `Set` property → duplicates are not allowed.
+- **Navigational Methods:** Provides methods for retrieving subsets and boundaries:
+  - `first()` → lowest element.
+  - `last()` → highest element.
+  - `headSet(toElement)` → elements strictly less than `toElement`.
+  - `tailSet(fromElement)` → elements greater than or equal to `fromElement`.
+  - `subSet(fromElement, toElement)` → elements within a given range.
+- **Backed by Implementations:** Most commonly implemented by **TreeSet** (Red-Black Tree).
+
+---
+
+## Internal Working
+
+- A typical `SortedSet` is backed by a **balanced binary search tree** (`TreeSet` uses a Red-Black Tree).
+- Each insertion ensures:
+  - Element uniqueness (no duplicates).
+  - Sorted placement according to natural or custom ordering.
+
+### Visual Example (Natural Ordering)
+
+SortedSet set = new TreeSet<>();
+set.add(30);
+set.add(10);
+set.add(20);
+
+Internal Tree (Red-Black Tree):
+20
+/
+10    30
+
+Iteration Order → [10, 20, 30]
+
+---
+
+## Complexity Chart
+
+| Operation              | Time Complexity | Notes                                     |
+|------------------------|-----------------|-------------------------------------------|
+| add(E e)               | O(log n)        | Insert into tree structure.               |
+| remove(Object o)       | O(log n)        | Remove and rebalance tree.                |
+| contains(Object o)     | O(log n)        | Tree search based on key.                 |
+| first() / last()       | O(log n)        | Traverse leftmost or rightmost path.      |
+| headSet() / tailSet()  | O(log n + k)    | Depends on range size (k elements).       |
+| iteration              | O(n)            | In ascending order traversal.             |
+
+---
+
+## Differences vs Other Sets
+
+| Feature              | HashSet (Unordered)       | LinkedHashSet (Insertion Order)     | SortedSet (Tree-Based)                |
+|----------------------|---------------------------|-------------------------------------|---------------------------------------|
+| Ordering             | No ordering               | Maintains insertion order           | Maintains ascending sorted order       |
+| Performance (add)    | O(1) average              | O(1) average                        | O(log n)                              |
+| Null Handling        | Allows one null           | Allows one null                     | Typically disallows null (TreeSet)    |
+| Use Case             | Fast lookups, no order    | Fast lookups, keep insertion order  | Ordered, range queries, navigable ops |
+
+---
+
+## When to Use SortedSet?
+
+- When you need:
+  - **Unique elements** AND
+  - **Automatic sorting** of elements.
+- Ideal for:
+  - **Leaderboards or rankings** (sorted scores).
+  - **Range queries** (subsets within a range).
+  - **Dictionaries** or ordered word lists.
+  - **Scheduling tasks** (by natural ordering like time).
+
+---
+
+## Quick Recap
+
+- `SortedSet` is an interface that guarantees elements are stored in **ascending order**.
+- No duplicates allowed.
+- Provides navigational methods (`first`, `last`, `headSet`, `tailSet`, `subSet`).
+- Most common implementation → **TreeSet** (based on Red-Black Tree).
+- Use when you need **sorted uniqueness** with range query support.
+
+⸻

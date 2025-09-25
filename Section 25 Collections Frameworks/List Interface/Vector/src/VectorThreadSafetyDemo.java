@@ -1,12 +1,9 @@
-package ListDemo.Vector;
-
 import java.util.Vector;
 
-public class ThreadSafetyInVector {
+public class VectorThreadSafetyDemo {
     public static void main(String[] args) {
-
-        //ArrayList<Integer> list = new ArrayList<>();
-        //It is not thread safe uncomment and run
+        // ArrayList<Integer> list = new ArrayList<>();
+        // It is not thread safely uncommented and run
 
         Vector<Integer> list = new Vector<>();
 
@@ -31,6 +28,6 @@ public class ThreadSafetyInVector {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Size of list: " + list.size()); // Output: 2000
+        System.out.println("Size of list: " + list.size());
     }
 }

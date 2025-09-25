@@ -1,0 +1,40 @@
+IdentityHashMap — Notes (what to remember):
+
+1) What it does:
+   - IdentityHashMap compares keys using reference equality (==), not .equals().
+   - That means two different objects that are .equals() may still be distinct keys in IdentityHashMap
+     if they are different object instances.
+
+2) Why use it:
+   - Specialized cases where identity (actual object instance) matters:
+     - Serialization frameworks or object graph algorithms that need to track actual instances.
+     - Object-pooling scenarios where same-content distinct instances must be treated separately.
+     - Internal uses in libraries/tools where object identity is required.
+
+3) Differences vs HashMap:
+   - HashMap: uses equals() + key.hashCode() → logical equality, common usage.
+   - IdentityHashMap: uses == + System.identityHashCode() → identity-based mapping.
+
+4) Key consequences:
+   - Storing new String("X") twice will create two separate entries in IdentityHashMap.
+   - For common immutable types (String, Integer), HashMap is usually what you want.
+   - IdentityHashMap allows null keys/values like HashMap.
+
+5) Example behaviour:
+   - key1 = new String("Hello");
+     key2 = new String("Hello");
+     identityMap.put(key1, v1);
+     identityMap.put(key2, v2);
+     // identityMap contains two entries
+
+   - hashMap.put(key1, v1);
+     hashMap.put(key2, v2);
+     // hashMap ends up with single entry (v2) because key1.equals(key2) == true
+
+6) When not to use:
+   - When logical equality (content-based equality) is expected (most application code).
+   - Using IdentityHashMap for strings/interned objects can be surprising.
+
+7) Memory & performance:
+   - IdentityHashMap semantics avoid calling equals() on keys, which can be slightly faster in rare cases.
+   - But IdentityHashMap is uncommon in everyday app code — use only when identity-based semantics are required.

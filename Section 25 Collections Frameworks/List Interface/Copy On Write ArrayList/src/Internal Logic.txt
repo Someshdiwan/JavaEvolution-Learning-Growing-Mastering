@@ -1,0 +1,93 @@
+CopyOnWriteArrayList — Internal Logic (Short & Clear)
+
+1. Data is stored in a volatile Object[] array.
+   Example: array = [A, B, C]
+
+2. Read (get, iteration):
+   - Directly reads from current array.
+   - No locking required.
+   - Iteration works on a snapshot of array at creation time.
+
+3. Write (add, set, remove):
+   - Lock is acquired.
+   - Current array is copied → new array.
+   - Modification applied to new array.
+   - Reference switched to new array.
+   - Lock released.
+
+Flow:
+
+Initial:
+array → [A, B, C]
+
+Thread 1: add(D)
+   Copy old → [A, B, C, D]
+   Update ref → array = [A, B, C, D]
+
+Thread 2 (iterating at same time):
+   Still sees → [A, B, C]
+
+Result:
+- Readers = fast, no locks.
+- Writers = slow (O(n)), copy required.
+
+Initial:
+  arrayRef -> [A, B, C]
+
+Thread 2: iterator it = list.iterator()   // snapshot captured now
+  it.snapshot -> [A, B, C]
+
+Thread 1: add(D)
+  // write operation:
+  newArray = copyOf(arrayRef) -> [A, B, C, D]
+  arrayRef = newArray                  // volatile write, atomic reference update
+
+Now:
+  arrayRef -> [A, B, C, D]
+  it.snapshot -> [A, B, C]   // iterator still iterates old snapshot
+
+Initial:
+  arrayRef -> [A, B, C]
+
+Thread 1: add(D)
+  newArray = copyOf(arrayRef) -> [A, B, C, D]
+  arrayRef = newArray
+
+Thread 2: iterator it = list.iterator()
+  it.snapshot -> [A, B, C, D]
+
+Now:
+  arrayRef -> [A, B, C, D]
+  it.snapshot -> [A, B, C, D]   // iterator sees the updated array
+
+
+Applications of CopyOnWriteArrayList
+
+1. Read-Mostly Scenarios
+   - Ideal when reads are frequent and writes are rare.
+   - Best for read-heavy, write-light scenarios.
+   - Example: Config data lookup (system settings, constants).
+
+2. Thread-Safe Iteration
+   - Iterators never throw ConcurrentModificationException.
+   - Example: Multi-threaded logging framework where multiple threads read logs while few append.
+
+3. Observer / Listener Lists
+   - Used to store event listeners (like GUI or framework callbacks).
+   - Safe to iterate while listeners are being added/removed.
+   - Example: Swing, Java concurrency classes use it for listeners.
+
+4. Caching Data
+   - Frequently read cached data can be stored without locks.
+   - Example: In-memory product catalog that rarely updates but is read by many users.
+
+5. Concurrent Publish-Subscribe
+   - Subscribers list is read by many, updated occasionally.
+   - Example: Notification systems, message broadcast lists.
+
+---
+
+CopyOnWriteArrayList is best when:
+- Many threads **read data** simultaneously.
+- Few threads **update data** occasionally.
+- Consistency during iteration is important (snapshot iteration).

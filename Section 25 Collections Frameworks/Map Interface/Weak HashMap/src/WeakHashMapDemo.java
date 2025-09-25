@@ -1,5 +1,3 @@
-package HashMapDemo.WeakHashMapDemo;
-
 import java.util.WeakHashMap;
 
 public class WeakHashMapDemo {
@@ -16,7 +14,7 @@ public class WeakHashMapDemo {
         System.out.println("Cache after running (some entries may be cleared): " + imageChache);
     }
     private static void simlateApplicationRunning(){
-        try{
+        try {
             System.out.println("Simukleting application running...");
             Thread.sleep(10000);
         }

@@ -1,4 +1,3 @@
-package Set.LinkedHashSetDemo;
 import java.util.*;
 import java.util.LinkedHashSet;
 
@@ -9,10 +8,8 @@ import java.util.LinkedHashSet;
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashSet.html">LinkedHashSet Documentation</a>
  */
 
-public class LinkedHashSetDemo
-{
-    public static void main(String[] args)
-    {
+public class LinkedHashSetDemo1 {
+    public static void main(String[] args) {
         LinkedHashSet<String> LHS = new LinkedHashSet<>(10);
 
         HashSet<String> HS = new HashSet<>(10);

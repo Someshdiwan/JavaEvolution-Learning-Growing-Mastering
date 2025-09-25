@@ -1,0 +1,143 @@
+TreeMap Insertion + Red-Black Balancing
+
+Scenario:
+We insert keys in order: 10, 20, 30
+
+Step 1: Insert 10
+
+Tree is empty → 10 becomes the root.
+By Red-Black property, root is always BLACK.
+
+        (10, BLACK)
+
+Step 2: Insert 20
+
+20 > 10 → goes to the right of 10.
+New nodes are RED by default.
+
+        (10, BLACK)
+              \
+             (20, RED)
+
+✔ No balancing needed here (valid RBT).
+
+
+Step 3: Insert 30
+
+30 > 10 → go right
+30 > 20 → go right → insert as RED
+
+        (10, BLACK)
+              \
+             (20, RED)
+                    \
+                   (30, RED)
+
+❌ Problem:
+- Two consecutive RED nodes (20 RED + 30 RED) → violates RBT property.
+
+
+Step 4: Fixing via Rotation + Recolor
+
+Fix: Left Rotation around (10).
+Then recolor nodes.
+
+            (20, BLACK)
+           /        \
+     (10, RED)    (30, RED)
+
+✔ Balanced again:
+- No consecutive reds
+- Equal black height on all paths
+
+----------------------------------------
+Final Tree after inserting [10,20,30]
+
+In-order traversal → [10, 20, 30]
+
+⸻
+
+Another Example: Insert [10, 20, 15]
+
+Step 1: Insert 10
+        (10, BLACK)
+
+Step 2: Insert 20
+        (10, BLACK)
+              \
+             (20, RED)
+
+Step 3: Insert 15
+- 15 > 10 → go right
+- 15 < 20 → go left → insert RED
+
+        (10, BLACK)
+              \
+             (20, RED)
+             /
+          (15, RED)
+
+❌ Problem: Consecutive reds (20 & 15)
+
+----------------------------------------
+Fix: Right Rotation around (20)
+Then recolor.
+
+        (15, BLACK)
+       /        \
+ (10, RED)    (20, RED)
+
+✔ Balanced and valid.
+
+⸻
+
+Quick Rules for Balancing
+
+1. New node = always RED.
+2. If parent = BLACK → all good.
+3. If parent = RED → problem → fix by:
+   a) Recolor (uncle node is RED).
+   b) Rotation + recolor (uncle node is BLACK).
+4. Root is always BLACK.
+
+⸻
+
+Step 1: Insert 10
+        (10, BLACK)
+
+Step 2: Insert 20
+        (10, BLACK)
+              \
+             (20, RED)
+
+Step 3: Insert 15
+- 15 > 10 → go right
+- 15 < 20 → go left → insert RED
+
+        (10, BLACK)
+              \
+             (20, RED)
+             /
+          (15, RED)
+
+❌ Problem: Consecutive reds (20 & 15)
+
+----------------------------------------
+Fix: Right Rotation around (20)
+Then recolor.
+
+        (15, BLACK)
+       /        \
+ (10, RED)    (20, RED)
+
+✔ Balanced and valid.
+
+
+Quick Rules for Balancing:
+
+1. New node = always RED.
+2. If parent = BLACK → all good.
+3. If parent = RED → problem → fix by:
+   a) Recolor (uncle node is RED).
+   b) Rotation + recolor (uncle node is BLACK).
+4. Root is always BLACK.

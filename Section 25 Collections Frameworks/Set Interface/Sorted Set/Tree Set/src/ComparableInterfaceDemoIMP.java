@@ -1,34 +1,27 @@
-package SortedMapDemo.TreeMapDemo;
-
 import java.util.TreeSet;
 
-class Point implements Comparable
-{
+class Point implements Comparable {
     int x;
     int y;
 
-    public Point(int x, int y)
-    {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "X=" + x + " y=" + y;
     }
 
     @Override
-    public int compareTo(Object o)
-    {
+    public int compareTo(Object o) {
         Point p = ( Point ) o;
         if (this.x < p.x)
             return -1;
         else if (this.x > p.x)
             return 1;
-        else
-        {
+        else {
             if (this.y < p.y)
                 return -1;
             else if (this.y > p.y)
@@ -38,6 +31,7 @@ class Point implements Comparable
         }
     }
 }
+
 public class ComparableInterfaceDemoIMP {
     public static void main(String[] args) {
         //In this code we store the objects of our own class. When we are storing the object of our class,

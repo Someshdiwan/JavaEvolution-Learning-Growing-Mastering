@@ -1,0 +1,56 @@
+Key Interfaces in Java Collection Framework (JCF)
+
+1. Collection<E>
+- The root interface of the collection hierarchy.
+- Represents a group of objects (called elements).
+- Methods: add(), remove(), size(), iterator().
+- Subinterfaces: List, Set, Queue.
+
+2. List<E> (extends Collection)
+- Ordered collection (sequence).
+- Allows duplicates.
+- Elements accessible by index.
+- Implementations: ArrayList, LinkedList, Vector, Stack.
+
+3. Set<E> (extends Collection)
+- No duplicates allowed.
+- Models a mathematical set.
+- Implementations: HashSet, LinkedHashSet, TreeSet.
+
+4. SortedSet<E> (extends Set)
+- A Set that maintains elements in sorted order.
+- Provides navigation methods like first(), last(), headSet().
+- Implementation: TreeSet.
+
+5. NavigableSet<E> (extends SortedSet)
+- Adds navigation methods like lower(), floor(), ceiling(), higher().
+- Implementation: TreeSet.
+
+6. Queue<E> (extends Collection)
+- Designed for holding elements prior to processing (FIFO order).
+- Methods: offer(), poll(), peek().
+- Implementations: PriorityQueue, LinkedList.
+
+7. Deque<E> (extends Queue)
+- Double-ended queue, supports insertion/removal at both ends.
+- Can function as a stack or queue.
+- Implementations: ArrayDeque, LinkedList.
+
+8. Map<K, V> (NOT a subinterface of Collection)
+- Stores key–value pairs.
+- Keys are unique, values can be duplicate.
+- Implementations: HashMap, LinkedHashMap, TreeMap, Hashtable.
+
+9. SortedMap<K, V> (extends Map)
+- Maintains entries in ascending order of keys.
+- Implementation: TreeMap.
+
+10. NavigableMap<K, V> (extends SortedMap)
+- Adds navigation methods like lowerEntry(), floorEntry(), ceilingEntry(), higherEntry().
+- Implementation: TreeMap.
+
+In short:
+- Collection → Base interface for groups of elements.
+- List, Set, Queue, Deque → Different collection behaviors.
+- Map → Key–value pairs (separate hierarchy).
+- Sorted / Navigable → Add ordering & navigation features.

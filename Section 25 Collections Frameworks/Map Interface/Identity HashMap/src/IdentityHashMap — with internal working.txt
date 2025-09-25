@@ -1,0 +1,102 @@
+IdentityHashMap — with internal working:
+
+Introduction
+------------
+- IdentityHashMap is a special implementation of the Map interface in Java.
+- Unlike HashMap, which uses **equals() + hashCode()** for comparing keys,
+  IdentityHashMap uses **reference equality (==)**.
+- This means two keys are considered equal **only if they point to the same memory location**.
+
+---
+
+How It Works Internally
+------------------------
+1. **Key Comparison:**
+   - HashMap → uses `k1.equals(k2)` and `k1.hashCode()`.
+   - IdentityHashMap → uses `k1 == k2` and `System.identityHashCode(k1)`.
+
+2. **Hash Function:**
+   - Internally, IdentityHashMap calls:
+     ```
+     System.identityHashCode(key)
+     ```
+     This returns a hash based on the object’s memory reference (not overridden by the class).
+
+3. **Buckets:**
+   - Keys are distributed into buckets based on their identityHashCode.
+   - Even if two objects have the same `.equals()` value, if they are different objects,
+     they’ll end up in different buckets.
+
+---
+
+Example Walkthrough
+
+Code:
+
+String key1 = new String("Akshit");
+String key2 = new String("Akshit");
+
+map.put(key1, 90);
+map.put(key2, 92);
+
+	•	key1.equals(key2) → TRUE (because both have the same string content).
+	•	But key1 == key2 → FALSE (different memory references).
+	•	In HashMap → only one entry remains (Akshit=92).
+	•	In IdentityHashMap → two separate entries remain:
+{Akshit=90, Akshit=92}.
+
+⸻
+
+ASCII Diagram
+
+Case 1: HashMap (content-based equality)
+
++------------------+       +------------------+
+| key1 ("Akshit")  | ----> | Bucket [hash=123]| ---> [Akshit=90]
++------------------+       +------------------+
+| key2 ("Akshit")  | ----> | Same bucket      | ---> [Akshit=92] (overwrites)
++------------------+
+
+Result: {Akshit=92}
+
+
+Case 2: IdentityHashMap (reference-based equality)
+
++------------------+       +----------------------+
+| key1 ("Akshit")  | ----> | Bucket [hash=111111] | ---> [Akshit=90]
++------------------+       +----------------------+
+
++------------------+       +----------------------+
+| key2 ("Akshit")  | ----> | Bucket [hash=222222] | ---> [Akshit=92]
++------------------+       +----------------------+
+
+Result: {Akshit=90, Akshit=92}
+
+
+⸻
+
+Key Characteristics
+•	Null Keys/Values: IdentityHashMap allows null keys and values.
+•	Performance: Similar to HashMap (O(1) average for put/get).
+•	Size: IdentityHashMap usually consumes more memory since key identity is tracked separately.
+•	Iteration: Iteration order is not guaranteed (like HashMap).
+
+⸻
+
+Applications / When to Use
+•	When you need reference-based uniqueness (object identity instead of value equality).
+•	Example use cases:
+•	Object pools: Ensure that only the same object reference is considered equal.
+•	Graph/Compiler implementations: Where nodes/objects are identified by reference, not value.
+•	Frameworks/Tools: Used internally in Java serialization and JVM internals.
+
+⸻
+
+Quick Recap
+
+✔ HashMap → Equality by .equals() + .hashCode().
+✔ IdentityHashMap → Equality by == + System.identityHashCode().
+✔ Same content but different objects = same entry in HashMap, different entries in IdentityHashMap.
+✔ Useful for reference identity tracking, not for general-purpose use.
+
+---

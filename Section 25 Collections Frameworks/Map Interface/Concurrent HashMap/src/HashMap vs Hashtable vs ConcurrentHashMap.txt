@@ -1,0 +1,48 @@
+Comparison: HashMap vs Hashtable vs ConcurrentHashMap
+
+| Feature                      | HashMap                                                                 | Hashtable                                                                              | ConcurrentHashMap                                                                                                        |
+|------------------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Thread-Safe?                 | No → Not synchronized, unsafe for concurrent use.                       | Yes → Fully synchronized (every method).                                               | Yes → Thread-safe with better concurrency support.                                                                       |
+| Synchronization Level        | None → No locking at all.                                               | Method-level → Entire map is locked for each operation (put/get).                      | Bucket-level (segment-level) → Only a portion of the map is locked, allowing multiple threads to operate simultaneously. |
+| Performance (Multi-threaded) | Fastest in single-threaded apps (no locking overhead).                  | Slow in multi-threaded apps due to global lock → one thread at a time.                 | Much faster in multi-threaded apps → Fine-grained locking ensures better throughput.                                     |
+| Null Keys Allowed?           | Yes → Only one null key allowed.                                        | No → null key is not permitted.                                                        | Yes → One null key is allowed.                                                                                           |
+| Null Values Allowed?         | Yes → Multiple null values allowed.                                     | No → Neither keys nor values can be null.                                              | Yes → Multiple null values allowed.                                                                                      |
+| Fail-Fast Behavior           | Yes → Iterators are fail-fast (throws ConcurrentModificationException). | Yes → Iterators are fail-fast.                                                         | No → Iterators are fail-safe (do not throw error, but may not reflect real-time changes).                                |
+| Legacy / Modern?             | Modern, widely used.                                                    | Legacy class (JDK 1.0), rarely used now.                                               | Introduced in JDK 1.5 for concurrent applications.                                                                       |
+| Best Use Case                | Best for single-threaded applications or scenarios without concurrency. | Used in legacy systems that require synchronization but are not performance-sensitive. | Best for high-concurrency applications, e.g., web servers, caching frameworks, or multi-threaded processing.             |
+
+---
+
+## Key Insights
+1. HashMap → Best choice for non-threaded environments. Simple, fast, and lightweight.
+2. Hashtable → Legacy, fully synchronized, but very slow. Rarely used in modern Java.
+3. ConcurrentHashMap → Designed for multi-threaded, concurrent use-cases with fine-grained locking (bucket-level) to maximize performance.
+
+
+⸻
+
+Key Differences Explained
+
+1. HashMap
+•	Not thread-safe, but excellent for single-threaded applications.
+•	Allows one null key and multiple null values.
+•	Very fast since there’s no synchronization overhead.
+
+2. Hashtable
+•	Thread-safe but slower due to method-level synchronization.
+•	Does not allow null keys or null values.
+•	Legacy class — rarely used in modern applications.
+
+3. ConcurrentHashMap
+•	Best for multi-threading since it uses bucket-level locking (fine-grained synchronization).
+•	Allows one null key and multiple null values.
+•	Much faster than Hashtable in concurrent environments.
+
+⸻
+
+Which One Should You Use?
+•	Single-threaded app → Use HashMap
+•	Multi-threaded app → Use ConcurrentHashMap
+•	Avoid Hashtable (only relevant for maintaining old legacy code).
+
+⸻

@@ -1,0 +1,100 @@
+ConcurrentSkipListSet — Internal Working:
+
+Overview
+ConcurrentSkipListSet is a **concurrent, sorted, and navigable set** implementation.
+It is based on a **ConcurrentSkipListMap** internally (keys only, values are dummy `Boolean.TRUE`).
+
+It provides:
+- **Thread safety** without full synchronization (lock-free, non-blocking algorithms).
+- **Sorted order** of elements (natural ordering or via custom Comparator).
+- **NavigableSet operations** (ceiling, floor, higher, lower, subSet, headSet, tailSet, etc.).
+- Iterators that are **weakly consistent** (do not throw `ConcurrentModificationException`, reflect changes dynamically).
+
+Core Ideas
+----------
+- Built on **Skip List** data structure.
+- Skip List = multi-level linked list with probabilistic balancing.
+- Nodes are promoted to higher "levels" with 50% probability during insertion.
+- Search complexity: O(log n) average.
+- Insert/Remove complexity: O(log n).
+
+Why not TreeSet?
+- TreeSet is backed by a Red-Black Tree → log(n) operations but not concurrent.
+- ConcurrentSkipListSet is lock-free → better performance in multi-threaded apps.
+
+Internal Data Structure
+-----------------------
+- Elements stored in sorted order.
+- Multiple "levels" of linked lists are maintained.
+- Top levels skip over many elements, bottom level is a full linked list.
+
+ASCII Diagram (Skip List concept)
+---------------------------------
+Suppose we insert: [2, 5, 7, 9, 12]
+
+Level 3:  ────────────► (5) ───────────────► (12) ───► null
+Level 2:  ───► (2) ───► (5) ───────────────► (12) ───► null
+Level 1:  ───► (2) ───► (5) ───► (7) ───► (9) ───► (12) ─► null
+Bottom:   ─► (2) ─► (5) ─► (7) ─► (9) ─► (12) ─► null
+
+- Each element appears at least in the bottom list.
+- Higher levels provide shortcuts for faster searching.
+
+Operation Flow
+--------------
+1. **Search**
+   - Start at highest level.
+   - Traverse until next node > target.
+   - Drop one level down, continue.
+   - Repeat until bottom reached.
+   - Expected cost: O(log n).
+
+2. **Insert**
+   - Search correct position at bottom.
+   - Insert node.
+   - With probability p=0.5, promote node to higher level(s).
+   - Update forward pointers.
+
+3. **Remove**
+   - Search for node.
+   - Remove references at each level where node exists.
+   - GC collects unlinked node.
+
+Concurrency Model
+-----------------
+- Uses **non-blocking algorithms** (CAS – Compare-And-Swap).
+- Multiple threads can insert/search simultaneously.
+- Iterators are **weakly consistent**:
+  - Do not throw `ConcurrentModificationException`.
+  - May reflect concurrent updates during iteration.
+
+Performance
+-----------
+- add, remove, contains → O(log n).
+- Iteration → O(n), weakly consistent.
+- Scales well with high concurrency (better than synchronized TreeSet).
+
+Differences vs HashSet/TreeSet
+------------------------------
+| Feature             | HashSet                | TreeSet (Red-Black Tree) | ConcurrentSkipListSet        |
+|---------------------|------------------------|--------------------------|-------------------------------|
+| Ordering            | Unordered              | Sorted                   | Sorted                       |
+| Thread Safety       | Not thread-safe        | Not thread-safe          | Thread-safe (lock-free)       |
+| Internal Structure  | HashMap buckets        | Red-Black Tree           | Skip List (multi-level links) |
+| Complexity          | O(1) avg ops           | O(log n) ops             | O(log n) ops                  |
+| Concurrency         | External sync required | External sync required   | Lock-free concurrent design   |
+
+Use Cases
+---------
+- High-concurrency apps requiring a **sorted set**.
+- Replacing **TreeSet** in multi-threaded environments.
+- Maintaining **concurrent sorted unique elements**, e.g.:
+  - Leaderboards (scores sorted).
+  - Concurrent scheduling (sorted timestamps).
+  - Event processing pipelines.
+
+Key Notes
+---------
+- Unlike HashSet, iteration order is sorted, not insertion order.
+- Unlike LinkedHashSet, no linked list overhead, but log(n) ops instead of O(1).
+- Best for cases where **order + concurrency** both matter.

@@ -1,0 +1,81 @@
+•	Normal HashMap me keys strong reference hoti hain → jab tak map me hai, woh memory se clean nahi hoti.
+•	WeakHashMap me keys weak reference hoti hain → agar koi aur reference nahi bacha toh GC clean kar deta hai.
+•	Isliye caching ke liye WeakHashMap perfect hai → auto memory cleanup.
+
+⸻
+
+WeakHashMap in Java
+
+1. What is WeakHashMap?
+•	WeakHashMap is a special implementation of the Map interface in Java (java.util package).
+•	It stores key-value pairs just like HashMap.
+•	Difference: Keys in WeakHashMap are held using weak references instead of strong references.
+
+That means → If a key is no longer referenced anywhere else in the program (only referenced inside the WeakHashMap), the Garbage Collector (GC) can automatically remove that entry from the map.
+
+⸻
+
+2. Why Weak References?
+•	In a normal HashMap, keys are strongly referenced.
+Even if the object is not used anywhere else, as long as the key is inside the HashMap, GC will not clean it up.
+•	With WeakHashMap, Java lets GC clean up unused keys → preventing memory leaks in caching scenarios.
+
+⸻
+
+3. Internal Working of WeakHashMap
+
+1.	Storage Structure
+•	Internally uses an array of buckets (similar to HashMap).
+•	Keys are wrapped in WeakReference objects.
+
+2.	WeakReference Mechanism
+•	A weak reference does not prevent its referent (the key object) from being reclaimed by the GC.
+•	When the GC finds no strong reference to the key, it clears the weak reference.
+
+3.	Reference Queue
+•	WeakHashMap internally uses a ReferenceQueue.
+•	When GC clears a weak key, the ReferenceQueue notifies the map.
+•	WeakHashMap then automatically removes the entry from the table.
+
+⸻
+
+4. Example Flow (ASCII Diagram)
+
+Initial Map (with strong + weak references):
+[WeakRef(Key1)] -> Value1
+[WeakRef(Key2)] -> Value2
+
+If Key1 is not referenced elsewhere in the program:
+GC runs → clears WeakRef(Key1)
+WeakHashMap sees cleared reference → removes (Key1, Value1) entry
+
+Remaining:
+[WeakRef(Key2)] -> Value2
+
+So the map shrinks automatically without explicit remove().
+
+⸻
+
+5. Characteristics
+•	Auto-cleanup: Entries can disappear if keys are no longer referenced.
+•	Not Thread-Safe: Just like HashMap, you need external synchronization for multi-threading.
+•	Unpredictable Size: Because GC can remove entries at any time.
+•	Null Values Allowed: WeakHashMap permits null values.
+
+⸻
+
+6. Use Cases
+	•	Caching: Store large objects that should be automatically discarded when memory is low.
+	•	Metadata: Attach data to objects without preventing those objects from being garbage collected.
+	•	Listeners: Useful for event listeners that should not prevent objects from being collected.
+
+⸻
+
+7. Quick Recap
+
+✔ WeakHashMap behaves like HashMap but uses weak references for keys.
+✔ If the key has no strong reference, GC can remove that entry.
+✔ Prevents memory leaks in caching-like use cases.
+✔ Uses ReferenceQueue internally to track cleared keys.
+
+⸻

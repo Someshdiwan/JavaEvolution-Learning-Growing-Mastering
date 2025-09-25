@@ -1,0 +1,78 @@
+LinkedHashSet — Internal Working:
+
+Overview
+--------
+LinkedHashSet is a Set implementation that preserves insertion order.
+It extends HashSet by maintaining a **doubly-linked list** across entries.
+Thus, iteration order = insertion order (encounter order).
+
+If element is re-added (already exists), order is not changed.
+
+Core Ideas
+----------
+- Backing structure: HashMap + doubly-linked list.
+- Each entry has extra pointers: `before` and `after`.
+- Encounter order: iteration yields elements in the order they were inserted.
+- Re-inserting an existing element does not change its position.
+- Not synchronized by default.
+
+Operation Flow
+--------------
+1. **Add**
+   - Compute hash → bucket index.
+   - If element already present, return false.
+   - Else insert into bucket and link into the doubly-linked list.
+
+2. **Remove**
+   - Remove from bucket chain/tree.
+   - Unlink from doubly-linked list.
+
+3. **Contains**
+   - Same as HashSet (O(1) average).
+
+ASCII Diagram (Insertion order preserved)
+-----------------------------------------
+Suppose we insert: A → B → C → D
+
+Buckets:
+```
+index: 0    1    2   3
+        ↓    ↓    ↓   ↓
+table: [ ]  [A] [B] [C,D]
+```
+
+Doubly-linked list:
+```
+HEAD <-> [A] <-> [B] <-> [C] <-> [D] <-> TAIL
+```
+
+Iteration order = A, B, C, D.
+
+Differences vs HashSet
+----------------------
+| Aspect            | HashSet                 | LinkedHashSet                         |
+|-------------------|-------------------------|---------------------------------------|
+| Iteration Order   | Unpredictable           | Predictable (insertion order)         |
+| Backing           | HashMap only            | HashMap + doubly-linked list          |
+| Memory Overhead   | Lower                   | Higher (extra before/after pointers)  |
+| Iteration Cost    | May depend on capacity  | Proportional to size, stable          |
+
+Performance
+-----------
+- add, contains, remove → O(1) average.
+- Iteration → O(n) (independent of capacity).
+- Slightly slower than HashSet due to linked list maintenance.
+
+Concurrency
+-----------
+Not thread-safe. For safe concurrent access:
+```
+Set s = Collections.synchronizedSet(new LinkedHashSet<>());
+```
+
+Use Cases
+---------
+- Need uniqueness *and* predictable iteration order.
+- Example:
+  - Removing duplicates from a list while preserving order.
+  - Implementing caches or "recently seen" sets.

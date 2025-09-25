@@ -1,5 +1,3 @@
-package QueueDemo.PriorityQueueDemo;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -11,7 +9,7 @@ class MyComp implements Comparator<Integer>
         return 0;
     }
 }
-public class PriorityQueueDemo {
+public class PriorityQueueDemo1 {
     public static void main(String[] args) {
         //PriorityQueue<Integer> PQ = new PriorityQueue<>();
 

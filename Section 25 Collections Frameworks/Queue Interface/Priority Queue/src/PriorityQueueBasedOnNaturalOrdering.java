@@ -1,5 +1,3 @@
-package QueueDemo.PriorityQueueDemo;
-
 import java.util.PriorityQueue;
 
 public class PriorityQueueBasedOnNaturalOrdering {

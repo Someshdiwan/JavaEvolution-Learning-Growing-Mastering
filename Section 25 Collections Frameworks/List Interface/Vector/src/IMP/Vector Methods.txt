@@ -1,0 +1,272 @@
+Vector Methods — Theory and Examples
+
+Introduction:
+Vector is a synchronized, resizable array implementation of the List interface.
+
+Because Vector is synchronized, its methods are thread-safe (at the method level).
+
+Use it when you need a thread-safe list that behaves like an array.
+
+Commonly used Vector methods:
+
+1.	Basic add / insert / addAll
+
+Description
+	•	add(E e) / addElement(E obj): Appends the element to the end.
+	•	add(int index, E element) / insertElementAt(E obj, int index): Insert at a specific index (shifts elements to the right).
+	•	addAll(Collection<? extends E> c): Append all elements from a collection.
+	•	addAll(int index, Collection<? extends E> c): Insert all elements starting at index.
+
+
+Example
+
+import java.util.*;
+
+public class VectorAddDemo {
+    public static void main(String[] args) {
+        Vector<String> v = new Vector<>();
+        v.add("A");                  // add()
+        v.addElement("B");           // addElement() (same effect)
+        v.add(1, "X");               // insert at index 1
+        v.insertElementAt("Y", 2);   // insertElementAt
+
+        List<String> more = List.of("C", "D");
+        v.addAll(more);              // append a collection
+        v.addAll(2, List.of("P","Q")); // insert a collection at index 2
+
+        System.out.println(v);
+    }
+}
+
+2.	Access and modify (get / set / elementAt / setElementAt)
+
+Description
+	•	get(int index): Returns element at index (List interface).
+	•	set(int index, E element): Replace element at index (List interface).
+	•	elementAt(int index): Legacy; same as get.
+	•	setElementAt(E obj, int index): Legacy; same as set.
+
+Example
+
+Vector<Integer> v = new Vector<>(List.of(10,20,30));
+System.out.println(v.get(1));          // 20
+v.set(1, 25);                          // replace element at index 1
+System.out.println(v.elementAt(1));    // 25
+v.setElementAt(26, 1);                 // replace again
+
+
+3.	Remove methods
+
+Description
+•	remove(int index): Remove element at index (List interface).
+•	remove(Object o): Remove first occurrence of object (List interface).
+•	removeElement(Object obj): Legacy; removes first occurrence, returns boolean.
+•	removeElementAt(int index): Legacy; removes element at index.
+•	removeAll(Collection<?> c) / removeIf(Predicate): Bulk removals.
+
+Example
+
+Vector<String> v = new Vector<>(List.of("A","B","C","B"));
+v.remove(2);                 // removes "C"
+v.remove("B");               // removes first "B"
+v.removeElement("A");        // removes "A"
+v.removeElementAt(0);        // remove at index 0 (if present)
+
+
+4.	Size / capacity / ensure / trim
+
+Description
+•	size(): Number of elements stored.
+•	capacity(): Current reserved capacity of the backing array.
+•	ensureCapacity(int minCapacity): Ensure internal capacity at least minCapacity.
+•	trimToSize(): Reduce capacity to current size (free unused memory).
+•	setSize(int newSize): Legacy; changes logical size (if larger, new slots are null).
+
+Example
+
+Vector<Integer> v = new Vector<>(5);  // initial capacity 5
+System.out.println("capacity=" + v.capacity());
+v.ensureCapacity(20);                // internal array grows to at least 20
+v.addAll(List.of(1,2,3));
+System.out.println("size=" + v.size());
+v.trimToSize();                       // reduce capacity to size
+System.out.println("capacity after trim=" + v.capacity());
+
+
+5.	First / last / element enumeration
+
+Description
+•	firstElement(): Return first element (legacy).
+•	lastElement(): Return last element (legacy).
+•	elements(): Returns an Enumeration (legacy enumeration for iteration).
+
+Example
+
+Vector<String> v = new Vector<>(List.of("alpha","beta","gamma"));
+System.out.println(v.firstElement());   // alpha
+System.out.println(v.lastElement());    // gamma
+
+Enumeration<String> en = v.elements();
+while (en.hasMoreElements()) {
+    System.out.println(en.nextElement());
+}
+
+
+6.	Iterators and ListIterator
+
+Description
+•	iterator(): Returns Iterator — modern iterator.
+•	listIterator(): Returns ListIterator — bidirectional iteration and modification.
+
+Example
+
+Vector<Integer> v = new Vector<>(List.of(1,2,3));
+Iterator<Integer> it = v.iterator();
+while (it.hasNext()) {
+    System.out.println(it.next());
+}
+
+
+ListIterator<Integer> lit = v.listIterator();
+while (lit.hasNext()) lit.next();
+while (lit.hasPrevious()) System.out.println(lit.previous());
+
+
+7.	toArray / copyInto / clone
+
+Description
+•	toArray(): Returns Object[] with elements.
+•	toArray(T[] a): Returns an array of type T[].
+•	copyInto(Object[] anArray): Copies elements into provided array (legacy).
+•	clone(): Shallow copy of Vector (the Vector object is cloned; elements are not deep-copied).
+
+Example
+
+Vector<String> v = new Vector<>(List.of("x","y","z"));
+Object[] arr = v.toArray();
+String[] sarr = v.toArray(new String[0]);
+String[] dest = new String[3];
+v.copyInto(dest);             // copies elements into dest
+Vector<String> copy = (Vector<String>) v.clone(); // shallow clone
+
+
+8.	Search / contains / indexOf / lastIndexOf
+
+Description
+•	contains(Object o): true if element present.
+•	indexOf(Object o): First index of element or -1.
+•	lastIndexOf(Object o): Last index or -1.
+•	containsAll(Collection<?> c): true if all elements present.
+
+Example
+
+Vector<Integer> v = new Vector<>(List.of(1,2,3,2));
+System.out.println(v.contains(2));       // true
+System.out.println(v.indexOf(2));        // 1
+System.out.println(v.lastIndexOf(2));    // 3
+
+
+9.	Bulk operations: retainAll / removeAll / clear / addAll
+
+Description
+•	clear(): Remove all elements.
+•	retainAll(Collection<?> c): Keep only elements contained in c.
+•	removeAll(Collection<?> c): Remove elements present in c.
+•	isEmpty(): true if no elements.
+
+Example
+
+Vector<Integer> v = new Vector<>(List.of(1,2,3,4,5));
+v.removeAll(List.of(2,4));  // removes 2 and 4
+v.retainAll(List.of(1,5));  // now only 1 and 5 remain
+v.clear();                  // remove everything
+System.out.println(v.isEmpty()); // true
+
+
+10.	Sorting
+
+Description
+•	Collections.sort(vector) or vector.sort(Comparator) sorts Vector in place (since Vector implements List).
+
+Example
+
+Vector<String> v = new Vector<>(List.of("banana","apple","date"));
+v.sort(Comparator.naturalOrder());
+System.out.println(v);  // [apple, banana, date]
+
+
+11.	Thread-safety notes
+
+Description
+•	Vector methods are synchronized (method-level), giving thread-safety for single method calls.
+•	Compound operations (check-then-act) still require external synchronization to be atomic.
+•	Alternatives: use Collections.synchronizedList(new ArrayList<>()) or
+    concurrent collections like CopyOnWriteArrayList or ConcurrentLinkedQueue depending on needs.
+
+Example of external synchronization
+
+Vector<Integer> v = new Vector<>();
+synchronized (v) {
+    if (!v.isEmpty()) {
+        v.remove(0); // safe when done within synchronized block
+    }
+}
+
+
+12.	Legacy vs modern API
+
+Notes
+•	Vector retains legacy names (elementAt, addElement, removeElement), and provides modern List methods (get, add, remove).
+•	Prefer modern List interface methods when writing new code, unless legacy compatibility is required.
+
+
+13.	Useful small reference table
+
+	•	add(E e)               : append
+	•	add(int idx, E e)      : insert
+	•	addElement(E obj)      : legacy append
+	•	insertElementAt(obj,i) : legacy insert
+	•	remove(int idx)        : remove by index
+	•	remove(Object o)       : remove by value
+	•	removeElement(Object)  : legacy remove by value
+	•	elementAt(int)         : legacy get
+	•	firstElement() / lastElement()
+	•	capacity() / ensureCapacity() / trimToSize()
+	•	clone()                : shallow copy
+	•	elements()             : returns Enumeration
+
+
+
+14.	Example program demonstrating many methods
+
+import java.util.*;
+
+public class VectorDemoAll {
+    public static void main(String[] args) {
+        Vector<String> v = new Vector<>(3);
+        v.add("A"); v.add("B"); v.add("C");
+        v.insertElementAt("X", 1);
+        v.addElement("D");
+        System.out.println("Vector: " + v);
+        System.out.println("first=" + v.firstElement() + " last=" + v.lastElement());
+        System.out.println("contains B? " + v.contains("B"));
+        v.remove("B");
+        v.removeElementAt(0);
+        System.out.println("After removes: " + v);
+
+        Object[] arr = v.toArray();
+        System.out.println("toArray: " + Arrays.toString(arr));
+
+        v.ensureCapacity(10);
+        v.trimToSize();
+        System.out.println("size=" + v.size() + " capacity=" + v.capacity());
+    }
+}
+
+Summary:
+Vector is a synchronized List backed by a dynamically resizing array.
+
+It exposes both legacy (Enumeration, elementAt, addElement) and modern List API methods.
+
+Use Vector when you need a thread-safe list and can accept method-level synchronization;
+otherwise prefer modern alternatives such as ArrayList + external synchronization or CopyOnWriteArrayList / concurrent collections.

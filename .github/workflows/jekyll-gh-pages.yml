@@ -1,13 +1,13 @@
-name: "Deploy Jekyll with GitHub Pages (robust & artifact-v4 compatible)"
+name: "Deploy Jekyll with GitHub Pages (robust: Gemfile auto-detect)"
 
 on:
   push:
     branches:
-      - master
       - main
+      - master
   workflow_dispatch: {}
   schedule:
-    - cron: '0 12 * * *' # daily at 12:00 UTC (adjust as needed)
+    - cron: '0 12 * * *'
 
 permissions:
   contents: read
@@ -29,30 +29,59 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - name: Set up Ruby (for Jekyll)
+      - name: Detect Gemfile location
+        id: gemfile
+        run: |
+          # Prefer site/Gemfile if it exists
+          if [ -f "site/Gemfile" ]; then
+            echo "gemfile_dir=site" >> $GITHUB_OUTPUT
+            echo "Found Gemfile in site/ directory."
+          elif [ -f "Gemfile" ]; then
+            echo "gemfile_dir=." >> $GITHUB_OUTPUT
+            echo "Found Gemfile in repo root."
+          else
+            echo "No Gemfile found in repo root or site/ — failing early."
+            ls -la
+            exit 2
+          fi
+
+      - name: Setup Ruby (for Jekyll)
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-          bundler-cache: true
+          bundler-cache: false   # we use explicit cache step below
 
-      - name: Cache bundler gems
+      - name: Cache bundler gems (auto target)
         uses: actions/cache@v4
+        id: cache-bundler
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          # If Gemfile.lock is under site/, use that; else root path is used.
+          key: ${{ runner.os }}-gems-${{ steps.gemfile.outputs.gemfile_dir }}-${{ hashFiles(format('{0}/Gemfile.lock', steps.gemfile.outputs.gemfile_dir)) }}
           restore-keys: |
-            ${{ runner.os }}-gems-
+            ${{ runner.os }}-gems-${{ steps.gemfile.outputs.gemfile_dir }}-
 
-      - name: Install dependencies
+      - name: Install Ruby gems (bundle install)
         run: |
+          echo "Using Gemfile from: ${{ steps.gemfile.outputs.gemfile_dir }}"
+          cd ${{ steps.gemfile.outputs.gemfile_dir }}
           bundle config set --local path 'vendor/bundle'
           bundle install --jobs 4 --retry 3
+        shell: bash
 
       - name: Build Jekyll site
         run: |
-          bundle exec jekyll build --source site --destination _site
+          echo "Building Jekyll from site/ to _site/"
+          # If your Jekyll source is in 'site', build from there; otherwise build from repository root.
+          if [ "${{ steps.gemfile.outputs.gemfile_dir }}" = "site" ]; then
+            cd site
+            bundle exec jekyll build --source . --destination ../_site
+          else
+            bundle exec jekyll build --source site --destination _site || bundle exec jekyll build --destination _site
+          fi
         env:
           JEKYLL_ENV: production
+        shell: bash
 
       - name: Validate build
         run: |
@@ -61,7 +90,6 @@ jobs:
             exit 1
           fi
 
-      # Use upload-pages-artifact v3 (recent) which is compatible with artifact v4 backend
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -82,5 +110,4 @@ jobs:
           artifact_name: java-evolution-pages
 
       - name: Announce deploy URL
-        run: |
-          echo "Deployed to ${{ steps.deploy.outputs.page_url }}"
+        run: echo "Deployed to ${{ steps.deploy.outputs.page_url }}"

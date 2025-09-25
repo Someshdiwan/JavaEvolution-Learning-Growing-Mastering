@@ -1,18 +1,17 @@
-package CustomHashMapDemo;
-
-/*
-extended version of the custom HashMap that includes:
-
-- Iteration: Implements the Iterable interface so you can loop over all entries.
-- Dynamic Size Tracking: A method (`size()`) returns the current number of key-value pairs.
-- Load Factor Tuning: A configurable load factor (with getters and setters) and a constructor that accepts an initial capacity and load factor.
-
-  Extended Custom HashMap Implementation
-*/
+package CustomHashMap;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
+
+/*
+Extended Custom HashMap Implementation (core class).
+This file contains the HashMapCustom<K, V> implementation with:
+ - Entry inner class
+ - put/get/remove/resize/printMap
+ - Iterable support via an inner iterator class
+No main() in this file — main() moved to HashMapCustomTest.java
+*/
 
 public class HashMapCustom<K, V> implements Iterable<HashMapCustom.Entry<K, V>> {
     private static final int DEFAULT_INITIAL_CAPACITY = 4;
@@ -97,7 +96,7 @@ public class HashMapCustom<K, V> implements Iterable<HashMapCustom.Entry<K, V>> 
             }
         }
 
-        // Add new entry.
+        // Add a new entry.
         buckets[index].add(new Entry<>(key, value));
         size++;
 
@@ -213,45 +212,4 @@ public class HashMapCustom<K, V> implements Iterable<HashMapCustom.Entry<K, V>> 
             return listIterator.next();
         }
     }
-
-    // Main method to test the extended CustomHashMap.
-    public static void main(String[] args) {
-        HashMapCustom<Object, Integer> map = new HashMapCustom<Object, Integer>();
-        map.put("Alice", 25);
-        map.put("Bob", 30);
-        map.put("Charlie", 35);
-        map.put("Alice", 28); // Update value for "Alice"
-
-        System.out.println("Value of Alice: " + map.get("Alice")); // 28
-        System.out.println("Value of Bob: " + map.get("Bob"));       // 30
-        System.out.println("Value of Charlie: " + map.get("Charlie"));// 35
-
-        map.remove("Bob");
-        System.out.println("Value of Bob after removal: " + map.get("Bob")); // null
-
-        System.out.println("\nCustom HashMap Contents:");
-        map.printMap();
-
-        System.out.println("\nIterating over CustomHashMap entries:");
-        for (HashMapCustom.Entry<Object, Integer> entry : map) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
-    }
 }
-/*
-Explanation of Extensions:
-
-- Iteration:
-
-- The class now implements Iterable<Entry<K, V>> and provides an inner HashMapIterator that traverses each non-empty bucket
-
-- You can use a for-each loop to iterate over all key-value pairs.
-
-- Dynamic Size Tracking:
-- The size field is updated on every put() and remove() call.
-- The size() method returns the current count of entries.
-
-- Load Factor Tuning:
- - The loadFactor field is configurable through constructors and the setLoadFactor() method.
- - The resize() method uses this load factor to determine when to double the bucket array.
-*/

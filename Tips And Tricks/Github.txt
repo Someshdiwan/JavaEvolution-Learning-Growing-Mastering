@@ -1,0 +1,87 @@
+Perfect — here’s a visual ASCII diagram showing how forks, remotes, branches, and PRs fit together. This is the “map in your head” for push/pull/rebase.
+
+⸻
+
+GitHub Fork Workflow — Visual Map
+
+                 ┌─────────────────────────────────────────┐
+                 │   Original Repo (upstream)              │
+                 │   https://github.com/OriginalOwner/repo │
+                 │                                         │
+                 │   main (branch) ────────────────────┐   │
+                 └─────────────────────────────────────┘   │
+                                                           │ Pull Request (PR)
+                                                           ▼
+┌───────────────────────────────────────────────┐      ┌─────────────────────────────────────┐
+│   Your Fork (origin)                          │      │   Upstream repo (maintainer merges) │
+│   https://github.com/YourUser/repo            │      │   https://github.com/OriginalOwner  │
+│                                               │      │                                     │
+│   main (branch, copy of upstream main)        │◄─────┤   main (branch)                     │
+│      ▲                                        │      │                                     │
+│      │ (keep updated via merge/rebase)        │      │                                     │
+│                                               │      │                                     │
+│   feature-branch                              │─────►│   main (after PR merged)            │
+│      │                                        │      │                                     │
+│      │  (your commits)                        │      │                                     │
+└───────────────────────────────────────────────┘      └─────────────────────────────────────┘
+
+
+⸻
+
+How commands map onto this diagram
+
+1. Set up remotes
+
+git clone https://github.com/YourUser/repo.git
+cd repo
+git remote add upstream https://github.com/OriginalOwner/repo.git
+
+	•	origin = your fork
+	•	upstream = original repo
+
+⸻
+
+2. Keep your fork’s main updated
+
+git checkout main
+git fetch upstream
+git merge upstream/main       # OR git rebase upstream/main
+git push origin main
+
+
+⸻
+
+3. Create a feature branch for your change
+
+git checkout -b feature-branch
+# make edits
+git add .
+git commit -m "Your change"
+git push origin feature-branch
+
+
+⸻
+
+4. Open Pull Request
+	•	Compare: YourUser:feature-branch → OriginalOwner:main
+
+⸻
+
+5. If maintainers change main while your PR is open
+
+Rebase your branch:
+
+git checkout feature-branch
+git fetch upstream
+git rebase upstream/main
+# resolve conflicts if any
+git push origin feature-branch --force-with-lease
+
+
+⸻
+
+👉 This diagram shows the two “worlds”: your fork (origin) and the official repo (upstream). Your feature-branch is only in your fork until you open a PR. After merge, the changes live in upstream’s main.
+
+⸻
+
+Would you like me to also show a commit graph diagram (with merge vs rebase paths) so you can see how history looks in both cases?

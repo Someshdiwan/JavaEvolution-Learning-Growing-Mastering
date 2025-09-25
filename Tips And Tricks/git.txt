@@ -1,0 +1,86 @@
+Nice — here’s the commit graph diagram you asked for. This shows how your history looks depending on whether you merge or rebase.
+
+⸻
+
+A) Merge workflow (preserves full branch graph)
+
+Upstream main:   A──B──C───────────────┐
+                                        │
+Your branch:     A──B──C──D──E─────────┴─M
+                                             ↑
+                                             Merge commit (M)
+
+	•	You branched from commit C.
+	•	You added commits D and E.
+	•	Upstream added commits after C.
+	•	When you git merge upstream/main, Git creates a merge commit (M) joining both histories.
+	•	History shows branching + merging — good for context but can look messy.
+
+⸻
+
+B) Rebase workflow (linear history, no merge commit)
+
+Upstream main:   A──B──C──F──G──H
+                               │
+Your branch after rebase:       D'──E'
+
+	•	Same start at commit C.
+	•	Upstream added commits F, G, H.
+	•	When you git rebase upstream/main, your commits (D, E) are replayed on top of the new tip H, becoming D' and E'.
+	•	Result: looks like you developed your feature after the latest upstream work — clean linear history.
+	•	Requires --force-with-lease when pushing, because commit hashes change.
+
+⸻
+
+C) Side-by-side: Merge vs Rebase
+
+Merge history (graphy):
+
+A──B──C───────────────F──G──H
+       └──D──E──────────────┘
+
+Rebase history (linear):
+
+A──B──C──F──G──H──D'──E'
+
+
+⸻
+
+D) When to use what
+	•	Merge →
+	•	If you want to preserve the “real” history (showing when branches diverged).
+	•	Safer for beginners (no rewriting commits).
+	•	Good for long-lived feature branches.
+	•	Rebase →
+	•	If you want a clean, straight line history.
+	•	Preferred in open-source PR workflows.
+	•	Requires confidence resolving conflicts & force-pushing.
+
+⸻
+
+E) Common commands
+
+Merge workflow:
+
+git checkout feature-branch
+git fetch upstream
+git merge upstream/main
+git push origin feature-branch
+
+Rebase workflow:
+
+git checkout feature-branch
+git fetch upstream
+git rebase upstream/main
+# fix conflicts if needed
+git push origin feature-branch --force-with-lease
+
+
+⸻
+
+So: Merge = “historical diary” (records exactly what happened).
+Rebase = “rewrite the story” (makes it look like you developed cleanly on top).
+
+⸻
+
+Want me to also sketch a real-life example with commit hashes (like abc123, def456) so you can see how git log looks different between merge and rebase?

@@ -1,0 +1,188 @@
+ConcurrentHashMap — Internal Working
+⸻
+
+Overview (short)
+
+ConcurrentHashMap is Java’s high-performance, thread-safe implementation of the Map interface designed for concurrent
+access.
+It lets many threads read and write without global locking and achieves this using fine-grained synchronization and
+lock-free techniques (CAS).
+
+Java 8 redesigned it (removed segment-locking) and uses a combination of CAS, synchronized blocks on
+individual bins, and specialized counters to scale well.
+
+⸻
+
+High-level goals
+	•	Allow high concurrency for reads and writes.
+	•	Avoid a single global lock (unlike Hashtable).
+	•	Provide fast get() (no locking in common case).
+	•	Make put()/remove() scalable via localized synchronization.
+	•	Provide useful concurrent bulk/atomic operations (e.g., computeIfAbsent, forEach, reduce).
+
+⸻
+
+Key Data Structures (Java 8+)
+	•	Node<K,V>[] table
+Array of buckets. Each slot may point to:
+	•	null — empty
+	•	Node — a linked list of nodes (chained)
+	•	TreeNode — root of a balanced tree when a bucket becomes large (treeified)
+	•	ForwardingNode — special marker while resizing/transfer
+	•	Node fields (conceptual)
+
+final int hash;
+final K key;
+volatile V val;
+volatile Node<K,V> next;
+
+
+•	TreeNode
+A red-black tree node used when a bucket’s chain becomes too long (reduces collision worst-case cost).
+
+•	baseCount and counterCells (striped counters / LongAdder-like)
+Used for scalable size accounting without global locking.
+
+⸻
+
+Important Concurrency Primitives Used
+•	CAS (Compare-And-Swap) on table entries and on the first node of a bin (via Unsafe.compareAndSwapObject)
+— lock-free attempt to install a node.
+•	synchronized on a bin: if CAS fails or bin is non-trivial, code synchronizes on the bin’s first node
+(or on a TreeBin) for safe updates.
+•	volatile reads/writes to ensure visibility (e.g., val and next are volatile so other threads see updates quickly).
+•	ForwardingNode during resizing — readers encountering it help continue the lookup/transfer to the new table.
+
+⸻
+
+Typical Operation Flows
+
+get(key) (fast, no locking)
+	1.	Compute hash, find table[index].
+	2.	Read first node reference (volatile).
+	3.	If node is null → return null.
+	4.	If node.hash == hash && node.key.equals(key) → return node.val (volatile read).
+	5.	Else follow next chain (or traverse TreeNode), comparing keys.
+Note: No locking; volatility + final fields + safe publication gives correctness.
+
+put(key, value) (concurrent-safe)
+1.	Compute hash and index.
+2.	Try CAS to install a new Node into an empty slot.
+
+3.	If slot non-empty:
+•	If first node hash/key matches and it is not a TreeNode → synchronized on first node, traverse, replace or append.
+•	If the bin has many nodes → treeify (convert to TreeBin/TreeNode), then use tree logic under lock.
+
+4.	Update size counters using addCount(...) (updates baseCount or counterCells via CAS and cells).
+5.	If size threshold exceeded → initiate/responsible for resize (may be done by a thread performing put which notices threshold).
+
+Resizing (rehash/transfer)
+•	When size > threshold (capacity * loadFactor), table is grown (usually doubled).
+•	A ForwardingNode is placed in old bucket to indicate that entries have been moved.
+•	Multiple threads can help transfer: a migrating thread transfers some buckets;
+helpers encountering ForwardingNode continue in the new table.
+•	Resizing is done per-bucket; no single global lock — concurrency-friendly.
+
+⸻
+
+ASCII Diagrams
+
+Basic table & chaining (before treeification)
+
+table[0] -> null
+table[1] -> Node(h1, K1, v1) -> Node(h11, K11, v11) -> null
+table[2] -> Node(h2, K2, v2) -> null
+
+Concurrent get and put example:
+
+Thread A: get(K1)  reads table[1] -> Node(h1,K1,v1) -> returns v1 (no lock)
+Thread B: put(Kx)  tries CAS into table[3] (empty) -> succeeds (no lock)
+Thread C: put(K1)  sees table[1] non-empty -> synchronize on Node(h1,K1,...) -> update existing val or append
+
+Resizing with ForwardingNode (simplified)
+
+Old table:
+table[1] -> ForwardingNode -> points to NewTable
+
+New table:
+newTable[1] -> Node(... moved ...)
+
+⸻
+
+Complexity Summary
+•	get() — expected O(1) (no locking, follow at most few nodes or tree lookup)
+•	put()/remove() — expected O(1) amortized (may be O(log n) in tree bins)
+•	Iteration (concurrent) — weakly consistent, O(n) to traverse
+•	Resizing — expensive but infrequent (amortized cost)
+
+⸻
+
+Treeification
+•	If a bin’s chain becomes long (threshold ~ 8), it may be converted to a balanced tree (TreeNode) to
+keep worst-case access O(log n).
+•	Treeification happens only when table is large enough; otherwise table may be expanded instead.
+
+⸻
+
+Size Accounting and size() nuance
+•	ConcurrentHashMap uses striped counters (baseCount + counterCells) to avoid contention on increments.
+•	size() may be expensive because it aggregates counters and tries to provide consistent size; mappingCount()
+returns a long with better accuracy in some implementations.
+•	isEmpty() and size() are not constant-time atomic snapshots — they are best-effort in a concurrent environment.
+
+⸻
+
+Memory Visibility & Safety Guarantees
+•	Volatile reads/writes and final fields ensure safe publication: once a node is visible,
+its immutable key and hash are visible to others; volatile val and next ensure visibility of changes along the chain.
+•	get() never blocks and can be used safely in high-read scenarios.
+
+⸻
+
+Common Methods and Concurrent Variants
+•	get(K), put(K,V), remove(K), containsKey(K), containsValue(V) (value search is O(n)).
+•	Atomic helpers: putIfAbsent, remove(K,V), replace(K, oldV, newV).
+
+•	Functional and parallel-friendly:
+•	compute, computeIfAbsent, computeIfPresent, merge
+•	forEach, forEachKey, forEachValue, reduce, search — these can be parallelized internally using
+    ForkJoinPool in bulk operations.
+•	keySet(), entrySet() — views are weakly consistent (reflect some, but not necessarily all, updates).
+
+⸻
+
+Practical Applications
+•	Caches (concurrent access)
+•	Shared registries and maps in server applications
+•	High-concurrency data structures (session stores, counters in multi-threaded programs)
+•	Replace synchronized HashMap usage for thread-safety without large contention
+
+⸻
+
+When to Use vs Alternatives
+•	Use ConcurrentHashMap when many threads concurrently read & modify a shared map.
+•	If you need predictable iteration order → ConcurrentSkipListMap (sorted) or
+    Collections.synchronizedMap(new LinkedHashMap(...)) (but latter has coarse locking).
+•	For single-threaded usage or external synchronization → a plain HashMap is simpler and faster.
+
+⸻
+
+Interview / Deep-dive Points to Remember
+•	Java 7 used segment-locking (array of Segments); Java 8 switched to a Node-based approach with
+CAS and per-bin locking — this produces better scalability and memory efficiency.
+•	get() is non-blocking (no synchronized) — a key performance characteristic.
+•	Resizing is cooperative and multi-threaded; ForwardingNode signals moved bins.
+•	TreeNode conversion reduces worst-case O(n) chain lookup to O(log n).
+•	Counters use LongAdder-style cells for reduced contention.
+•	Iterators are weakly consistent — they reflect some of the modifications done after iterator creation;
+they do not throw ConcurrentModificationException.
+
+⸻
+
+Final Recap (one-liner)
+
+ConcurrentHashMap = high-performance concurrent map using CAS + synchronized per-bin updates + treeified bins +
+striped counters → provides scalable, mostly lock-free reads and highly concurrent writes suitable for
+multithreaded Java applications.
+
+⸻

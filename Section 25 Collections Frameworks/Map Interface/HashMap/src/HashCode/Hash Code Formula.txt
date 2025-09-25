@@ -1,0 +1,67 @@
+"CBA" ka bhi step-by-step hashCode calculation karte hain aur "ABC" ke saath compare karte hain.
+
+⸻
+
+Formula yaad rakho:
+
+h = 31*h + charValue
+
+⸻
+
+Example 1: "ABC"
+
+Initial: h = 0
+
+Step 1: 'A' = 65
+h = 31*0 + 65 = 65
+
+Step 2: 'B' = 66
+h = 31*65 + 66 = 2081
+
+Step 3: 'C' = 67
+h = 31*2081 + 67 = 64578
+
+Final hashCode("ABC") = 64578
+
+⸻
+
+Example 2: "CBA"
+
+Initial: h = 0
+
+Step 1: 'C' = 67
+h = 31*0 + 67 = 67
+
+Step 2: 'B' = 66
+h = 31*67 + 66 = 2063
+
+Step 3: 'A' = 65
+h = 31*2063 + 65
+  = 63953 + 65
+  = 64018
+
+Final hashCode("CBA") = 64018
+
+⸻
+
+ASCII Flow Comparison
+
+String "ABC"                String "CBA"
+─────────────              ─────────────
+h=0                        h=0
+↓                          ↓
+'A'=65 → h=65              'C'=67 → h=67
+↓                          ↓
+'B'=66 → h=2081            'B'=66 → h=2063
+↓                          ↓
+'C'=67 → h=64578           'A'=65 → h=64018
+
+⸻
+
+Final Values:
+•	"ABC".hashCode() → 64578
+•	"CBA".hashCode() → 64018
+
+Matlab dono strings ke characters same hain, lekin order change hone se hashCode bhi alag nikalta hai.
+
+⸻

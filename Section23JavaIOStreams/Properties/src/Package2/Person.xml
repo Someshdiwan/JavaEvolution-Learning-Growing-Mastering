@@ -5,8 +5,8 @@
         Person Properties New File For reading using JAVA Program.
         How to read XML file using Properties in JAVA program.
     </comment>
-    <entry key="Name: ">Donald</entry>
-    <entry key="Age: ">99</entry>
-    <entry key="Address: ">LA</entry>
+    <entry key="Name: ">Jackson</entry>
+    <entry key="Age: ">80</entry>
+    <entry key="Address: ">SF</entry>
     <entry key="Country: ">USA</entry>
 </properties>

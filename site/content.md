@@ -1,119 +1,62 @@
-## Table of Contents
+# Table of Contents
 
 1. [Section 5 – Operator & Expression](#section-5-operator--expression)
-
 2. [Section 6 – String Class & Printing in Java](#section-6-string-class--printing-in-java)
-
 3. [Section 7 – Conditional Statements in Java](#section-7-conditional-statements-in-java)
-
-4. [Section 8 – Loops in Java](#section-8-loops-in-java)
-
+4. [Section 8 – Loops in Java](#section-8-loops-in-java)  
    4.1. [Mastery of Loops & Number Patterns](#mastery-of-loops--number-patterns-in-java)
-
 5. [Section 9 – ArrayAB](#section-9-arrayab--mastering-arrays-in-java-1d-2d-jagged-and-beyond)
-
-6. [Section 10 – Methods](#section-10-methods-in-java)
-
-   6.1. [Part 1: Local vs Global Variables](#-part-1-local-vs-global-variables-in-java)
-
-   6.2. [Part 2: Methods 2.O](#-part-2-methods-2o)
-
+6. [Section 10 – Methods](#section-10-methods-in-java)  
+   6.1. [Part 1: Local vs Global Variables](#part-1-local-vs-global-variables-in-java)  
+   6.2. [Part 2: Methods 2.O](#part-2-methods-20)
 7. [Section 11 – Object-Oriented Programming](#section-11-object-oriented-programming-in-java)
-
 8. [Section 12 – Inheritance](#section-12-inheritance-in-java)
-
 9. [Section 13 – Abstract Classes](#section-13-abstract-classes)
-
 10. [Section 14 – Interfaces](#section-14-interfaces)
-
 11. [Section 15 – Inner Classes](#section-15-inner-classes-in-java)
-
 12. [Section 16 – Static & Final](#section-16-static--final-in-java)
-
 13. [Section 17 – Packages](#section-17-packages-in-java)
-
 14. [Section 18 – Exception Handling](#section-18-exception-handling-in-java)
-
-15. [Section 19 – Multithreading](#section-19-multithreading-in-java)
-     
-    15.1. [Part 1:🧵 Deadlocks in Java](#part-1-deadlocks-in-java)
-
-    15.2. [Part 2:🔒 Locks & Concurrency Tools in Java](#part-2--locks--concurrency-tools-in-java)
-
-    15.3. [Part 3:🌀 Multithreading Essentials & Thread Management](#part-3--multithreading-essentials--thread-management)
-
-    15.4. [Part 4:🔁 Synchronization in Java](#part-4-synchronization-in-java)
-
-    15.5. [Part 5:🚿 Thread Pooling in Java](#part-5-thread-pooling-in-java)
- 
-    15.6. [Part 6:⚛️ Volatile & Atomic Operations in Java](#part-6-volatile--atomic-operations-in-java)
-
-16. [Section 20 – java.lang Package](#section-20-javalang-package-in-java)
-
+15. [Section 19 – Multithreading](#section-19-multithreading-in-java)  
+    15.1. [Part 1: Deadlocks in Java](#part-1-deadlocks-in-java)  
+    15.2. [Part 2: Locks & Concurrency Tools in Java](#part-2-locks--concurrency-tools-in-java)  
+    15.3. [Part 3: Multithreading Essentials & Thread Management](#part-3-multithreading-essentials--thread-management)  
+    15.4. [Part 4: Synchronization in Java](#part-4-synchronization-in-java)  
+    15.5. [Part 5: Thread Pooling in Java](#part-5-thread-pooling-in-java)  
+    15.6. [Part 6: Volatile & Atomic Operations in Java](#part-6-volatile--atomic-operations-in-java)
+16. [Section 20 – `java.lang` Package](#section-20-javalang-package-in-java)
 17. [Section 21 – Annotations & JavaDoc](#section-21-annotations--javadoc-in-java)
-
 18. [Section 22 – Lambda Expressions](#section-22-lambda-expressions-in-java)
-
-19. [Section 23: Java IO Streams](#section-23-java-io-streams)
-     
-    [Part 1:📂 Serialization & File Storage](#part-1-serialization--file-storage)
-
-    [Part 2:📂  Core File I/O, Byte & Character Streams](#part-2-core-file-io-byte--character-streams)
-
+19. [Section 23 – Java IO Streams](#section-23-java-io-streams)
+    - [Part 1: Serialization & File Storage](#part-1-serialization--file-storage)
+    - [Part 2: Core File I/O, Byte & Character Streams](#part-2-core-file-io-byte--character-streams)
 20. [Section 24 – Java Generics: Type-Safe Data Structures](#section-24-java-generics--type-safe-data-structures)
-
-21. [Section 25 – Collection Framework: Mastering Java Collections](#section-25-collection-framework--mastering-java-collections)
-    
-    21.1. [HashMap Core Internals & Enhancements](#hashmap-core-internals--enhancements)
-
-    22.2. [Java List Implementations, Stack Behavior & Comparator Use](#java-list-implementations-stack-behavior--comparator-use)
-
-    22.3. [Java Vector Class & PriorityQueue Overview](#java-vector-class--priorityqueue-overview)
-
-    22.4. [PriorityQueue in-Java](#priorityqueue-in-java)
-
-    22.5. [Java Properties Class & Queue Implementations](#java-properties-class--queue-implementations)
-    
-    22.6. [Java Set Interface & Implementations](#java-set-interface--implementations)
-    
-    22.7. [Sorted Maps, TreeSets, and Comparators in Java](#sorted-maps-treesets-and-comparators-in-java)
-
-22. [🕒Date and Time API](#section-26-java-date-and-time-api)
-
-23. [Section 27: Network Programming – Datagram Reverse Echo Server](#section-27-network-programming--datagram-reverse-echo-server)
-
+21. [Section 25 – Collection Framework: Mastering Java Collections](#section-25-collection-framework--mastering-java-collections)  
+    21.1. [HashMap Core Internals & Enhancements](#hashmap-core-internals--enhancements)  
+    21.2. [Java List Implementations, Stack Behavior & Comparator Use](#java-list-implementations-stack-behavior--comparator-use)  
+    21.3. [Java Vector Class & PriorityQueue Overview](#java-vector-class--priorityqueue-overview)  
+    21.4. [PriorityQueue in Java](#priorityqueue-in-java)  
+    21.5. [Java Properties Class & Queue Implementations](#java-properties-class--queue-implementations)  
+    21.6. [Java Set Interface & Implementations](#java-set-interface--implementations)  
+    21.7. [Sorted Maps, TreeSets, and Comparators in Java](#sorted-maps-treesets-and-comparators-in-java)
+22. [Date and Time API](#section-26-java-date-and-time-api)
+23. [Section 27: Network Programming – Datagram Reverse Echo Server](#section-27-network-programming--datagram-reverse-echo-server)  
     23.1. [Reverse Echo Server (TCP)](#section-27-network-programming--reverse-echo-server-tcp)
-
 24. [Section 28: JDBC Using SQLite](#section-28-jdbc-using-sqlite)
-
-25. [JAVA 8](#java-8)
-
-    25.1. [CompletableFuture – Asynchronous Programming in Java 8](#completablefuture--asynchronous-programming-in-java-8)
-
-    25.2. [Constructor Reference – Simplifying Object Creation](#constructor-reference--simplifying-object-creation)
-
-    25.3. [Consumer & Supplier Functional Interfaces](#consumer--supplier-functional-interfaces)
-
-    25.4. [Functional Interfaces in Java 8](#functional-interfaces-in-java-8)
-
-    26.5. [Java 8 Features Used in Streams](#java-8-features-used-in-streams)
-
-    25.6. [Java Collectors API](#java-collectors-api)
-
-    25.7. [Lambda Expressions](#lambda-expressions)
-
-    25.8. [Method References](#method-references)
-
-    25.9. [Java 8 Operators](#java-8-operators)
-
-    25.10. [Java 8 Predicates – Functional Evaluation Made Simple](#java-8-predicates--functional-evaluation-made-simple)
-    
-    25.11. [Streams in Java – Powerful Data Processing](#streams-in-java--powerful-data-processing)
-
-    25.12. [Java 8 Primitive Streams – IntStream, LongStream, DoubleStream](#java-8-primitive-streams--intstream-longstream-doublestream)
-
+25. [JAVA 8](#java-8)  
+    25.1. [CompletableFuture – Asynchronous Programming in Java 8](#completablefuture--asynchronous-programming-in-java-8)  
+    25.2. [Constructor Reference – Simplifying Object Creation](#constructor-reference--simplifying-object-creation)  
+    25.3. [Consumer & Supplier Functional Interfaces](#consumer--supplier-functional-interfaces)  
+    25.4. [Functional Interfaces in Java 8](#functional-interfaces-in-java-8)  
+    25.5. [Java 8 Features Used in Streams](#java-8-features-used-in-streams)  
+    25.6. [Java Collectors API](#java-collectors-api)  
+    25.7. [Lambda Expressions](#lambda-expressions)  
+    25.8. [Method References](#method-references)  
+    25.9. [Java 8 Operators](#java-8-operators)  
+    25.10. [Java 8 Predicates – Functional Evaluation Made Simple](#java-8-predicates--functional-evaluation-made-simple)  
+    25.11. [Streams in Java – Powerful Data Processing](#streams-in-java--powerful-data-processing)  
+    25.12. [Java 8 Primitive Streams – IntStream, LongStream, DoubleStream](#java-8-primitive-streams--intstream-longstream-doublestream)  
     25.13. [Streams in Java 8 – Core Concepts & Pipelines](#streams-in-java-8--core-concepts--pipelines)
-
 26. [JDK Features – Enhancements Across Versions](#jdk-features--enhancements-across-versions)
 
 ---

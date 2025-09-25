@@ -1,15 +1,15 @@
+<!-- _layouts/default.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page.title | default: site.title }}</title>
 
-    <!-- Google Font (optional but nice) -->
+    <!-- Fonts & icons -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="" crossorigin="anonymous"/>
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="{{ '/assets/favicon-96x96.png' | relative_url }}" sizes="96x96" />
@@ -17,60 +17,49 @@
     <link rel="shortcut icon" href="{{ '/assets/favicon.ico' | relative_url }}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | relative_url }}" />
 
-    <meta name="apple-mobile-web-app-title" content="Java" />
+    <meta name="apple-mobile-web-app-title" content="JavaEvolution" />
     <link rel="manifest" href="{{ '/assets/site.webmanifest' | relative_url }}" />
     <meta name="theme-color" content="#ffffff" />
-
-    <title>{{ page.title }}</title>
 
     <!-- Main stylesheet -->
     <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}" />
 </head>
 
 <body>
-<!-- Overlay for mobile -->
-<div id="sidebar-overlay" class="sidebar-overlay" aria-hidden="true"></div>
-
-<!--Dark Mode & Timezone Controls-->
+<!-- Theme + Time Controls -->
 <div id="theme-time-container" aria-hidden="false">
-    <button class="dark-toggle" aria-label="Toggle Dark Mode">
+    <button class="dark-toggle" aria-label="Toggle dark mode">
         <i class="fas fa-moon" aria-hidden="true"></i>
     </button>
+
     <div id="time-zone-wrapper">
-        <button id="tz-toggle-btn" class="time-toggle" aria-label="Toggle Timezone">IST</button>
+        <button id="tz-toggle-btn" class="time-toggle" aria-label="Toggle timezone">IST</button>
         <span id="live-time" aria-live="polite">Time: Loading...</span>
     </div>
 </div>
 
-<!--Onboarding Tooltip-->
-<div id="tooltip" class="tooltip" role="status" aria-hidden="true">Single tap to hide sidebar, double tap to show</div>
+<!-- One-time Tooltip -->
+<div id="tooltip" class="tooltip" role="status" aria-hidden="true">Tap an action to navigate</div>
 
-<!--Collapsible Sidebar-->
-<nav id="sidebar" class="sidebar" aria-label="Main Navigation" aria-hidden="false">
-    <div class="brand" role="banner">
-        <span>JavaEvolution</span>
-    </div>
-
-    <a href="{{ site.baseurl }}/" class="sidebar-link">
+<!-- Action rail (left column) -->
+<aside id="action-rail" class="action-rail" aria-label="Quick actions">
+    <a href="{{ site.baseurl }}/" class="action-btn" id="act-home" title="Home">
         <i class="fas fa-home" aria-hidden="true"></i>
-        <span>Home</span>
+        <span class="label">Home</span>
     </a>
-    <a href="{{ site.baseurl }}/content" class="sidebar-link">
+
+    <a href="{{ site.baseurl }}/content" class="action-btn" id="act-content" title="All Contents">
         <i class="fas fa-book" aria-hidden="true"></i>
-        <span>All Contents</span>
+        <span class="label">All Contents</span>
     </a>
-    <a href="https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering" class="sidebar-link" target="_blank" rel="noopener">
+
+    <a href="https://github.com/Someshdiwan/JavaEvolution-Learning-Growing-Mastering" class="action-btn" id="act-github" title="GitHub" target="_blank" rel="noopener">
         <i class="fab fa-github" aria-hidden="true"></i>
-        <span>GitHub Repo</span>
+        <span class="label">GitHub</span>
     </a>
-</nav>
+</aside>
 
-<!--Toggle Button (visible on mobile and used for desktop collapse)-->
-<button class="toggle-btn" id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="true">
-    <i class="fas fa-bars" aria-hidden="true"></i>
-</button>
-
-<!--Main Content-->
+<!-- Main content -->
 <div class="wrapper">
     <main class="content" id="main-content">
         <div class="fade-in">
@@ -79,364 +68,126 @@
     </main>
 </div>
 
-<!-- Scripts (moved to bottom for faster paint) -->
+<!-- Inline script: minimal, performant, and readable -->
 <script>
-    /* ============================
-       Timezone, dark-mode, tooltip & legacy helpers
-       ============================ */
+    // Lightweight UI controller for dark mode, timezone, action rail active state, SW registration.
+    (function () {
+        // Config
+        const SITE_BASE = '{{ site.baseurl }}' || '';
 
-    // TimeZone
-    let currentZone = 'IST';
-    const TAP_TIMEOUT = 200; // double-tap detection
-    const SCROLL_THRESHOLD = 100; // after Scroll hide theme/time container
+        // Timezone state
+        let currentZone = 'IST';
 
-    // Small helper for active link update (kept for compatibility)
-    function updateActiveLink() {
-        const currentPath = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
-        const baseUrl = '{{ site.baseurl }}' || '';
-        document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.classList.remove('active');
-            try {
-                let href = link.getAttribute('href') || '';
-                if (baseUrl && href.startsWith(baseUrl)) {
-                    href = href.replace(new RegExp('^' + baseUrl), '');
-                }
-                href = href.replace(/\/+$/, '') || '/';
-                if (href === currentPath || (currentPath === '/' && href === '/')) {
-                    link.classList.add('active');
-                }
-            } catch (e) { /* ignore bad hrefs */ }
-        });
-    }
+        // Helpers
+        const $ = (sel, ctx = document) => ctx.querySelector(sel);
+        const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-    /* Dark mode toggle (UI update + storage) */
-    function toggleDarkMode() {
-        const body = document.body;
-        body.classList.toggle('dark-mode');
-        const isDark = body.classList.contains('dark-mode');
-        localStorage.setItem('dark-mode', isDark);
-        const icon = document.querySelector('.dark-toggle i');
-        if (icon) {
-            icon.classList.remove('fa-moon', 'fa-sun');
-            icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+        // Update active action button based on current path
+        function updateActiveLink() {
+            const path = (location.pathname || '/').replace(/\/+$/, '') || '/';
+            const normalized = SITE_BASE && path.startsWith(SITE_BASE) ? path.slice(SITE_BASE.length) : path;
+            $$('.action-btn').forEach(btn => btn.classList.remove('active'));
+            if (normalized === '/' || normalized === '' || normalized === '/index.html') {
+                $('#act-home')?.classList.add('active');
+            } else if (normalized.startsWith('/content')) {
+                $('#act-content')?.classList.add('active');
+            }
         }
-        // slight repaint hack kept
-        const sidebar = document.getElementById('sidebar');
-        const themeContainer = document.getElementById('theme-time-container');
-        if (sidebar) sidebar.style.display = 'none';
-        if (themeContainer) themeContainer.style.display = 'none';
-        setTimeout(() => {
-            if (sidebar) sidebar.style.display = '';
-            if (themeContainer) themeContainer.style.display = '';
-        }, 0);
-    }
 
-    /* Timezone toggle */
-    function toggleTimezone() {
-        currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
-        const tzButton = document.getElementById('tz-toggle-btn');
-        if (tzButton) {
-            tzButton.textContent = currentZone;
+        // Dark-mode toggle
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('dark-mode', isDark);
+            const icon = $('.dark-toggle i');
+            if (icon) {
+                icon.classList.remove('fa-moon', 'fa-sun');
+                icon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+            }
+        }
+
+        // Timezone toggle
+        function toggleTimezone() {
+            currentZone = currentZone === 'IST' ? 'GMT' : 'IST';
+            const tzButton = $('#tz-toggle-btn');
+            if (tzButton) tzButton.textContent = currentZone;
             updateLiveTime();
         }
-    }
 
-    /* Update live time */
-    function updateLiveTime() {
-        const liveTime = document.getElementById('live-time');
-        if (!liveTime) return;
-        const now = new Date();
-        let date;
-        if (currentZone === 'GMT') {
-            date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-        } else {
-            const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-            date = new Date(utc + 5.5 * 3600000);
-        }
-        let h = date.getHours();
-        const m = date.getMinutes().toString().padStart(2, '0');
-        const s = date.getSeconds().toString().padStart(2, '0');
-        const ampm = h >= 12 ? 'PM' : 'AM';
-        h = h % 12 || 12;
-        liveTime.textContent = `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
-    }
-
-    function handleScroll() {
-        const themeTimeContainer = document.getElementById('theme-time-container');
-        if (themeTimeContainer) {
-            if (window.scrollY > SCROLL_THRESHOLD) {
-                themeTimeContainer.classList.add('hidden');
+        // Live time update
+        function updateLiveTime() {
+            const live = $('#live-time');
+            if (!live) return;
+            const now = new Date();
+            let date;
+            if (currentZone === 'GMT') {
+                date = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
             } else {
-                themeTimeContainer.classList.remove('hidden');
+                const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+                date = new Date(utc + 5.5 * 3600000);
             }
+            let h = date.getHours();
+            const m = String(date.getMinutes()).padStart(2, '0');
+            const s = String(date.getSeconds()).padStart(2, '0');
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            live.textContent = `Time (${currentZone}): ${h}:${m}:${s} ${ampm}`;
         }
-    }
 
-    /* Tooltip show on first visit */
-    function showTooltipOnce() {
-        const tooltip = document.getElementById('tooltip');
-        if (!tooltip) return;
-        const tooltipShown = localStorage.getItem('tooltip-shown');
-        if (!tooltipShown) {
-            setTimeout(() => {
-                tooltip.classList.add('visible');
+        // Show tooltip once
+        function showTooltipOnce() {
+            const t = $('#tooltip');
+            if (!t) return;
+            if (!localStorage.getItem('tooltip-shown-actions')) {
                 setTimeout(() => {
-                    tooltip.classList.remove('visible');
-                    localStorage.setItem('tooltip-shown', 'true');
-                }, 5000);
-            }, 1000);
-        }
-    }
-
-    /* ============================
-       Sidebar module (desktop collapse + mobile slide-over + accessibility)
-       ============================ */
-
-    (function sidebarModule(){
-        const SIDEBAR_ID = 'sidebar';
-        const TOGGLE_ID = 'sidebar-toggle';
-        const OVERLAY_ID = 'sidebar-overlay';
-        const SIDEBAR_COLLAPSED_KEY = 'sidebar-collapsed'; // desktop collapsed state
-
-        const sidebar = document.getElementById(SIDEBAR_ID);
-        const toggleBtn = document.getElementById(TOGGLE_ID);
-        const overlay = document.getElementById(OVERLAY_ID);
-        const content = document.querySelector('.content');
-
-        if (!sidebar || !toggleBtn || !overlay || !content) {
-            console.warn('Sidebar module: missing DOM elements, aborting sidebar init');
-            return;
-        }
-
-        function isMobile() {
-            return window.matchMedia('(max-width: 768px)').matches;
-        }
-
-        // Initialize states
-        const initialCollapsed = localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === 'true';
-        if (!isMobile() && initialCollapsed) {
-            sidebar.classList.add('collapsed');
-            sidebar.setAttribute('aria-hidden', 'false');
-            toggleBtn.setAttribute('aria-expanded', 'false');
-            content.style.marginLeft = '96px';
-        } else {
-            sidebar.classList.remove('collapsed');
-            toggleBtn.setAttribute('aria-expanded', 'true');
-            content.style.marginLeft = '';
-        }
-
-        // Active link highlighting
-        function updateActiveLinkInternal() {
-            const currentPath = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
-            const base = '{{ site.baseurl }}' || '';
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                try {
-                    let href = (link.getAttribute('href') || '').replace(base, '').replace(/\/+$/, '') || '/';
-                    if (href === currentPath || (currentPath === '' && href === '/')) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                } catch (e) {}
-            });
-        }
-
-        // Open/close functions
-        function openMobileSidebar() {
-            sidebar.classList.add('open');
-            overlay.classList.add('visible');
-            sidebar.setAttribute('aria-hidden', 'false');
-            overlay.setAttribute('aria-hidden', 'false');
-            toggleBtn.setAttribute('aria-expanded', 'true');
-            focusTrapEnable(sidebar);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMobileSidebar() {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('visible');
-            sidebar.setAttribute('aria-hidden', 'true');
-            overlay.setAttribute('aria-hidden', 'true');
-            toggleBtn.setAttribute('aria-expanded', 'false');
-            focusTrapDisable();
-            document.body.style.overflow = '';
-        }
-
-        // Desktop collapse toggle (persistent)
-        function toggleDesktopCollapsed() {
-            const collapsed = sidebar.classList.toggle('collapsed');
-            localStorage.setItem(SIDEBAR_COLLAPSED_KEY, collapsed ? 'true' : 'false');
-            toggleBtn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-            if (collapsed) {
-                content.style.marginLeft = '96px';
-            } else {
-                content.style.marginLeft = '';
+                    t.classList.add('visible');
+                    setTimeout(() => {
+                        t.classList.remove('visible');
+                        localStorage.setItem('tooltip-shown-actions', 'true');
+                    }, 4000);
+                }, 800);
             }
         }
 
-        // Toggle action
-        function handleToggleClick(e) {
-            if (isMobile()) {
-                if (sidebar.classList.contains('open')) closeMobileSidebar();
-                else openMobileSidebar();
-            } else {
-                toggleDesktopCollapsed();
-            }
-        }
-
-        // Overlay click closes mobile
-        overlay.addEventListener('click', closeMobileSidebar);
-
-        // Click outside closes mobile sidebar
+        // Event wiring
         document.addEventListener('click', (ev) => {
-            if (!isMobile()) return;
             const target = ev.target;
-            const clickingToggle = target.closest(`#${TOGGLE_ID}`);
-            if (clickingToggle) return;
-            const clickedInside = target.closest(`#${SIDEBAR_ID}`);
-            if (!clickedInside && sidebar.classList.contains('open')) {
-                closeMobileSidebar();
-            }
+            if (target.closest('.dark-toggle')) toggleDarkMode();
+            if (target.closest('#tz-toggle-btn')) toggleTimezone();
         }, { passive: true });
 
-        // ESC key handling
-        document.addEventListener('keydown', (ev) => {
-            if (ev.key === 'Escape' || ev.key === 'Esc') {
-                if (isMobile() && sidebar.classList.contains('open')) {
-                    closeMobileSidebar();
-                } else if (!isMobile() && sidebar.classList.contains('collapsed')) {
-                    sidebar.classList.remove('collapsed');
-                    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, 'false');
-                    toggleBtn.setAttribute('aria-expanded', 'true');
-                }
+        // Scroll to hide theme-time container gently
+        window.addEventListener('scroll', () => {
+            const theme = $('#theme-time-container');
+            if (!theme) return;
+            if (window.scrollY > 100) theme.classList.add('hidden');
+            else theme.classList.remove('hidden');
+        }, { passive: true });
+
+        // Init on load
+        window.addEventListener('load', () => {
+            // Restore dark mode
+            if (localStorage.getItem('dark-mode') === 'true') {
+                document.body.classList.add('dark-mode');
+                const icon = $('.dark-toggle i');
+                if (icon) icon.classList.remove('fa-moon'), icon.classList.add('fa-sun');
+            }
+
+            updateLiveTime();
+            setInterval(updateLiveTime, 1000);
+            updateActiveLink();
+            showTooltipOnce();
+
+            // Register service worker (path uses Liquid to be correct for baseurl)
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker
+                    .register('{{ "/assets/sw.js" | relative_url }}')
+                    .then(() => console.log('Service Worker Registered'))
+                    .catch(err => console.error('SW registration failed', err));
             }
         });
-
-        // Resize handling
-        let resizeTimer = null;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                if (!isMobile()) {
-                    overlay.classList.remove('visible');
-                    document.body.style.overflow = '';
-                    focusTrapDisable();
-                    sidebar.setAttribute('aria-hidden', 'false');
-                } else {
-                    if (sidebar.classList.contains('collapsed')) {
-                        sidebar.classList.remove('collapsed');
-                    }
-                }
-                updateActiveLinkInternal();
-            }, 120);
-        });
-
-        // Toggle button click
-        toggleBtn.addEventListener('click', handleToggleClick);
-
-        // Close mobile after clicking a link
-        document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (isMobile()) {
-                    setTimeout(() => closeMobileSidebar(), 120);
-                }
-            });
-        });
-
-        // Focus trap (minimal)
-        let focusableElements = null;
-        let lastFocusedBeforeOpen = null;
-        function focusTrapEnable(container) {
-            focusableElements = container.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])');
-            if (focusableElements && focusableElements.length) {
-                lastFocusedBeforeOpen = document.activeElement;
-                focusableElements[0].focus();
-                document.addEventListener('focus', enforceFocus, true);
-                document.addEventListener('keydown', handleTab, true);
-            }
-        }
-        function focusTrapDisable() {
-            document.removeEventListener('focus', enforceFocus, true);
-            document.removeEventListener('keydown', handleTab, true);
-            if (lastFocusedBeforeOpen) lastFocusedBeforeOpen.focus();
-        }
-        function enforceFocus(ev) {
-            if (!sidebar.contains(ev.target)) {
-                ev.stopPropagation();
-                if (focusableElements && focusableElements.length) focusableElements[0].focus();
-            }
-        }
-        function handleTab(e) {
-            if (e.key !== 'Tab') return;
-            if (!focusableElements || focusableElements.length === 0) return;
-            const first = focusableElements[0];
-            const last = focusableElements[focusableElements.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        }
-
-        // Initialize active link
-        updateActiveLinkInternal();
-
-        // expose for console debugging
-        window.sidebarUI = {
-            openMobileSidebar,
-            closeMobileSidebar,
-            toggleDesktopCollapsed,
-            updateActiveLink: updateActiveLinkInternal
-        };
     })();
-
-    /* ============================
-       Global event wiring & init (time, dark-mode, tooltip, SW registration)
-       ============================ */
-
-    // Wire buttons (delegated)
-    document.addEventListener('click', (ev) => {
-        const target = ev.target;
-        if (target.closest('.dark-toggle')) {
-            toggleDarkMode();
-        } else if (target.closest('#tz-toggle-btn')) {
-            toggleTimezone();
-        }
-    });
-
-    // Init on load
-    window.addEventListener('load', () => {
-        // restore dark mode
-        const isDark = localStorage.getItem('dark-mode') === 'true';
-        if (isDark) {
-            document.body.classList.add('dark-mode');
-            const icon = document.querySelector('.dark-toggle i');
-            if (icon) icon.classList.remove('fa-moon'), icon.classList.add('fa-sun');
-        }
-        // tooltip
-        showTooltipOnce();
-
-        // updates
-        updateLiveTime();
-        setInterval(updateLiveTime, 1000);
-
-        // scroll handling
-        window.addEventListener('scroll', handleScroll, { passive: true });
-
-        // active link
-        updateActiveLink();
-
-        // register service worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('{{ "/assets/sw.js" | relative_url }}')
-                .then(() => console.log('Service Worker Registered'))
-                .catch(err => console.error('SW registration failed', err));
-        }
-    });
-
 </script>
 </body>
 </html>

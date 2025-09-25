@@ -1,17 +1,18 @@
+// assets/sw.js
 const CACHE_NAME = "java-evolution-cache-v7";
 const STATIC_ASSETS = [
-    "/JavaEvolution-Learning-Growing-Mastering/",
-    "/JavaEvolution-Learning-Growing-Mastering/default.html",
-    "/JavaEvolution-Learning-Growing-Mastering/assets/style.css",
-    "/JavaEvolution-Learning-Growing-Mastering/assets/favicon-96x96.png",
-    "/JavaEvolution-Learning-Growing-Mastering/assets/favicon.svg",
-    "/JavaEvolution-Learning-Growing-Mastering/assets/favicon.ico",
-    "/JavaEvolution-Learning-Growing-Mastering/assets/apple-touch-icon.png",
-    "/JavaEvolution-Learning-Growing-Mastering/assets/site.webmanifest",
+    "{{ '/' | relative_url }}",
+    "{{ '/default.html' | relative_url }}",
+    "{{ '/assets/style.css' | relative_url }}",
+    "{{ '/assets/favicon-96x96.png' | relative_url }}",
+    "{{ '/assets/favicon.svg' | relative_url }}",
+    "{{ '/assets/favicon.ico' | relative_url }}",
+    "{{ '/assets/apple-touch-icon.png' | relative_url }}",
+    "{{ '/assets/site.webmanifest' | relative_url }}",
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-];
+].map(p => p.toString()); // ensure strings
 
-// Debounce function to limit cache updates
+// Small debounce to avoid spamming cache writes
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -24,116 +25,83 @@ function debounce(func, wait) {
     };
 }
 
-// Install event
-self.addEventListener("install", (event) => {
-    console.log("[Service Worker] Installing and caching static assets");
+// Install: pre-cache basic assets
+self.addEventListener("install", event => {
     self.skipWaiting();
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(STATIC_ASSETS);
+        caches.open(CACHE_NAME).then(cache => {
+            // convert relative Liquid URLs to proper strings at build time
+            return cache.addAll(STATIC_ASSETS).catch(err => {
+                // Some assets may 404 during dev; swallow and continue to avoid blocking install
+                console.warn('[SW] some static assets failed to cache', err);
+            });
         })
     );
 });
 
-// Activate event
-self.addEventListener("activate", (event) => {
-    console.log("[Service Worker] Activated and cleaning old caches");
+// Activate: cleanup old caches
+self.addEventListener("activate", event => {
     event.waitUntil(
-        caches.keys().then((cacheNames) =>
-            Promise.all(
-                cacheNames
-                    .filter((name) => name !== CACHE_NAME)
-                    .map((name) => caches.delete(name))
-            )
-        )
+        caches.keys().then(names =>
+            Promise.all(names.filter(n => n !== CACHE_NAME).map(n => caches.delete(n)))
+        ).then(() => self.clients.claim())
     );
-    self.clients.claim();
 });
 
-// Fetch event
-self.addEventListener("fetch", (event) => {
-    const request = event.request;
+// Fetch handler: navigation-first for HTML, cache-first for other static assets
+self.addEventListener("fetch", event => {
+    const req = event.request;
 
-    // Handle navigation requests (HTML pages)
-    if (request.mode === 'navigate') {
+    // Navigation requests => try network then fallback to cached default
+    if (req.mode === 'navigate') {
         event.respondWith(
-            fetch(request)
-                .then((networkResponse) => {
-                    // Cache successful response asynchronously (debounced)
-                    debounce(() => {
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(request, networkResponse.clone());
-                            // Limit cache size
-                            cache.keys().then((keys) => {
-                                if (keys.length > 20) {
-                                    cache.delete(keys[0]);
-                                }
-                            });
-                        });
-                    }, 100)();
-                    return networkResponse;
-                })
-                .catch(() => {
-                    // Fallback to cached default.html
-                    return caches.match('/JavaEvolution-Learning-Growing-Mastering/default.html') ||
-                        new Response('Network error: Please check your connection.', {
-                            status: 503,
-                            statusText: 'Service Unavailable'
-                        });
-                })
+            fetch(req).then(networkRes => {
+                // async cache update
+                debounce(() => {
+                    caches.open(CACHE_NAME).then(cache => cache.put(req, networkRes.clone()));
+                }, 100)();
+                return networkRes;
+            }).catch(() => {
+                return caches.match("{{ '/default.html' | relative_url }}") || caches.match("{{ '/' | relative_url }}") || new Response('<h1>Offline</h1><p>Please check your network.</p>', { headers: { 'Content-Type': 'text/html' }});
+            })
         );
         return;
     }
 
-    // Handle other requests (CSS, images, fonts, etc.)
+    // For other requests: prefer cache, else fetch and cache (for same-origin & CDN)
     event.respondWith(
-        caches.match(request).then((cachedResponse) => {
-            // Return cached response if available
-            if (cachedResponse) {
-                // Background cache refresh (debounced)
+        caches.match(req).then(cached => {
+            if (cached) {
+                // refresh in background
                 debounce(() => {
-                    fetch(request).then((networkResponse) => {
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(request, networkResponse);
-                        });
-                    }).catch(() => {}); // Silent fail
-                }, 100)();
-                return cachedResponse;
+                    fetch(req).then(networkRes => {
+                        caches.open(CACHE_NAME).then(cache => cache.put(req, networkRes.clone()));
+                    }).catch(() => {/* silent */});
+                }, 200)();
+                return cached;
             }
 
-            // Fetch from network
-            return fetch(request)
-                .then((networkResponse) => {
-                    // Cache GET requests from same origin or Font Awesome CDN
-                    if (
-                        request.method === "GET" &&
-                        (request.url.startsWith(self.location.origin) ||
-                            request.url.startsWith('https://cdnjs.cloudflare.com'))
-                    ) {
-                        debounce(() => {
-                            caches.open(CACHE_NAME).then((cache) => {
-                                cache.put(request, networkResponse.clone());
-                                // Limit cache size
-                                cache.keys().then((keys) => {
-                                    if (keys.length > 20) {
-                                        cache.delete(keys[0]);
-                                    }
-                                });
+            return fetch(req).then(networkRes => {
+                // only cache GETs and same-origin or known CDN
+                if (req.method === "GET" && (req.url.startsWith(self.location.origin) || req.url.includes('cdnjs.cloudflare.com'))) {
+                    debounce(() => {
+                        caches.open(CACHE_NAME).then(cache => {
+                            cache.put(req, networkRes.clone());
+                            // limit cache size (simple approach)
+                            cache.keys().then(keys => {
+                                if (keys.length > 50) cache.delete(keys[0]);
                             });
-                        }, 100)();
-                    }
-                    return networkResponse;
-                })
-                .catch(() => {
-                    // Fallback for Font Awesome
-                    if (request.url.includes('font-awesome') || request.url.includes('cdnjs.cloudflare.com')) {
-                        return caches.match('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-                    }
-                    return new Response('Resource unavailable offline.', {
-                        status: 503,
-                        statusText: 'Service Unavailable'
-                    });
-                });
+                        });
+                    }, 200)();
+                }
+                return networkRes;
+            }).catch(() => {
+                // fallback for fonts/css from known CDN
+                if (req.url.includes('cdnjs.cloudflare.com')) {
+                    return caches.match('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+                }
+                return new Response('Resource unavailable offline.', { status: 503, statusText: 'Service Unavailable' });
+            });
         })
     );
 });

@@ -1,0 +1,77 @@
+Internal Working of SortedMap (Detailed Theory)
+
+1. What is SortedMap?
+   - `SortedMap` is an interface in Java that extends `Map`.
+   - It ensures that **keys are stored in a sorted order**.
+   - Sorting is either:
+     - **Natural ordering** (keys must implement `Comparable` like Integer, String), OR
+     - **Custom ordering** (using a `Comparator` provided at map creation).
+
+   Example Implementations:
+   - `TreeMap` (most common implementation).
+   - `ConcurrentSkipListMap` (thread-safe, concurrent alternative).
+
+2. Storage Mechanism (TreeMap - default implementation):
+   - Internally uses a **Red-Black Tree** (self-balancing binary search tree).
+   - Every insertion/removal rebalances the tree → keeps operations efficient.
+   - Guarantees **logarithmic time complexity (O(log n))** for `put`, `get`, and `remove`.
+
+3. Ordering Logic:
+   - Keys are compared using:
+     - `compareTo()` (if using natural ordering), OR
+     - `Comparator.compare()` (if a comparator is supplied).
+   - Duplicate keys are NOT allowed.
+   - Values can be duplicate since ordering is only applied on keys.
+
+4. Important Internal Properties:
+   - `firstKey()` → returns the smallest key.
+   - `lastKey()` → returns the largest key.
+   - `headMap(toKey)` → all keys less than `toKey`.
+   - `tailMap(fromKey)` → all keys greater than or equal to `fromKey`.
+   - `subMap(fromKey, toKey)` → range view (between two keys).
+
+5. Null Handling:
+   - `TreeMap` does NOT allow `null` keys (throws `NullPointerException`).
+   - `null` values are allowed (but discouraged).
+   - Reason: comparator/compareTo() cannot handle `null` key comparisons.
+
+6. Performance:
+   - Insertion → O(log n)
+   - Lookup (get) → O(log n)
+   - Deletion → O(log n)
+   - Iteration → O(n), but in **sorted order** of keys.
+
+7. Iteration Order:
+   - Unlike HashMap (unordered) or LinkedHashMap (insertion/access order),
+     SortedMap always iterates in **ascending order of keys**.
+   - If a custom comparator is given, iteration follows that comparator’s order.
+
+──────────────────────────────────────────────────────────────
+📝 ASCII Representation (Red-Black Tree Example)
+──────────────────────────────────────────────────────────────
+
+Insert keys: 20, 10, 30, 25
+
+        (20) Black
+       /    \
+   (10)R   (30)B
+            /
+         (25)R
+
+- Keys are arranged in sorted order.
+- Red-Black Tree ensures balance for O(log n) operations.
+- In-order traversal → 10 → 20 → 25 → 30.
+
+──────────────────────────────────────────────────────────────
+8. Practical Applications:
+   - Range queries: e.g., "give me all students with roll numbers between 100 and 200".
+   - Navigation operations (finding closest keys).
+   - Useful in scheduling, ranking systems, or interval problems.
+
+──────────────────────────────────────────────────────────────
+✔ Key Takeaways:
+   - `SortedMap` maintains keys in sorted order (natural or custom).
+   - Internally backed by balanced trees (commonly Red-Black Tree).
+   - Operations: O(log n).
+   - No null keys allowed.
+   - Best choice when **ordering of keys is essential**.

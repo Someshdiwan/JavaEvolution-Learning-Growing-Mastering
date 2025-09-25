@@ -1,0 +1,88 @@
+Types of References in Java:
+
+1. Strong Reference (Default)
+   - Example: Object obj = new Object();
+   - As long as a strong reference exists, the object is **not eligible for GC**.
+   - Most common type of reference.
+   - Must be explicitly set to null (or go out of scope) before GC can reclaim it.
+
+2. Soft Reference
+   - Class: java.lang.ref.SoftReference<T>
+   - Object will be collected **only when JVM runs low on memory**.
+   - Used for caches where data can be recomputed or reloaded if cleared.
+   - Example: SoftReference<Image> softImg = new SoftReference<>(new Image());
+
+3. Weak Reference
+   - Class: java.lang.ref.WeakReference<T>
+   - Object is **collected eagerly** when no strong/soft references exist.
+   - Commonly used in WeakHashMap (keys are weak references).
+   - Example: WeakReference<Data> weakRef = new WeakReference<>(new Data());
+
+4. Phantom Reference
+   - Class: java.lang.ref.PhantomReference<T>
+   - Object is **already finalized** and enqueued before GC reclaims memory.
+   - Always returns null from get().
+   - Must be used with a ReferenceQueue.
+   - Useful for post-mortem cleanup (e.g., freeing native memory, file handles).
+
+-----------------------------------
+ASCII Flow of Reachability
+-----------------------------------
+
+Strong Ref → Object (never GC while reachable)
+
+Soft Ref   → Object (GC only if memory is low)
+
+Weak Ref   → Object (GC as soon as no strong/soft refs exist)
+
+Phantom Ref→ Object (already finalized; enqueued before actual GC for cleanup)
+
+-----------------------------------
+Quick Recap
+-----------------------------------
+✔ Strong (default, keeps object alive)
+✔ Soft (cache-friendly, GC only under memory pressure)
+✔ Weak (short-lived, GC at next cycle when no strong refs)
+✔ Phantom (cleanup notification before GC final removal)
+
+
+SoftReference vs WeakReference vs PhantomReference:
+
+Quick Comparison Table
+
+| Aspect              | SoftReference                                                                 | WeakReference                                                        | PhantomReference                                                                 |
+|---------------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| Reachability        | Softly reachable (strong refs gone, GC may keep if memory is available)       | Weakly reachable (collected eagerly once no strong/soft refs exist)  | Phantomly reachable (object finalized, only enqueued for cleanup)                |
+| get() returns       | Referent while not cleared                                                    | Referent until GC clears                                             | Always null                                                                      |
+| When GC clears      | Under memory pressure (least eager)                                           | On next GC cycle if no strong/soft refs                              | After finalization, enqueued before reclaim                                      |
+| Typical use-case    | Memory-sensitive caches (e.g., image cache)                                   | WeakHashMap keys, canonical maps, event listeners                    | Native resource cleanup, precise post-mortem cleanup                             |
+| ReferenceQueue need | Optional (often not used)                                                     | Optional (sometimes used for notification)                           | Mandatory (always used to detect object reclaim and trigger cleanup)             |
+
+---
+
+SoftReference:
+strong -> null
+soft   -> [Object]   (kept until memory is low)
+GC under pressure -> clear soft -> object reclaimed
+
+
+WeakReference:
+strong -> null
+soft   -> null
+weak   -> [Object]
+GC runs -> weak cleared -> object reclaimed
+
+PhantomReference:
+strong -> null
+soft   -> null
+weak   -> null
+phantom-> (no direct access)
+After finalization → phantom enqueued in ReferenceQueue → cleanup action
+
+• SoftReference → use for caches, but JVM heuristics vary.
+  In practice, bounded caches (LRU via LinkedHashMap) are more predictable.
+
+• WeakReference → great for WeakHashMap (keys automatically cleared when no strong ref exists).
+  Avoid memory leaks in registries/listeners.
+
+• PhantomReference → best for precise cleanup of native resources. Always pair with a ReferenceQueue.

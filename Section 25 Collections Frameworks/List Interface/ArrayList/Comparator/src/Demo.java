@@ -1,5 +1,3 @@
-package ListDemo.ArrayListLinkedListStack;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -9,8 +7,7 @@ class Student2 {
     private double gpa;
 
     // Constructor to initialize a Student object with name and GPA
-    public Student2(String name, double gpa)
-    {
+    public Student2(String name, double gpa) {
         this.name = name;
         this.gpa = gpa;
     }
@@ -24,7 +21,7 @@ class Student2 {
     }
 }
 
-public class ComparatorDemo2 {
+public class Demo {
     public static void main(String[] args) {
         // Create a list of Student2 objects (changed generic type from Student to Student2)
         List<Student2> students = new ArrayList<>();
@@ -46,8 +43,7 @@ public class ComparatorDemo2 {
 
         // Printing the sorted list of students (by ascending GPA)
         System.out.println("Printing the sorted list of students (by ascending GPA)\n");
-        for (Student2 student : students)
-        {
+        for (Student2 student : students) {
             System.out.println(student.getName() + ": " + student.getGpa());
         }
 
@@ -56,17 +52,19 @@ public class ComparatorDemo2 {
         students.sort(comparator2);
 
         System.out.println("\nreverse method add keya hai.");
-        for (Student2 student : students)
-        {
+        for (Student2 student : students) {
             System.out.println(student.getName() + ": " + student.getGpa());
         }
 
-        //THis is using sort by their name.
-        Comparator<Student2> comparator3 = Comparator.comparing(Student2::getGpa).reversed().thenComparing(Student2::getName);
+        //This is using sort by their name.
+        Comparator<Student2> comparator3 =
+                Comparator.
+                        comparing(Student2::getGpa).
+                        reversed().
+                        thenComparing(Student2::getName);
 
         System.out.println("\nTHis is using sort by their name.");
-        for (Student2 student : students)
-        {
+        for (Student2 student : students) {
             System.out.println(student.getName() + ": " + student.getGpa());
         }
     }

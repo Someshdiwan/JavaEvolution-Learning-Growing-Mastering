@@ -1,14 +1,12 @@
-package StringTokenizerDemo;
+package Package;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class ConvertNumbersIntoArrayList {
-    public static void main(String[] args)throws Exception
-    {
-        FileInputStream fis = new FileInputStream("C://Users\\somes\\Downloads\\JAVA SE\\Section25CollectionFramework\\src\\StringTokenizerDemo\\Numbers.txt");
-
+    public static void main(String[] args)throws Exception {
+        FileInputStream fis = new FileInputStream("/Users/somesh/Java SE/JavaEvolution-Learning-Growing-Mastering/Section23JavaIOStreams/String Tokenizer.txt/src/Package/Numbers.txt");
         byte b[]=new byte[fis.available()];
 
         fis.read(b);
@@ -19,8 +17,7 @@ public class ConvertNumbersIntoArrayList {
         String s;
         ArrayList<Integer> al = new ArrayList<>();
 
-        while (stk.hasMoreTokens())
-        {
+        while (stk.hasMoreTokens()) {
             s=stk.nextToken();
             al.add(Integer.valueOf(s));
         }

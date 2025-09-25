@@ -1,0 +1,101 @@
+CopyOnWriteArraySet vs ConcurrentSkipListSet:
+
+Quick summary
+•   CopyOnWriteArraySet — thread-safe, snapshot (copy-on-write) semantics.
+    Best when reads are very frequent and writes are rare. Keeps insertion order only
+    as an artifact of the underlying array; not a sorted set.
+
+•   ConcurrentSkipListSet — thread-safe, concurrent skip-list (sorted) set.
+    Good when you need a concurrent sorted set with many readers and writers.
+    Iterators are weakly consistent.
+
+⸻
+
+Side-by-side comparison
+
+Aspect                       CopyOnWriteArraySet                                                   ConcurrentSkipListSet
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Internal structure           Backed by a CopyOnWriteArrayList — full array copied on each write   Concurrent skip list (multi-level linked towers)
+Thread-safety model          Fully thread-safe without locking for readers; writes copy array     Fine-grained concurrency; lock-free/CAS style
+Ordering                     Not sorted; insertion order snapshot                                 Sorted (natural/comparator)
+Iterator semantics           Snapshot iterator; stable, never sees later writes                   Weakly consistent; may reflect concurrent updates
+Read performance             Extremely fast (array reads)                                         Good, O(log n) expected
+Write performance            Expensive: O(n), copy array                                          Moderate: O(log n)
+Memory behavior              Extra array per write                                                Node allocations per element/tower
+Best for                     Read-mostly workloads                                                Concurrent sorted workloads
+Examples where useful         Listener lists, read-mostly caches                                  Schedulers, concurrent indexes
+Null elements                Not allowed                                                          Not allowed
+
+⸻
+
+Practical guideline — when to use which
+
+Use CopyOnWriteArraySet when:
+    •   Your application is read-heavy and writes are rare (e.g., subscriber lists, configuration flags, event listeners).
+    •   You need extremely cheap, lock-free reads and snapshot iteration semantics (guaranteed stable view during iteration).
+    •   The set is small or writes are infrequent — you can tolerate the cost of copying on write.
+    •   You want iterators that never reflect concurrent modifications (useful for certain correctness models).
+
+Example scenarios
+    •   Event listeners registry where listeners are added/removed rarely but invoked on every event.
+    •   A small set of immutable configuration entries that rarely change but are read often.
+
+Use ConcurrentSkipListSet when:
+    •   You need a sorted set in a concurrent environment.
+    •   Both reads and writes are frequent and you need good concurrency/scalability.
+    •   You want navigation operations (lower, higher, ceiling, floor) and range views (subSet, headSet, tailSet).
+    •   You can accept weakly consistent iterators.
+
+Example scenarios
+    •   A concurrent scheduler storing timestamps (sorted), priority queues, or indexes.
+    •   Multi-threaded analytics with sorted top-k elements.
+
+⸻
+
+Pros and cons (quick)
+
+CopyOnWriteArraySet
+    •   Pros: simple concurrency, lock-free reads, snapshot iterators, stable iteration.
+    •   Cons: writes are O(n) and allocate new array; not good for frequent writes or large sets.
+
+ConcurrentSkipListSet
+    •   Pros: scalable reads/writes, sorted navigation, CAS concurrency.
+    •   Cons: more overhead than hash-based sets, weaker iterators.
+
+⸻
+
+Performance & capacity considerations
+    •   CopyOnWriteArraySet: O(n) per write; extra memory for copies.
+    •   ConcurrentSkipListSet: O(log n) operations; scalable for multi-threaded workloads.
+
+⸻
+
+Choosing by checklist
+    •   Need sorted order / range queries → ConcurrentSkipListSet.
+    •   Many concurrent writers and readers → ConcurrentSkipListSet.
+    •   Read-mostly, tiny set, snapshot iteration → CopyOnWriteArraySet.
+    •   Memory-limited + frequent writes → avoid CopyOnWriteArraySet.
+
+⸻
+
+Small conceptual ASCII contrast
+
+CopyOnWriteArraySet (snapshot)
+    Snapshot t0: [1,2,3]   <- iterator sees this
+    Writer add(4): [1,2,3,4]
+    Old iterators still see [1,2,3]
+
+ConcurrentSkipListSet (skip list towers)
+Level 2:  head ----------------> [50] ---------------->
+Level 1:  head --> [10] --> [30] --> [50] --> [70]
+Level 0:  head -> [5]->[10]->[20]->[30]->[50]->[60]->null
+
+Concurrent insert/remove adjusts towers via CAS, iterators traverse bottom list and may see updates.
+
+⸻
+
+Example decision table
+•   Many readers, rare writes, small set → CopyOnWriteArraySet.
+•   Frequent reads/writes, need order → ConcurrentSkipListSet.
+•   Sorted, single-thread → TreeSet.
+•   Concurrent unordered → ConcurrentHashMap.newKeySet().

@@ -1,4 +1,3 @@
-package LinkedHashSetDemo;
 import java.util.*;
 import java.util.LinkedHashSet;
 
@@ -9,10 +8,8 @@ import java.util.LinkedHashSet;
  * @see <a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashSet.html">LinkedHashSet Documentation</a>
  */
 
-public class LinkedHashSetDemo
-{
-    public static void main(String[] args)
-    {
+public class LinkedHashSetDemo {
+    public static void main(String[] args) {
         LinkedHashSet<String> LHS = new LinkedHashSet<>(10);
 
         HashSet<String> HS = new HashSet<>(10);
@@ -48,11 +45,11 @@ public class LinkedHashSetDemo
             System.out.println(itr2.next());
         }
 
-/*      LHS.forEach(System.out::println);
+        /*
+        LHS.forEach(System.out::println);
         System.out.println("\n");
         HS.forEach(System.out::println);
-*/
-
+        */
     }
 }
 
@@ -60,9 +57,7 @@ public class LinkedHashSetDemo
 LinkedHashSet vs HashSet:
 
 difference between LinkedHashSet and HashSet in Java.
-
 LinkedHashSet maintains insertion order, meaning elements are stored in the order they were added.
-
 HashSet does not guarantee any order; elements are stored based on hash codes.
 
 Key Points:

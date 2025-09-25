@@ -1,0 +1,125 @@
+Additional Important Methods and Interview Insights — HashMap
+
+
+Functional-Style Updates (Java 8+)
+----------------------------------
+- compute(K key, BiFunction remappingFunction):
+  Updates the mapping for the given key using its current value (or null if absent).
+  If the function returns null, the key is removed.
+
+- computeIfAbsent(K key, Function mappingFunction):
+  Inserts a mapping only if the key is absent or mapped to null. Useful for lazy initialization.
+
+- computeIfPresent(K key, BiFunction remappingFunction):
+  Updates the mapping only if the key already has a non-null value.
+
+- merge(K key, V value, BiFunction remappingFunction):
+  Combines an existing value with a new one. If the key is absent, it inserts the value;
+  if present, it computes a new value.
+  Example use case: counting word occurrences or combining sums.
+
+---
+
+Bulk and Conditional Operations
+-------------------------------
+- replace(K key, V value): Replace the value for a key.
+- replace(K key, V oldValue, V newValue): Replace the value only if the current value matches an expected value.
+- replaceAll(BiFunction function): Apply a transformation function to every mapping.
+- forEach(BiConsumer action): Iterate through each entry (key, value) to perform an action.
+
+---
+
+Clone
+-----
+- clone(): Creates a shallow copy of the HashMap.
+  Keys and values themselves are not deep-copied.
+  Important to distinguish between shallow vs. deep copies in interviews.
+
+---
+
+Thread Safety and Concurrency
+-----------------------------
+- Non-synchronized nature: HashMap is not thread-safe. Concurrent modifications without synchronization
+  cause undefined behavior.
+- Alternatives: Use `ConcurrentHashMap` or wrap HashMap with `Collections.synchronizedMap`.
+
+Fail-Fast Iterators:
+- Iterators for keySet(), entrySet(), values() are fail-fast.
+- If the map is modified structurally during iteration (except via iterator’s remove),
+  a ConcurrentModificationException is thrown.
+- Purpose: Helps detect concurrent modification bugs early — not to provide thread safety.
+
+---
+
+Hash Function and Collision Handling
+------------------------------------
+- Importance of a good hashCode(): A well-distributed hash reduces collisions.
+- Collision resolution:
+  - Pre-Java 8: Collisions in a bucket were handled via a linked list.
+  - Java 8+: If collisions in a bucket exceed a threshold, it is transformed into a balanced tree (TreeNode),
+    reducing worst-case lookup from O(n) to O(log n).
+
+---
+
+Capacity, Load Factor, and Rehashing
+------------------------------------
+- Initial capacity: Default is 16 buckets.
+- Load factor: Default is 0.75, balancing time efficiency and memory usage.
+- Rehashing: Happens when size > capacity × load factor. A new, larger table is created and entries are re-distributed.
+- Trade-offs:
+  - Too high capacity → wasted memory.
+  - Too low load factor → more frequent rehashing, performance penalty.
+
+---
+
+Null Keys and Values
+--------------------
+- Null key: HashMap allows one null key.
+- Null values: Multiple null values are permitted.
+- Comparison: Hashtable does not allow null keys or values; TreeMap does not allow null keys.
+
+---
+
+Memory Considerations
+---------------------
+- Each bucket is an entry node (key, value, hash, next/tree link).
+- Large initial capacity may waste memory.
+- Poor sizing leads to frequent rehashing, impacting performance.
+
+---
+
+Final Interview Preparation Tips
+--------------------------------
+- Practical Use Cases:
+  Choose HashMap when fast lookups are needed, and ordering is not important.
+
+- Code Examples:
+  Practice using advanced methods like computeIfAbsent (e.g., caching, memoization).
+
+- Conceptual Questions:
+  - How hashCode affects bucket placement.
+  - What happens during rehashing.
+  - Why Java 8 introduced tree bins.
+
+- Comparative Analysis:
+  - HashMap: fast, unordered, single-threaded.
+  - TreeMap: ordered by keys (logarithmic operations).
+  - ConcurrentHashMap: thread-safe, high concurrency.
+
+
+
+Feature                | HashMap                                                                                               | Hashtable
+-----------------------|-------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------
+Hierarchy              | Part of Java Collections Framework (implements Map, Cloneable, Serializable)                          | Legacy class (Java 1.0), later retrofitted to implement Map
+Thread Safety          | Not synchronized (must wrap with Collections.synchronizedMap or use ConcurrentHashMap)                | Synchronized by default (thread-safe, but slower in single-threaded scenarios)
+Performance            | Faster (no synchronization overhead). Average O(1) for put(), get(), remove()                         | Slower due to synchronized methods. Still average O(1) but less efficient
+Null Keys & Values     | Allows **one null key** and **multiple null values**                                                  | Does **not allow null key** and **null values** at all
+Fail-Fast Behavior     | Iterators are fail-fast (throw ConcurrentModificationException if structure changes during iteration) | Enumerators are not fail-fast (legacy); Iterators exist but behave differently
+Ordering               | No ordering of keys or values (unordered)                                                             | No ordering of keys or values (unordered)
+Iteration Type         | Uses **Iterator** (modern, supports fail-fast)                                                        | Uses **Enumerator** (legacy, not fail-fast) and Iterator
+Use in Modern Code     | Preferred in almost all scenarios; thread-safe alternative is ConcurrentHashMap                       | Considered obsolete/legacy; very rarely used in new code
+Introduced             | Java 1.2 (part of Collections Framework redesign)                                                     | Java 1.0 (before Collections Framework)
+Capacity & Load Factor | Default capacity 16, load factor 0.75 (rehashing when exceeded)                                       | Similar, but older implementation details (not as optimized as HashMap)
+Concurrent Alternative | Use ConcurrentHashMap for high-performance multi-threaded environments                                | Use is discouraged; replaced by modern alternatives
+Clone Behavior         | clone() creates a shallow copy of HashMap                                                             | clone() creates a shallow copy of Hashtable
+Legacy Compatibility   | Fully modern, integrates well with Java Collections utilities                                         | Exists mainly for backward compatibility with old Java code

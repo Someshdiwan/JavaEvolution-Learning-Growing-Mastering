@@ -1,0 +1,96 @@
+Understanding NavigableSet in Java:
+
+## What is NavigableSet?
+
+- `NavigableSet` is an **interface** in the Java Collections Framework (part of `java.util`).
+- Extends the `SortedSet` interface.
+- Provides additional **navigation methods** to search, traverse, and retrieve elements based on conditions.
+- Supports **ascending and descending views** of the set.
+- Common implementation: **TreeSet** (Red-Black Tree).
+
+---
+
+## Key Characteristics
+
+- **Ordering:** Maintains elements in **sorted ascending order** (by natural order or custom Comparator).
+- **No Duplicates:** Inherits Set property → all elements are unique.
+- **Navigational Access:** Provides richer methods to search nearest matches:
+  - `lower(e)` → Greatest element strictly less than `e`.
+  - `floor(e)` → Greatest element ≤ `e`.
+  - `ceiling(e)` → Smallest element ≥ `e`.
+  - `higher(e)` → Smallest element strictly greater than `e`.
+- **Range Views:** Supports efficient subset views:
+  - `headSet(toElement, inclusive)`
+  - `tailSet(fromElement, inclusive)`
+  - `subSet(fromElement, fromInclusive, toElement, toInclusive)`
+- **Descending Views:** Provides `descendingSet()` and `descendingIterator()`.
+
+---
+
+## Internal Working
+
+- Implemented using a **balanced binary search tree** (`TreeSet` → Red-Black Tree).
+- Every operation (`add`, `remove`, `search`) takes **O(log n)**.
+- Navigation methods (`floor`, `ceiling`, etc.) are tree lookups optimized by ordering.
+
+### Visual Example
+
+Set = [10, 20, 30, 40, 50]
+
+lower(30)   → 20
+floor(30)   → 30
+ceiling(30) → 30
+higher(30)  → 40
+
+headSet(30, true) → [10, 20, 30]
+tailSet(30, false) → [40, 50]
+descendingSet() → [50, 40, 30, 20, 10]
+
+---
+
+## Complexity Chart
+
+| Operation                  | Time Complexity | Notes                                          |
+|----------------------------|-----------------|------------------------------------------------|
+| add(E e)                   | O(log n)        | Insert into balanced tree.                     |
+| remove(Object o)           | O(log n)        | Delete and rebalance tree.                     |
+| contains(Object o)         | O(log n)        | Tree search based on key.                      |
+| lower(e) / floor(e)        | O(log n)        | Tree lookup for closest smaller/equal element. |
+| ceiling(e) / higher(e)     | O(log n)        | Tree lookup for closest greater/equal element. |
+| headSet() / tailSet()      | O(log n + k)    | Depends on subset size (k elements).           |
+| iteration (ascending)      | O(n)            | In natural order traversal.                    |
+| iteration (descending)     | O(n)            | In reverse order traversal.                    |
+
+---
+
+## Differences vs SortedSet
+
+| Feature              | SortedSet                        | NavigableSet                                |
+|----------------------|----------------------------------|---------------------------------------------|
+| Ordering             | Ascending order only             | Ascending + Descending views                |
+| Range Queries        | headSet, tailSet, subSet         | headSet, tailSet, subSet (with inclusivity) |
+| Navigation Methods   | Not available                    | floor, ceiling, lower, higher               |
+| Best Use Case        | Simple sorted collections        | Advanced searching & bidirectional traversal|
+
+---
+
+## When to Use NavigableSet?
+
+- When you need a **sorted set** with advanced navigation features.
+- Ideal for:
+  - **Range-based queries** with inclusivity control.
+  - **Bidirectional iteration** (both ascending and descending).
+  - **Finding nearest matches** (floor, ceiling, lower, higher).
+  - **Priority structures** and scheduling.
+
+---
+
+## Quick Recap
+
+- **NavigableSet** extends `SortedSet` with **extra navigation methods**.
+- Maintains sorted order, no duplicates.
+- Provides floor/ceiling/lower/higher for nearest match lookups.
+- Supports both ascending and descending views.
+- Most common implementation: **TreeSet**.
+
+⸻

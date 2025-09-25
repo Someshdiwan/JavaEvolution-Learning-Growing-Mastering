@@ -1,0 +1,21 @@
+📊 LinkedHashMap vs LinkedHashMap as LRU Cache
+==============================================
+
+| Feature                        | Plain LinkedHashMap                            | LinkedHashMap as LRU Cache                        |
+|--------------------------------|------------------------------------------------|--------------------------------------------------|
+| **Ordering Mode**              | Insertion order by default                     | Access order (`accessOrder = true`)              |
+| **Reordering on Access**       | ❌ No reordering (keys stay in inserted order)  | ✅ Keys move to the end when accessed/updated     |
+| **Eviction Policy**             | ❌ None (entries remain until removed manually) | ✅ `removeEldestEntry()` can evict least recent   |
+| **removeEldestEntry()**        | Default → always `false`                       | Overridden → returns `true` if size > capacity   |
+| **Use Case**                   | When you just need predictable iteration order | When you need an **LRU cache**                   |
+| **Example Behavior**           | Put(A), Put(B), Put(C) → [A, B, C]             | Put(A), Put(B), Put(C), Get(A), Put(D) → [C, A, D] |
+| **Memory Management**          | No auto-cleanup                                | Oldest (least recently used) entries auto-removed|
+| **Performance**                | O(1) for get/put                               | O(1) for get/put + eviction check (still O(1))   |
+
+---
+
+✅ **Key Insight:**
+- **Plain LinkedHashMap** = maintains *insertion order*.
+- **LinkedHashMap with `accessOrder=true` + `removeEldestEntry()`** = behaves like an **LRU Cache**.
+
+👉 That’s why **LinkedHashMap is the backbone of many Java cache implementations**.

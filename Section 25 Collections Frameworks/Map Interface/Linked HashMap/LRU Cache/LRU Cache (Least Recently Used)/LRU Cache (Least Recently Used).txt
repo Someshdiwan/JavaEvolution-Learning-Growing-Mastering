@@ -1,0 +1,121 @@
+LRU Cache (Least Recently Used)
+
+1. What is LRU Cache?
+---------------------
+- **LRU = Least Recently Used**.
+- It is a cache mechanism where:
+  - When the cache is **full** and a new item must be added,
+  - The **least recently accessed (used) item** is evicted (removed).
+- Ensures that **frequently used items stay in memory** while older, unused items are removed.
+
+Use cases:
+- Web browsers (back/forward pages cache).
+- Operating systems (page replacement algorithms).
+- Databases (query cache).
+- In-memory caches (like Redis or Guava Cache).
+
+---
+
+2. Core Principles
+------------------
+- Every time you **access (get/put)** an element:
+  - That element becomes the **most recently used (MRU)**.
+  - It is moved to the **end (tail)** of the internal list.
+- The **head** of the list always represents the **least recently used (LRU)** element.
+- On eviction → the head element is removed.
+
+---
+
+3. Internal Data Structures
+----------------------------
+Most implementations (like in Java using `LinkedHashMap`) use:
+
+- **HashMap**: For O(1) access (key → value lookup).
+- **Doubly Linked List**: To maintain the usage order (head = LRU, tail = MRU).
+
+So:
+- HashMap gives **fast access**.
+- Doubly Linked List gives **fast eviction/movement**.
+
+---
+
+4. ASCII Flow Example
+----------------------
+
+Capacity = 3
+
+```
+Start:   [ ]   (empty)
+```
+
+👉 Insert(1:A)
+```
+Order: 1:A
+```
+
+👉 Insert(2:B)
+```
+Order: 1:A → 2:B
+```
+
+👉 Insert(3:C)
+```
+Order: 1:A → 2:B → 3:C
+```
+
+👉 Access(1)
+```
+Move 1:A to end (MRU)
+Order: 2:B → 3:C → 1:A
+```
+
+👉 Insert(4:D) → Cache full → Evict eldest (2:B)
+```
+Order: 3:C → 1:A → 4:D
+```
+
+👉 Access(3)
+```
+Move 3:C to end
+Order: 1:A → 4:D → 3:C
+```
+
+👉 Insert(5:E) → Cache full → Evict eldest (1:A)
+```
+Order: 4:D → 3:C → 5:E
+```
+
+---
+
+5. ASCII Diagram of Structure
+------------------------------
+
+```
+HashMap (key → node reference):
+  1 → Node1
+  3 → Node3
+  5 → Node5
+
+Doubly Linked List (usage order):
+Head(LRU) → Node4:D ↔ Node3:C ↔ Node5:E ← Tail(MRU)
+```
+
+- **Head = LRU** (first to be removed).
+- **Tail = MRU** (recently accessed).
+
+---
+
+6. Why LRU is Efficient
+------------------------
+- **O(1)** lookup (thanks to HashMap).
+- **O(1)** update of usage order (thanks to doubly linked list).
+- Auto-evicts oldest entries when full → making it perfect for caches.
+
+---
+
+🔑 Recap
+--------
+- LRU Cache = Keep most recently used, evict least recently used.
+- Implemented using **HashMap + Doubly Linked List** (or `LinkedHashMap` in Java).
+- **Head → Oldest**, **Tail → Newest**.
+- Used heavily in caching systems, databases, and memory management.

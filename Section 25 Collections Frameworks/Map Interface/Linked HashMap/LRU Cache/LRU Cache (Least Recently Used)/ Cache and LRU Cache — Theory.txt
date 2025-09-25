@@ -1,0 +1,117 @@
+Cache and LRU Cache — Theory
+
+1. What is Cache?
+-----------------
+- A **cache** is a temporary storage layer that stores frequently accessed data so it can be retrieved faster in the future.
+- Goal: **Reduce latency** (time to access data) and **improve performance** by avoiding repeated computation or slow I/O operations.
+
+💡 Examples of Cache:
+- Browser cache → stores images, CSS, JavaScript to load websites faster.
+- CPU cache → keeps recently used instructions/data closer to processor.
+- Database cache → stores query results for faster retrieval.
+
+---
+
+2. Why Caching is Needed?
+-------------------------
+- Accessing **RAM** is faster than accessing **Disk**.
+- Accessing **CPU cache (L1/L2)** is faster than **RAM**.
+- Cache reduces the gap between **fast components** (CPU) and **slow components** (Disk/Network).
+
+---
+
+3. What is LRU Cache?
+---------------------
+- **LRU = Least Recently Used**.
+- A cache replacement algorithm that decides which data to remove when the cache is full.
+- Idea:
+  - Keep the **most recently used** data in cache.
+  - Remove the **least recently used** data when new space is needed.
+
+---
+
+4. Origin and History
+---------------------
+- The concept of LRU was first studied in **paging and memory management research** in the 1960s–1970s.
+- It became popular in **operating systems (virtual memory)** to decide which memory page to replace when physical RAM was full.
+- Later adopted in **databases, web systems, and CPU design**.
+
+---
+
+5. Why Use LRU Cache?
+---------------------
+- Real-world workloads show **temporal locality**:
+  - If data is accessed now, it is likely to be accessed again soon.
+- LRU captures this principle: recently used = likely to be reused.
+- Helps balance **hit rate (cache effectiveness)** and **implementation simplicity**.
+
+---
+
+6. How LRU Works (Conceptual)
+------------------------------
+- Cache has limited size.
+- When new data is inserted:
+  - If not full → add it.
+  - If full → evict the **least recently accessed** item.
+- Recent accesses push data to the "top" of usage order.
+- Old, unused data is evicted.
+
+---
+
+7. Applications of LRU Cache
+-----------------------------
+
+### 🖥️ Computer Systems:
+- **CPU Caches (L1, L2, L3):**
+  - Store recently used instructions and data.
+- **Operating Systems (Paging):**
+  - When RAM is full, OS evicts least recently used memory pages.
+
+### 🌐 Web and Internet:
+- **Web Browsers:**
+  - Store recently visited pages, images, stylesheets.
+- **Content Delivery Networks (CDN):**
+  - Cache popular content closer to users.
+
+### 🗄️ Databases:
+- **Query Caching:**
+  - Store frequently executed SQL results.
+- **Index Caching:**
+  - Speed up database lookups.
+
+### 📱 Mobile Apps:
+- **In-app caches:**
+  - E.g., store profile pictures, news feed, or videos for quick reload.
+
+### 🚗 Real-World Analogies:
+- Your **wallet** acts like a cache:
+  - You keep frequently used items (cash, cards) handy.
+  - Rarely used items stay in a bigger "storage" (locker/bank).
+- **Refrigerator**:
+  - Keeps items you use often (milk, eggs) close at hand.
+  - Rarely used groceries go in a deep freezer (slower to access).
+
+---
+
+8. Advantages of LRU
+--------------------
+✔ Simple and intuitive.
+✔ Good performance for workloads with temporal locality.
+✔ Used widely in hardware and software systems.
+
+---
+
+9. Limitations of LRU
+---------------------
+❌ Not always optimal → fails for "sequential scans" (where every access is new).
+❌ Needs extra data structures (linked list, hashmap) to implement efficiently.
+❌ Can be memory intensive for large caches.
+
+---
+
+🔑 Summary
+----------
+- **Cache** = fast temporary storage for frequently used data.
+- **LRU Cache** = removes the least recently used item when full.
+- Foundational concept in **computer science, operating systems, and modern applications**.
+- Used everywhere → from **CPUs** to **web apps** to **mobile apps**.

@@ -1,0 +1,124 @@
+LinkedHashMap as an LRU Cache
+
+1. Background
+-------------
+- **LinkedHashMap** is a subclass of `HashMap` that maintains **insertion order** or **access order**.
+- By default, it keeps keys in the order they were inserted.
+- But if you enable `accessOrder = true`, the map will reorder entries every time they are accessed (get/put).
+- This behavior makes it ideal to implement an **LRU (Least Recently Used) Cache**.
+
+---
+
+2. The Two Key Ingredients
+--------------------------
+
+### (a) Access Order
+- Constructor of LinkedHashMap has this signature:
+
+```java
+LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)
+```
+
+- If `accessOrder = true`:
+  - Every time you call `get(key)` or `put(key, value)`, that entry is **moved to the end** of the linked list.
+  - The "eldest" entry (least recently accessed) stays at the **front**.
+
+---
+
+### (b) removeEldestEntry()
+- LinkedHashMap provides a method you can override:
+
+```java
+protected boolean removeEldestEntry(Map.Entry<K,V> eldest)
+```
+
+- By default → always returns `false` (no auto-removal).
+- But if you override it to return `true` when size exceeds capacity, the **oldest (least recently used)** entry is automatically removed.
+
+---
+
+3. How LRU Works with LinkedHashMap
+-----------------------------------
+
+Imagine a cache with capacity = 3, accessOrder = true:
+
+```
+Put(A) → [A]
+Put(B) → [A, B]
+Put(C) → [A, B, C]
+Get(A) → moves A to end → [B, C, A]
+Put(D) → capacity exceeded → eldest B removed → [C, A, D]
+```
+
+👉 The **eldest (front)** is always the least recently used.
+
+---
+
+4. ASCII Flow Diagram
+----------------------
+
+### Initial State:
+```
+[ A ] → [ B ] → [ C ]   (accessOrder = true)
+Front (eldest)         End (most recent)
+```
+
+### After get(A):
+```
+[ B ] → [ C ] → [ A ]
+```
+
+### After put(D) (capacity 3):
+```
+[ C ] → [ A ] → [ D ]
+(B removed as eldest)
+```
+
+---
+
+5. Why is This Essentially an LRU Cache?
+----------------------------------------
+- LRU = "remove the least recently used item when adding new items beyond capacity."
+- LinkedHashMap does this automatically:
+  1. **Tracks recency of use** with `accessOrder = true`.
+  2. **Evicts oldest** entry using overridden `removeEldestEntry()`.
+
+---
+
+6. Typical Example (LRU using LinkedHashMap)
+--------------------------------------------
+
+```java
+class LRUCache<K, V> extends LinkedHashMap<K, V> {
+    private final int capacity;
+
+    public LRUCache(int capacity) {
+        super(capacity, 0.75f, true); // accessOrder = true
+        this.capacity = capacity;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+        return size() > capacity; // remove eldest if size exceeds capacity
+    }
+}
+```
+
+👉 This class is a **ready-to-use LRU Cache**.
+
+---
+
+7. Real-world Applications
+--------------------------
+- Browser tab history (least recently opened tab closed first).
+- Database query caching.
+- File system caches.
+- Memory-sensitive caches in web servers and frameworks.
+
+---
+
+🔑 Summary
+----------
+- **LinkedHashMap + accessOrder = true** = maintains recency of access.
+- **removeEldestEntry()** = automatically removes least recently used.
+- Together, they provide a **built-in, easy LRU Cache implementation** without needing custom data structures.

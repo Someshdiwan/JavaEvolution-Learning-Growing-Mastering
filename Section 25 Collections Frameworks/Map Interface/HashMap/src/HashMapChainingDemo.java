@@ -1,8 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Simple custom HashMap-like demo to show chaining using LinkedList.
+/* Simple custom HashMap-like demo to show chaining using LinkedList.
  * Uses a very simple hash function (sum of chars % capacity) to force collisions.
 
  * chaining (LinkedList) inside a custom HashMap so you can see collisions and how entries chain inside a bucket.

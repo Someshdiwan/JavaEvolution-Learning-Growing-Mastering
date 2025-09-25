@@ -1,0 +1,66 @@
+StringTokenizer in Java
+
+## 1. Introduction
+- `StringTokenizer` is a legacy class in the `java.util` package.
+- It is used to **break a string into tokens** (smaller parts) based on **delimiters**.
+- Each token represents a meaningful unit extracted from the original string.
+
+---
+
+## 2. How It Works
+- A `StringTokenizer` object takes:
+  1. The **input string**.
+  2. A **delimiter** (characters used to separate tokens, default is space `" "`).
+- It then sequentially scans the string and extracts tokens whenever it encounters a delimiter.
+
+---
+
+## 3. Constructors
+1. `StringTokenizer(String str)`
+   - Uses default delimiter (whitespace).
+
+2. `StringTokenizer(String str, String delim)`
+   - Uses specified delimiter(s) (e.g., `","`, `";"`).
+
+3. `StringTokenizer(String str, String delim, boolean returnDelims)`
+   - If `returnDelims` is true, delimiters themselves are returned as tokens.
+
+---
+
+## 4. Common Methods
+- `boolean hasMoreTokens()` → checks if more tokens are available.
+- `String nextToken()` → returns the next token.
+- `int countTokens()` → returns the number of tokens left.
+
+---
+
+## 5. Example (Conceptual)
+Given:
+
+“apple,banana,grape”
+
+Using `,` as delimiter → tokens are:
+- `"apple"`
+- `"banana"`
+- `"grape"`
+
+---
+
+## 6. Limitations
+- **Legacy class**: Introduced in JDK 1.0; not recommended in modern code.
+- **No regex support**: Unlike `String.split()`, it cannot use regular expressions.
+- Less flexible than `Scanner` or `String.split()`.
+
+---
+
+## 7. Use Cases
+- Simple tokenization where performance is critical and regex is not needed.
+- Parsing small config strings, command-line arguments, or CSV-like data.
+
+---
+
+## 8. Key Takeaway
+- `StringTokenizer` is a **simple, fast tool** for breaking strings into tokens using delimiters.
+- For new projects, prefer `String.split()` or `Scanner` for more powerful parsing capabilities.
+
+⸻

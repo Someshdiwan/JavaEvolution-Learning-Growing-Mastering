@@ -1,0 +1,134 @@
+Internal Working of Vector in Java
+
+Introduction
+------------
+Vector is a part of the Java Collections Framework (java.util package).
+It is a legacy class introduced in JDK 1.0, long before the Collection Framework was added in Java 2 (JDK 1.2).
+
+Vector implements the List interface, making it similar to ArrayList in many ways.
+The key difference is that Vector methods are synchronized, which makes it thread-safe but slower than ArrayList.
+
+---
+
+1. Underlying Data Structure
+----------------------------
+- Vector uses a dynamic array (Object[]) to store elements.
+- By default, when a Vector is created without specifying capacity, it starts with an initial capacity of 10.
+
+Example:
+Vector<Integer> vector = new Vector<>();
+
+Internally:
+Object[] elementData = new Object[10];
+
+---
+
+2. ASCII Representation — Initial Capacity
+------------------------------------------
+When you first create a Vector with default settings:
+
+Capacity = 10, Size = 0
+
+Index:  0    1    2    3    4    5    6    7    8    9
+Array: [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]  [ ]
+Size = 0, Capacity = 10
+
+---
+
+3. Adding Elements
+------------------
+Suppose we add 5 integers:
+
+vector.add(10);
+vector.add(20);
+vector.add(30);
+vector.add(40);
+vector.add(50);
+
+Index:  0     1     2     3     4     5    6    7    8    9
+Array: [10] [20] [30] [40] [50] [ ]  [ ]  [ ]  [ ]  [ ]
+Size = 5, Capacity = 10
+
+---
+
+4. Resizing — Capacity Doubling
+-------------------------------
+When you add the 11th element, the array is full (capacity 10).
+Vector will **double its capacity** to 20 and copy all elements into the new array.
+
+Before Resize:
+Size = 10, Capacity = 10
+
+After Adding 11th Element:
+Size = 11, Capacity = 20
+
+Index:  0     1     2     3     4     5     6     7     8     9     10   … 19
+Array: [e0] [e1] [e2] [e3] [e4] [e5] [e6] [e7] [e8] [e9] [e10] [ ]  [ ]  …
+
+---
+
+5. Removing Elements
+--------------------
+Suppose we remove the element at index 2:
+
+Before Remove:
+[10] [20] [30] [40] [50] [ ] [ ] [ ] [ ] [ ]
+
+After Remove index 2:
+[10] [20] [40] [50] [ ] [ ] [ ] [ ] [ ] [ ]
+
+Size decreases by 1, remaining elements shift left.
+
+---
+
+6. Thread Safety
+----------------
+- All methods of Vector are synchronized.
+- Only one thread can access Vector at a time for modifications.
+- Safe for multithreaded programs but slower compared to ArrayList.
+
+---
+
+7. Performance Characteristics
+-------------------------------
+- add(E e) → O(1) amortized
+- add(int index, E element) → O(n)
+- remove(int index) → O(n)
+- get(int index) → O(1)
+- set(int index, E element) → O(1)
+- contains(Object o) → O(n)
+- size() → O(1)
+
+---
+
+8. Advantages of Vector
+------------------------
+- Thread-safe because all methods are synchronized.
+- Automatically grows by doubling its capacity when full.
+- Provides both Enumeration (legacy) and Iterator (modern) for traversal.
+- Maintains insertion order and allows nulls.
+
+---
+
+9. Disadvantages of Vector
+---------------------------
+- Slower than ArrayList due to synchronization overhead.
+- Considered legacy — modern alternatives like ArrayList or CopyOnWriteArrayList are preferred.
+- Memory usage may be higher since it doubles capacity instead of growing by 50%.
+
+---
+
+10. Key Points
+--------------
+- Default capacity = 10.
+- Capacity doubles when full.
+- Implements List, RandomAccess, Cloneable, and Serializable.
+- Provides fail-fast iterators and legacy Enumeration.
+
+---
+
+Summary
+-------
+Vector is a **synchronized resizable array** that doubles its capacity when full.
+It is thread-safe and useful in multithreaded environments but is considered outdated in most modern applications.
+ArrayList is generally preferred unless synchronization is strictly required.

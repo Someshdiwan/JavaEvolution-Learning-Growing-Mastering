@@ -1,5 +1,3 @@
-package LinkedHashSetDemo;
-
 import java.util.LinkedHashSet;
 
 class LinkedHashSetPractice {

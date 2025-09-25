@@ -1,4 +1,3 @@
-package HashMapDemo;
 import java.util.HashMap;
 
 public class HashMapDemo2 {
@@ -10,6 +9,7 @@ public class HashMapDemo2 {
         HM.put(3, "This is the Hash Map");
         HM.put(4, "Adding elements");
         HM.put(5, "Done");
+
         System.out.println(HM);
     }
 }

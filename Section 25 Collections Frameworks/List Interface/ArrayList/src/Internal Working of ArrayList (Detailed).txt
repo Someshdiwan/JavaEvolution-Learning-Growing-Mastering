@@ -1,0 +1,136 @@
+Internal Working of ArrayList (Detailed):
+
+This document explains how java.util.ArrayList works internally. It includes diagrams, step-by-step behavior for
+add/remove operations, resizing strategy, complexity analysis, memory layout, and practical tips for tuning and
+debugging.
+
+Overview
+* ArrayList is a resizable array implementation of the List interface.
+* Internally it stores elements in an Object[] array called elementData and an int size tracking the number of
+elements actually present.
+* Default initial capacity (when first element is added) is 10 in many JDKs (depends on implementation/version).
+
+Key Fields (conceptual)
+private Object[] elementData; // underlying array storage
+private int size;             // number of elements in the list
+
+ASCII Diagram: Growth & Layout
+
+Initial empty internal array (default capacity = 10):
+
+Index:   0   1   2   3   4   5   6   7   8   9
+        +---+---+---+---+---+---+---+---+---+---+
+Data:   |   |   |   |   |   |   |   |   |   |   |
+        +---+---+---+---+---+---+---+---+---+---+
+
+size = 0   capacity = 10 (elementData.length)
+
+After adding 10 elements (indexes 0..9 filled):
+
+size = 10  capacity = 10
+
++---+---+---+---+---+---+---+---+---+---+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 |
++---+---+---+---+---+---+---+---+---+---+
+
+Adding the 11th element triggers resize:
+oldCapacity = 10
+
+newCapacity = oldCapacity * 3 / 2 + 1 = 16
+
+Allocate new array length 16 and copy existing elements.
+
+New array:
+capacity = 16, size = 11
++---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10 |11 |   |   |   |   |   |
++---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+Subsequent resizes follow the same growth formula (approximately 1.5◊).
+
+add(E e) - what happens internally (step-by-step)
+1. Ensure capacity: check if size + 1 > elementData.length.
+2. If capacity insufficient, call grow():
+o Compute newCapacity = oldCapacity + (oldCapacity >> 1) roughly equals oldCapacity * 1.5.
+o If newCapacity still smaller than required minCapacity, set newCapacity = minCapacity.
+o Copy old array to new with Arrays.copyOf(elementData, newCapacity).
+3. Insert element at elementData[size] = e and increment size.
+Notes:
+* ensureCapacityInternal() handles the first-time default capacity allocation and null-empty backing array.
+* add(index, e) shifts elements to the right using System.arraycopy() before inserting.
+
+remove(int index) - steps & cost
+1. Validate index range (0 <= index < size).
+2. Save oldValue = elementData[index].
+3. If index < size - 1, shift the elements to the left using System.
+arraycopy(elementData, index+1, elementData, index, size - index - 1).
+4. Null out the last slot elementData[--size] = null to avoid memory leak (allows GC to reclaim object).
+5. Return oldValue.
+Cost: O(n) because of potential array copy.
+
+Complexity Summary (amortized)
+* get(index): O(1) - direct array access.
+* set(index, e): O(1) - direct array access.
+* add(e) (amortized): O(1) - occasional O(n) when resize occurs, but amortized constant time.
+* add(index, e): O(n) - elements shifted.
+* remove(index): O(n) - elements shifted and GC nulling.
+* contains, indexOf: O(n) - linear scan.
+
+Why amortized O(1) for add(e)? Because resizing cost is distributed across many adds.
+If capacity grows by factor >1, copying cost per element amortizes to constant.
+
+Memory & GC considerations:
+* The backing Object[] holds strong references. If you remove elements but do not null stale references,
+objects cannot be GC'd.
+* ArrayList explicitly writes null into freed slots after removal to avoid memory leaks.
+* Keep an eye on trimToSize() if you created a large ArrayList then removed many elements -
+it can shrink the backing array to size.
+
+Thread-safety
+* ArrayList is not synchronized. If multiple threads access it concurrently and at least one modifies it,
+external synchronization is required (e.g., Collections.synchronizedList(...)) or use concurrent
+alternatives like CopyOnWriteArrayList.
+* Iterators on ArrayList are fail-fast - they throw ConcurrentModificationException
+if structural modification is detected while iterating.
+
+Practical tips and tuning
+* If you know the approximate number of elements upfront, use new ArrayList<>(expectedSize) to avoid repeated growth and copying.
+* Use ensureCapacity(int minCapacity) when you plan to bulk-add elements.
+* Use trimToSize() to reduce memory consumption after large removals.
+* For heavy concurrent reads with rare writes, CopyOnWriteArrayList might be preferable.
+
+Implementation notes (JDK specifics)
+* Older JDKs used a default capacity of 10 when new ArrayList<>() and the first element was added.
+* In modern JDKs, elementData may be initialized to an empty shared array and grow on demand; semantics are the same
+from the API perspective.
+* Growth policy is usually newCapacity = oldCapacity + (oldCapacity >> 1) but check the specific JDK source for exact
+formula and edge-case handling.
+
+Visual growth example (capacities show how it evolves)
+Start:
+capacity = 10 Add elements...
+* capacity 10 (fill)
+* add 11th ? capacity 16
+* add more ? capacity 16 (fill until 16)
+* add 17th ? capacity 25
+* add more ? capacity 25 ? 37 ? 56 ? ... (approx *1.5 each time)
+
+Debugging checklist
+* If ConcurrentModificationException occurs, check for structural modification during iteration.
+* If memory is high, call trimToSize() after large element removals, or recreate list with new ArrayList<>(existingList)
+to compact.
+* If performance is poor when inserting/removing in the middle of large lists, consider LinkedList or specialized
+data structures.
+
+Short FAQ
+Q: Why not always double the capacity (like some dynamic arrays do)?
+A: Doubling grows faster but consumes memory more aggressively. JDK chose ~1.5◊ as a compromise between allocation
+frequency and memory overhead.
+
+Q: Why is add(e) amortized O(1) and not strictly O(1)?
+A: Because occasional resizes are O(n). However, averaged across many adds, cost per add tends to a constant.
+
+Q: When should I prefer ArrayList over LinkedList?
+A: Choose ArrayList for random access (get) and iteration performance.
+Choose LinkedList when frequent insertions/removals in the middle (and few random reads) are required,
+though often ArrayList + other patterns still outperform LinkedList in practice.

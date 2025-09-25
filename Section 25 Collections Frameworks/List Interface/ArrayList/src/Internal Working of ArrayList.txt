@@ -1,0 +1,43 @@
+Internal Working of ArrayList:
+
+Initial State (Default Capacity = 10)
++----+----+----+----+----+----+----+----+----+----+
+|    |    |    |    |    |    |    |    |    |    |
++----+----+----+----+----+----+----+----+----+----+
+ Size = 0   Capacity = 10
+
+Step 1: Add 10 elements → fills up the array
++--1-+--2-+--3-+--4-+--5-+--6-+--7-+--8-+--9-+--10-+
+ Size = 10   Capacity = 10
+
+Step 2: Add 11th element → triggers resize
+New Capacity = (oldCapacity * 3) / 2 + 1 = 16
++--1-+--2-+--3-+--4-+--5-+--6-+--7-+--8-+--9-+--10-+--11-+ ... (empty slots)
+ Size = 11   Capacity = 16
+
+Step 3: Keep adding elements
+When size > capacity, ArrayList creates a new array
+with larger capacity and copies old elements into it.
+
+⸻
+
+Step-by-Step Internal Process of add(element):
+	1.	Check if size < capacity.
+	•	If yes → place the element at index = size, increment size.
+	•	If no → resize happens.
+	2.	Resizing:
+	•	New capacity = (oldCapacity * 3) / 2 + 1 (approx 1.5x growth).
+	•	A new array is created with the new capacity.
+	•	Old elements are copied into the new array.
+	•	Add the new element.
+	3.	This process repeats as more elements are added.
+
+⸻
+
+⚡ Example:
+	•	Start with capacity = 10.
+	•	Add elements until 10 → full.
+	•	Add one more → new capacity = 16.
+	•	Add more → capacity grows: 16 → 25 → 38 → 57 …
+
+This ensures ArrayList grows dynamically while balancing memory and performance.

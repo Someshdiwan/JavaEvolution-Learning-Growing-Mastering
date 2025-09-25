@@ -1,0 +1,60 @@
+Iterable (root interface)
+│
+├── Collection (interface)
+│   │
+│   ├── List (interface)
+│   │   ├── AbstractList (abstract class)
+│   │   │   ├── ArrayList
+│   │   │   ├── AbstractSequentialList (abstract class)
+│   │   │   │   └── LinkedList
+│   │   │   └── Vector
+│   │   │       └── Stack
+│   │   └── CopyOnWriteArrayList
+│   │
+│   ├── Set (interface)
+│   │   ├── AbstractSet (abstract class)
+│   │   │   ├── HashSet
+│   │   │   │   └── LinkedHashSet
+│   │   │   ├── TreeSet (implements NavigableSet, SortedSet)
+│   │   │   ├── EnumSet (specialized for enum constants)
+│   │   │   ├── ConcurrentSkipListSet (concurrent, sorted)
+│   │   │   └── CopyOnWriteArraySet
+│   │   └── SortedSet (interface)
+│   │       └── NavigableSet (interface)
+│   │           ├── TreeSet
+│   │           └── ConcurrentSkipListSet
+│   │
+│   └── Queue (interface)
+│       ├── Deque (interface — double-ended queue)
+│       │   ├── ArrayDeque
+│       │   ├── LinkedList (also implements List)
+│       │   └── ConcurrentLinkedDeque
+│       │
+│       ├── BlockingQueue (interface — blocking semantics)
+│       │   ├── ArrayBlockingQueue
+│       │   ├── LinkedBlockingQueue
+│       │   ├── PriorityBlockingQueue
+│       │   ├── SynchronousQueue
+│       │   ├── DelayQueue
+│       │   └── LinkedTransferQueue
+│       │
+│       ├── ConcurrentLinkedQueue
+│       └── PriorityQueue
+│
+└── Map (separate hierarchy — does NOT extend Collection)
+    │
+    ├── AbstractMap (abstract class)
+    │   ├── HashMap
+    │   │   └── LinkedHashMap
+    │   ├── IdentityHashMap (special-purpose)
+    │   ├── WeakHashMap (uses weak keys for GC)
+    │   ├── Hashtable (legacy, synchronized)
+    │   │   └── Properties (specialized Hashtable for config)
+    │   └── SortedMap (interface)
+    │       └── NavigableMap (interface)
+    │           ├── TreeMap
+    │           └── ConcurrentSkipListMap
+    │
+    └── ConcurrentMap (interface — concurrent-friendly)
+        ├── ConcurrentHashMap
+        └── ConcurrentSkipListMap

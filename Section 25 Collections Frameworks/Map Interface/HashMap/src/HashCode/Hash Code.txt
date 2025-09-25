@@ -1,0 +1,69 @@
+1. Hash Code Basics:
+
+- Java me har Object class ke paas ek method hota hai → `hashCode()`.
+- Ye ek **integer value** generate karta hai jo object ke memory ya content par based hota hai.
+- Purpose: is value ka use hashing structures (like HashMap, HashSet) me **bucket index nikalne** ke liye hota hai.
+
+   Formula (simplified):
+       bucketIndex = abs(hashCode) % numberOfBuckets
+
+---
+
+2. Default hashCode():
+- Agar aap apna `hashCode()` override nahi karte, to `Object` class ka default method use hota hai jo mostly
+object ke memory address se integer generate karta hai.
+- Matlab: do alag objects, even with same content, alag hashCodes de sakte hain.
+
+---
+
+3. String hashCode():
+- String class me `hashCode()` override kiya gaya hai → woh character sequence par based hota hai.
+- Formula (Java source code):
+
+     ```java
+     public int hashCode() {
+         int h = 0;
+         for (int i = 0; i < value.length; i++) {
+             h = 31 * h + value[i];
+         }
+         return h;
+     }
+     ```
+
+     Example:
+     `"ABC"` ka hashCode =
+     h = (65) → 'A'
+     h = 31*65 + 66 = 2081 → add 'B'
+     h = 31*2081 + 67 = 64458 → add 'C'
+
+---
+
+4. Wrapper Classes (Integer, Double, etc.):
+- Integer ke liye `hashCode()` simple hota hai:
+     `Integer.hashCode(x) = x`
+- Double ke liye: binary representation use karke hash generate hota hai.
+- Matlab wrapper classes apne value ko hashCode me convert kar dete hain.
+
+---
+
+5. Custom Classes:
+- Agar aap khud ki class ko HashMap ya HashSet me key ke roop me use karna chahte ho,
+  toh **aapko hashCode() aur equals() override karna zaroori hai**.
+- Best practice: dono methods consistent hone chahiye.
+- Agar `a.equals(b)` true hai → to `a.hashCode() == b.hashCode()` bhi hona chahiye.
+
+---
+
+6. Why 31 multiplier in String hashCode?
+- 31 ek prime number hai → collisions kam hote hain.
+- Multiplication with 31 ko compiler efficiently `shift` aur `subtract` karke kar sakta hai (31*h = (h<<5)-h).
+- Isse performance bhi acchi hoti hai.
+
+---
+
+7. Recap:
+✔ `hashCode()` ek integer fingerprint deta hai.
+✔ String ke liye → 31 multiplier + characters.
+✔ Integer ke liye → direct value.
+✔ Custom classes ke liye → override `equals()` & `hashCode()`.
+✔ Ye value Map ke andar bucket index nikalne ke liye use hoti hai.

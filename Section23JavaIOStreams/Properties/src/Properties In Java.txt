@@ -1,4 +1,4 @@
-Theory Behind the `Package.PropertiesDemo` Program
+Theory Behind the `src/Package/PropertiesDemo.java` Program
 
 ## 1. Introduction to `Properties` Class
 - The `Properties` class is part of `java.util` and **extends `Hashtable<Object,Object>`**.
@@ -123,18 +123,18 @@ String os = p.getProperty("OS");
 ⸻
 
 10. Best Practices
-	•	Always prefer getProperty(key, defaultValue) → prevents null return values.
-	•	For i18n → use ResourceBundle (internally uses Properties).
-	•	For modern applications, prefer UTF-8 XML storage over plain .properties.
-	•	Keep sensitive properties (like DB passwords) encrypted.
+•	Always prefer getProperty(key, defaultValue) → prevents null return values.
+•	For i18n → use ResourceBundle (internally uses Properties).
+•	For modern applications, prefer UTF-8 XML storage over plain .properties.
+•	Keep sensitive properties (like DB passwords) encrypted.
 
 ⸻
 
 11. Quick Recap
-	•	Properties is a Hashtable-based class specialized for String key-value pairs.
-	•	Can store data in both .properties and .xml formats.
-	•	Provides easy persistence (store/load).
-	•	Extremely useful for configurations, metadata, and i18n.
-	•	Requires caution with encoding, special characters, and overwriting.
+•	Properties is a Hashtable-based class specialized for String key-value pairs.
+•	Can store data in both .properties and .xml formats.
+•	Provides easy persistence (store/load).
+•	Extremely useful for configurations, metadata, and i18n.
+•	Requires caution with encoding, special characters, and overwriting.
 
 ---

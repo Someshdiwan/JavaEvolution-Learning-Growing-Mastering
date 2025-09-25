@@ -124,8 +124,6 @@ getProperty("db", "defaultDB").
 
 String os = p.getProperty("OS");
 
-
-
 ⸻
 
 14. Why is Properties preferred for configuration management over a regular text file?

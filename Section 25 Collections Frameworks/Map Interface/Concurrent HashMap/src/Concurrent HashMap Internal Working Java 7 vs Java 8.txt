@@ -1,0 +1,71 @@
+ConcurrentHashMap Internal Working (Java 7 vs Java 8)
+
+1. Java 7 — Segment-Based Locking
+---------------------------------
+- Table is divided into fixed number of **segments** (default = 16).
+- Each segment works like a mini-HashMap with its own lock.
+- Read → No lock (unless write in same segment).
+- Write → Lock only the segment, not the whole map.
+
+ASCII:
+
+   ConcurrentHashMap
+   +--------------------------------------+
+   | Segment[0] | Segment[1] | ... | [15] |
+   +--------------------------------------+
+        ↓
+   Each Segment = smaller HashMap
+   (buckets + chaining)
+
+   Thread A → writes in Segment[0] → locks only Segment[0].
+   Thread B → can write in Segment[1] simultaneously.
+
+   ✔ Better concurrency than Hashtable (global lock).
+   ✘ Limited parallelism (max = #segments, e.g., 16).
+
+
+2. Java 8 — CAS + Bucket-Level Locking
+--------------------------------------
+- Segments removed, now a **single flat table** of buckets.
+- Relies on **CAS (Compare-And-Swap)** for atomic updates.
+- Per-bucket synchronization if CAS fails or collisions occur.
+- Bucket chain → linked list; if chain ≥ 8 → convert to TreeBin (Red-Black Tree).
+- Resizing done cooperatively by multiple threads.
+
+ASCII:
+
+   Table (flat)
+   +-----------------------------------------------+
+   | 0 | 1 | 2 | 3 | 4 | ...                       |
+   +-----------------------------------------------+
+         ↓
+   CAS insert directly → Node(key, val)
+         ↓
+   Collision → LinkedList / TreeBin
+         ↓
+   Threshold exceeded → Resize with ForwardingNodes
+
+   Thread A → inserts at bucket[2] (CAS).
+   Thread B → inserts at bucket[5] simultaneously (no interference).
+
+   ✔ Unlimited concurrency (per-bucket).
+   ✔ Lock-free reads.
+   ✔ Treeification improves worst-case.
+   ✘ Slightly more complex design than Java 7.
+
+
+3. Quick Comparison
+--------------------------------
+| Aspect            | Java 7 (Segments)                  | Java 8 (CAS + Buckets)          |
+|-------------------|------------------------------------|---------------------------------|
+| Lock granularity  | Segment-level (default 16)         | Bucket-level (fine-grained)     |
+| Read operation    | Mostly lock-free                   | Completely lock-free            |
+| Write operation   | Locks only one segment             | CAS + per-bucket sync if needed |
+| Collisions        | LinkedList only                    | LinkedList → TreeBin (log n)    |
+| Resizing          | By one thread                      | Cooperative (multi-thread)      |
+| Concurrency Limit | # of segments (e.g., 16)           | Much higher (bucket-level)      |
+
+
+4. Where to Use:
+- **Java 7 style** → legacy systems.
+- **Java 8 style** → modern apps needing high scalability in multithreaded environments.

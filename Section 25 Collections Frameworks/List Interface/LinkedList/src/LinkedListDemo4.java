@@ -1,10 +1,6 @@
-package ListDemo;
-
-// Submit to check the output
 import java.util.*;
 
-class LinkedList2
-{
+class LinkedListDemo4 {
     public static void main (String[] args) {
         LinkedList<String> myList = new LinkedList<String>();
         LinkedList<Integer> myList2 = new LinkedList<Integer>();

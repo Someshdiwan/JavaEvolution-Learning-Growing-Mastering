@@ -1,0 +1,36 @@
+Key Features of Vector in Java Collections:
+
+1.	Legacy Class
+Part of the original Java 1.0 collection classes.
+Later retrofitted to implement the List interface.
+Considered legacy, but still used in some cases.
+
+2.	Implements List
+Vector implements List, RandomAccess, Cloneable, and Serializable.
+Supports index-based random access similar to ArrayList.
+
+3.	Thread-Safe (Synchronized)
+All methods are synchronized, making Vector thread-safe for multi-threaded environments.
+This synchronization, however, comes with a performance cost compared to ArrayList.
+
+4.	Dynamic Resizing
+Internally uses a dynamic array to store elements.
+By default, capacity doubles when exceeded (unlike ArrayList, which grows by 50%).
+
+5.	Allows Duplicates & Nulls
+Maintains insertion order.
+Allows duplicate elements and permits null values.
+
+6.	Legacy Enumeration Support
+Provides the old Enumeration interface (in addition to modern Iterator and ListIterator).
+Example: Enumeration e = vector.elements();
+
+7.	Performance Characteristics
+Access by index: O(1) (fast random access).
+Insertions/Deletions in the middle: O(n) due to shifting.
+Iteration is slower compared to ArrayList because of synchronization.
+
+8.	Use Cases
+When you require a thread-safe alternative to ArrayList without using external synchronization.
+Useful in older codebases where Enumeration is still in use.
+Rarely recommended in new projects (prefer ArrayList + Collections.synchronizedList() or CopyOnWriteArrayList).

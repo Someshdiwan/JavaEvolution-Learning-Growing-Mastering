@@ -1,0 +1,138 @@
+Internal Working of CopyOnWriteArrayList in Java
+
+Introduction
+------------
+- `CopyOnWriteArrayList` is a part of `java.util.concurrent` package.
+- It is a **thread-safe variant of ArrayList**.
+- Instead of synchronizing all operations, it uses a **copy-on-write strategy**:
+  - Every time a modification (add, set, remove) is made, it creates a new copy of the underlying array.
+  - Read operations (like get, iteration) are performed on the old immutable snapshot.
+
+---
+
+1. Underlying Data Structure
+----------------------------
+- Internally, it uses a **volatile array of Objects**:
+
+private transient volatile Object[] array;
+
+- Reads always happen on this immutable snapshot.
+- Updates create a fresh copy, apply changes, and then replace the reference.
+
+---
+
+2. How Modifications Work
+-------------------------
+
+👉 Example: add(E e)
+1. Lock is acquired (using ReentrantLock).
+2. Current array is copied into a new array.
+3. New element is added to the end.
+4. Reference of internal `array` is updated to the new one.
+5. Lock is released.
+
+👉 Example: remove(int index)
+1. Lock is acquired.
+2. A new array is created without the element at the index.
+3. Reference is updated.
+4. Lock is released.
+
+👉 Example: set(int index, E element)
+1. Lock is acquired.
+2. A new array is cloned.
+3. Element replaced at the index.
+4. Reference updated.
+5. Lock released.
+
+---
+
+3. Read Operations
+------------------
+- Reads (like `get()`, iteration) **don’t need a lock**.
+- They simply access the current `volatile` array.
+- Iterators are **fail-safe** (not fail-fast):
+  - They iterate over the snapshot array that existed at the time of iterator creation.
+  - So modifications made after iterator creation are not visible in iteration.
+
+---
+
+4. ASCII Diagram — Copy on Write
+
+Initial:
+array = [A, B, C]
+
+Thread 1 → add(D)
+- Creates new array: [A, B, C, D]
+- Updates `array` reference.
+
+Meanwhile, Thread 2 (iterating):
+- Still sees old array: [A, B, C]
+
+---
+
+5. Complexity Analysis
+----------------------
+- get(index): O(1) (direct array access).
+- iteration: O(n), but **no ConcurrentModificationException**.
+- add/remove/set: O(n) because of array copying.
+- Memory overhead: High (creates new array on every modification).
+
+---
+
+6. Advantages
+-------------
+- Thread-safe without explicit synchronization for reads.
+- Iterators are safe even during concurrent modifications.
+- Great for **read-heavy, write-light** scenarios.
+
+---
+
+7. Limitations
+--------------
+- Expensive for write-heavy workloads (copy on every update).
+- Memory overhead increases with frequent modifications.
+- Not suitable when the dataset changes very frequently.
+
+---
+
+8. Example Code
+---------------
+
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class COWALDemo {
+    public static void main(String[] args) {
+        CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+
+        list.add("A");
+        list.add("B");
+        list.add("C");
+
+        System.out.println("Initial list: " + list);
+
+        // Iteration is over snapshot
+        for (String s : list) {
+            System.out.println("Iterating: " + s);
+            list.add("D"); // No ConcurrentModificationException
+        }
+
+        System.out.println("After modification: " + list);
+    }
+}
+
+Output:
+Initial list: [A, B, C]
+Iterating: A
+Iterating: B
+Iterating: C
+After modification: [A, B, C, D, D, D]
+
+---
+
+Summary
+----------
+- CopyOnWriteArrayList is ideal when:
+  - Reads are far more frequent than writes.
+  - You need thread-safe iterations without synchronization overhead.
+- Internally: **copy on each write** → safe but costly for frequent modifications.
+- Best for: Caches, observer lists, configuration data that rarely changes.

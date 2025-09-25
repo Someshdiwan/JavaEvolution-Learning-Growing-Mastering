@@ -1,0 +1,124 @@
+📌 Internal Working of LinkedHashMap (with accessOrder & eviction)
+=================================================================
+
+1. Core Formula Recap
+---------------------
+
+- **Threshold** = `capacity × loadFactor`
+- **Rehash Trigger**: when `size > threshold`
+- **Access Order**:
+  - If `accessOrder = false` → Order = Insertion order
+  - If `accessOrder = true` → Order = Access order (recently accessed node is moved to the end)
+- **Eviction Rule (via removeEldestEntry)**:
+  - Called **after each put()**.
+  - If `true`, eldest entry (head of linked list) is removed.
+
+---
+
+2. ASCII Flow: Insertion Order (Default)
+----------------------------------------
+(accessOrder = false)
+
+```
+Put(1,A) → 1:A
+Put(2,B) → 1:A → 2:B
+Put(3,C) → 1:A → 2:B → 3:C
+```
+Iteration → `[1:A, 2:B, 3:C]`
+
+---
+
+3. ASCII Flow: Access Order (accessOrder = true)
+------------------------------------------------
+
+```
+Initial:  1:A → 2:B → 3:C
+
+Access(1) → Move 1:A to end
+Result:   2:B → 3:C → 1:A
+
+Access(2) → Move 2:B to end
+Result:   3:C → 1:A → 2:B
+```
+
+Iteration → in order of **most recent access**.
+
+---
+
+4. ASCII Flow: With Eviction (removeEldestEntry)
+------------------------------------------------
+
+Suppose max size = 3 (`removeEldestEntry()` removes if size > 3)
+
+```
+Insert(1:A) → 1:A
+Insert(2:B) → 1:A → 2:B
+Insert(3:C) → 1:A → 2:B → 3:C
+Insert(4:D) → capacity exceeded → remove eldest (1:A)
+Result:      2:B → 3:C → 4:D
+```
+
+If accessOrder = true:
+```
+Initial:  2:B → 3:C → 4:D
+Access(2) → Move 2:B to end
+Result:   3:C → 4:D → 2:B
+Insert(5:E) → remove eldest (3:C)
+Result:   4:D → 2:B → 5:E
+```
+
+---
+
+5. Internal Structure
+---------------------
+
+LinkedHashMap = HashMap + Doubly Linked List.
+
+```
+Buckets (Hash Table):
+   0    1    2    ...
+  [ ]  [ ]  [ ]  ...
+
+Linked List (Order Maintenance):
+Head ↔ Node1 ↔ Node2 ↔ Node3 ↔ Tail
+```
+
+- Each entry stores:
+  - `key`
+  - `value`
+  - `hash`
+  - `next` (for bucket chain)
+  - `before` and `after` (for doubly linked list)
+
+---
+
+6. Practical Formula Examples
+------------------------------
+
+- **Threshold** = `capacity × loadFactor`
+  - Example: capacity = 16, loadFactor = 0.75 → threshold = 12
+  → Rehash after 13th element.
+
+- **Access Order Movement**:
+  - On every `get(key)` or `put(key,value)` (when key exists):
+    - Node is removed from its current linked list position.
+    - Node is reinserted at **tail** of linked list.
+
+- **Eviction**:
+  - After every `put()`, `removeEldestEntry()` runs:
+    ```java
+    protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+        return size() > MAX_ALLOWED;
+    }
+    ```
+
+---
+
+🔑 Quick Recap
+--------------
+- **Insertion Order** (default): Iterates in the order elements were put.
+- **Access Order** (`true`): Recently accessed elements move to tail → Useful for **LRU caching**.
+- **removeEldestEntry()**: Automatic eviction rule (e.g., max cache size).
+- **Threshold** controls rehashing.
+
+👉 `LinkedHashMap` = predictable iteration + ability to implement efficient caches.

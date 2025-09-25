@@ -1,0 +1,115 @@
+Internal Working of LinkedHashMap in Java
+
+Introduction:
+
+- `LinkedHashMap` Java Collections Framework ka ek class hai jo `HashMap` ko extend karta hai.
+- Yeh **key-value pairs store karta hai** bilkul HashMap ki tarah,
+lekin saath hi ek **doubly-linked list** maintain karta hai jo order preserve karti hai.
+- Isliye isme fast access ke saath insertion order ya access order maintain karna possible hai.
+
+---
+
+1. Underlying Data Structure:
+- Internally, `LinkedHashMap` uses:
+  1. **Hash Table** → Fast access ke liye (O(1) average for put/get).
+  2. **Doubly Linked List** → Order preserve karne ke liye.
+
+- Har ek entry ek special class hoti hai:
+
+  static class Entry<K,V> extends HashMap.Node<K,V> {
+      Entry<K,V> before, after;
+  }
+  - `before` and `after` pointers ek **linked list chain** banate hain.
+
+---
+
+2. Order Preservation:
+
+- `LinkedHashMap` do tarah ka order maintain kar sakta hai:
+  1. **Insertion Order (default)**: Jo key pehle daali gayi, woh pehle traverse hogi.
+  2. **Access Order (optional)**: Agar constructor me `accessOrder = true` pass karo,
+  toh har get/put operation ke baad woh entry list ke end me shift ho jaati hai.
+
+Example:
+
+LinkedHashMap<Integer, String> map = new LinkedHashMap<>(16, 0.75f, true);
+
+Yahan `true` matlab access order maintain karna.
+
+---
+
+3. Internal Working Steps:
+
+### put(K,V)
+1. Key ka `hashCode()` calculate hota hai → bucket index milta hai.
+2. Agar key pehle se exist karta hai → value overwrite hoti hai.
+3. Agar new key hai → ek naya `Entry` banega.
+   - Entry hash table me insert hota hai (HashMap jaisa).
+   - Saath hi entry doubly linked list me bhi add hota hai (order preserve karne ke liye).
+
+---
+
+### get(K)
+1. Key ka `hashCode()` calculate karke bucket search hoti hai.
+2. Agar entry milti hai aur map access-order mode me hai:
+   - Entry ko linked list ke end me shift kar diya jata hai.
+3. Value return hoti hai.
+
+---
+
+4. Complexity
+-------------
+- `put()`, `get()`, `remove()` → O(1) average time (HashMap ki tarah).
+- Order maintain karne ki wajah se thoda extra overhead lagta hai.
+
+---
+
+5. ASCII Diagram:
+
+Insertion Order Example:
+
+```
+Hash Table (buckets):
+  [ ] [ ] [ (1,A) ] [ (2,B) ] [ (3,C) ] ...
+
+Linked List (order chain):
+  Head → (1,A) <-> (2,B) <-> (3,C) ← Tail
+```
+
+Access Order Example (agar accessOrder = true):
+
+- Suppose get(1) call kiya:
+```
+Before: Head → (1,A) <-> (2,B) <-> (3,C)
+After:  Head → (2,B) <-> (3,C) <-> (1,A)
+```
+
+---
+
+6. Advantages
+-------------
+- Predictable iteration order (HashMap ka yeh drawback fix karta hai).
+- Useful for building **LRU Cache** (Least Recently Used cache).
+
+---
+
+7. Disadvantages
+----------------
+- Thoda zyada memory use karta hai (doubly linked list pointers ke wajah se).
+- Thoda performance overhead hota hai as compared to plain HashMap.
+
+---
+
+8. Common Use Cases
+-------------------
+- LRU Cache implementation.
+- Jab order of insertion ya access preserve karna zaroori ho.
+- Predictable iteration chahiye fast lookup ke saath.
+
+---
+
+Summary:
+- `LinkedHashMap = HashMap + LinkedList`
+- Provides O(1) put/get/remove operations.
+- Maintains order (insertion or access).
+- Ideal for caches, predictable iteration, aur jab HashMap ka unordered behavior avoid karna ho.

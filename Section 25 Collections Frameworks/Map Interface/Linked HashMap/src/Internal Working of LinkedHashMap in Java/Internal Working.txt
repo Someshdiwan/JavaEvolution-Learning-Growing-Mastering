@@ -1,0 +1,117 @@
+Internal Working of LinkedHashMap in Java:
+
+Introduction
+------------
+- `LinkedHashMap` is a subclass of `HashMap` in the Java Collections Framework.
+- It stores **key-value pairs** like a `HashMap`, but also maintains a **doubly-linked list** that preserves the order of entries.
+- This allows it to maintain **insertion order** (default) or **access order** (optional).
+
+---
+
+1. Underlying Data Structure
+----------------------------
+- Internally, `LinkedHashMap` uses:
+  1. **Hash Table** → for fast access (`O(1)` average for put/get).
+  2. **Doubly Linked List** → for maintaining order of elements.
+
+- Each entry is stored as a special `Entry` object:
+  ```java
+  static class Entry<K,V> extends HashMap.Node<K,V> {
+      Entry<K,V> before, after;
+  }
+  ```
+  - `before` and `after` pointers form the doubly-linked list chain.
+
+---
+
+2. Order Preservation
+---------------------
+- `LinkedHashMap` can maintain two types of order:
+  1. **Insertion Order (default):** Keys are iterated in the order they were inserted.
+  2. **Access Order (optional):** If created with `accessOrder = true`, recently accessed entries are moved to the end of the list.
+
+Example:
+```java
+LinkedHashMap<Integer, String> map = new LinkedHashMap<>(16, 0.75f, true);
+```
+👉 Here, `true` means it will maintain access order.
+
+---
+
+3. Internal Working Steps
+-------------------------
+
+### put(K,V)
+1. The key’s `hashCode()` is computed → bucket index is found.
+2. If the key already exists → value is overwritten.
+3. If it’s a new key → a new `Entry` object is created.
+   - Entry is added to the hash table (like `HashMap`).
+   - The entry is also linked into the doubly-linked list to preserve order.
+
+---
+
+### get(K)
+1. The key’s `hashCode()` is computed → bucket is searched.
+2. If found and map is in **access-order mode** → the entry is moved to the end of the list.
+3. The value is returned.
+
+---
+
+4. Complexity
+-------------
+- `put()`, `get()`, `remove()` → O(1) average time complexity (like HashMap).
+- Order maintenance adds a slight overhead.
+
+---
+
+5. ASCII Diagram
+----------------
+
+Insertion Order Example:
+
+```
+Hash Table (buckets):
+  [ ] [ ] [ (1,A) ] [ (2,B) ] [ (3,C) ] ...
+
+Linked List (order chain):
+  Head → (1,A) <-> (2,B) <-> (3,C) ← Tail
+```
+
+Access Order Example (`accessOrder = true`):
+
+- Suppose `get(1)` is called:
+```
+Before: Head → (1,A) <-> (2,B) <-> (3,C)
+After:  Head → (2,B) <-> (3,C) <-> (1,A)
+```
+
+---
+
+6. Advantages
+-------------
+- Predictable iteration order (fixes the non-ordered behavior of HashMap).
+- Useful for implementing **LRU Caches**.
+
+---
+
+7. Disadvantages
+----------------
+- Uses more memory because of linked list pointers.
+- Slightly slower than plain HashMap due to order maintenance.
+
+---
+
+8. Common Use Cases
+-------------------
+- Building an **LRU Cache**.
+- When insertion or access order needs to be preserved.
+- When predictable iteration order is required along with fast lookups.
+
+---
+
+🔑 Summary
+----------
+- `LinkedHashMap = HashMap + Doubly Linked List`.
+- Provides O(1) put/get/remove operations.
+- Maintains **insertion** or **access** order.
+- Ideal for caches, predictable iteration, and cases where HashMap’s unordered behavior is undesirable.

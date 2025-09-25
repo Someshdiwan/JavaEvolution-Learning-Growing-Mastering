@@ -1,0 +1,87 @@
+Key Concepts of LinkedHashMap Configuration:
+
+1. Initial Capacity
+-------------------
+- **Definition**: The number of buckets created when the `LinkedHashMap` is initialized.
+- **Default Value**: 16.
+- **Purpose**: Reduces rehashing cost if you know the approximate number of entries beforehand.
+- **Formula for Rehashing**:  
+  When `(size > capacity × loadFactor)` → table is resized (capacity doubled).
+
+Example:
+```java
+LinkedHashMap<Integer, String> map = new LinkedHashMap<>(32);
+```
+Here, initial capacity = 32 buckets.
+
+---
+
+2. Load Factor
+--------------
+- **Definition**: A measure of how full the hash table can get before resizing.
+- **Default Value**: 0.75 (i.e., 75%).
+- **Trade-off**:
+  - **Higher load factor** (e.g., 1.0) → less memory usage, more collisions, slower lookups.
+  - **Lower load factor** (e.g., 0.5) → faster lookups, but more memory consumed.
+
+Example:
+```java
+LinkedHashMap<Integer, String> map = new LinkedHashMap<>(16, 0.5f);
+```
+
+---
+
+3. Access Order (boolean)
+-------------------------
+- **Definition**: Determines how iteration order is maintained.
+- **Options**:
+  - `false` (default): Iteration order is **insertion order**.
+  - `true`: Iteration order is **access order** (most recently accessed entry moves to the end).
+- **Use Case**:  
+  `accessOrder = true` is the foundation for **LRU (Least Recently Used) caches**.
+
+Example:
+```java
+LinkedHashMap<Integer, String> map = new LinkedHashMap<>(16, 0.75f, true);
+```
+- Here iteration order depends on **access** (not just insertion).
+
+---
+
+4. Threshold
+------------
+- **Definition**: The point at which rehashing occurs.
+- **Formula**:  
+  `threshold = capacity × loadFactor`.
+- When size > threshold → capacity doubles.
+- Example: Capacity = 16, Load Factor = 0.75 → Threshold = 12.
+
+---
+
+5. removeEldestEntry (Custom Eviction Policy)
+---------------------------------------------
+- **Definition**: A method that can be overridden to automatically remove the eldest entry.
+- **Use Case**: Implementing LRU caches or bounded maps.
+
+Example:
+```java
+LinkedHashMap<Integer, String> lruCache =
+    new LinkedHashMap<>(16, 0.75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<Integer, String> eldest) {
+            return size() > 5; // Keep max 5 entries
+        }
+    };
+```
+
+---
+
+Quick Recap
+--------------
+- **Initial Capacity** → Starting number of buckets (default = 16).  
+- **Load Factor** → Controls resizing (default = 0.75).  
+- **Access Order** → Maintains order by **access** if true, else **insertion**.  
+- **Threshold** → `capacity × loadFactor`, triggers rehashing.  
+- **removeEldestEntry()** → Custom eviction policy, useful for LRU caches.  
+
+`LinkedHashMap` is powerful when you need **predictable iteration + caching-like behavior**.

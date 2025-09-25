@@ -1,0 +1,126 @@
+📌 Internal Working of LinkedHashMap in Java
+============================================
+
+Introduction
+------------
+- `LinkedHashMap` is a subclass of `HashMap` that preserves the **order of entries**.
+- Unlike `HashMap` (which is unordered), `LinkedHashMap` maintains order using a **doubly-linked list**
+along with the hash table.
+- The order can be either:
+  1. **Insertion Order** (default).
+  2. **Access Order** (if created with `accessOrder = true`).
+
+---
+
+1. Core Data Structures
+-----------------------
+Internally, each entry in a `LinkedHashMap` is represented as a special `Entry` object:
+
+```java
+static class Entry<K,V> extends HashMap.Node<K,V> {
+    Entry<K,V> before, after;
+}
+```
+
+- **Hash Table (Buckets):** Same as `HashMap`, used for fast lookup.
+- **Doubly Linked List:** Maintains iteration order using `before` and `after` references.
+
+---
+
+2. How put(K,V) Works
+----------------------
+1. Compute `hashCode()` → find bucket index.
+2. If key exists → update value.
+3. If new key:
+   - Insert into hash table bucket.
+   - Add to the **end of the doubly linked list**.
+
+🔗 Example: Insert keys `1`, `2`, `3`.
+
+```
+Buckets (hash table):
+[ ] [ ] [ (1,A) ] [ (2,B) ] [ (3,C) ] ...
+
+Doubly Linked List:
+Head → (1,A) <-> (2,B) <-> (3,C) ← Tail
+```
+
+---
+
+3. How get(K) Works
+-------------------
+1. Compute `hashCode()` → find bucket.
+2. If found → return value.
+3. If `accessOrder = true`:
+   - The entry is removed from its current position in the list.
+   - Then re-inserted at the **end** (marking it most recently used).
+
+🔗 Example: With `accessOrder = true`, calling `get(1)`:
+
+```
+Before: Head → (1,A) <-> (2,B) <-> (3,C)
+After:  Head → (2,B) <-> (3,C) <-> (1,A)
+```
+
+---
+
+4. How remove(K) Works
+-----------------------
+1. Compute `hashCode()` → find bucket.
+2. Remove the entry from the hash table bucket.
+3. Also unlink the entry from the doubly linked list (`before` and `after` pointers updated).
+
+🔗 Example: Removing key `2`:
+
+```
+Before: Head → (1,A) <-> (2,B) <-> (3,C)
+After:  Head → (1,A) <-> (3,C)
+```
+
+---
+
+5. Complexity
+-------------
+- `put()` → O(1) average.
+- `get()` → O(1) average.
+- `remove()` → O(1) average.
+- Iteration → O(n) but in **predictable order**.
+
+---
+
+6. ASCII Diagram: LinkedHashMap Internals
+-----------------------------------------
+
+Insertion Order Mode:
+```
+Hash Table Buckets:       Doubly Linked List:
+[ ] [ (1,A) ] [ ] ...     Head → (1,A) <-> (2,B) <-> (3,C) ← Tail
+[ ] [ (2,B) ] [ ] ...
+[ ] [ (3,C) ] [ ] ...
+```
+
+Access Order Mode (after `get(1)`):
+```
+Hash Table Buckets:       Doubly Linked List:
+[ ] [ (1,A) ] [ ] ...     Head → (2,B) <-> (3,C) <-> (1,A) ← Tail
+[ ] [ (2,B) ] [ ] ...
+[ ] [ (3,C) ] [ ] ...
+```
+
+---
+
+7. Key Differences from HashMap
+-------------------------------
+- **Extra linked list**: Adds overhead but maintains order.
+- **Iteration Order**: Predictable (insertion or access order).
+- **Memory Usage**: Slightly more than HashMap because of `before` and `after` references.
+
+---
+
+🔑 Summary
+----------
+- `LinkedHashMap = HashMap + Doubly Linked List`.
+- Preserves insertion order or access order.
+- Ideal for:
+  - Caches (e.g., LRU Cache).
+  - Cases where predictable iteration order is required.

@@ -1,0 +1,74 @@
+HashMap and LinkedHashMap so you clearly see why one preserves order and the other doesn’t.
+
+⸻
+
+🔹 HashMap (No Order Guarantee)
+
+Keys inserted: "Shubham", "Bob", "Akshit"
+
+Internal Structure (buckets):
+
+Bucket[0] : null
+Bucket[1] : ("Bob" -> 80)
+Bucket[2] : ("Akshit" -> 78)
+Bucket[3] : ("Shubham" -> 92)
+Bucket[4] : null
+...
+Bucket[15]: null
+
+Iteration → Goes bucket by bucket:
+Output may look like: {Akshit=78, Shubham=92, Bob=80}
+
+❌ Order is NOT insertion-based
+❌ Order is NOT access-based
+
+•	Why unordered? Because keys are placed in buckets based on hashCode % capacity.
+•	Iteration just walks bucket array → so order looks random.
+
+⸻
+
+🔹 LinkedHashMap (accessOrder = false → Insertion Order)
+
+Keys inserted: "Orange", "Apple", "Guava"
+
+Doubly Linked List (insertion order maintained):
+
+HEAD <-> Orange(10) <-> Apple(20) <-> Guava(13) <-> TAIL
+
+Iteration output:
+Orange=10
+Apple=20
+Guava=13
+
+	•	Preserves insertion order by default.
+
+⸻
+
+🔹 LinkedHashMap (accessOrder = true → Access Order)
+
+Keys inserted: "Orange", "Apple", "Guava"
+Access pattern: get("Apple"), get("Orange"), get("Guava")
+
+Doubly Linked List (reordered on access):
+
+HEAD <-> Apple(20) <-> Orange(10) <-> Guava(13) <-> TAIL
+
+Iteration output:
+Apple=20
+Orange=10
+Guava=13
+
+	•	Every time an entry is accessed, it is moved to the end.
+	•	Newest (most recently accessed) items go at the tail.
+	•	Oldest (least accessed) stay near the head.
+
+This mechanism is exactly how LRU Cache is built using LinkedHashMap.
+
+⸻
+
+⚡ Quick Recap:
+	•	HashMap → Bucket-based, order = unpredictable.
+	•	LinkedHashMap (Insertion Order) → Order of insertion is preserved.
+	•	LinkedHashMap (Access Order) → Reorders entries based on access (like LRU).
+
+⸻

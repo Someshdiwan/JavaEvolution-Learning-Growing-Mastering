@@ -1,0 +1,66 @@
+Map is an interface, and it is part of the Java Collections Framework, but it does not extend the Collection interface.
+
+Think of it this way: Lists, Sets, and Queues are Collections;
+Maps are not Collections, but they are still in the Collection Framework in their own separate hierarchy.
+
+The reason Map does not extend Collection is because their data models are fundamentally different:
+•	Collection represents a group of individual elements (like a bag of objects: List, Set, Queue).
+•	Map represents a group of key–value pairs, where each key is unique and maps to a value.
+
+If Map were forced to extend Collection, its contract would break because:
+•	What would size(), iterator(), or contains() mean? On keys, values, or entries?
+•	A Map entry is not a single element but a pair, so it doesn’t fit the Collection’s “element-based” model.
+
+That’s why Java designers kept Map in the Collection Framework (to standardize APIs) but
+gave it its own hierarchy separate from Collection.
+
+•	Collection = handles single elements.
+•	Map = handles pairs of key and value.
+
+That’s why Map couldn’t extend Collection — their contracts are different —
+but both are under the Collection Framework umbrella.
+
+Collections Framework
+│
+├── Collection (interface)  ← works with individual elements
+│   │
+│   ├── List
+│   │   ├── ArrayList
+│   │   ├── LinkedList
+│   │   ├── Vector
+│   │   │   └── Stack
+│   │   └── CopyOnWriteArrayList
+│   │
+│   ├── Set
+│   │   ├── HashSet
+│   │   │   └── LinkedHashSet
+│   │   ├── TreeSet (implements NavigableSet, SortedSet)
+│   │   └── EnumSet
+│   │
+│   └── Queue
+│       ├── PriorityQueue
+│       ├── ArrayDeque
+│       └── BlockingQueue
+│           ├── ArrayBlockingQueue
+│           ├── LinkedBlockingQueue
+│           └── PriorityBlockingQueue
+│
+└── Map (interface)  ← works with key–value pairs
+    │
+    ├── HashMap
+    │   └── LinkedHashMap
+    │
+    ├── TreeMap (implements NavigableMap, SortedMap)
+    ├── WeakHashMap
+    ├── IdentityHashMap
+    ├── Hashtable
+    │   └── Properties
+    │
+    ├── ConcurrentMap
+    │   └── ConcurrentHashMap
+    │   └── ConcurrentSkipListMap
+    │
+    └── SortedMap
+        └── NavigableMap
+            ├── TreeMap
+            └── ConcurrentSkipListMap

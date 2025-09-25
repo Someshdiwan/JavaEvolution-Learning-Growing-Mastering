@@ -1,0 +1,32 @@
+Key Methods in NavigableSet
+
+1.	lower(E e)
+	•	Returns the greatest element strictly less than the given element.
+Example: lower(30) → 20.
+
+2.	floor(E e)
+	•	Returns the greatest element ≤ given element.
+Example: floor(30) → 30.
+
+3.	ceiling(E e)
+	•	Returns the least element ≥ given element.
+Example: ceiling(25) → 30.
+
+4.	higher(E e)
+	•	Returns the least element strictly greater than the given element.
+Example: higher(30) → 40.
+
+5.	pollFirst()
+	•	Removes and returns the first (lowest) element.
+
+6.	pollLast()
+	•	Removes and returns the last (highest) element.
+
+7.	descendingSet()
+	•	Returns a reverse order view of the elements.
+
+Practical Use Cases of NavigableSet
+•	Range queries: Quickly find nearest values above/below a threshold.
+•	Priority tasks: Remove smallest/largest elements efficiently (pollFirst/pollLast).
+•	Reverse iteration: Using descendingSet for reverse order traversal.
+•	Sorted unique collections: Useful where order + navigation both matter (e.g., stock prices, leaderboard, scheduling).

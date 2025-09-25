@@ -1,9 +1,7 @@
-package ListDemo.ArrayListLinkedListStack;
-
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class RemoveEvenFromLinkedList {
+public class LinkedListDemo1 {
     public static void main(String[] args) {
         LinkedList<Integer> linkedList = new LinkedList<>();
         linkedList.add(1);
@@ -20,12 +18,12 @@ public class RemoveEvenFromLinkedList {
         linkedList.add(46);
         linkedList.add(70);
 
-        linkedList.sort(null); //Natural order of the sorting.
+        linkedList.sort(null); // Natural order of the sorting.
         System.out.println(linkedList);
 
-        //Removing Even Numbers from Linked List.
-        linkedList.removeIf(x-> x%2==0);
-        System.out.println("Removed Even Numbers From LL: "+linkedList);
+        // Removing Even Numbers from Linked List.
+        linkedList.removeIf(x-> x % 2 == 0);
+        System.out.println("Removed Even Numbers From Linked List: " + linkedList);
 
 
         LinkedList<String> animals = new LinkedList<>(Arrays.asList("Cat","Dog","Elephant","lion"));

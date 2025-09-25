@@ -1,0 +1,47 @@
+List Interface in Java
+-----------------------
+
+Definition:
+The List interface is part of the java.util package and is a child interface of the Collection interface.
+It represents an ordered collection (also known as a sequence) that allows duplicate elements.
+
+Key Features of List Interface:
+
+1. Ordered Collection
+   - Maintains the insertion order of elements.
+   - Each element can be accessed by its index (position).
+
+2. Allows Duplicates
+   - Unlike Set, List permits duplicate elements.
+
+3. Index-Based Access
+   - Provides methods to access, insert, or remove elements at a specific index.
+   - Zero-based indexing is used (the first element is at index 0).
+
+4. Null Values
+   - Lists can store null values (depending on the implementation).
+
+5. Iteration
+   - Supports iteration via:
+     - for-each loop
+     - Iterator
+     - ListIterator (bi-directional iteration)
+
+6. Search Operations
+   - Methods like indexOf(Object o) and lastIndexOf(Object o) help find positions of elements.
+
+7. Modification
+   - Methods to add, update, or remove elements:
+     - add(E e), add(int index, E element)
+     - set(int index, E element)
+     - remove(int index), remove(Object o)
+
+8. Range Views
+   - The subList(int fromIndex, int toIndex) method returns a portion of the list.
+
+Common Implementations of List:
+- ArrayList → Resizable array, fast random access, slower insert/remove in the middle.
+- LinkedList → Doubly linked list, faster insert/remove, slower random access.
+- Vector → Legacy-synchronized implementation.
+- Stack → Subclass of Vector, LIFO (Last In, First Out) operations.
+- CopyOnWriteArrayList → Thread-safe variant, used in concurrent environments.

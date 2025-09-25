@@ -5,6 +5,7 @@ import java.util.Map;
 public class LinkedHashMapDemo1 {
     public static void main(String[] args) {
         LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>();
+
         // But it maintains order.
         linkedHashMap.put("Orange",10);
         linkedHashMap.put("Apple",20);

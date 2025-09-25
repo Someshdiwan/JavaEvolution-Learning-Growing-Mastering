@@ -1,0 +1,102 @@
+HashMap — Overview, Implementation, and Key Details
+
+Overview
+--------
+Implementation:
+- HashMap is a hash-table–based implementation of the Map interface.
+- It stores key → value mappings and allows one null key and multiple null values.
+
+Usage:
+- Widely used for fast data retrieval when insertion order or key ordering is not important.
+
+Key Features and Performance
+----------------------------
+Constant-time operations:
+- Under typical (well-distributed hash) conditions, basic operations such as get() and put() run in O(1) time on average.
+
+Initial Capacity & Load Factor:
+- Initial capacity: number of buckets (default = 16).
+- Load factor: default = 0.75. It balances memory usage and lookup performance.
+- When the number of entries exceeds capacity × load factor, rehashing happens (the table is resized, typically roughly doubled).
+
+Iteration cost:
+- Iterating a HashMap takes time proportional to the number of buckets plus the number of key-value mappings.
+- Choosing an appropriate initial capacity can reduce rehashing and iteration overhead.
+
+Constructors and Initialization
+-------------------------------
+Common constructors:
+- Default constructor: empty map with default capacity (16) and load factor (0.75).
+- Constructor with initial capacity: lets you set starting number of buckets.
+- Constructor with capacity and load factor: tune both parameters.
+- Copy constructor: initialize a new HashMap with mappings from another Map.
+
+Collision Handling and Rehashing
+--------------------------------
+Collision resolution:
+- A hash of the key determines the bucket (index) for storage.
+- Collisions (multiple keys mapping to the same bucket) are handled internally.
+
+Java 8+ enhanced collision management:
+- Prior to Java 8, each bucket used a singly linked list of entries.
+- Since Java 8, if a single bucket becomes too large (many collisions), the linked list may be converted into a balanced tree (TreeNode) to improve worst-case performance from O(n) to O(log n) for that bucket.
+
+Rehashing:
+- When size > capacity × load factor, the table is resized and entries are redistributed (rehash).
+- Rehashing is relatively expensive because all entries are moved into a new table.
+
+Concurrency and Fail-Fast Behavior
+----------------------------------
+Thread-safety:
+- HashMap is not synchronized. It is not safe for concurrent modification from multiple threads without external synchronization.
+- For concurrent access, consider ConcurrentHashMap or synchronize externally.
+
+Fail-fast iterators:
+- Iterators returned by HashMap's views (keySet(), entrySet(), values()) are fail-fast.
+- If the map is structurally modified after the iterator is created (other than via the iterator’s own remove), a ConcurrentModificationException is thrown.
+
+Common Methods
+--------------
+Basic operations:
+- put(K key, V value) — Associates a value with a key.
+- get(Object key) — Retrieves the value for a key.
+- remove(Object key) — Removes the mapping for a key.
+- containsKey(Object key), containsValue(Object value) — Check existence.
+- putAll(Map<? extends K,? extends V> m) — Copy mappings from another map.
+- clear() — Remove all mappings.
+
+Advanced operations (functional-style helpers):
+- compute(), computeIfAbsent(), computeIfPresent(), merge() — Update mappings using lambda-friendly semantics.
+- clone() — Create a shallow copy of the HashMap.
+
+Implementation details (internal structure)
+--------------------------------------------
+- Backing structure: an array of Node<K,V> references (table[]).
+- Each Node contains: hash, key, value, next (for collision chaining) or tree links (for tree bins).
+- The hash function: HashMap applies a supplemental hash (mix) to key.hashCode() to spread bits and reduce clustering.
+- Index for bucket: computed using (n - 1) & hash when n is the table length (power-of-two length makes this efficient).
+
+Performance considerations
+--------------------------
+- Good hashCode() implementation on keys reduces collisions and keeps operations near O(1).
+- If many keys share the same bucket (poor hash), performance degrades unless the bucket becomes a tree (Java 8+).
+- Rehashing costs can be reduced by setting an appropriate initial capacity if the approximate number of entries is known.
+
+Null handling
+-------------
+- One null key is allowed (it is stored in bucket 0).
+- Multiple null values are allowed.
+
+Interview points to remember
+----------------------------
+- Null handling: HashMap allows one null key and multiple null values.
+- Capacity & load factor: default capacity = 16, load factor = 0.75; rehash occurs when size > capacity × load factor.
+- Collision improvements: Java 8 converts long collision chains into balanced trees for better worst-case performance.
+- Thread-safety: HashMap is not synchronized — use ConcurrentHashMap or external synchronization for concurrent access.
+- Fail-fast: Iterators are fail-fast and will throw ConcurrentModificationException on structural changes.
+- Choosing initial capacity correctly can improve performance and reduce rehashing overhead.
+- Be prepared to explain how hashCode() quality affects map performance and why tree bins were introduced in Java 8.
+
+Summary
+-------
+HashMap is the go-to Map implementation for fast, unordered key-value access in single-threaded or externally synchronized contexts. Understanding capacity, load factor, collision behavior, and Java 8's tree bin optimization is essential for using HashMap effectively and for explaining its performance characteristics in interviews or design discussions.

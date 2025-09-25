@@ -1,0 +1,115 @@
+EnumSet — Internal Working:
+
+Overview
+--------
+EnumSet is a specialized **Set implementation** designed exclusively for use with Java **enum types**.
+It is part of the `java.util` package and provides a **high-performance, memory-efficient** alternative to HashSet
+when dealing with enums.
+
+Key properties:
+- Stores only **enum constants** of a single enum type.
+- **All elements must come from the same enum class** (checked at runtime).
+- Internally represented using a **bit vector** (bitset).
+- Provides constant-time performance for basic operations (`add`, `remove`, `contains`).
+- Extremely compact in memory compared to HashSet.
+
+Why it exists:
+- Enums are fixed, finite, and ordered.
+- Using hashing (HashSet) for enums is unnecessary overhead.
+- EnumSet leverages the enum’s **ordinal value** (position) to map directly to a bit in a bit vector.
+
+Internal Data Structure
+-----------------------
+- Backed by a **bit vector** (a long array).
+- Each enum constant is assigned an ordinal (0,1,2...).
+- The bit at that position in the vector represents whether that enum constant is in the set.
+
+ASCII Example
+-------------
+Consider an enum:
+
+```java
+enum Day { MON, TUE, WED, THU, FRI, SAT, SUN }
+```
+
+If we create:
+```java
+EnumSet<Day> weekend = EnumSet.of(Day.SAT, Day.SUN);
+```
+
+Internal representation (bit vector of 7 bits):
+
+Index/Ordinal:   0   1   2   3   4   5   6
+Enum Constant:  MON TUE WED THU FRI SAT SUN
+Bit Vector:      0   0   0   0   0   1   1
+
+✔ `SAT` and `SUN` bits are set to 1.
+✔ All others are 0.
+
+Thus operations like `contains(Day.FRI)` → check bit at index 4 → returns false.
+
+Operation Flow
+--------------
+1. **Add(e)**
+   - Get `e.ordinal()`.
+   - Set bit at that index → O(1).
+
+2. **Remove(e)**
+   - Get `e.ordinal()`.
+   - Clear bit at that index → O(1).
+
+3. **Contains(e)**
+   - Get `e.ordinal()`.
+   - Check bit at that index → O(1).
+
+4. **Iteration**
+   - Iterates in **natural order of enum constants** (ordinal order).
+   - Much faster than HashSet since it’s sequential array lookup.
+
+Performance
+-----------
+- **All basic operations** (`add`, `remove`, `contains`) → O(1).
+- **Iteration** → O(n), where n = number of enum constants.
+- **Memory** → highly compact (just a few longs), compared to HashSet’s entry + bucket overhead.
+
+Special Methods
+---------------
+- `EnumSet.allOf(Day.class)` → all constants set.
+- `EnumSet.noneOf(Day.class)` → empty set.
+- `EnumSet.of(Day.MON, Day.FRI)` → specific elements.
+- `EnumSet.range(Day.MON, Day.FRI)` → continuous range.
+- `EnumSet.complementOf(set)` → inverse of set (all others).
+
+Differences vs HashSet
+----------------------
+
+| Feature             | HashSet                    | EnumSet                           |
+|---------------------|----------------------------|-----------------------------------|
+| Backing Structure   | HashMap buckets            | Bit vector (long array)           |
+| Type of Elements    | Any object                 | Only enum constants (one type)    |
+| Ordering            | No guarantee               | Natural order of enum constants   |
+| Performance         | O(1) avg (with hashing)    | O(1) exact (ordinal bit indexing) |
+| Memory              | Higher (Node objects)      | Very low (bit representation)     |
+| Use Case            | General-purpose uniqueness | Enum-specific collections         |
+
+Thread Safety
+-------------
+- EnumSet is **not synchronized**.
+- Use `Collections.synchronizedSet(EnumSet)` if needed in multi-threaded contexts.
+
+Use Cases
+---------
+- Representing a set of options (flags, states).
+- Efficient handling of enums (permissions, days of week, features).
+- Great alternative to using bit masks manually.
+
+Examples:
+- Days of the week (weekend vs weekdays).
+- File access permissions (READ, WRITE, EXECUTE).
+- Workflow states (STARTED, RUNNING, COMPLETED).
+
+Key Notes
+---------
+- Extremely efficient for enums.
+- Should be **preferred over HashSet** when working with enums.
+- Operations map directly to simple **bit operations** → fastest possible set implementation in Java.

@@ -1,5 +1,3 @@
-package QueueDemo.BlockingQueueDemo;
-
 import java.util.Comparator;
 import java.util.concurrent.*;
 

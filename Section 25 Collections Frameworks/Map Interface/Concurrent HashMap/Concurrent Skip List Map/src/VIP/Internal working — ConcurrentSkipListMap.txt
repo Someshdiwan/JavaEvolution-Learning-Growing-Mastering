@@ -1,0 +1,72 @@
+Internal working — java.util.concurrent.ConcurrentSkipListMap
+
+Overview
+--------
+ConcurrentSkipListMap is a concurrent, sorted implementation of the `NavigableMap`
+interface. It is built on a skip list rather than a tree or hash table, which makes
+it easier to support concurrent operations with minimal locking.
+
+Key properties:
+- Sorted according to natural order of keys, or a custom Comparator.
+- Thread-safe: supports concurrent reads and writes with high throughput.
+- Non-blocking (mostly lock-free) reads; updates use CAS (Compare-And-Swap).
+- Iterators are *weakly consistent*: tolerate concurrent modifications, do not
+  throw ConcurrentModificationException, and reflect some but not necessarily
+  all changes made during iteration.
+- Null keys and null values are not allowed.
+
+Core ideas
+----------
+- Backing structure: skip list (multi-level linked list).
+- Search: start at top level, move right until next would overshoot, then drop down.
+- Insert: splice new node into multiple levels with CAS.
+- Remove: logically mark node removed, then unlink with CAS.
+- Expected average cost: O(log n) for get, put, remove.
+
+ASCII structure (simplified skip list)
+--------------------------------------
+
+Level 3: HEAD ----------------------> [50] -----------------------> null
+Level 2: HEAD -------> [20] -> [50] -> [90] -> null
+Level 1: HEAD -> [10] -> [20] -> [30] -> [50] -> null
+Level 0: HEAD -> [5] -> [10] -> [15] -> [20] -> [25] -> [30] -> [40] -> [50] -> null
+
+- Each higher level “skips” more elements → faster search.
+- Nodes appear at random levels (probabilistic balancing).
+
+Operation flows
+---------------
+
+PUT (insert/update):
+ 1. Locate predecessors at each level.
+ 2. Build new node with forward pointers.
+ 3. CAS to insert at level 0; if success, try higher levels.
+ 4. Retry if CAS fails due to contention.
+
+GET (search):
+ 1. Traverse levels down to level 0.
+ 2. Move right until candidate key ≥ target.
+ 3. If equal → return value; else return null.
+
+REMOVE:
+ 1. Find node, mark logically removed.
+ 2. CAS predecessors to unlink it.
+ 3. GC reclaims unreachable nodes.
+
+Thread-safety model
+-------------------
+- High concurrency: readers never block.
+- Writers use fine-grained CAS to update only local pointers.
+- No global lock (unlike Hashtable); avoids contention bottlenecks.
+
+Use cases
+---------
+- Concurrent sorted maps (priority queues, leaderboards, indexes).
+- Time-based scheduling (keys as timestamps).
+- When you need fast concurrent access + ordering guarantees.
+
+Complexity summary
+------------------
+- get/put/remove: O(log n) expected.
+- Iteration: O(n).
+- Memory: more than TreeMap (extra forward pointers), but predictable.

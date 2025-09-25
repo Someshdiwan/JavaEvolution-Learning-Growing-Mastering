@@ -1,0 +1,60 @@
+ConcurrentHashMap — Internal Working
+
+1. Java 7 Internal Working (Segment-based Locking):
+   - Table divided into **16 Segments** by default.
+   - Each segment = smaller HashMap with its own lock.
+   - **Read**: doesn’t require locking (unless a write happens in the same segment).
+   - **Write**: locks only that segment, not the whole map.
+   - Pros: Better concurrency than Hashtable (coarse lock).
+   - Cons: Still limited concurrency (max ~16 threads writing simultaneously).
+
+2. Java 8 Redesign (No Segments):
+   - Segments removed → single table of buckets.
+   - Uses **CAS (Compare-And-Swap)** + **per-bucket synchronized locking**.
+   - **Reads**: completely lock-free, rely on volatile reads.
+   - **Writes**:
+     • Try CAS to insert new node in empty bucket.
+     • If CAS fails → synchronize on bucket’s first node and update.
+   - **Treeification**: If bucket too long (≥8), convert linked list → balanced Red-Black Tree (log n lookup).
+   - **Resizing**: Cooperative transfer. Multiple threads help move entries using `ForwardingNode`.
+   - **Counters**: Uses `LongAdder`-like striped counters to track size (reduces contention).
+   - Result: Highly scalable with near lock-free reads and minimal write contention.
+
+3. CAS Example:
+   - Thread A last saw `x = 45`.
+   - It wants to update → `x = 50`.
+   - CAS: "If x is still 45, set to 50; else retry."
+   - This ensures atomic update without full locks.
+
+4. ConcurrentSkipListMap (Contrast):
+   - MAP → SORTED → THREAD-SAFE.
+   - Unlike ConcurrentHashMap (unsorted), it maintains keys in **sorted order** using a **Skip List**.
+   - Operations (`get`, `put`, `remove`) take O(log n).
+   - Also thread-safe, supports concurrent access like CHM.
+   - Useful when you need both **ordering** + **concurrency**.
+
+5. ASCII Diagram (CHM bucket flow):
+
+   Table (array of buckets)
+   +--------------------------------------------------+
+   | 0 | 1 | 2 | 3 | ...                              |
+   +--------------------------------------------------+
+         ↓
+        CAS insert Node(key, val)
+         ↓
+   If collision → LinkedList / TreeBin
+         ↓
+   If chain length > 8 → convert to Tree (log n)
+         ↓
+   If threshold exceeded → resize (ForwardingNode helps migration)
+
+6. Key Takeaways:
+   ✔ Java 7 → segment-locking (limited concurrency).
+   ✔ Java 8 → CAS + per-bucket sync (better scaling).
+   ✔ Reads are always lock-free.
+   ✔ Treeification avoids long chains.
+   ✔ ConcurrentSkipListMap = sorted + thread-safe alternative.
+
+Applications:
+   - CHM → Caches, registries, concurrent counters, shared state.
+   - CSLM → Leaderboards, ordered concurrent maps, financial apps.

@@ -1,0 +1,18 @@
+Tuple Representation (Linear, Indexed):
+
+Example: ("Alice", 25, "Engineer")
+
+Index:   0        1       2
+         |        |       |
+Tuple → [Alice] [25] [Engineer]
+
+- Access by index:
+  - tuple[0] → "Alice"
+  - tuple[1] → 25
+  - tuple[2] → "Engineer"
+
+- Fixed size, order preserved.
+- Each position has a defined meaning.
+
+
+Tuple is like an ordered box of slots, accessed by their index, unlike a HashMap which is accessed by keys.

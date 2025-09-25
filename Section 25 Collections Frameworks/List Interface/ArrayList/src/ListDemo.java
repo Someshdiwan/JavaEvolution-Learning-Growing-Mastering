@@ -1,8 +1,6 @@
-package ListDemo.ArrayListLinkedListStack;
-
 import java.util.*;
 
-public class ListEDSort {
+public class ListDemo {
     public static void main(String[] args) {
         List<Integer> list = new ArrayList<>();
         list.add(1);
@@ -11,7 +9,7 @@ public class ListEDSort {
 
         //Collections.sort(list);
 
-        //Other method using comparator
+        //Another method using comparator.
         list.sort(null);
         System.out.println(list);
 

@@ -1566,7 +1566,7 @@ You dive into **generic classes, interfaces, and wildcards** — foundational fo
 | Topic                      | Key Files                                              | Concepts Learned                                                |
 |--------------------------- |--------------------------------------------------------|-----------------------------------------------------------------|
 | Generic Classes            | Box.java, Pair.java, BoxType.java                      | Custom containers with parameterized types                      |
-| Generic Methods            | GenericFunctionsExample.java, Generics.GenericDemo.java         | Type-safe utility methods for operations like swap/filter       |
+| Generic Methods            | GenericFunctionsExample.java, Generics.GenericDemo.java| Type-safe utility methods for operations like swap/filter       |
 | Generic Interfaces         | GenericInterfaces.java, StringContainer1.java          | Reusable service/container interfaces with flexible types       |
 | Bounded Type Parameters    | Upper and Lower Bounds...txt, GenericClass2.GenericClassDemo2.java   | Constraining generic types using extends and super              |
 | Wildcards and Super Bounds | Java Generics Wildcards...txt, Wild Cards file         | Handle flexible method arguments with <?> and bounds            |

@@ -1,0 +1,169 @@
+Methods of Vector in Java
+
+Introduction
+------------
+Vector is part of the Java Collections Framework (java.util package).
+It implements List, RandomAccess, Cloneable, and Serializable interfaces.
+Vector provides methods similar to ArrayList but is **synchronized** (thread-safe).
+
+---
+
+1. add(E e)
+------------
+- Appends an element at the end.
+
+Code:
+import java.util.*;
+
+public class VectorAddExample {
+    public static void main(String[] args) {
+        Vector<String> v = new Vector<>();
+        v.add("A");
+        v.add("B");
+        System.out.println(v); // [A, B]
+    }
+}
+
+---
+
+2. add(int index, E element)
+----------------------------
+- Inserts an element at a specific index.
+
+Code:
+v.add(1, "C");  // Inserts "C" at index 1 → [A, C, B]
+
+---
+
+3. addAll(Collection c)
+------------------------
+- Adds all elements from another collection.
+
+Code:
+List<String> list = Arrays.asList("X", "Y");
+v.addAll(list); // [A, C, B, X, Y]
+
+---
+
+4. get(int index)
+-----------------
+- Returns the element at the given index.
+
+Code:
+System.out.println(v.get(2)); // B
+
+---
+
+5. set(int index, E element)
+----------------------------
+- Replaces the element at the given index.
+
+Code:
+v.set(2, "Z");  // [A, C, Z, X, Y]
+
+---
+
+6. remove(int index) / remove(Object o)
+---------------------------------------
+- Removes element at index or by value.
+
+Code:
+v.remove(1);         // Removes "C" → [A, Z, X, Y]
+v.remove("X");       // Removes first occurrence of "X"
+
+---
+
+7. size()
+---------
+- Returns the number of elements.
+
+Code:
+System.out.println(v.size()); // 3
+
+---
+
+8. capacity()
+-------------
+- Returns the current capacity (not just size).
+
+Code:
+System.out.println(v.capacity()); // e.g., 10
+
+---
+
+9. clear()
+----------
+- Removes all elements.
+
+Code:
+v.clear(); // []
+
+---
+
+10. contains(Object o)
+----------------------
+- Checks if element exists.
+
+Code:
+System.out.println(v.contains("A")); // true
+
+---
+
+11. firstElement() / lastElement()
+----------------------------------
+- Returns the first/last element.
+
+Code:
+System.out.println(v.firstElement());
+System.out.println(v.lastElement());
+
+---
+
+12. isEmpty()
+-------------
+- Checks if vector is empty.
+
+Code:
+System.out.println(v.isEmpty());
+
+---
+
+13. iterator() / listIterator()
+-------------------------------
+- Provides iterators for traversal.
+
+Code:
+Iterator<String> it = v.iterator();
+while(it.hasNext()) {
+    System.out.println(it.next());
+}
+
+---
+
+14. ensureCapacity(int minCapacity)
+-----------------------------------
+- Ensures vector has at least minCapacity.
+
+---
+
+15. trimToSize()
+----------------
+- Shrinks capacity to match current size.
+
+---
+
+16. toArray()
+-------------
+- Converts vector to array.
+
+Code:
+Object[] arr = v.toArray();
+
+---
+
+Summary
+----------
+- Vector methods are similar to ArrayList, but **synchronized**.
+- Supports CRUD (Create, Read, Update, Delete).
+- Provides capacity management (capacity(), ensureCapacity(), trimToSize()).
+- Iteration supported via for-each, Iterator, ListIterator, Enumeration.

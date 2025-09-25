@@ -1,0 +1,112 @@
+Set vs Collection — why the confusion (and the clarification)
+
+`Set` *is* part of the Java Collections Framework and *does extend* the `Collection` interface.
+The confusion usually comes from understanding how `Set` differs from other `Collection` subtypes (like `List`) and
+why it enforces **uniqueness** of elements.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Why people get confused
+-----------------------
+1. **Name overlap.**
+   - The term *Collections Framework* refers to the entire API in `java.util`.
+   - Inside that framework, there’s the `Collection` interface.
+   - Because the names are so close, new learners sometimes assume `Set` is completely separate,
+     like `Map`, when in fact `Set` *is a subtype* of `Collection`.
+
+2. **Similarity to Map.**
+   - A `Set` only stores unique elements, which conceptually feels like storing keys in a `Map`.
+   - In fact, many `Set` implementations (like `HashSet`) are backed internally by a `HashMap`
+     (the elements are stored as keys, with a dummy constant value).
+   - This internal link with `Map` causes confusion: “Is Set a Map, or a Collection, or both?”
+
+3. **Differences vs List.**
+   - Both `Set` and `List` extend `Collection`, but `List` allows duplicates and preserves order,
+     while `Set` enforces uniqueness and may not preserve order.
+   - Developers who expect “all Collections can be indexed like Lists” get surprised with Sets.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Clear explanation
+-----------------
+• **The Collections Framework** = the overall library in `java.util` (lists, sets, queues, maps, etc.).
+• **The Collection interface** = the root of the *element-only* container hierarchy.
+   Subinterfaces: `List`, `Set`, `Queue`, `Deque`.
+• **The Set interface** = a specialization of `Collection` that forbids duplicates.
+
+So:
+`Set` is a subtype of `Collection`.
+It models a mathematical set: unordered (generally), no duplicates, equality defined by `equals()`.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Set interface hierarchy (detailed)
+----------------------------------
+Collection (interface)
+│
+├── Set (interface)  // disallows duplicates
+│   │
+│   ├── HashSet              // backed by HashMap, no ordering guarantee
+│   │   └── LinkedHashSet    // maintains insertion order (linked list over HashMap)
+│   │
+│   ├── SortedSet (interface)        // keeps elements in sorted order
+│   │   └── NavigableSet (interface) // richer navigation API (lower, higher, floor, ceiling)
+│   │       └── TreeSet              // Red-Black tree implementation, natural/comparator order
+│   │
+│   └── EnumSet             // optimized set for enum types (uses bit-vectors internally)
+│
+└── Queue / List (siblings in Collection, not Sets)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Core characteristics of a Set
+-----------------------------
+- **No duplicates.** Adding a duplicate element returns `false` (element not inserted).
+- **Ordering.**
+  - `HashSet`: unordered.
+  - `LinkedHashSet`: insertion-order.
+  - `TreeSet`: sorted order.
+- **Null handling.**
+  - `HashSet` and `LinkedHashSet`: allow one `null`.
+  - `TreeSet`: may throw `NullPointerException` if null elements are added (depends on comparator).
+- **Backed structures.**
+  - `HashSet` → internally uses a `HashMap`.
+  - `LinkedHashSet` → HashMap + linked list for order.
+  - `TreeSet` → NavigableMap (usually a Red-Black Tree).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Typical operation flow (conceptual)
+-----------------------------------
+Example: `HashSet`
+
+PUT (add element `E`):
+  1. Compute `hash(E)` → bucket index.
+  2. If no existing entry: add new node.
+  3. If an equal element exists: reject (set unchanged).
+  4. Average time: O(1).
+
+GET (contains `E`):
+  1. Compute `hash(E)` → bucket index.
+  2. Walk bucket chain; check `equals()` for a match.
+  3. Average time: O(1).
+
+ASCII diagram (HashSet backed by HashMap):
+------------------------------------------
+HashSet "elements" are actually HashMap keys:
+
+HashSet = {A, B, C}
+
+Internally:
+HashMap table:
+  [0] -> [Key=A, Val=DUMMY]
+  [1] -> [Key=B, Val=DUMMY]
+  [2] -> [Key=C, Val=DUMMY]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Practical takeaways
+-------------------
+• Use `Set` when you want **uniqueness** of elements (no duplicates).
+• Choose implementation based on ordering:
+  - `HashSet` → fast lookups, no order.
+  - `LinkedHashSet` → predictable insertion order.
+  - `TreeSet` → natural or custom sorted order.
+  - `EnumSet` → ultra-fast enum-based sets (bit operations).
+• Don’t confuse Set’s uniqueness guarantee with Map’s key-value storage:
+  - Set stores **values only**, unique.
+  - Map stores **key→value pairs**.

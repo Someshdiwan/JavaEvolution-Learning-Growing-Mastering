@@ -1,6 +1,0 @@
-Jab ham ek custom sorting logic laga na hai toh comparator use hota hai.
-
-
-Agar kisi class ko bata na hai kose rules se sort karna hai. tab Comparable use hota hai.
-
-

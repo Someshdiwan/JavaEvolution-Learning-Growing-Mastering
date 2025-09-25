@@ -3,6 +3,7 @@
 <properties>
 <comment>Properties XML File</comment>
 <entry key="Processor: ">i7</entry>
+<entry key="Brand: ">Apple Mac Book Air</entry>
 <entry key="Model: ">Latitude</entry>
 <entry key="Brand Name: ">Dell</entry>
 <entry key="OS: ">Windows</entry>

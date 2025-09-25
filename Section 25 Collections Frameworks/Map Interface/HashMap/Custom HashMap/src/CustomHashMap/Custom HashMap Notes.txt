@@ -1,0 +1,23 @@
+extended version of the custom HashMap that includes:
+
+- Iteration: Implements the Iterable interface so you can loop over all entries.
+- Dynamic Size Tracking: A method (`size()`) returns the current number of key-value pairs.
+- Load Factor Tuning: A configurable load factor (with getters and setters) and a constructor that accepts an initial
+  capacity and load factor.
+
+Extended Custom HashMap Implementation
+
+Explanation of Extensions:
+- Iteration:
+
+- The class now implements Iterable<Entry<K, V>> and provides an inner HashMapIterator that traverses each non-empty bucket
+
+- You can use a for-each loop to iterate over all key-value pairs.
+
+- Dynamic Size Tracking:
+- The size field is updated on every put() and remove() call.
+- The size() method returns the current count of entries.
+
+- Load Factor Tuning:
+ - The loadFactor field is configurable through constructors and the setLoadFactor() method.
+ - The resize() method uses this load factor to determine when to double the bucket array.

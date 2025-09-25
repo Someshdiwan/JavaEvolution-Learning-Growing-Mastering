@@ -1,6 +1,6 @@
 Set vs Collection — why the confusion (and the clarification)
 
-`Set` *is* part of the Java Collections Framework and *does extend* the `Collection` interface.
+Set is part of the Java Collections Framework and *does extend* the `Collection` interface.
 The confusion usually comes from understanding how `Set` differs from other `Collection` subtypes (like `List`) and
 why it enforces **uniqueness** of elements.
 

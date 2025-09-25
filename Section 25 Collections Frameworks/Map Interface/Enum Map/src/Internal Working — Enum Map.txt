@@ -1,0 +1,115 @@
+Internal working — java.util.EnumMap (detailed)
+
+Overview
+--------
+- EnumMap is a specialized implementation of the Map interface designed to work **only with enum keys**.
+- Internally, it uses an **array** rather than hashing.
+- Keys are stored and retrieved using their **ordinal value** (the position of the enum constant in its declaration).
+- EnumMap is **faster and more memory-efficient** than HashMap when the keys are enums.
+
+Core ideas
+----------
+1. **Backing structure**: An Object[] array of size equal to the number of enum constants.
+   - For example, if `Day` has 7 constants → internal array length = 7.
+
+2. **Index mapping**:
+   - Key → ordinal() → index in array.
+   - No need to compute `hashCode()`. Example: `Day.MONDAY.ordinal() = 0`, `Day.TUESDAY.ordinal() = 1`.
+
+3. **Ordering**:
+   - EnumMap preserves the **natural order of enum constants** (as declared in the enum).
+   - Iteration always happens in enum declaration order, not insertion order.
+
+4. **Null handling**:
+   - Null keys are NOT allowed (`NullPointerException` if attempted).
+   - Null values ARE allowed.
+
+5. **Performance**:
+   - All operations (put, get, remove, containsKey) are **O(1)** due to direct array index lookup.
+
+6. **Memory efficiency**:
+   - Very compact; avoids hashing overhead and entry node wrappers.
+   - Perfect when you know your keys are restricted to a single enum type.
+
+ASCII visualization
+-------------------
+Suppose we have enum:
+
+enum Day { MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY }
+
+Internally EnumMap creates an array of length 7 (number of constants):
+
+Index:   0        1         2           3          4          5          6
+Enum:  MONDAY   TUESDAY  WEDNESDAY   THURSDAY   FRIDAY   SATURDAY   SUNDAY
+Value: "Walk"   "Gym"      null        null       null      null   "Sleep Relax"
+
+So:
+- map.put(Day.MONDAY, "Walk") → array[0] = "Walk"
+- map.put(Day.TUESDAY, "Gym") → array[1] = "Gym"
+- map.put(Day.SUNDAY, "Sleep Relax") → array[6] = "Sleep Relax"
+
+Iteration always visits indices 0 → 6 in enum order.
+
+How operations work
+-------------------
+
+PUT
+---
+1. Key = enum constant (e.g., Day.TUESDAY).
+2. Find index = key.ordinal() → 1.
+3. Store value at array[1].
+4. If already present, overwrite value.
+
+GET
+---
+1. Key = Day.TUESDAY.
+2. Index = key.ordinal() → 1.
+3. Return array[1] → "Gym".
+
+REMOVE
+------
+1. Key = Day.MONDAY.
+2. Index = 0.
+3. Set array[0] = null.
+
+Iteration
+---------
+- Always from ordinal 0 → maxOrdinal.
+- Skips nulls (i.e., if a key has no value assigned).
+- Preserves natural enum order.
+
+Rehashing
+---------
+- No rehashing required (unlike HashMap/Hashtable).
+- Array length is fixed = number of enum constants.
+- Only values are replaced, not keys (keys are implicit from enum).
+
+Complexity
+----------
+- put/get/remove: O(1)
+- containsKey: O(1)
+- iteration: O(n) where n = number of enum constants.
+
+When to use EnumMap
+-------------------
+✔ When keys are enums (Day, State, Direction, etc.).
+✔ Need predictable iteration order (enum declaration order).
+✔ When performance and memory efficiency matter.
+✘ Do not use if keys are not enums (compile-time restriction).
+✘ Avoid if you need null keys.
+
+Practical applications
+----------------------
+- Scheduling tasks by Day enum (e.g., MONDAY=Meeting, FRIDAY=Report).
+- State machines (enum states mapped to actions).
+- Configuration keyed by enum (e.g., LogLevel.DEBUG → config value).
+- Small fixed-domain mappings where enum keys are natural choice.
+
+Example flow
+------------
+map.put(Day.MONDAY, "Walk")
+map.put(Day.TUESDAY, "Gym")
+map.put(Day.SUNDAY, "Sleep Relax")
+
+Iteration → {MONDAY=Walk, TUESDAY=Gym, SUNDAY=Sleep Relax}
+(order = enum declaration order, not insertion)

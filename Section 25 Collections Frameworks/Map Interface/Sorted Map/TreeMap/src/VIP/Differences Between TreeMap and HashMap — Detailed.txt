@@ -1,0 +1,106 @@
+Differences Between TreeMap and HashMap — Detailed
+==================================================
+
+Introduction
+------------
+Both TreeMap and HashMap are implementations of the Map interface in Java.  
+They store key-value pairs but differ in **ordering, performance, memory usage, and use cases**.
+
+---
+
+1. Core Difference
+------------------
+- **TreeMap**: Backed by a **Red-Black Tree**, maintains keys in **sorted order**.  
+- **HashMap**: Backed by a **hash table**, stores entries in an **unordered manner**.
+
+---
+
+2. Feature Comparison Table
+---------------------------
+
+| Feature             | TreeMap                                                                                      | HashMap                                                                 |
+|---------------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| Ordering            | Maintains keys in sorted order (natural order or via custom Comparator).                     | Does not maintain order; keys/values stored in an arbitrary arrangement. |
+| Implementation      | Uses **Red-Black Tree** (self-balancing BST).                                                | Uses a **hash table**.                                                  |
+| Performance         | put(), get(), remove() → O(log n).                                                           | put(), get(), remove() → O(1) average case (O(n) worst case if bad hash).|
+| Null Keys           | Does **not** allow null keys. Allows multiple null values.                                   | Allows **one null key** and multiple null values.                        |
+| Memory Usage        | Higher, due to tree balancing overhead.                                                      | Lower, more memory-efficient (hash buckets).                             |
+| Iterator Behavior   | Iterates in **ascending (sorted)** key order.                                                | Iterates in **unpredictable** order.                                     |
+| Best Use Case       | Sorted data retrieval, range queries, navigation (higherKey, lowerKey, ceilingKey, floorKey).| Fast lookups and insertions when order is not important.                 |
+
+---
+
+3. When to Use
+--------------
+- **Use HashMap when:**
+  - Fast insertions, deletions, and lookups are required.
+  - Ordering of elements does not matter.
+  - You want memory efficiency with large datasets.
+
+- **Use TreeMap when:**
+  - You need keys to be automatically **sorted**.
+  - You require **navigable methods**:
+    - higherKey()
+    - lowerKey()
+    - ceilingKey()
+    - floorKey()
+  - Range-based queries (e.g., submaps) are needed.
+
+---
+
+4. Code Examples
+----------------
+
+**HashMap Example (Unordered):**
+```java
+import java.util.HashMap;
+
+public class HashMapExample {
+    public static void main(String[] args) {
+        HashMap<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(3, "C");
+        hashMap.put(1, "A");
+        hashMap.put(2, "B");
+
+        System.out.println(hashMap);
+        // Output may vary, e.g., {3=C, 1=A, 2=B}
+    }
+}
+
+TreeMap Example (Sorted Order):
+
+import java.util.TreeMap;
+
+public class TreeMapExample {
+    public static void main(String[] args) {
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
+        treeMap.put(3, "C");
+        treeMap.put(1, "A");
+        treeMap.put(2, "B");
+
+        System.out.println(treeMap);
+        // Output: {1=A, 2=B, 3=C} (Sorted order)
+    }
+}
+
+
+⸻
+
+	5.	Final Takeaway
+
+⸻
+
+	•	Map Interface vs. HashMap:
+	•	The Map interface defines the contract (key-value storage).
+	•	HashMap provides a fast, hash-based implementation.
+	•	TreeMap vs. HashMap:
+	•	Use TreeMap when sorting and navigation are required.
+	•	Use HashMap when performance and constant-time access are the priority.
+
+⸻
+
+Key Interview Insights
+•	HashMap → O(1) average operations, allows one null key, unordered.
+•	TreeMap → O(log n) operations, no null keys, maintains sorted order.
+•	Both are part of the Java Collections Framework, but differ in underlying data structure and use cases.
+

@@ -1,0 +1,108 @@
+TreeMap Internal Working
+
+1. What is TreeMap?
+   - TreeMap is a class in Java (java.util package) that implements:
+       • NavigableMap
+       • SortedMap
+       • Map
+   - It stores key-value pairs, sorted by keys.
+   - Internally, it uses a **Red-Black Tree** (a type of self-balancing Binary Search Tree).
+
+
+
+2. How Entries Are Stored?
+   - Every entry (key-value pair) is stored as a **Node** in the Red-Black Tree.
+   - Keys are ordered according to:
+       • Natural Ordering of keys (Comparable), OR
+       • A custom Comparator provided at TreeMap creation.
+
+   Structure:
+       Node = { key, value, leftChild, rightChild, parent, color(R/B) }
+
+
+
+3. Internal Operations:
+
+   a) Insertion (put):
+      • When you insert a key, TreeMap finds the correct position using BST rules:
+          - Smaller key → left child
+          - Larger key → right child
+      • After insertion, TreeMap ensures **Red-Black Tree balancing** (rotations + recoloring).
+      • Time Complexity: O(log n)
+
+   b) Searching (get):
+      • Traverses down the Red-Black Tree, comparing keys.
+      • O(log n) lookup time.
+      • Much slower than HashMap’s O(1), but keeps data sorted.
+
+   c) Deletion (remove):
+      • Removes the node, then performs re-balancing.
+      • O(log n).
+
+
+4. Red-Black Tree Properties:
+   (Why balanced? To avoid skewed BST = O(n) time)
+
+   ✔ Every node is either Red or Black.
+   ✔ Root is always Black.
+   ✔ No two consecutive red nodes.
+   ✔ Every path from root to leaf has the same number of Black nodes.
+
+   ➝ These rules ensure the tree remains "balanced", so height is always O(log n).
+
+
+5. ASCII Diagram (Example TreeMap)
+
+   Suppose we insert keys: 10, 20, 30, 40
+
+   Initial insertions:
+             (20,B)
+            /     \
+         (10,R)   (30,R)
+                      \
+                      (40,R)
+
+   After rebalancing:
+             (20,B)
+            /     \
+        (10,B)   (30,B)
+                      \
+                      (40,R)
+
+   ✔ Balanced height
+   ✔ Sorted order: [10,20,30,40]
+
+
+6. Important Points About Internal Working:
+   - Keys must be Comparable OR supplied with Comparator.
+   - Null keys: ❌ NOT allowed (throws NullPointerException).
+   - Null values: ✔ Allowed.
+   - Ordered view methods like:
+       • firstKey(), lastKey()
+       • headMap(), tailMap(), subMap()
+       • higherKey(), lowerKey()
+
+7. Performance:
+   - put(), get(), remove() → O(log n)
+   - Iteration → O(n) but sorted order guaranteed
+   - Memory overhead is higher (tree nodes store parent + color info).
+
+
+8. Where TreeMap is Used?
+   - When you need:
+       • Sorted data by key
+       • Range queries (headMap, subMap, tailMap)
+       • Navigable operations (ceiling, floor, higher, lower)
+
+   Examples:
+       - Implementing dictionaries where order matters.
+       - Caching systems where you need the "next" higher/lower element.
+       - Stock market apps for price ranges.
+
+
+Quick Recap:
+✔ TreeMap is based on Red-Black Tree.
+✔ Keeps keys sorted (natural/comparator).
+✔ O(log n) for insertion/search/removal.
+✔ No null keys.
+✔ Useful for range queries + ordered maps.

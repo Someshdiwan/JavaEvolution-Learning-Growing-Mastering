@@ -1,0 +1,156 @@
+Q&A Based on `src/Package/PropertiesDemo.java` Program
+
+----------------------
+### Basic Questions
+----------------------
+
+**1. What is the `Properties` class in Java?**
+- The `Properties` class is part of `java.util`.
+- It extends `Hashtable<Object,Object>` but is specialized to handle **String key-value pairs**.
+- It is commonly used to store configuration data and metadata.
+
+---
+
+**2. How does the `setProperty()` method work in Java?**
+- `setProperty(String key, String value)` inserts or updates a key-value pair.
+- Internally, it calls `put(key, value)` of `Hashtable`.
+- If the key already exists, its value is overwritten.
+
+---
+
+**3. Why is the `Properties` class commonly used in Java applications?**
+- Provides a simple way to store **configuration settings** (like DB URLs, app configs).
+- Can **persist data** to `.properties` or `.xml` files.
+- Supports **easy loading and retrieval** using `getProperty()`.
+
+---
+
+**4. What is the difference between `store()` and `storeToXML()` methods?**
+- `store(OutputStream out, String comments)` → Saves data in plain text `.properties` format.
+- `storeToXML(OutputStream out, String comment)` → Saves data in structured XML format.
+
+---
+
+**5. What type of data does the `Properties` class store?**
+- Only **String keys and String values**.
+- Attempting to insert other object types is not supported via `setProperty()`.
+
+---
+
+----------------------
+### Intermediate Questions
+----------------------
+
+**6. How does `store(OutputStream out, String comments)` save data to a file?**
+- Iterates through all key-value pairs.
+- Writes them in the format:
+
+Comment (optional)
+
+Timestamp
+
+key=value
+
+- Example: `OS=Windows`
+
+---
+
+**7. What is the structure of a `.properties` file?**
+- Plain text with `key=value` pairs.
+- Lines starting with `#` are comments.
+- Example:
+
+Application Settings
+
+username=admin
+password=1234
+
+---
+
+**8. How does `storeToXML()` format the properties in an XML file?**
+- Saves properties inside `<properties>` root.
+- Each entry is stored as `<entry key="...">value</entry>`.
+- Example:
+```xml
+<properties>
+    <comment>Config File</comment>
+    <entry key="OS">Windows</entry>
+</properties>
+
+
+⸻
+
+9. What happens if a property key contains spaces or special characters?
+	•	In .properties files, spaces and : must be escaped (e.g., Brand\ Name=Dell).
+	•	In XML, the key is safely stored as an attribute (key="Brand Name").
+
+⸻
+
+10. How does the Properties class differ from HashMap?
+	•	Properties is a subclass of Hashtable.
+	•	Restricted to String keys and values.
+	•	Provides built-in methods like load(), store(), storeToXML() for persistence.
+	•	HashMap is generic and does not support direct persistence.
+
+⸻
+
+⸻
+
+Advanced Questions
+
+⸻
+
+11. Can we load properties from a file instead of setting them manually? How?
+	•	Yes, using load(InputStream in) for .properties files.
+	•	Using loadFromXML(InputStream in) for XML files.
+
+Properties p = new Properties();
+p.load(new FileInputStream("config.properties"));
+
+
+
+⸻
+
+12. What happens if we try to access a property that does not exist?
+	•	getProperty(key) returns null.
+	•	You can provide a default value:
+getProperty("db", "defaultDB").
+
+⸻
+
+13. How can we retrieve values from a Properties object?
+	•	Using getProperty(String key).
+	•	Example:
+
+String os = p.getProperty("OS");
+
+
+
+⸻
+
+14. Why is Properties preferred for configuration management over a regular text file?
+	•	Provides structured access (key-value format).
+	•	Supports loading and saving with minimal code.
+	•	Built-in support for both text and XML formats.
+	•	Reduces errors compared to parsing plain text manually.
+
+⸻
+
+15. Can we store non-string values in a Properties object? Why or why not?
+•	No, not directly.
+•	setProperty() enforces String values.
+•	If you want to store other data types (e.g., int, boolean), you must convert to String and parse back later.
+
+Example:
+
+props.setProperty("port", String.valueOf(8080));
+int port = Integer.parseInt(props.getProperty("port"));
+
+⸻
+
+This Q&A set covers Basic → Intermediate → Advanced levels:
+•	Basic: class definition, storage, usage.
+•	Intermediate: file formats, escaping, differences.
+•	Advanced: loading, defaults, type handling, best practices.
+
+---

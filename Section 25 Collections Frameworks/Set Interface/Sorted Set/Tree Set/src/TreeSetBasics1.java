@@ -1,17 +1,15 @@
-package SortedMapDemo.TreeMapDemo;
-
 import java.util.*;
 
-public class TreeSetBasics {
+public class TreeSetBasics1 {
     public static void main(String[] args) {
         TreeSet<Integer> TS = new TreeSet<>((List.of(10,30,50,70,10,40)));
 
-        //Tree-set implements collection interface you can also write this like below.
-        //But you only access method inside the Collection Interfaces.
+        //Tree set implements the collection interface you can also write this like below.
+        //But you only access the method inside the Collection Interfaces.
         //Collection<Integer> TS2 = new TreeSet<>((List.of(10,30,50,70,10,40)));
         //System.out.println(TS2.);
 
-        //Tree-set also implements sorted set.You can take references of sorted set.
+        //Tree set also implements a sorted set.You can take references of sorted set.
         //SortedSet<Integer> TS23 = new TreeSet<>((List.of(10,30,50,70,10,40)));
         //TS3.//You can call the methods which are present inside the sorted set.
 

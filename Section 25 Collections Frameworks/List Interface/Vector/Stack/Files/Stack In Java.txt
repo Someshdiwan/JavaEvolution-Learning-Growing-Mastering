@@ -1,0 +1,143 @@
+LIFO - Last-In First Out Principle. Last item added to the stack. That item removed first.
+
+Stack extends the vector. it is synchronized, making it thread safe.
+
+Internal Working of Stack in Java:
+
+Introduction
+------------
+- In Java, `Stack` is a class in the `java.util` package.
+- It extends `Vector`, which means:
+  - It is backed by a **dynamic array** (just like Vector).
+  - It inherits synchronization (thread-safety).
+- `Stack` represents a **Last-In, First-Out (LIFO)** data structure.
+
+---
+
+1. Underlying Data Structure
+----------------------------
+- Stack is built on **Vector**, which uses a **dynamic array** internally.
+- Because of this:
+  - Size grows dynamically when needed.
+  - Operations are synchronized (slower than ArrayDeque).
+
+Declaration:
+Stack<Integer> stack = new Stack<>();
+
+Internally:
+Vector<Object> elementData = new Vector<>(initialCapacity);
+
+---
+
+2. Core Operations of Stack
+---------------------------
+
+1. push(E item)
+   - Adds (inserts) an element to the top of the stack.
+   - Internally, it calls `addElement(item)` from Vector.
+
+   Example:
+   stack.push(10); // adds 10 to stack top
+
+2. pop()
+   - Removes and returns the top element.
+   - Internally:
+     - Retrieves last element via `elementAt(size-1)`.
+     - Then calls `removeElementAt(size-1)`.
+
+   Example:
+   int x = stack.pop(); // removes top element
+
+3. peek()
+   - Returns the top element **without removing it**.
+   - Internally uses `elementAt(size-1)`.
+
+4. empty()
+   - Returns `true` if stack is empty.
+
+5. search(Object o)
+   - Returns the 1-based position from the top of the stack.
+   - If not found, returns -1.
+
+---
+
+3. ASCII Representation
+-----------------------
+
+Empty Stack:
+[]
+size = 0, capacity = 10
+
+After stack.push(5), stack.push(10), stack.push(20):
+[5, 10, 20]
+size = 3, capacity = 10
+Top → 20
+
+After stack.pop():
+[5, 10]
+size = 2
+Top → 10
+
+---
+
+4. Complexity of Operations
+----------------------------
+- push(E) → O(1) amortized (resizing may cost O(n))
+- pop()   → O(1)
+- peek()  → O(1)
+- search() → O(n) (linear search in array)
+
+---
+
+5. Advantages of Stack
+-----------------------
+- Simple and direct LIFO implementation.
+- Thread-safe (because it extends Vector).
+- Useful for recursion problems, expression evaluation, undo/redo, etc.
+
+---
+
+6. Limitations of Stack
+------------------------
+- Synchronization makes it **slower** than alternatives.
+- For most cases, **ArrayDeque** is recommended because:
+  - Faster (non-synchronized).
+  - Provides stack (push/pop) and queue operations.
+
+---
+
+7. Example Code
+---------------
+
+import java.util.*;
+
+public class StackDemo {
+    public static void main(String[] args) {
+        Stack<Integer> stack = new Stack<>();
+
+        stack.push(10);
+        stack.push(20);
+        stack.push(30);
+
+        System.out.println("Stack: " + stack);     // [10, 20, 30]
+        System.out.println("Top: " + stack.peek()); // 30
+
+        stack.pop();
+        System.out.println("After pop: " + stack); // [10, 20]
+
+        System.out.println("Search 10: " + stack.search(10)); // 2
+        System.out.println("Is empty? " + stack.empty());     // false
+    }
+}
+
+---
+
+Summary
+----------
+- Stack in Java is a **synchronized, LIFO** data structure.
+- Internally backed by **Vector (dynamic array)**.
+- Operations:
+  - push() → add element
+  - pop() → remove top
+  - peek() → check top
+- For performance-critical apps, prefer **ArrayDeque** instead of Stack.

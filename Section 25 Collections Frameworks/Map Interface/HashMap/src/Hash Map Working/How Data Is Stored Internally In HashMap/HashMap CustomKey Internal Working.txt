@@ -1,0 +1,107 @@
+code + diagram showing, how p1 and p3 (same hash, same equals) land in the same bucket, and why one replaces the other:
+
+How HashMap Uses hashCode() and equals():
+
+A HashMap in Java stores key-value pairs.
+
+When inserting an object as a key, HashMap:
+- Computes its hashCode() to determine the bucket index.
+- Uses equals() to check if two objects are identical.
+
+---
+
+Key Concepts with Example (Person class)
+----------------------------------------
+
+1. Custom Object as Key
+   - We create a `Person` class with `name` and `id`.
+   - Implement `hashCode()` and `equals()` so HashMap can identify duplicates.
+
+2. Behavior
+   - `map.put(p1, "Engineer");` → p1 (Alice, 1) stored.
+   - `map.put(p2, "Designer");` → p2 (Bob, 2) stored.
+   - `map.put(p3, "Manager");` → p3 (Alice, 1) same hash + equals → replaces p1’s value.
+
+3. Result
+   - `map.size()` → 2 (because p3 replaced p1).
+   - `map.get(p1)` and `map.get(p3)` → both return `"Manager"`.
+
+---
+
+Code Example
+
+import java.util.*;
+
+class Person {
+    private String name;
+    private int id;
+
+    public Person(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id); // Hash based on name + id
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Person other = (Person) obj;
+        return id == other.id && Objects.equals(name, other.name);
+    }
+}
+
+public class HashMapDemo {
+    public static void main(String[] args) {
+        Map<Person, String> map = new HashMap<>();
+
+        Person p1 = new Person("Alice", 1);
+        Person p2 = new Person("Bob", 2);
+        Person p3 = new Person("Alice", 1); // Same as p1 logically
+
+        map.put(p1, "Engineer");
+        map.put(p2, "Designer");
+        map.put(p3, "Manager"); // Replaces value of p1
+
+        System.out.println("HashMap Size: " + map.size());
+        System.out.println("Value for p1: " + map.get(p1));
+        System.out.println("Value for p3: " + map.get(p3));
+    }
+}
+
+⸻
+
+ASCII Diagram — How Keys Are Stored
+
+Assume capacity = 4 buckets for simplicity.
+
+Buckets: index 0     1         2        3
+         |      |          |        |
+         v      v          v        v
+        [ ]   [p2]      [p1]     [ ]
+
+Step 1: p1 ("Alice",1) hashes → bucket[2]
+        bucket[2] -> (Alice,1,"Engineer")
+
+Step 2: p2 ("Bob",2) hashes → bucket[1]
+        bucket[1] -> (Bob,2,"Designer")
+
+Step 3: p3 ("Alice",1) hashes → bucket[2]
+        - Same hash as p1
+        - equals() → true
+        - REPLACE old value
+
+Final State:
+bucket[1] -> (Bob,2,"Designer")
+bucket[2] -> (Alice,1,"Manager")
+
+⸻
+
+Conclusion
+1.	hashCode() decides the bucket (fast lookup).
+2.	equals() decides whether to overwrite or treat as a new entry.
+3.	That’s why p3 replaces p1, keeping HashMap keys unique.

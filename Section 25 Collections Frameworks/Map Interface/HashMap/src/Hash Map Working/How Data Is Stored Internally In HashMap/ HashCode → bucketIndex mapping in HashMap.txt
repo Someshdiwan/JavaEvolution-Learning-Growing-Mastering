@@ -1,0 +1,65 @@
+hashCode → bucketIndex mapping in HashMap:
+
+⸻
+
+1. Formula Recap
+
+HashMap internally hashCode ko le kar bucket index nikalta hai:
+
+bucketIndex = (hashCode(key)) & (n - 1)
+
+•	n = array ka size (capacity), always power of 2 (like 16, 32, …).
+•	& (n-1) fast modulus operation hai (better than %).
+
+⸻
+
+2. Example Keys
+•	Key1 = "ABC" → hashCode = 64578
+•	Key2 = "CBA" → hashCode = 64018
+
+Assume HashMap ki capacity = 16 (default).
+
+⸻
+
+3. Calculate Bucket Index
+
+bucketIndex("ABC") = 64578 & (16 - 1)
+                   = 64578 & 15
+                   = 2
+
+bucketIndex("CBA") = 64018 & (16 - 1)
+                   = 64018 & 15
+                   = 2
+
+Dono ka bucket index 2 nikla → Collision!
+
+⸻
+
+4. ASCII Diagram: Buckets in HashMap
+
+HashMap Buckets (capacity = 16)
+
+Index:   0   1   2         3   4 ... 15
+         ─────────────────────────────────
+Bucket: [ ] [ ] [ "ABC" ] [ ] [ ]     [ ]
+
+After inserting "CBA":
+
+Index:   0   1   2                 3   4 ... 15
+         ──────────────────────────────────────
+Bucket: [ ] [ ] [ "ABC" -> "CBA" ] [ ] [ ]     [ ]
+
+⸻
+
+5. How Collision is Handled?
+•	Java 7 and earlier → LinkedList chaining (all collided entries chained at same bucket).
+•	Java 8+ → If too many collisions (≥ 8 entries in one bucket),
+LinkedList is converted into a Balanced Tree (Red-Black Tree) for faster lookup (O(log n)).
+
+⸻
+
+HashMap me hashCode → bucketIndex mapping karke decide hota hai key kis bucket me jayega.
+
+Agar same bucketIndex nikla → collision → LinkedList ya Tree structure use hota hai.
+
+⸻

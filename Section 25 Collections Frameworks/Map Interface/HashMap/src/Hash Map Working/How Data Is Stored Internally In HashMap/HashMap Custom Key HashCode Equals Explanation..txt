@@ -1,0 +1,140 @@
+How HashMap Uses hashCode() and equals()
+
+A HashMap in Java stores key-value pairs.
+
+When inserting an object as a key, HashMap:
+- Computes its hashCode() to determine the bucket index.
+- Uses equals() to check if two objects are identical.
+
+---
+
+What Are We Doing Here?
+
+We are demonstrating how HashMap works internally when we use custom objects (Person) as keys.
+
+Specifically, we are implementing the hashCode() and equals() methods to ensure proper behavior when storing and
+retrieving values from a HashMap.
+
+---
+
+Key Concepts Demonstrated in the Code
+-------------------------------------
+
+1. Using HashMap with a Custom Class (Person) as Key
+   - `HashMap<Person, String> map = new HashMap<>();`
+   - We store a person's profession (e.g., "Engineer") using Person objects as keys.
+
+2. How hashCode() and equals() Work in HashMap
+   - `hashCode()` ensures that objects with the same name and id have the same hash code.
+   - `equals()` ensures that if two Person objects have the same name and id, they are treated as the same key.
+
+3. How Entries are Stored in HashMap
+   - `map.put(p1, "Engineer");` → p1 (Alice, 1) is stored.
+   - `map.put(p2, "Designer");` → p2 (Bob, 2) is stored.
+   - `map.put(p3, "Manager");` → p3 (Alice, 1) has the same hash code as p1, so it replaces p1's value.
+
+4. Checking HashMap Behavior
+
+System.out.println(“HashMap Size: “ + map.size()); // Output: 2
+System.out.println(“Value for p1: “ + map.get(p1)); // Output: Manager
+System.out.println(“Value for p3: “ + map.get(p3)); // Output: Manager
+
+- Even though we inserted three objects, the size is 2 because p3 replaced p1.
+
+5. Comparing with a HashMap<String, Integer>
+
+Map<String, Integer> map1 = new HashMap<>();
+map1.put(“Shubham”, 90);
+map1.put(“Neha”, 92);
+map1.put(“Shubham”, 99);
+
+// Shubham is added twice, but its value (90) is replaced with (99).
+
+- HashMap maintains unique keys, and if a duplicate key is added, it replaces the existing value.
+
+---
+
+Internal Working of HashMap
+---------------------------
+
+Step 1: Calculate hashCode()
+
+@Override
+public int hashCode() {
+return Objects.hash(name, id);
+}
+
+- Generates a hash code based on `name` and `id`.
+
+Step 2: Determine Bucket Index
+- The hash code is used to determine the bucket.
+- If two objects have the same hash code, they go into the same bucket.
+
+Step 3: Handle Collisions Using equals()
+
+@Override
+public boolean equals(Object obj) {
+if (this == obj) return true;
+if (obj == null || getClass() != obj.getClass()) return false;
+Person other = (Person) obj;
+return id == other.id && Objects.equals(name, other.name);
+}
+
+- If `equals()` returns true, the new value replaces the old value.
+
+---
+
+Code Example
+------------
+```java
+import java.util.*;
+
+class Person {
+    private String name;
+    private int id;
+
+    public Person(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Person other = (Person) obj;
+        return id == other.id && Objects.equals(name, other.name);
+    }
+}
+
+public class HashMapDemo {
+    public static void main(String[] args) {
+        Map<Person, String> map = new HashMap<>();
+
+        Person p1 = new Person("Alice", 1);
+        Person p2 = new Person("Bob", 2);
+        Person p3 = new Person("Alice", 1);
+
+        map.put(p1, "Engineer");
+        map.put(p2, "Designer");
+        map.put(p3, "Manager");
+
+        System.out.println("HashMap Size: " + map.size());
+        System.out.println("Value for p1: " + map.get(p1));
+        System.out.println("Value for p3: " + map.get(p3));
+    }
+}
+
+⸻
+
+Conclusion
+1.	Without hashCode() and equals(), HashMap would treat all Person objects as unique, even if they had the same name and id.
+2.	Implementing hashCode() and equals() ensures correct key comparison and prevents duplicate keys.
+3.	This behavior is similar to how HashMap<String, Integer> works, where the same string key replaces the previous value.
+
+---

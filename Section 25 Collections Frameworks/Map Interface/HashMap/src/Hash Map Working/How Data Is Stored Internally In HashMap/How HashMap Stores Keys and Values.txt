@@ -1,0 +1,61 @@
+ASCII Diagram — How HashMap Stores Keys and Values (Buckets):
+
+This simplified ASCII shows how HashMap maps keys to buckets using hashCode → index, and how collisions are chained
+(linked list or tree after a threshold).
+
+Assume capacity = 8 (bucket array of size 8).
+Index is computed from hash(key).
+
+Buckets (index 0..7):
+
+index:   0      1      2      3      4      5      6              7
+        |      |      |      |      |      |      |              |
+        v      v      v      v      v      v      v              v
+      [ ]   [K2]   [K1]   [ ]   [K3]   [ ]   [K4] -> [K5]       [ ]
+
+Legend:
+- [Kx] denotes a node storing (key, value, hash, next)
+- "->" denotes chaining (collision list).
+- After Java 8, long chains may convert into a balanced tree (for performance).
+
+------------------------------------------------------------
+
+Example Mapping (Conceptual):
+- Key K1 hashes to index 2 → bucket[2] → (K1, V1)
+- Key K2 hashes to index 1 → bucket[1] → (K2, V2)
+- Key K3 hashes to index 4 → bucket[4] → (K3, V3)
+- Key K4 and K5 both hash to index 6 (collision):
+    bucket[6] → (K4, V4) → (K5, V5)
+  If depth > TREEIFY_THRESHOLD, this bucket may become a Red-Black Tree.
+
+------------------------------------------------------------
+
+Memory Layout (Simplified):
+- table[]  → array of Node<K,V> references (size = capacity).
+- Each Node contains: int hash; K key; V value; Node<K,V> next;
+
+------------------------------------------------------------
+
+How get(key) Works (High Level):
+1. Compute hash = spread(key.hashCode()).
+2. index = (table.length - 1) & hash   // fast modulus since length is power of 2.
+3. node = table[index]
+4. while (node != null):
+       if (node.hash == hash && node.key.equals(key)) return node.value
+       node = node.next
+5. If not found → return null.
+
+------------------------------------------------------------
+
+Rehashing (Resize) Steps (when size > threshold):
+1. Create new table with larger capacity (usually double).
+2. Recompute index for each existing node.
+3. Move nodes to new table.
+4. Update reference to new table.
+
+------------------------------------------------------------
+
+Notes:
+- Good hashCode() distribution avoids collisions.
+- Default capacity = 16, load factor = 0.75 → threshold = 16 * 0.75 = 12
+- HashMap allows one null key (stored in table[0]) and multiple null values.

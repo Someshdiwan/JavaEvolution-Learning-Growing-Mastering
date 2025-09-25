@@ -1,0 +1,71 @@
+Differences Between TreeMap and HashMap in Java
+
+Both TreeMap and HashMap implement the Map interface in Java, but they differ significantly in terms of ordering,
+performance, memory usage, and use cases.
+
+⸻
+
+Feature               | TreeMap                                     | HashMap
+----------------------|---------------------------------------------|-----------------------------------------
+Ordering              | Maintains keys in sorted order              | No ordering of keys (unordered)
+Implementation        | Red-Black Tree (self-balancing BST)         | Hash table and hashing mechanism
+Performance           | O(log n) for put(), get(), remove()         | O(1) average for put(), get(), remove()
+Null Keys             | No null keys; multiple null values allowed  | One null key allowed; multiple null values
+Best Use Case         | Sorted data retrieval, range queries        | Fast lookups and insertions
+Memory Usage          | Higher (tree node overhead)                 | Lower (hash buckets only)
+Iterator Behavior     | Iterates in ascending key order             | Iterates in unpredictable order
+
+⸻
+
+When to Use What?
+
+✅ Use TreeMap when:
+	•	You need sorted key-value pairs.
+	•	You require navigation methods like higherKey(), lowerKey(), ceilingKey(), floorKey().
+	•	You are implementing range queries or ordered data structures.
+
+✅ Use HashMap when:
+	•	You need fast performance (O(1) average for lookups/inserts).
+	•	The order of elements does not matter.
+	•	You want a memory-efficient choice for large datasets.
+
+⸻
+
+Example Code Comparison
+
+TreeMap Example (Sorted Order)
+
+import java.util.TreeMap;
+
+public class TreeMapExample {
+    public static void main(String[] args) {
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
+        treeMap.put(3, "C");
+        treeMap.put(1, "A");
+        treeMap.put(2, "B");
+
+        System.out.println(treeMap); // Output: {1=A, 2=B, 3=C} (Sorted Order)
+    }
+}
+
+HashMap Example (Unordered)
+
+import java.util.HashMap;
+
+public class HashMapExample {
+    public static void main(String[] args) {
+        HashMap<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(3, "C");
+        hashMap.put(1, "A");
+        hashMap.put(2, "B");
+
+        System.out.println(hashMap); // Output: {3=C, 1=A, 2=B} (Unordered)
+    }
+}
+
+
+⸻
+
+Final Takeaway
+•	Choose TreeMap if you need ordering and navigation capabilities.
+•	Choose HashMap if you need speed and efficiency without caring about order.

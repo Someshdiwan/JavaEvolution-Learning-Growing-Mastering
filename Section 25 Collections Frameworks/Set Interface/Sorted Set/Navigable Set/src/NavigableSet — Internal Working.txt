@@ -1,0 +1,111 @@
+NavigableSet — Internal Working:
+
+Overview
+--------
+- `NavigableSet` is a sub-interface of `SortedSet` introduced in Java 6.
+- It represents a **sorted set with navigation methods** to find closest matches (lower, floor, ceiling, higher) and
+  to traverse in both directions.
+- Common implementation: `TreeSet` (backed by a **Red-Black Tree**, a self-balancing binary search tree).
+
+Hierarchy:
+```
+Set (interface)
+   ↑
+SortedSet (interface) → maintains elements in sorted order
+   ↑
+NavigableSet (interface) → adds navigation methods
+   ↑
+TreeSet (class) → main implementation (uses TreeMap internally)
+```
+
+Core Features
+-------------
+1. **Sorted order**
+   - Elements stored in ascending natural order (or by custom Comparator).
+
+2. **Navigation methods**
+   - `lower(e)` → greatest element < e
+   - `floor(e)` → greatest element ≤ e
+   - `ceiling(e)` → smallest element ≥ e
+   - `higher(e)` → smallest element > e
+
+3. **Reverse traversal**
+   - `descendingSet()` returns a view in reverse order.
+   - `descendingIterator()` iterates from largest to smallest.
+
+4. **Range views**
+   - `subSet(from, to)` → elements within range.
+   - `headSet(to)` → elements less than toElement.
+   - `tailSet(from)` → elements greater than or equal to fromElement.
+
+5. **Null handling**
+   - Nulls generally **not allowed** in natural-order NavigableSets (like TreeSet).
+
+6. **Duplicates**
+   - Not allowed (set property).
+
+Internal Working
+----------------
+- Most NavigableSet implementations (like `TreeSet`) are backed by a `TreeMap` internally.
+- Elements are stored as **keys of TreeMap**, values are dummy objects (`PRESENT`).
+- The tree is a **Red-Black Tree**, so operations (insert/search/delete) are **O(log n)**.
+
+ASCII Example (Tree-based structure)
+------------------------------------
+
+Insert elements: `10, 20, 30, 40, 50`
+
+Balanced Red-Black Tree inside TreeSet:
+
+```
+        (30,B)
+       /     \
+   (20,R)   (40,R)
+   /           \
+(10,B)        (50,B)
+```
+
+- Nodes are ordered (inorder traversal gives ascending order).
+- Color coding ensures balancing rules of Red-Black Tree.
+
+Navigation Examples
+-------------------
+
+Set = [10, 20, 30, 40, 50]
+
+- `lower(30)`   → 20
+- `floor(30)`   → 30
+- `ceiling(25)` → 30
+- `higher(30)`  → 40
+- `descendingSet()` → [50, 40, 30, 20, 10]
+
+Operation Flow
+--------------
+
+1. **add(e)** → Insert element into Red-Black Tree, balance tree (O(log n)).
+2. **remove(e)** → Remove node, rebalance tree (O(log n)).
+3. **contains(e)** → Tree search (O(log n)).
+4. **iterator()** → Inorder traversal (ascending).
+5. **descendingIterator()** → Reverse inorder traversal.
+
+Performance
+-----------
+- add / remove / search: O(log n)
+- iteration: O(n)
+- memory: requires tree nodes (slightly heavier than HashSet).
+
+Difference vs Other Sets
+-------------------------
+| Feature               | HashSet                 | LinkedHashSet            | TreeSet (NavigableSet)          |
+|-----------------------|-------------------------|--------------------------|---------------------------------|
+| Ordering              | No order                | Insertion order          | Sorted order (natural / custom) |
+| Backing structure     | HashMap                 | HashMap + LinkedList     | TreeMap (Red-Black Tree)        |
+| Time complexity       | O(1) avg                | O(1) avg                 | O(log n)                        |
+| Null handling         | 1 null allowed          | 1 null allowed           | No nulls (for natural order)    |
+
+Use Cases
+---------
+- When you need **sorted unique elements**.
+- When you want **range queries** (subsets, headsets, tailsets).
+- When you need **closest match lookups** (`floor`, `ceiling`, etc.).
+- Useful for implementing priority-based systems, scheduling, auto-suggestions, financial ranges, etc.

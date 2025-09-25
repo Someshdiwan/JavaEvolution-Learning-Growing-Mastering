@@ -1,0 +1,18 @@
+Quick Differences: LinkedList vs Queue (Concept)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Aspect              | LinkedList (Concrete Class)                        | Queue (Interface / Concept)                                                                                                       |
+|---------------------|----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| **Type**            | Concrete data structure (implements List, Deque)   | Abstract contract that defines FIFO behavior                                                                                      |
+| **Hierarchy**       | Extends `AbstractSequentialList`, implements `List`, `Deque`, `Queue` | Belongs to `java.util`, implemented by `LinkedList`, `PriorityQueue`, `ArrayDeque`, `ArrayBlockingQueue`, etc. |
+| **Primary Purpose** | General-purpose doubly-linked list (list + deque)  | First-In-First-Out (FIFO) semantics (enqueue/dequeue)                                                                             |
+| **Data Structure**  | Doubly-linked nodes (each node has `prev`, `next`) | Depends on implementation: linked list, array, skip list, heap                                                                    |
+| **Ordering**        | Maintains insertion order                         | FIFO ordering (or priority-based for `PriorityQueue`)                                                                              |
+| **Random Access**   | Supported via index (`get(int)`), but O(n)         | Not always supported; depends on implementation                                                                                   |
+| **Insert/Remove**   | Fast at head/tail (`addFirst`, `removeLast`)       | `offer()` adds to tail, `poll()`/`remove()` removes from head                                                                     |
+| **Null Handling**   | Allows multiple nulls                              | Depends: `LinkedList` allows nulls, but `PriorityQueue` / concurrent queues may disallow                                          |
+| **Thread-Safety**   | Not thread-safe (must synchronize externally)      | Varies: `ArrayBlockingQueue`, `ConcurrentLinkedQueue` are thread-safe                                                             |
+| **Iteration**       | Bidirectional (`ListIterator`)                     | Depends on implementation; usually forward-only FIFO                                                                              |
+| **Use Cases**       | When you need both **list-like** (random access) and **deque-like** behavior | When you need pure queue semantics (task scheduling, producer-consumer, buffering)                      |
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

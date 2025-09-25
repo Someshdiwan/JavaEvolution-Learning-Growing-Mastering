@@ -1,0 +1,131 @@
+Queue — Theory, Internal Working:
+
+Overview
+--------
+- `Queue` is an interface (java.util.Queue) modeling FIFO (first-in-first-out) behavior.
+- Multiple implementations exist: `LinkedList` (unbounded, non-blocking), `ArrayBlockingQueue` (bounded, blocking), `PriorityQueue` (not FIFO — ordered by comparator), `ConcurrentLinkedQueue`, etc.
+- Key difference: a `Queue` is a semantic contract (enqueue/dequeue), while `LinkedList` is a concrete data structure that can implement a queue.
+
+Core queue methods and semantics
+-------------------------------
+- `add(e)`: inserts element; throws exception if capacity restricted and full.
+- `offer(e)`: inserts element; returns `false` if capacity restricted and full.
+- `remove()`: removes and returns head; throws exception if empty.
+- `poll()`: removes and returns head; returns `null` if empty.
+- `element()`: returns head without removing; throws exception if empty.
+- `peek()`: returns head without removing; returns `null` if empty.
+
+Queue internal variants and their internals
+------------------------------------------
+1. **LinkedList as Queue**
+   - Internally a doubly-linked list (see previous box).
+   - `add`/`offer` at tail = O(1); `remove`/`poll` at head = O(1).
+   - Unbounded (limited by memory).
+
+   ASCII:
+
+   Enqueue 1: [1]
+   Enqueue 2: [1, 2]
+   Dequeue(): 1 removed -> [2]
+
+2. **ArrayBlockingQueue**
+- Fixed-size circular buffer (array) with head/tail indices.
+- For multi-thread usage, supports blocking operations (`put`, `take`) with locks/conditions.
+- `offer` vs `add` semantics differ only when full.
+- Good for producer-consumer with bounded capacity.
+
+Circular buffer ASCII (capacity = 5):
+
+array: [_, _, _, _, _]
+head=0 tail=0 size=0
+
+offer(10): array[tail]=10; tail=(tail+1)%5; size=1
+array: [10, _, _, _, _] head=0 tail=1
+
+take(): val = array[head]; head=(head+1)%5; size–
+
+3. **ConcurrentLinkedQueue**
+- Lock-free, linked-node based queue using CAS (compare-and-swap).
+- High-concurrency non-blocking implementation suitable for many threads.
+- Iterators are weakly consistent (may or may not reflect concurrent updates).
+
+Key differences between Queue implementations
+---------------------------------------------
+- **Threading & Blocking**
+- `LinkedList`: not thread-safe (unless externally synchronized).
+- `ArrayBlockingQueue`: thread-safe, supports blocking operations (`put/take`).
+- `ConcurrentLinkedQueue`: thread-safe, non-blocking.
+
+- **Capacity**
+- `LinkedList`: unbounded.
+- `ArrayBlockingQueue`: bounded (fixed capacity).
+- `ConcurrentLinkedQueue`: effectively unbounded.
+
+Example code: LinkedList as Queue (non-blocking)
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class LinkedListAsQueue {
+ public static void main(String[] args) {
+     Queue<Integer> q = new LinkedList<>();
+     q.add(1);      // enqueue
+     q.offer(2);    // enqueue
+     System.out.println("Queue: " + q);
+
+     System.out.println("Poll: " + q.poll()); // dequeue -> 1
+     System.out.println("Peek: " + q.peek()); // 2 (without removing)
+ }
+}
+```
+
+Example code: ArrayBlockingQueue (bounded, thread-safe)
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Queue;
+
+public class BoundedQueueExample {
+    public static void main(String[] args) {
+        ArrayBlockingQueue<Integer> q = new ArrayBlockingQueue<>(2);
+        System.out.println(q.offer(1)); // true
+        System.out.println(q.offer(2)); // true
+        System.out.println(q.offer(3)); // false because full
+
+        try {
+            q.put(3); // blocks (or throws if interrupted) until space is available
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+}
+```
+
+When to use which queue
+	•	Use LinkedList/ArrayDeque for simple single-threaded FIFO needs.
+	•	Use ArrayBlockingQueue or LinkedBlockingQueue for producer-consumer bounded/unbounded blocking queues.
+	•	Use ConcurrentLinkedQueue for high-concurrency non-blocking queues.
+	•	Use PriorityQueue when you need priority ordering rather than FIFO.
+
+Performance summary
+	•	Enqueue/dequeue in LinkedList and ArrayDeque: O(1).
+	•	ArrayBlockingQueue: O(1) but may block threads.
+	•	ConcurrentLinkedQueue: expected O(1) amortized, highly concurrent.
+
+ASCII example overview
+
+LinkedList Queue:
+
+operations:
+offer(1) -> [1]
+offer(2) -> [1,2]
+poll()   -> returns 1 -> [2]
+peek()   -> returns 2 -> [2]
+
+ArrayBlockingQueue (capacity 3):
+
+start: [_,_,_] head=0 tail=0
+offer(10): [10,_,_] head=0 tail=1 size=1
+offer(20): [10,20,_] head=0 tail=2 size=2
+offer(30): [10,20,30] head=0 tail=0 size=3 (full)
+offer(40): fails (returns false) or blocks for put()
+take(): returns 10 -> head=1 size=2

@@ -1,0 +1,98 @@
+Queue Interface in Java
+-----------------------
+
+Definition:
+The Queue interface is part of the java.util package and is a child interface of the Collection interface.
+It represents a **First-In, First-Out (FIFO)** data structure, though some implementations may differ (like PriorityQueue).
+A Queue models the concept of a **waiting line**, where elements are processed in the order they arrive.
+
+Key Features of Queue Interface:
+
+1. Ordering
+   - Typically follows FIFO (First-In, First-Out).
+   - Some implementations alter ordering:
+     - Priority-based (PriorityQueue).
+     - Double-ended (Deque and its implementations).
+
+2. Null Values
+   - Most implementations do not allow null elements.
+   - Attempting to insert null usually results in NullPointerException.
+
+3. Element Insertion
+   - Standard methods:
+     - add(E e) → inserts element, throws exception if capacity restrictions apply.
+     - offer(E e) → inserts element, returns false if capacity restrictions prevent addition.
+
+4. Element Removal
+   - Standard methods:
+     - remove() → removes and returns head element, throws exception if empty.
+     - poll() → removes and returns head element, returns null if empty.
+
+5. Element Inspection
+   - Methods to check the head (front) element without removing:
+     - element() → retrieves head, throws exception if empty.
+     - peek() → retrieves head, returns null if empty.
+
+6. Iteration
+   - Can be traversed using:
+     - for-each loop
+     - Iterator
+     - Spliterator (in streams)
+
+7. Capacity
+   - Some queues are bounded (e.g., ArrayBlockingQueue) with fixed capacity.
+   - Others (like LinkedList, PriorityQueue) are unbounded but limited by memory.
+
+8. Thread Safety
+   - Queue itself is not synchronized.
+   - For concurrent environments, use implementations from `java.util.concurrent` like:
+     - ConcurrentLinkedQueue
+     - ArrayBlockingQueue
+     - LinkedBlockingQueue
+     - PriorityBlockingQueue
+     - DelayQueue
+
+Common Implementations of Queue:
+
+- **LinkedList**
+  - Implements Queue and Deque.
+  - Doubly linked list, allows null elements.
+  - Provides FIFO operations plus Deque operations.
+
+- **PriorityQueue**
+  - Orders elements according to natural order or custom Comparator.
+  - Does not allow null.
+  - Not thread-safe.
+
+- **ArrayDeque**
+  - Resizable array-based deque.
+  - Faster than LinkedList for queue/deque operations.
+  - Does not allow null.
+  - Provides both queue and stack operations.
+
+- **ConcurrentLinkedQueue**
+  - Thread-safe, lock-free queue for high-performance concurrent access.
+  - Unbounded.
+  - Non-blocking operations.
+
+- **Blocking Queues (ArrayBlockingQueue, LinkedBlockingQueue, PriorityBlockingQueue, DelayQueue, SynchronousQueue)**
+  - Belong to java.util.concurrent package.
+  - Support producer-consumer patterns with blocking `put()` and `take()` methods.
+  - Can be bounded or unbounded.
+  - Thread-safe by design.
+
+Practical Use Cases:
+- Implementing producer-consumer patterns.
+- Task scheduling and job queues.
+- Breadth-first search (BFS) algorithms.
+- Buffering requests in concurrent systems.
+- Priority-based task execution (using PriorityQueue).
+
+Summary:
+- Queue = Collection designed for **FIFO processing** (though variants exist).
+- Choice of implementation depends on requirements:
+  - Simple FIFO → LinkedList, ArrayDeque
+  - Priority-based ordering → PriorityQueue
+  - Concurrent, non-blocking → ConcurrentLinkedQueue
+  - Blocking (producer-consumer) → ArrayBlockingQueue, LinkedBlockingQueue, etc.
+  - Double-ended flexibility → ArrayDeque, LinkedList (Deque interface)

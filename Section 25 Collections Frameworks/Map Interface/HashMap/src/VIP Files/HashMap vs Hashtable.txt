@@ -1,0 +1,115 @@
+HashMap vs Hashtable in Java
+
+Introduction
+------------
+Both HashMap and Hashtable are classes in Java that implement the Map interface and store data in key-value pairs.
+They are hash table–based data structures but differ significantly in design, features, and usage.
+
+---
+
+1. Package and Legacy
+---------------------
+- HashMap: Introduced in Java 1.2 as part of the Collections Framework (`java.util` package).
+- Hashtable: Legacy class from Java 1.0 (before Collections Framework).
+
+---
+
+2. Synchronization and Thread Safety
+------------------------------------
+- HashMap: Not synchronized → faster in single-threaded environments. Must be externally synchronized when used by
+  multiple threads.
+- Hashtable: Synchronized → all methods are thread-safe but at the cost of performance.
+
+---
+
+3. Null Handling
+----------------
+- HashMap: Allows one `null` key and multiple `null` values.
+- Hashtable: Does **not** allow `null` keys or `null` values. Attempting to insert them throws `NullPointerException`.
+
+---
+
+4. Performance
+--------------
+- HashMap: Faster because it is unsynchronized (no locking overhead).
+- Hashtable: Slower due to synchronized methods.
+
+---
+
+5. Iterators
+------------
+- HashMap: Uses **Iterator**, which is fail-fast.
+  If the map is structurally modified after the iterator is created, it throws `ConcurrentModificationException`.
+- Hashtable: Uses **Enumerator** (legacy) and Iterator. Enumerator is not fail-fast.
+
+---
+
+6. Order of Elements
+--------------------
+- Both HashMap and Hashtable do not guarantee any specific order of elements.
+- If order is required, use `LinkedHashMap` (insertion order) or `TreeMap` (sorted order).
+
+---
+
+7. Modern Usage
+---------------
+- HashMap: Preferred in most applications. Use `ConcurrentHashMap` for thread-safe operations in concurrent environments.
+- Hashtable: Considered obsolete. Still found in some legacy systems but generally avoided in new code.
+
+---
+
+8. Example Code
+---------------
+
+HashMap Example:
+```java
+import java.util.HashMap;
+
+public class HashMapDemo {
+    public static void main(String[] args) {
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(1, "A");
+        map.put(2, "B");
+        map.put(null, "C");  // Allowed
+        map.put(3, null);    // Allowed
+
+        System.out.println(map);
+    }
+}
+
+Hashtable Example:
+
+import java.util.Hashtable;
+
+public class HashtableDemo {
+    public static void main(String[] args) {
+        Hashtable<Integer, String> table = new Hashtable<>();
+        table.put(1, "A");
+        table.put(2, "B");
+        // table.put(null, "C");  // NullPointerException
+        // table.put(3, null);    // NullPointerException
+
+        System.out.println(table);
+    }
+}
+
+
+⸻
+
+Summary
+•	HashMap → Modern, faster, allows null, not synchronized. Use in single-threaded or with external sync.
+•	Hashtable → Legacy, synchronized, disallows null. Rarely used today; replaced by ConcurrentHashMap.
+
+⸻
+
+Feature               | HashMap                                      | Hashtable
+----------------------|----------------------------------------------|-----------------------------------------
+Ordering              | No ordering of keys (unordered)              | No ordering of keys (unordered)
+Implementation        | Hash table and hashing mechanism             | Hash table (legacy implementation)
+Performance           | O(1) average for put(), get(), remove()      | O(1) average but slower due to synchronization
+Null Keys             | Allows one null key and multiple null values | Does not allow null keys or null values
+Thread Safety         | Not synchronized (must be manually handled)  | Synchronized (thread-safe, but slower)
+Iterators             | Iterator (fail-fast)                         | Enumerator (legacy, not fail-fast) + Iterator
+Modern Usage          | Preferred choice;                            |
+                      | use ConcurrentHashMap for thread-safe needs  | Considered legacy; rarely used in new applications
+Introduced In         | Java 1.2 (Collections Framework)             | Java 1.0 (pre-Collections, legacy class)

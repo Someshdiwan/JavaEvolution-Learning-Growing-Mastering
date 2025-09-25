@@ -1,5 +1,3 @@
-package Set.HashSetDemo;
-
 import java.util.HashSet;
 
 public class HashSetBasic {
@@ -18,7 +16,7 @@ public class HashSetBasic {
         HS1.add(30);
         HS1.add(10);
 
-        //Duplicate are not allowed.
+        //Duplicate is not allowed.
         System.out.println(HS);
 
         System.out.println(HS1);

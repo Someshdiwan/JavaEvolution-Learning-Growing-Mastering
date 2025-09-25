@@ -1,0 +1,236 @@
+Internal working - java.util.Hashtable (detailed)
+
+Overview
+--------
+Hashtable is a legacy implementation of the Map interface that stores key → value pairs
+in a hash table (bucket array). It was part of early Java and is synchronized (thread-safe
+by using intrinsic locks on the Hashtable instance). While still available, in modern code
+you usually prefer ConcurrentHashMap for high-concurrency scenarios; Hashtable is useful
+to understand legacy behavior and basic synchronized hash-table design.
+
+Core ideas (short)
+- Backing structure: an array of buckets; each bucket holds one or more entries (nodes).
+- Key → bucket mapping: compute hashCode(key) → normalize → index = (hash mod buckets.length).
+- Collision handling: entries in the same bucket are chained (linked list of Entry nodes).
+- Thread-safety: most public methods are synchronized on the Hashtable instance.
+- Iteration: legacy enumerations (keys(), elements()) exist; collection-view iterators behave
+  similarly to other collection iterators (modern implementations are fail-fast).
+- Rehashing: when load threshold exceeded, the bucket array is grown and entries rehashed.
+
+Data structure (conceptual)
+---------------------------
+Hashtable stores an internal array of Node/Entry objects:
+
+internal array: Entry[] table;
+each Entry: { final K key; V value; Entry next; int hash; }
+
+Simple ASCII:
+
+table index: 0    1     2     3    4   ...
+             ↓    ↓     ↓     ↓    ↓
+bucket 0 -> null
+bucket 1 -> [Entry(hash=17, key=K1, value=V1) -> null]
+bucket 2 -> [Entry(hash=26, key=K2, value=V2) -> Entry(hash=106, key=K3, value=V3) -> null]
+bucket 3 -> null
+bucket 4 -> [Entry(hash=4, key=K4, value=V4) -> null]
+
+(Here bucket 2 shows a collision chain with two entries.)
+
+
+How a key maps to a bucket (conceptual)
+---------------------------------------
+1. Compute raw hash: int h = key.hashCode();
+2. Optionally remix / smear bits to reduce clustering.
+3. Compute index: index = (h & 0x7FFFFFFF) % table.length
+   (this gives a non-negative index within array bounds).
+4. Walk the bucket linked list to find a matching entry (equals()) or to append.
+
+
+Typical operation flows (ASCII + steps)
+--------------------------------------
+
+PUT (insert / update)
+---------------------
+Thread enters put(key, value) — method is synchronized (single lock on the Hashtable instance).
+
+Steps:
+  1. compute h = hash(key)
+  2. index = bucketIndex(h)
+  3. if table[index] == null:
+         create new Entry(k,v) and place it at table[index]
+     else:
+         iterate entry = table[index]; while(entry != null)
+             if entry.hash == h && entry.key.equals(key) -> update entry.value = value; return
+             entry = entry.next
+         // no existing key found, prepend or append new Entry to chain
+  4. size++
+  5. if size > threshold -> rehash() (grow table and re-distribute entries)
+
+
+ASCII:
+
+PUT "John": hash -> 7 -> index 7
+table[7] == null:
+  table[7] -> [Entry(hash7, "John", value) -> null]
+
+GET (lookup)
+------------
+No per-lookup locking beyond the method's synchronized entry (Hashtable.get is synchronized)
+Steps:
+  1. compute h = hash(key) ; index = bucketIndex(h)
+  2. entry = table[index]
+  3. while(entry != null)
+       if entry.hash == h && entry.key.equals(key) return entry.value;
+       entry = entry.next
+  4. return null
+
+ASCII:
+
+GET "John": hash -> 7 -> index 7
+table[7] -> [Entry(hash7, "John") -> ...] => found
+
+REMOVE
+
+------
+
+Synchronized method:
+  1. compute h, index
+  2. walk chain keeping previous pointer
+  3. if found remove by linking prev.next = current.next (or table[index] = current.next if removing head)
+  4. size--, set removed node fields to null for GC
+
+
+Rehash (growing the table)
+--------------------------
+- When size exceeds threshold (based on load factor), Hashtable grows its internal bucket array.
+- All entries are re-inserted/rehashed into the new array (index changes because table.length changed).
+- Rehash is an expensive global operation (synchronized, blocking other operations during rehash).
+
+
+
+Thread-safety model
+-------------------
+- Hashtable synchronizes most methods (get/put/remove/containsKey etc.) by using synchronized method
+  declarations. That means a single intrinsic lock (this) serializes access to these operations.
+- Pros: simple correctness model; no user-level locking required for single-method atomicity.
+- Cons: coarse-grained lock → low concurrency (only one thread can run any synchronized Hashtable method at a time),
+  can become contention bottleneck under high concurrency.
+
+
+Iteration and enumeration
+-------------------------
+- Legacy APIs: keys() and elements() return Enumeration objects (older pre-Collections API).
+  - Enumeration was introduced early, before Iterator existed. It offers hasMoreElements() / nextElement().
+- Modern usage: use entrySet(), keySet(), values() and their iterators.
+- Iterators from Hashtable's view collections behave like other collection iterators (attempt to be
+  fail-fast — detect concurrent modification and throw ConcurrentModificationException).
+- Enumeration (legacy) may behave differently historically; prefer modern iterators and synchronize externally
+  if iterating and mutating concurrently.
+
+
+Complexity summary
+------------------
+- get/put/remove: average O(1) if hash codes distribute keys well.
+- Worst-case (many collisions in same bucket): O(n) per operation (walk the chain).
+- Rehash cost: O(n) when resizing.
+- Iteration: O(n) to traverse buckets and chains.
+
+
+Collision handling
+------------------
+- Hashtable uses chaining: entries with the same bucket index are linked via a singly-linked list.
+- (Note: HashMap in Java 8+ can convert long chains into balanced trees to avoid O(n) worst-case;
+  legacy Hashtable historically does not treeify — it keeps chaining. Prefer modern maps for treeified behavior.)
+
+
+Memory / GC aspects
+-------------------
+- Each Entry node holds references to key, value, next — these must be nulled when removed to allow GC.
+- Rehash involves creating a new bucket array and moving references (temporary increased memory pressure).
+
+
+When to use Hashtable today
+---------------------------
+- Rarely recommended for new code.
+- Use when you need a simple, legacy-style synchronized map and are constrained to pre-Java 1.5 patterns.
+- Prefer ConcurrentHashMap for high-concurrency, better scalability and finer-grained locking.
+- If you need atomic compound operations (check-then-act), you may still need external synchronization or
+  use compute/putIfAbsent style methods on concurrent maps.
+
+
+Differences vs HashMap / ConcurrentHashMap (brief)
+--------------------------------------------------
+- Hashtable: synchronized methods (coarse-grained lock), legacy.
+- HashMap: non-synchronized, faster in single-threaded contexts, modern features (treeification on heavy collisions).
+- ConcurrentHashMap: thread-safe with high concurrency, internal partitioning/lock-striping
+(or non-blocking CAS internals in modern JDK), preferred for multithreaded workloads.
+
+
+ASCII flows (examples)
+----------------------
+
+1) Simple insert and collision
+
+Start: empty table (length = 8 for example)
+Index mapping: h("A") → 2 ; h("B") → 2 (collision)
+
+Before:
+table[2] -> null
+
+put("A", 1):
+table[2] -> [A:1]
+
+put("B", 2):  (collision: same bucket)
+table[2] -> [B:2] -> [A:1]
+
+(get order depends on insertion; we may prepend or append based on implementation)
+
+2) get after collisions
+get("B") -> index 2 -> check first node: B -> return 2
+get("A") -> index 2 -> check first node: B (not match); next node: A -> return 1
+
+3) remove head vs remove middle
+remove("B") -> unlink head:
+table[2] -> [A:1]
+
+remove("A") -> table[2] -> null
+
+4) rehash
+size crosses threshold → allocate new table with larger size → rehash all entries:
+old table:
+ idx2 -> [C] -> [D] -> [E] ...
+new length bigger → entries get new indexes according to new length → redistributed.
+
+Pitfalls & interview points
+---------------------------
+- Hashtable is synchronized — but synchronization is coarse-grained; ConcurrentHashMap is a better choice
+  when multiple threads need concurrent access without full serialization.
+- HashCode quality matters: poor hashCode() causes clustering → degraded performance.
+- Beware of relying on insertion/iteration order — Hashtable makes no ordering guarantees.
+- Rehash/resizing is expensive; when you know expected size, pre-allocate a sensible initial capacity.
+- Legacy API: Enumeration vs modern Iterator — prefer the latter in new code.
+
+Short FAQ
+---------
+Q: Is Hashtable deprecated?
+A: Not deprecated, but considered legacy. Use ConcurrentHashMap or synchronized wrappers of HashMap depending on need.
+
+Q: Are Hashtable iterators fail-fast?
+A: Iterators from the collection-view methods follow the standard fail-fast behavior (detect structural modifications).
+   The legacy Enumeration API behaves differently historically; avoid it for modern code.
+
+Q: Does Hashtable treeify buckets like HashMap (Java 8+)?
+A: No — Hashtable typically uses linked-list chaining and does not treeify buckets. HashMap in Java 8 added
+treeification to improve worst-case behavior.
+
+Q: How to make iteration safe in a multithreaded context?
+A: Either synchronize externally on the Hashtable instance during the whole iteration:
+     synchronized(table) { for (K k : table.keySet()) { ... } }
+   or use concurrent collections (ConcurrentHashMap) that provide weakly consistent iterators designed for concurrency.
+
+Practical recommendation
+------------------------
+- For legacy compatibility or very simple synchronized map needs, Hashtable is acceptable.
+- For real concurrent applications use ConcurrentHashMap.
+- For single-threaded or externally synchronized contexts use HashMap for performance.
+- Always design keys with good hashCode() and stable equals() to avoid correctness and performance problems.

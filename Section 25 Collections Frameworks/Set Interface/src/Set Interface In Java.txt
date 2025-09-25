@@ -1,0 +1,99 @@
+Set Interface in Java
+---------------------
+
+Definition:
+The Set interface is part of the java.util package and is a child interface of the Collection interface.
+It represents an **unordered collection** of unique elements (duplicates are not allowed).
+A Set models the mathematical concept of a "set."
+
+Key Features of Set Interface:
+
+1. Uniqueness
+   - A Set does not allow duplicate elements.
+   - If you try to insert a duplicate, the insertion is ignored (add() returns false).
+
+2. Ordering
+   - Most Set implementations do not guarantee order.
+   - However, specific implementations maintain:
+     - Insertion order (LinkedHashSet).
+     - Natural or custom sorted order (TreeSet).
+
+3. Null Values
+   - Some implementations allow a single null element (HashSet, LinkedHashSet).
+   - TreeSet may throw NullPointerException if you insert null (depends on Comparator).
+
+4. No Index-Based Access
+   - Unlike List, Set does not provide index-based access (no get(int index)).
+   - Elements are accessed via iteration or using contains(Object o).
+
+5. Iteration
+   - Elements can be traversed using:
+     - for-each loop
+     - Iterator
+     - Spliterator (in streams)
+
+6. Search & Membership
+   - contains(Object o) checks for element existence in O(1) time (HashSet).
+
+7. Modification
+   - Basic operations:
+     - add(E e) → insert element (ignored if duplicate).
+     - remove(Object o) → delete element.
+     - clear() → remove all elements.
+
+8. Bulk Operations
+   - Methods for set algebra:
+     - addAll(Collection<? extends E> c) → Union.
+     - retainAll(Collection<?> c) → Intersection.
+     - removeAll(Collection<?> c) → Difference.
+
+Common Implementations of Set:
+
+- **HashSet**
+  - Backed by a HashMap internally.
+  - Does not guarantee order.
+  - Allows one null element.
+  - Average O(1) add, remove, contains.
+
+- **LinkedHashSet**
+  - Backed by LinkedHashMap.
+  - Maintains insertion order.
+  - Allows one null element.
+  - Slightly slower than HashSet due to ordering overhead.
+
+- **TreeSet**
+  - Implements NavigableSet, backed by a Red-Black Tree.
+  - Maintains elements in natural or custom sorted order.
+  - Does not allow null (if comparator used, may throw exception).
+  - Provides log(n) time for add, remove, contains.
+
+- **EnumSet**
+  - Specialized Set for enum types.
+  - Very fast and memory-efficient (internally uses bit vectors).
+  - Does not allow null.
+
+- **CopyOnWriteArraySet**
+  - Thread-safe variant.
+  - Backed by CopyOnWriteArrayList.
+  - Good for concurrent reads with infrequent writes.
+
+- **ConcurrentSkipListSet**
+  - Thread-safe, concurrent sorted set.
+  - Backed by ConcurrentSkipListMap.
+  - Supports scalable concurrent access.
+
+Practical Use Cases:
+- When you need to ensure uniqueness of elements.
+- Removing duplicates from a collection.
+- Membership testing (fast contains).
+- Maintaining ordered unique sets (TreeSet, LinkedHashSet).
+- Enum-based constant sets (EnumSet).
+- Concurrent programming (CopyOnWriteArraySet, ConcurrentSkipListSet).
+
+Summary:
+- Set = Collection without duplicates.
+- Choice of implementation depends on ordering, performance, and concurrency requirements:
+  - Fast + no order → HashSet
+  - Insertion order → LinkedHashSet
+  - Sorted order → TreeSet
+  - Specialized (enum/concurrent) → EnumSet, CopyOnWriteArraySet, ConcurrentSkipListSet

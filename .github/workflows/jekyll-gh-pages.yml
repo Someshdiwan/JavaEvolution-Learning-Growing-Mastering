@@ -1,50 +1,98 @@
-name: "Deploy Jekyll with GitHub Pages"
+# .github/workflows/deploy-pages.yml
+name: "Deploy Jekyll with GitHub Pages (robust)"
 
+# Triggers: push to main/master, manual dispatch, and periodic schedule (UTC)
 on:
   push:
-    branches: ["master"]
-  workflow_dispatch:
+    branches:
+      - main
+      - master
+  workflow_dispatch: {}
   schedule:
-    - cron: '0 12 * * *'
+    - cron: '0 12 * * *' # daily at 12:00 UTC (adjust if needed)
 
+# Least privilege for required tokens
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read        # read repo contents to build
+  pages: write          # allow publishing to GitHub Pages
+  id-token: write       # for OIDC if you need it later (optional)
 
+# Prevent concurrent runs for the same ref (avoids race conditions)
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"  # isolate per-branch/ref
   cancel-in-progress: false
 
 jobs:
   build:
+    name: Build site (Jekyll)
     runs-on: ubuntu-latest
+    outputs:
+      page_artifact: ${{ steps.upload-artifact.outputs.artifact-path || '' }}
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
         with:
-          source: ./site        # Your site folder
-          destination: ./_site  # Output folder
+          submodules: true
+          fetch-depth: 0
+
+      - name: Set up Ruby (for Jekyll)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'          # pick an appropriate Ruby version for your site
+          bundler-cache: true         # optional: automatically caches gems (fallback)
+
+      # If you prefer explicit caching control, here's a cache step for vendor/bundle:
+      - name: Cache bundler gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Configure Bundler & install dependencies
+        run: |
+          # Use vendor/bundle for reproducible builds and to make cache effective
+          bundle config set --local path 'vendor/bundle'
+          # Install with retries for network resilience
+          bundle install --jobs 4 --retry 3
+
+      - name: Build Jekyll site
+        run: |
+          # Explicit source/destination keeps things deterministic
+          bundle exec jekyll build --source site --destination _site
+        env:
+          # Ensure Jekyll sees production-like environment
+          JEKYLL_ENV: production
+
+      - name: Validate _site exists
+        run: |
+          if [ ! -d "_site" ]; then
+            echo "_site wasn't generated — failing the job."
+            exit 1
+          fi
 
       - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        id: upload-artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: github-pages         # <-- Only ONE job should use this name
           path: ./_site
+          # name is not required to be unique across repos; keep conservative naming
+          name: java-evolution-pages
 
   deploy:
+    name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url || '' }}
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
+        id: deploy
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: java-evolution-pages
+
+      - name: Output deploy URL
+        run: echo "Deployed to ${{ steps.deploy.outputs.page_url }}"

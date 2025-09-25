@@ -1,0 +1,93 @@
+Compare Plain BST vs TreeMap (Red-Black Tree) step by step with your same input sequence (10, 20, 15):
+
+ Input Sequence: 10 → 20 → 15
+
+⸻
+
+1️⃣ Plain Binary Search Tree (BST)
+
+Insert nodes one by one without balancing.
+
+Step 1: Insert 10
+
+   10
+
+Step 2: Insert 20
+
+   10
+     \
+      20
+
+Step 3: Insert 15
+	•	15 > 10 → go right
+	•	15 < 20 → go left
+
+   10
+     \
+      20
+     /
+   15
+
+👉 Problem: BST is skewed, depth can grow → O(n) in worst case.
+
+⸻
+
+2️⃣ TreeMap (Red-Black Tree)
+
+(TreeMap internally keeps balance using rotations + recoloring.)
+
+Step 1: Insert 10 (root is always BLACK)
+
+ (10, BLACK)
+
+Step 2: Insert 20 (new nodes are RED)
+
+   (10, BLACK)
+         \
+        (20, RED)
+
+Step 3: Insert 15
+	•	15 > 10 → go right
+	•	15 < 20 → go left
+	•	Insert as RED
+
+   (10, BLACK)
+         \
+        (20, RED)
+        /
+    (15, RED)
+
+❌ Problem: Consecutive REDs (20 & 15) → violates RBT property.
+
+⸻
+
+🔧 Fix (Rotation + Recoloring):
+	•	Rotate right around (20).
+	•	Recolor nodes.
+
+Final Balanced Tree:
+
+       (15, BLACK)
+      /          \
+ (10, RED)    (20, RED)
+
+✅ Now:
+	•	Balanced height = O(log n).
+	•	Ordered by keys (in-order traversal = 10, 15, 20).
+	•	No consecutive reds.
+
+⸻
+
+✨ Side-by-Side Summary
+
+Aspect	Plain BST	TreeMap (RBT)
+Insert 10,20,15	Skewed tree (10→20, left child 15)	Balanced tree with rotations
+Order maintained	Yes	Yes
+Balancing	❌ No balancing	✅ Automatic balancing (RBT)
+Performance worst	O(n)	O(log n)
+Used in TreeMap	❌ No	✅ Yes, TreeMap uses Red-Black Tree
+
+
+⸻
+
+👉 That’s why TreeMap ≠ simple BST → It’s a Red-Black Tree implementation ensuring efficiency.

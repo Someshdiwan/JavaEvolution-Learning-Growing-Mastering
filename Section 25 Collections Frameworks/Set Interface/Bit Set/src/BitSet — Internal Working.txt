@@ -1,0 +1,123 @@
+BitSet — Internal Working:
+
+Overview
+--------
+`BitSet` (java.util.BitSet) is a special-purpose data structure that represents a **set of bits (boolean values)**
+that can grow dynamically.
+- Internally backed by an array of `long` values (each long = 64 bits).
+- Each bit represents the presence (`1`) or absence (`0`) of a value (like a boolean flag).
+- Useful for memory-efficient storage of large sets of boolean data.
+
+Key properties:
+- **Resizable**: Can grow as needed.
+- **Compact**: Stores bits in packed form, far smaller than using `boolean[]` or `HashSet<Integer>`.
+- **Efficient operations**: Bit-level operations (AND, OR, XOR, NOT) are supported.
+- **Thread safety**: Not synchronized (external synchronization required in multi-threaded use).
+
+Internal Data Structure
+-----------------------
+- Backed by a `long[]` array.
+- Index → determines which long bucket and which bit inside it.
+
+Formula:
+```
+bitIndex = n
+bucketIndex = n / 64        // which long stores the bit
+bitPosition = n % 64        // which bit inside that long
+```
+
+For example, to store number `130`:
+- bucketIndex = 130 / 64 = 2
+- bitPosition = 130 % 64 = 2
+So, it sets the **3rd bit of 3rd long (index 2)**.
+
+ASCII Example
+-------------
+```java
+BitSet set = new BitSet();
+set.set(2);   // set bit at index 2
+set.set(5);   // set bit at index 5
+set.set(130); // set bit at index 130
+```
+
+Internal representation:
+
+```
+long[0] = 00000000...00100100   // bits 5 and 2 set
+long[1] = 00000000...00000000   // empty
+long[2] = 00000000...00000100   // bit 2 set (for 130)
+```
+
+(Here each long stores 64 flags compactly.)
+
+Operation Flow
+--------------
+1. **set(int bitIndex)**
+   - Finds bucket and bit position.
+   - Sets the bit using bitwise OR:
+     `words[bucketIndex] |= (1L << bitPosition)`
+
+2. **clear(int bitIndex)**
+   - Clears the bit using bitwise AND with complement:
+     `words[bucketIndex] &= ~(1L << bitPosition)`
+
+3. **get(int bitIndex)**
+   - Checks if bit is set:
+     `(words[bucketIndex] & (1L << bitPosition)) != 0`
+
+4. **flip(int bitIndex)**
+   - Toggles the bit (0 → 1, 1 → 0).
+
+5. **logical ops (and, or, xor, andNot)**
+   - Performs bitwise ops across underlying long arrays.
+   - Example: set1.and(set2) → bitwise AND operation.
+
+Performance
+-----------
+- **set/clear/get/flip**: O(1) (just bit masking).
+- **and/or/xor**: O(n/64) where n = number of bits.
+- **memory usage**: Very compact (1/8th size of boolean[]).
+
+Special Properties
+------------------
+- Grows automatically as higher indices are set.
+- Can be converted to `Stream` or used with `toLongArray()`.
+- BitSet is not thread-safe — wrap with synchronization if needed.
+
+Differences vs Other Sets
+--------------------------
+| Feature              | HashSet<Integer>           | BitSet                       |
+|----------------------|----------------------------|------------------------------|
+| Storage              | Hash table (keys)         | Bit array (long[])           |
+| Memory               | High (object overhead)    | Very compact (1 bit per flag)|
+| Speed                | O(1) avg (hashing)        | O(1) exact (bit ops)         |
+| Order                | No ordering               | Natural order (by index)     |
+| Null support         | No                        | Not applicable               |
+| Best use case        | Arbitrary objects/integers| Large boolean/int flags       |
+
+ASCII Flow of "set"
+-------------------
+Example: `set.set(10)`
+
+1. bucketIndex = 10 / 64 = 0
+2. bitPosition = 10 % 64 = 10
+3. words[0] |= (1L << 10)
+
+```
+Before: words[0] = 0000000000...
+After:  words[0] = 0000010000...  (10th bit set)
+```
+
+Use Cases
+---------
+- **Flags / boolean arrays** → Very memory-efficient.
+- **Large-scale indexing** → Marking visited nodes in graphs.
+- **Search algorithms** → Prime number sieve (Sieve of Eratosthenes).
+- **Permissions/feature toggles** → Represent user permissions in bits.
+- **Bitwise operations** → Efficient set operations using AND, OR, XOR.
+
+Key Notes
+---------
+- Best when working with **dense sets of integers**.
+- Avoid when elements are sparse but large (e.g., storing `1` and `1_000_000_000` → wastes space).
+- Iteration: can iterate set bits using `nextSetBit(int fromIndex)`.

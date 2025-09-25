@@ -1,0 +1,59 @@
+How a normal LinkedHashMap vs a LinkedHashMap with accessOrder = true + removeEldestEntry()` (LRU Cache) behaves.
+
+⸻
+
+Case 1: Normal LinkedHashMap (Insertion Order):
+
+Capacity doesn’t matter here since it doesn’t evict automatically.
+
+Start:  (empty)
+
+put(A) → [A]
+put(B) → [A → B]
+put(C) → [A → B → C]
+
+get(A) → [A → B → C]   // No reordering
+put(D) → [A → B → C → D] // Just keeps growing
+
+Insertion order is preserved. No eviction.
+
+⸻
+
+Case 2: LinkedHashMap with accessOrder = true (LRU Mode)
+
+Assume capacity = 3 and removeEldestEntry() removes oldest when size > 3.
+
+Start:  (empty)
+
+put(A) → [A]
+put(B) → [A → B]
+put(C) → [A → B → C]
+
+get(A) → [B → C → A]   // A moved to end (most recently used)
+
+put(D) → capacity exceeded!
+           → Evict B (least recently used)
+           → [C → A → D]
+
+get(C) → [A → D → C]   // C moved to end
+
+put(E) → capacity exceeded!
+           → Evict A
+           → [D → C → E]
+
+⸻
+
+Observations
+•	Normal LinkedHashMap:
+
+Just keeps keys in the order they were inserted, forever.
+•	LinkedHashMap (LRU mode):
+•	Every get() or put() moves the key to the end.
+•	Once size > capacity, the eldest entry (front of the list) is evicted.
+•	Ensures that only the most recently used items are kept.
+
+⸻
+
+That’s why LinkedHashMap(accessOrder=true) + removeEldestEntry() = ready-made LRU Cache implementation.
+
+⸻

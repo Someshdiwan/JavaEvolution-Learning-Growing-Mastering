@@ -1,0 +1,117 @@
+Vector is a part of the Java Collections Framework (java.util package).
+It is a legacy class introduced in JDK 1.0, long before the Collection Framework was added in Java 2 (JDK 1.2).
+
+Vector implements the List interface, making it similar to ArrayList in many ways.
+The key difference is that Vector methods are synchronized, which makes it thread-safe but slower than ArrayList.
+
+---
+
+1. Underlying Data Structure
+----------------------------
+- Vector uses a dynamic array (Object[]) to store elements.
+- By default, when a Vector is created without specifying capacity, it starts with an initial capacity of 10.
+
+Example:
+Vector<Integer> vector = new Vector<>();
+
+Internally:
+Object[] elementData = new Object[10];
+
+---
+
+2. How Elements Are Added
+-------------------------
+- When you call vector.add(element):
+  1. It checks if there is space in the internal array.
+  2. If space is available → element is inserted at the end.
+  3. If the array is full → a new larger array is created, old elements are copied, and then the new element is added.
+
+Growth Formula:
+newCapacity = (oldCapacity * 2)
+
+This means capacity doubles when the Vector is full.
+This is different from ArrayList, which grows by 50%.
+
+---
+
+3. Thread Safety
+----------------
+- All public methods of Vector are synchronized.
+- Only one thread can operate on a Vector at a time, preventing concurrent modification issues.
+- This synchronization ensures safety in multithreaded environments, but introduces performance overhead.
+
+---
+
+4. Accessing Elements
+---------------------
+- Vector provides O(1) (constant time) performance for get(index) and set(index, value).
+- Since it uses a contiguous array internally, direct index-based access is possible.
+
+---
+
+5. Removing Elements
+--------------------
+- When you remove an element at a given index:
+  1. The element is removed.
+  2. All elements to the right of that index are shifted left by one position.
+- This makes remove(index) an O(n) operation in the worst case.
+
+---
+
+6. Performance Characteristics
+-------------------------------
+- add(E e) → O(1) amortized
+- add(int index, E element) → O(n)
+- remove(int index) → O(n)
+- get(int index) → O(1)
+- set(int index, E element) → O(1)
+- contains(Object o) → O(n)
+- size() → O(1)
+
+---
+
+7. Special Features of Vector
+------------------------------
+- Allows duplicates.
+- Maintains insertion order.
+- Can store null values.
+- Provides fail-fast Iterators and ListIterators.
+- Still supports the older Enumeration interface for traversal.
+
+Example:
+Enumeration<Integer> e = vector.elements();
+
+---
+
+8. Advantages of Vector
+------------------------
+- Thread-safe because methods are synchronized.
+- Automatically grows its capacity (doubles when full).
+- Provides both Enumeration (legacy) and Iterator (modern) for traversal.
+- Good for use cases where multiple threads need to modify a list concurrently without external synchronization.
+
+---
+
+9. Disadvantages of Vector
+---------------------------
+- Slower than ArrayList due to synchronization overhead.
+- Considered a legacy class — in most modern applications, ArrayList or CopyOnWriteArrayList is preferred.
+- Resizing by doubling may waste memory compared to ArrayList’s 50% growth.
+
+---
+
+10. Key Points
+--------------
+- Default capacity = 10.
+- Capacity doubles when full.
+- All methods are synchronized.
+- Implements List, RandomAccess, Cloneable, and Serializable.
+- Provides both Enumeration and Iterator for traversing elements.
+
+---
+
+Summary
+-------
+Vector is a legacy class that works almost like ArrayList but with built-in synchronization for thread safety.
+It is useful in multithreaded scenarios but generally avoided in modern applications due to performance costs.
+In most cases, ArrayList (with external synchronization) or CopyOnWriteArrayList is a better choice.

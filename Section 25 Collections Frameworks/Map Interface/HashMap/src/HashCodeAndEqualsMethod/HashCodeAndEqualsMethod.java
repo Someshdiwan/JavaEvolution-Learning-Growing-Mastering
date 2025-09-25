@@ -1,4 +1,4 @@
-package CustomHashMapDemo;
+package HashCodeAndEqualsMethod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,19 +25,11 @@ public class HashCodeAndEqualsMethod {
 
 
         Map<String, Integer> map1 = new HashMap<>();
-        map1.put("Shubham", 90); // hashcode1 --> index1
-        map1.put("Neha", 92); // hashcode2 --> index2
-        map1.put("Shubham", 99); // hashcode1 --> index1 --> equals() --> replace
-
+        map1.put("Shubham", 90);       // hashcode1 --> index1
+        map1.put("Neha", 92);         // hashcode2 --> index2
+        map1.put("Shubham", 99);     // hashcode1 --> index1 --> equals() --> replace
     }
 }
-
-/*
-we are demonstrating how HashMap works internally when we use custom objects (Person) as keys.
-
-Specifically, we are implementing the hashCode() and equals() methods to ensure proper behavior when storing and
-retrieving values from a HashMap.
-*/
 
 class Person {
     private String name;

@@ -1,0 +1,121 @@
+Code Recap:
+
+HashMap<Person, String> map = new HashMap<>();
+Person p1 = new Person("Alice", 1);
+Person p2 = new Person("Bob", 2);
+Person p3 = new Person("Alice", 1);
+
+map.put(p1, "Engineer");
+map.put(p2, "Designer");
+map.put(p3, "Manager");
+
+👉 Yahaan hum ek `HashMap` bana rahe hain jisme **key = Person object** aur **value = Job title (String)**.
+- `p1` = Alice, id=1
+- `p2` = Bob, id=2
+- `p3` = Alice, id=1 (same data as p1, lekin alag object)
+
+---
+
+Step-by-Step Internal Working:
+
+1. **map.put(p1, "Engineer");**
+   - `p1.hashCode()` calculate hua.
+   - Maan lo bucket index = 5 aaya.
+   - `p1` key bucket[5] me insert ho gaya → value "Engineer".
+
+   ```
+   Bucket[5] → (p1 -> Engineer)
+   ```
+---
+
+2. **map.put(p2, "Designer");**
+   - `p2.hashCode()` nikala, maan lo index = 9 aaya.
+   - Key `p2` bucket[9] me store ho gaya → value "Designer".
+
+   ```
+   Bucket[5] → (p1 -> Engineer)
+   Bucket[9] → (p2 -> Designer)
+   ```
+
+---
+
+3. **map.put(p3, "Manager");**
+   - `p3.hashCode()` nikala.
+   - Kyunki `p3` bhi `"Alice", 1` hai, iska hashCode same as `p1`.
+   - Matlab bucket index = 5 aaya (same as p1).
+   - Ab bucket[5] ke andar `equals()` check hoga:
+     - `p1.equals(p3)` → true (kyunki name aur id dono same).
+   - Isliye HashMap ne purani value `"Engineer"` replace karke nayi value `"Manager"` daal di.
+
+   ```
+   Bucket[5] → (p3 -> Manager)   // replace
+   Bucket[9] → (p2 -> Designer)
+   ```
+---
+
+Output Behavior
+
+System.out.println("HashMap Size: " + map.size());
+// Output: 2   (p1 aur p3 same key consider hue)
+
+System.out.println("Value for p1: " + map.get(p1));
+// Output: Manager (Engineer replace ho gaya)
+
+System.out.println("Value for p3: " + map.get(p3));
+// Output: Manager
+
+---
+
+Dusra Example: Strings as Keys
+
+map1.put("Shubham", 90);   // new entry
+map1.put("Neha", 92);      // new entry
+map1.put("Shubham", 99);   // same key → replace 90 with 99
+```
+
+Resulting Map:
+```
+"Shubham" → 99
+"Neha"    → 92
+```
+
+---
+
+ASCII Flow Diagram:
+
+Insert p1("Alice",1) → hash=5 → bucket[5] → store (Engineer)
+
+Insert p2("Bob",2)   → hash=9 → bucket[9] → store (Designer)
+
+Insert p3("Alice",1) → hash=5 → bucket[5]
+                        |
+                        |--> check equals(p1,p3) = true
+                        |--> replace old value "Engineer"
+                        v
+                    bucket[5] → (p3 -> Manager)
+```
+
+
+Key Takeaways:
+
+1. **HashMap key lookup = hashCode() + equals():**
+   - Pehle `hashCode()` se bucket milta hai.
+   - Fir bucket ke andar `equals()` check hota hai.
+
+2. **Duplicate Keys → Replace Value**
+   - Agar `hashCode()` same hai aur `equals()` true hai → key same maana jaata hai aur value replace hoti hai.
+
+3. **Why override hashCode() and equals()?**
+   - Custom objects (Person) ko key banane ke liye correct equality define karna zaroori hai.
+   - Nahi toh HashMap unhe alag objects treat karega, chahe data same ho.
+
+4. **Strings Example**
+   - `"Shubham"` key dobara daalne pe value overwrite ho jaati hai (90 → 99).
+
+1.	HashMap key comparison do steps me hota hai:
+•	Pehle hashCode() check karke bucket find karo.
+•	Fir bucket ke andar equals() se compare karo.
+
+2.	Agar hashCode() aur equals() dono match ho gaye → key same hai → value replace ho jaati hai.
+3.	Agar hashCode() same hai but equals() false hai → collision handle hota hai (LinkedList/TreeNode ban ke).
+4.	Isliye custom objects (Person) ko HashMap key banate time hashCode() aur equals() override karna zaroori hai.

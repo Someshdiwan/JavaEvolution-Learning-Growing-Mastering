@@ -1,0 +1,156 @@
+Important Terms & Methods in ArrayList and List API
+
+---
+
+## 1. getClass()
+- Returns the runtime class name of the object.
+- Helps distinguish between `java.util.ArrayList`, `java.util.Arrays$ArrayList`, `java.util.ImmutableCollections$ListN`, etc.
+
+Example:
+List<String> list = new ArrayList<>();
+System.out.println(list.getClass().getName());
+// Output: java.util.ArrayList
+
+List<String> list1 = Arrays.asList("A", "B");
+System.out.println(list1.getClass().getName());
+// Output: java.util.Arrays$ArrayList
+
+List<String> list2 = List.of("A", "B");
+System.out.println(list2.getClass().getName());
+// Output: java.util.ImmutableCollections$ListN
+
+---
+
+## 2. List.of() (Java 9+)
+- Factory method to create an **immutable list**.
+- Cannot add, remove, or set elements.
+- Null values are not allowed (throws NullPointerException).
+- Useful for constants, read-only configs, or test data.
+
+Example:
+List<String> fruits = List.of("Apple", "Banana", "Cherry");
+System.out.println(fruits);
+// fruits.add("Mango"); // UnsupportedOperationException
+
+---
+
+## 3. Arrays.asList()
+- Wraps an array into a **fixed-size list**.
+- Backed by the original array:
+  - Changing the list updates the array.
+  - Changing the array updates the list.
+- Cannot add/remove elements, but you can set().
+
+Example:
+String[] arr = {"A", "B", "C"};
+List<String> list = Arrays.asList(arr);
+
+list.set(1, "Z");
+System.out.println(Arrays.toString(arr)); // [A, Z, C]
+// list.add("D"); // UnsupportedOperationException
+
+---
+
+## 4. ArrayList
+- Fully dynamic, resizable list.
+- Backed by an internal array (`Object[] elementData`).
+- Supports add, remove, set, get, resizing automatically.
+- Most commonly used list in Java.
+
+Example:
+ArrayList<String> al = new ArrayList<>();
+al.add("One");
+al.add("Two");
+al.remove("One");
+System.out.println(al); // [Two]
+
+---
+
+## 5. toArray()
+- Converts a `List` into an array.
+- `list.toArray()` returns an Object[].
+- `list.toArray(new Type[0])` returns a typed array.
+
+Example:
+List<Integer> list = List.of(1, 2, 3);
+Object[] arr1 = list.toArray();                // Object[]
+Integer[] arr2 = list.toArray(new Integer[0]); // Integer[]
+
+---
+
+## 6. unmodifiableList()
+- Creates a read-only wrapper around an existing list.
+- Any modification attempt throws `UnsupportedOperationException`.
+- Unlike `List.of()`, the underlying list can still be changed.
+
+Example:
+List<String> list = new ArrayList<>();
+list.add("A");
+List<String> unmod = Collections.unmodifiableList(list);
+// unmod.add("B"); // UnsupportedOperationException
+list.add("C");
+System.out.println(unmod); // [A, C]
+
+---
+
+## 7. CopyOnWriteArrayList
+- A **thread-safe** variant of ArrayList.
+- Every modification creates a fresh copy of the array.
+- Ideal for **concurrent, read-heavy scenarios** with infrequent writes.
+
+Example:
+CopyOnWriteArrayList<String> safeList = new CopyOnWriteArrayList<>();
+safeList.add("A");
+safeList.add("B");
+System.out.println(safeList); // [A, B]
+
+---
+
+## 8. Arrays$ArrayList (internal class)
+- Returned by `Arrays.asList()`.
+- Fixed-size, backed by the original array.
+- `getClass().getName()` → `java.util.Arrays$ArrayList`.
+
+---
+
+## 9. ImmutableCollections$ListN (internal class)
+- Returned by `List.of()`.
+- Immutable (Java 9+).
+- `getClass().getName()` → `java.util.ImmutableCollections$ListN`.
+
+---
+
+## 10. Collections$UnmodifiableList (internal class)
+- Returned by `Collections.unmodifiableList(list)`.
+- Read-only wrapper; modifications throw exceptions.
+- `getClass().getName()` → `java.util.Collections$UnmodifiableList`.
+
+---
+
+## 11. Differences Between List Factories
+- `new ArrayList<>()` → full-featured, resizable.
+- `Arrays.asList()` → fixed-size, tied to original array.
+- `List.of()` → immutable, nulls not allowed.
+- `Collections.unmodifiableList()` → wrapper, underlying list may still change.
+
+---
+
+# Detailed Comparison Table
+
+| Method / Class                  | Modifiable?         | Resizable? | Backed by Array? | Nulls Allowed? | Thread-Safe? | Runtime Class Name                            | Notes                                                                |
+|---------------------------------|---------------------|------------|------------------|----------------|--------------|-----------------------------------------------|----------------------------------------------------------------------|
+| new ArrayList<>()               | Yes (add/remove/set)| Yes        | No (independent) | Yes            | No           | java.util.ArrayList                           | Most common, dynamic, resizable.                                     |
+| Arrays.asList()                 | No (fixed-size)     | No         | Yes              | Yes            | No           | java.util.Arrays$ArrayList                    | Changes reflect in both array and list.                              |
+| List.of() (Java 9+)             | No (immutable)      | No         | No               | No             | No           | java.util.ImmutableCollections$ListN          | Best for constants and read-only lists.                              |
+| Collections.unmodifiableList()  | No (wrapper only)   | No         | No               | Yes            | No           | java.util.Collections$UnmodifiableList        | Underlying list can still be changed externally.                     |
+| CopyOnWriteArrayList            | Yes (safe add/remove)| Yes       | No               | Yes            | Yes          | java.util.concurrent.CopyOnWriteArrayList     | Great for concurrent read-heavy use cases.                           |
+
+---
+
+# Summary
+
+- Use `ArrayList` → when you need a flexible, resizable list.
+- Use `Arrays.asList()` → when you want a fixed-size view backed by an array.
+- Use `List.of()` → when you need an immutable list (Java 9+).
+- Use `Collections.unmodifiableList()` → when you want a read-only wrapper.
+- Use `CopyOnWriteArrayList` → when working with threads, especially read-heavy scenarios.

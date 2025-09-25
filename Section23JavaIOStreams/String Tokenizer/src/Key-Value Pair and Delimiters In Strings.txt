@@ -1,0 +1,44 @@
+Key-Value Pair and Delimiters in Strings
+
+## 1. Format of Key-Value Pairs
+- Each key-value pair follows the format:
+  **key=value**
+- Multiple pairs are separated by a delimiter `;`.
+
+**Example:**
+- `"name=Vijay"` → key = `name`, value = `Vijay`
+- `"address=delhi"` → key = `address`, value = `delhi`
+- `"country=india"` → key = `country`, value = `india`
+- `"dept=cse"` → key = `dept`, value = `cse`
+
+---
+
+## 2. Delimiters
+- `=` → separates **key** and **value**.
+- `;` → separates **different key-value pairs**.
+
+Thus, a string like:
+
+“name=Vijay;address=delhi;country=india;dept=cse”
+
+represents **four tokens**.
+
+---
+
+## 3. Purpose of Using Delimiters
+- When a string contains structured data separated by delimiters,
+  we can extract and process each piece of data using **string tokenization**.
+
+**Concept:**
+- Each meaningful unit (e.g., `"name"`, `"Vijay"`) is called a **token**.
+- Example:
+  `"name=Vijay"` → produces tokens: `name` and `Vijay`.
+
+---
+
+## 4. Key Takeaway
+- **Delimiters**: characters like `=` and `;` used to split structured strings.
+- **Tokens**: individual parts obtained after splitting.
+- **Application**: parsing configuration strings, query parameters, CSV data, etc.
+
+⸻

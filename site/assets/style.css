@@ -1,273 +1,246 @@
-/* 1. Color Variables */
-:root {
-    --primary-color: #1e90ff;
-    --hover-bg: #e0e0e0;
-    --active-color: #87cefa;
-    --card-bg: #ffffff;
-    --card-shadow: rgba(0, 0, 0, 0.1);
-    --bg-color: #f9f9f9;
-    --text-color: #000000;
-    --sidebar-bg: #f4f4f4;
-    --button-text: #ffffff;
+/* assets/style.css — refreshed for clarity, accessibility, and nicer visuals */
+
+/* 1. Core variables */
+:root{
+    --primary: #1e90ff;
+    --primary-600: #1976d2;
+    --muted: #6b7280;
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --card-shadow: 0 6px 22px rgba(19,24,28,0.06);
+    --text: #0f1720;
+    --accent: #87cefa;
+    --sidebar-bg: #ffffff;
+    --glass: rgba(255,255,255,0.6);
+    --radius: 10px;
+    --focus: 3px;
+    --max-width: 1080px;
+    --transition: 200ms ease;
 }
 
-/* Dark mode override */
-.dark-mode {
-    --bg-color: #121212;
-    --text-color: #e0e0e0;
-    --sidebar-bg: #1f1f1f;
-    --button-text: #ffffff;
-    --card-bg: #2b2b2b;
-    --card-shadow: rgba(0, 0, 0, 0.5);
-    --primary-color: #4da8ff;
-    --active-color: #a1d6ff;
-    --hover-bg: #333333;
+/* Dark mode overrides */
+.dark-mode{
+    --bg: #0b0c0f;
+    --surface: #0f1113;
+    --card-shadow: 0 8px 30px rgba(2,6,23,0.65);
+    --text: #e6eef8;
+    --muted: #9aa7b2;
+    --sidebar-bg: #0b0c0f;
+    --glass: rgba(255,255,255,0.02);
+    --primary: #4da8ff;
+    --accent: #a1d6ff;
 }
 
-/* 2. Global Styles */
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+/* 2. Base typography & layout */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,var(--bg) 0%, rgba(250,250,250,0.6) 100%);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.5;
+    transition: background var(--transition), color var(--transition);
 }
 
-/* 3. Theme and Time Container */
-#theme-time-container {
+/* 3. Theme/time container */
+#theme-time-container{
+    position:fixed;
+    top:1rem;
+    right:1rem;
+    display:flex;
+    align-items:center;
+    gap:0.6rem;
+    background:var(--glass);
+    backdrop-filter: blur(6px);
+    padding:0.45rem 0.6rem;
+    border-radius:12px;
+    box-shadow: var(--card-shadow);
+    z-index:1200;
+    transition: transform var(--transition), opacity var(--transition);
+}
+#theme-time-container.hidden{ opacity:0; transform:translateY(-12px); pointer-events:none; }
+
+/* Buttons */
+.dark-toggle, .time-toggle {
+    display:inline-flex;
+    align-items:center;
+    gap:0.45rem;
+    border:0;
+    padding:0.45rem 0.7rem;
+    border-radius:8px;
+    cursor:pointer;
+    background:var(--primary);
+    color:#fff;
+    font-weight:600;
+    font-size:0.9rem;
+    transition: transform var(--transition), background var(--transition);
+}
+.dark-toggle:focus, .time-toggle:focus { outline: none; box-shadow: 0 0 0 var(--focus) rgba(30,144,255,0.18); transform: translateY(-1px) }
+
+.dark-toggle i { width:18px; text-align:center; }
+
+/* live time */
+#live-time { font-size:0.9rem; color:var(--muted); font-weight:500; }
+
+/* 4. Tooltip */
+.tooltip{
+    position:fixed;
+    bottom:1rem;
+    left:50%;
+    transform:translateX(-50%) translateY(6px);
+    background:var(--primary);
+    color:#fff;
+    padding:0.5rem 0.9rem;
+    border-radius:8px;
+    box-shadow:var(--card-shadow);
+    font-size:0.92rem;
+    z-index:1300;
+    opacity:0; visibility:hidden; transition:opacity var(--transition), transform var(--transition);
+}
+.tooltip.visible{ opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+
+/* 5. Sidebar */
+.sidebar{
+    width:220px;
+    height:100vh;
+    position:fixed;
+    top:0; left:0;
+    padding:1.2rem 1rem;
+    background: linear-gradient(180deg, var(--sidebar-bg), rgba(0,0,0,0.01));
+    border-right: 1px solid rgba(0,0,0,0.04);
+    overflow:auto;
+    box-shadow: 0 6px 30px rgba(10,10,12,0.04);
+    transition: transform 260ms cubic-bezier(.2,.9,.2,1), background var(--transition);
+    z-index:1000;
+}
+.sidebar.hidden{ transform: translateX(-112%); }
+
+/* Collapsed state for desktop */
+.sidebar.collapsed {
+    width: 64px !important;
+}
+.sidebar.collapsed .sidebar-link span { display: none; }
+.sidebar.collapsed .brand span { display: none; }
+
+/* 6. Sidebar links */
+.sidebar .brand {
+    display:flex; align-items:center; gap:0.6rem;
+    font-weight:700; margin-bottom:1rem;
+}
+.sidebar-link{
+    display:flex; align-items:center; gap:0.8rem;
+    padding:0.65rem 0.75rem;
+    color:var(--muted);
+    text-decoration:none;
+    border-radius:10px;
+    margin-bottom:0.45rem;
+    transition: background var(--transition), color var(--transition), transform var(--transition);
+    position:relative;
+}
+.sidebar-link i{ width:18px; text-align:center; color:var(--primary) }
+.sidebar-link:hover{ background:rgba(30,144,255,0.06); color:var(--text); transform: translateX(4px); }
+.sidebar-link.active{ background: linear-gradient(90deg, rgba(30,144,255,0.08), transparent); color:var(--primary-600); font-weight:600; }
+
+/* small active rail indicator */
+.sidebar-link.active::after{
+    content:"";
+    position:absolute; left:8px; height:36px; width:3px; border-radius:4px;
+    background:var(--primary);
+}
+
+/* 7. Toggle button (mobile) */
+.toggle-btn{
+    position:fixed;
+    top:1rem;
+    left:1rem;
+    background:var(--primary);
+    color:#fff;
+    border:0;
+    padding:0.48rem 0.62rem;
+    border-radius:9px;
+    cursor:pointer;
+    z-index:1100;
+    display:none;
+    box-shadow: 0 6px 18px rgba(17,24,39,0.12);
+    transition: transform var(--transition), opacity var(--transition);
+}
+.toggle-btn:active{ transform: translateY(1px) }
+
+/* 8. Overlay */
+.sidebar-overlay{
     position: fixed;
-    top: 1rem;
-    right: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: var(--sidebar-bg);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px var(--card-shadow);
-    z-index: 1002;
-    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s;
-}
-
-#theme-time-container.hidden {
+    inset: 0;
+    background: rgba(2,6,23,0.45);
     opacity: 0;
-    transform: translateY(-20px);
+    pointer-events: none;
+    transition: opacity 220ms ease;
+    z-index: 1050;
 }
-
-/* 4. Dark Mode and Timezone Toggle */
-.dark-toggle,
-.time-toggle {
-    background-color: var(--primary-color);
-    color: var(--button-text);
-    border: none;
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-}
-
-.dark-toggle:hover,
-.time-toggle:hover {
-    background-color: var(--active-color);
-}
-
-/* 5. Live-Time Display */
-#live-time {
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-/* 6. Tooltip */
-.tooltip {
-    position: fixed;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--primary-color);
-    color: var(--button-text);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 1003;
-}
-
-.tooltip.visible {
+.sidebar-overlay.visible{
     opacity: 1;
-    visibility: visible;
+    pointer-events: auto;
 }
 
-/* 7. Sidebar */
-.sidebar {
-    width: 200px;
-    height: 100vh;
-    background-color: var(--sidebar-bg);
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 1.25rem;
-    box-sizing: border-box;
-    overflow-y: auto;
-    transition: transform 0.3s ease, background-color 0.3s;
-    z-index: 999;
+/* 9. Wrapper & content */
+.wrapper{ display:flex; width:100%; min-height:100vh; }
+.content{
+    margin-left:240px;
+    padding:2.6rem 2rem;
+    flex:1;
+    max-width:var(--max-width);
+    margin-inline:auto;
+    width:100%;
+    transition: margin-left 260ms cubic-bezier(.2,.9,.2,1), padding var(--transition);
+}
+.sidebar.hidden ~ .wrapper .content{ margin-left: 24px; }
+.sidebar.collapsed ~ .wrapper .content{ margin-left: 96px; }
+
+/* Card look for content area */
+.fade-in{
+    background:var(--surface);
+    padding:2rem;
+    border-radius:var(--radius);
+    box-shadow: var(--card-shadow);
+    animation: fadeIn 420ms ease both;
 }
 
-.sidebar.hidden {
-    transform: translateX(-100%);
+/* readable article content */
+.content :where(h1,h2,h3,h4,h5,h6){ color:var(--text); margin-top:1.2rem; margin-bottom:0.6rem; }
+.content p{ color:var(--muted); margin-bottom:1rem }
+.content img{ max-width:100%; height:auto; border-radius:8px }
+
+/* links */
+.content a{ color:var(--primary); text-decoration:none; border-bottom:1px dashed rgba(30,144,255,0.12) }
+.content a:hover{ text-decoration:underline }
+
+/* 10. Responsive */
+@media (max-width: 980px){
+    .content{ padding:1.4rem; margin-left:18px }
+    .sidebar{ width:200px }
+    .toggle-btn{ display:block }
 }
-
-/* 8. Sidebar Links */
-.sidebar-link {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    color: var(--primary-color);
-    text-decoration: none;
-    border-radius: 6px;
-    margin-bottom: 0.75rem;
-    position: relative;
-    transition: transform 0.2s, background-color 0.2s;
-}
-
-.sidebar-link i {
-    margin-right: 0.75rem;
-    text-decoration: none;
-}
-
-.sidebar-link:hover {
-    transform: scale(1.03);
-    background-color: var(--hover-bg);
-}
-
-.sidebar-link.active {
-    color: var(--active-color);
-    font-weight: bold;
-}
-
-.sidebar-link.active::after {
-    content: "";
-    position: absolute;
-    left: 2.5rem;
-    right: 1rem;
-    bottom: 0.25rem;
-    height: 2px;
-    background: var(--active-color);
-    transform: scaleX(1);
-    transition: transform 0.2s ease;
-}
-
-.sidebar-link.active:hover::after {
-    transform: scaleX(1.1);
-}
-
-/* 9. Toggle Button */
-.toggle-btn {
-    position: sticky;
-    top: 1rem;
-    left: 1rem;
-    background-color: var(--primary-color);
-    color: var(--button-text);
-    border: none;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    cursor: pointer;
-    z-index: 1001;
-    display: none;
-    transition: background-color 0.3s;
-    opacity: 0.7;
-}
-
-.toggle-btn:hover {
-    background-color: var(--active-color);
-    opacity: 1;
-}
-
-
-/* 10. Content Area */
-.wrapper {
-    display: flex;
-    width: 100%;
-}
-
-.content {
-    margin-left: 210px;
-    padding: 2rem;
-    flex: 1;
-    min-height: 100vh;
-    transition: margin-left 0.3s ease;
-}
-
-.sidebar.hidden ~ .wrapper .content {
-    margin-left: 0;
-}
-
-
-/* 11. Card style Container inside Content */
-.fade-in {
-    background-color: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px var(--card-shadow);
-}
-
-/* 12. Fade in Key frames */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+@media (max-width: 768px){
+    .sidebar{
+        position:fixed; width:88%; max-width:360px; left:0; top:0; height:100vh;
+        transform: translateX(-112%);
+        box-shadow: 0 24px 70px rgba(2,6,23,0.35);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    .sidebar.hidden{ transform: translateX(-112%) }
+    .sidebar.open{ transform: translateX(0) }
+    .content{ margin-left: 0; padding:1rem }
+    #theme-time-container{ right:0.7rem; left:0.7rem; justify-content:space-between }
 }
 
-/* 13. Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    .sidebar,
-    #theme-time-container,
-    .tooltip {
-        transition: none;
-    }
-    .fade-in {
-        animation: none;
-    }
+/* 11. Accessibility & motion prefs */
+@media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important }
 }
 
-/* 14. Responsive Behavior */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    .content {
-        margin-left: 0;
-        padding: 1rem;
-    }
-    .toggle-btn {
-        display: block;
-    }
-}
-
-/* Global link styles in content */
-.content a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.content a:visited {
-    color: var(--active-color);
-}
-
-.content a:hover,
-.content a:focus {
-    text-decoration: underline;
+/* keyframes */
+@keyframes fadeIn{
+    from{ opacity:0; transform:translateY(10px) }
+    to{ opacity:1; transform:none }
 }

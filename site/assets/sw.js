@@ -11,7 +11,6 @@ const STATIC_ASSETS = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 ];
 
-
 // Debounce function to limit cache updates
 function debounce(func, wait) {
     let timeout;
@@ -25,7 +24,6 @@ function debounce(func, wait) {
     };
 }
 
-
 // Install event
 self.addEventListener("install", (event) => {
     console.log("[Service Worker] Installing and caching static assets");
@@ -36,7 +34,6 @@ self.addEventListener("install", (event) => {
         })
     );
 });
-
 
 // Activate event
 self.addEventListener("activate", (event) => {
@@ -53,7 +50,6 @@ self.addEventListener("activate", (event) => {
     self.clients.claim();
 });
 
-
 // Fetch event
 self.addEventListener("fetch", (event) => {
     const request = event.request;
@@ -63,7 +59,7 @@ self.addEventListener("fetch", (event) => {
         event.respondWith(
             fetch(request)
                 .then((networkResponse) => {
-                    // Cache successful response asynchronously
+                    // Cache successful response asynchronously (debounced)
                     debounce(() => {
                         caches.open(CACHE_NAME).then((cache) => {
                             cache.put(request, networkResponse.clone());
@@ -80,10 +76,10 @@ self.addEventListener("fetch", (event) => {
                 .catch(() => {
                     // Fallback to cached default.html
                     return caches.match('/JavaEvolution-Learning-Growing-Mastering/default.html') ||
-                           new Response('Network error: Please check your connection.', {
-                               status: 503,
-                               statusText: 'Service Unavailable'
-                           });
+                        new Response('Network error: Please check your connection.', {
+                            status: 503,
+                            statusText: 'Service Unavailable'
+                        });
                 })
         );
         return;
@@ -94,7 +90,7 @@ self.addEventListener("fetch", (event) => {
         caches.match(request).then((cachedResponse) => {
             // Return cached response if available
             if (cachedResponse) {
-                // Background cache refresh
+                // Background cache refresh (debounced)
                 debounce(() => {
                     fetch(request).then((networkResponse) => {
                         caches.open(CACHE_NAME).then((cache) => {
@@ -112,7 +108,7 @@ self.addEventListener("fetch", (event) => {
                     if (
                         request.method === "GET" &&
                         (request.url.startsWith(self.location.origin) ||
-                         request.url.startsWith('https://cdnjs.cloudflare.com'))
+                            request.url.startsWith('https://cdnjs.cloudflare.com'))
                     ) {
                         debounce(() => {
                             caches.open(CACHE_NAME).then((cache) => {
@@ -130,7 +126,7 @@ self.addEventListener("fetch", (event) => {
                 })
                 .catch(() => {
                     // Fallback for Font Awesome
-                    if (request.url.includes('font-awesome')) {
+                    if (request.url.includes('font-awesome') || request.url.includes('cdnjs.cloudflare.com')) {
                         return caches.match('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
                     }
                     return new Response('Resource unavailable offline.', {

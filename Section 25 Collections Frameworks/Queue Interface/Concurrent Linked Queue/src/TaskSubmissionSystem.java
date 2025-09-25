@@ -1,8 +1,4 @@
-package QueueDemo.ConcurrentLinkedQueue;
-
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * MAP --> THREAD SAFE --> ConcurrentHashMap

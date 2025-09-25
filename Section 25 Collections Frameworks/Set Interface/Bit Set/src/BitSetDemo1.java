@@ -1,8 +1,6 @@
-package Set.BitSetForPerformingBitWiseBitManipulation;
-
 import java.util.BitSet;
 
-public class BitSetDemo {
+public class BitSetDemo1 {
     public static void main(String[] args) {
         BitSet bs = new BitSet();
 

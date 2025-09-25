@@ -1,0 +1,106 @@
+Internal Working of IdentityHashMap:
+
+1. Key Comparison:
+   - Unlike HashMap (which uses `equals()` + `hashCode()`),
+   - IdentityHashMap uses **reference equality (==)** to compare keys.
+   - Two objects with the same content but different memory addresses are treated as separate keys.
+
+2. Buckets & Hashing:
+   - Similar to HashMap, it uses hashing + an internal table (array) to store entries.
+   - But during lookup/insert, it checks `(k1 == k2)` instead of `k1.equals(k2)`.
+
+3. Collision Handling:
+   - IdentityHashMap is also backed by open addressing (like HashMap).
+   - If multiple keys hash to the same bucket, probing is done to find an empty slot.
+
+4. Null Keys & Values:
+   - Supports **null keys** and **null values**.
+   - Since reference equality works with null, only **one null key** can exist.
+
+5. Performance:
+   - Slightly faster lookups in some cases (no equals() calls, just reference comparison).
+   - But consumes more memory than HashMap due to open addressing.
+
+6. Use Cases:
+   ✔ Object identity tracking (caches, serialization, object pools).
+   ✔ When you care about whether two references are the *exact same object*, not just logically equal.
+   ✘ Avoid for general-purpose maps where logical equality matters.
+
+──────────────────────────────────────────────────────────────
+📝 ASCII View:
+ key1 ("Hello") → [obj#1234]
+ key2 ("Hello") → [obj#5678]
+
+ HashMap   → considers them equal (one entry updated).
+ IdentityHM → keeps both separately since 1234 != 5678.
+──────────────────────────────────────────────────────────────
+
+
+████████████████████████████████████████████████████████████████████████
+⚙️ Extended Theory
+████████████████████████████████████████████████████████████████████████
+
+1. Comparison Logic:
+   - HashMap → `(k1 == null ? k2 == null : k1.equals(k2))`.
+   - IdentityHashMap → `(k1 == k2)` only.
+   - So even if two objects have the same `hashCode()` and `equals()`,
+     they are stored as separate entries if not the same reference.
+
+2. Table Representation:
+   - Internally uses an **array of Objects** with alternating slots:
+     [Key0, Value0, Key1, Value1, Key2, Value2 ...]
+   - This layout is different from HashMap (which stores Nodes/Entries in buckets).
+   - Open addressing + linear probing handles collisions.
+
+3. Hashing Behavior:
+   - Uses `System.identityHashCode(key)` instead of `key.hashCode()`.
+   - `System.identityHashCode()` gives a hash code derived from the
+     object’s memory address (not overridable).
+   - Ensures uniqueness based on actual object identity.
+
+4. Null Handling:
+   - Allows one `null` key because reference equality for `null` is straightforward.
+   - Multiple `null` values are allowed.
+
+5. Capacity & Load Factor:
+   - Default capacity is 32.
+   - Table size always a power of 2.
+   - Default load factor = 2/3 (0.67).
+   - On exceeding threshold, table grows (resized) with rehashing.
+
+6. Performance:
+   - Faster key comparisons (reference check instead of .equals()).
+   - Memory overhead due to open addressing.
+   - Average time complexity: O(1) for put/get/remove.
+   - Worst case: O(n) if too many collisions.
+
+7. Iteration:
+   - Iteration order is undefined (like HashMap).
+   - Uses backing array directly to iterate over keys/values.
+
+8. Practical Use Cases:
+   - Tracking object identities (not content equality).
+   - Serialization frameworks (to track already visited objects).
+   - Caches where identity is more important than equality.
+   - Graph algorithms (e.g., detecting object references).
+
+──────────────────────────────────────────────────────────────
+📝 ASCII Comparison: HashMap vs IdentityHashMap
+──────────────────────────────────────────────────────────────
+
+Suppose:
+ key1 = new String("Hello") → obj#1234
+ key2 = new String("Hello") → obj#5678
+
+HashMap:
+   Bucket → { "Hello"=200 }   // key1 and key2 merged because equals() true.
+
+IdentityHashMap:
+   Table → { obj#1234=100, obj#5678=200 }  // kept separately because 1234 != 5678.
+
+──────────────────────────────────────────────────────────────
+
+✔ Key Takeaway:
+- IdentityHashMap is a **special-purpose Map**.
+- Do NOT use it when you expect logical equality of keys.
+- Perfect when reference identity is the only requirement.

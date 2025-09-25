@@ -1,0 +1,88 @@
+LinkedList Role In Internal Working Of HashMap:
+
+1. HashMap Storage Basic:
+   - HashMap ek **array of buckets** use karta hai.
+   - Har bucket ek **LinkedList** (ya Java 8 se aage kabhi kabhi Tree) hold kar sakta hai.
+   - Jab collision hoti hai (multiple keys same bucket index pe map ho jaati hain), tab LinkedList use hoti hai.
+
+2. Insertion Process:
+   - Har key ka hashCode nikala jata hai.
+   - HashCode ko bucket index me convert kiya jata hai → `index = hashCode % capacity`.
+   - Agar bucket khali hai → direct entry add hoti hai.
+   - Agar bucket me already entry hai (collision) → LinkedList ke end me new node attach hoti hai.
+
+   Example:
+   - Suppose HashMap capacity = 10
+   - Key `"ABC"` aur `"CBA"` dono ka hashCode % 10 = 8
+   - Dono entries bucket[8] me add hongi, aur LinkedList banegi.
+
+3. LinkedList Node:
+   - Har node ek **Map.Entry object** hota hai:
+     - key
+     - value
+     - next (LinkedList ka next node pointer)
+
+   Structure:
+
+bucket[8] → [key1=value1] → [key2=value2] → [key3=value3]
+
+4. Searching (get()):
+- Key ka hashCode se bucket index nikalo.
+- Us bucket ke LinkedList me traverse karo.
+- `.equals()` method se key match karna padta hai.
+- Match milte hi value return ho jati hai.
+
+❌ Agar LinkedList badi ho jaye toh search O(n) ho sakta hai.
+
+5. Java 8 Improvement:
+- Agar ek bucket me **bahut zyada collisions** ho jayein (default threshold ~8 nodes),
+  toh LinkedList ko **Balanced Tree (Red-Black Tree)** me convert kar dete hain.
+- Isse search time O(n) → O(log n) ho jata hai.
+
+6. Removal:
+- Key ka bucket index find karo.
+- LinkedList traverse karke matching node dhoondo.
+- Pichle node ka `next` pointer ko update karke node delete kar do.
+
+7. Complexity:
+- Average case (good hash function): O(1)
+- Worst case (sab same bucket me chale gaye): O(n) → LinkedList traversal
+- Java 8 ke baad worst case improved to O(log n) with Tree.
+
+---
+
+ASCII Diagram Example
+---------------------
+
+Initial (empty HashMap, capacity = 10):
+
+bucket[0]   null
+bucket[1]   null
+…
+bucket[8]   null
+bucket[9]   null
+
+Insert "ABC"=10 at index 8:
+
+bucket[8] → [ABC=10]
+
+Insert "CBA"=20 (same index 8):
+
+bucket[8] → [ABC=10] → [CBA=20]
+
+Insert "BAC"=30 (same index 8):
+
+bucket[8] → [ABC=10] → [CBA=20] → [BAC=30]
+
+Now bucket[8] is a LinkedList of 3 nodes.
+
+---
+
+Quick Recap
+-----------
+✔ LinkedList is used in HashMap to handle collisions.
+✔ Each bucket can hold multiple entries as a chain (LinkedList).
+✔ Searching means traversing LinkedList inside that bucket.
+✔ Java 8 improved it with Tree when collisions become heavy.
+
+⸻

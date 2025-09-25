@@ -1,5 +1,3 @@
-package HashMapDemo;
-
 import java.util.HashMap;
 
 public class ThreadSafetyInHashMap {
@@ -29,7 +27,6 @@ public class ThreadSafetyInHashMap {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         System.out.println("Final size of HashMap: " + map.size());
     }
 }

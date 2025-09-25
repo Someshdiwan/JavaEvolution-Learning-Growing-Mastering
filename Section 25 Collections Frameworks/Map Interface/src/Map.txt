@@ -1,0 +1,82 @@
+Map vs Collection — why the confusion (and the clarification)
+
+Short answer:
+Map is an interface, and it is part of the Java Collections Framework, but it does not extend the Collection interface.
+That’s the source of the confusion: people conflate “Collections Framework”
+(the entire API) with the Collection interface (one branch inside that API).
+
+⸻
+
+Why people get confused
+1.	Words collide. The term Collections Framework refers to the whole set of container interfaces and classes in
+java.util.
+
+Inside that framework there is an interface literally named Collection.
+The names are similar, so it’s easy to mix them up.
+
+2.	Most container interfaces extend Collection. List, Set, and Queue all extend Collection.
+Because these common containers are all Collections, many developers assume every container in the
+framework must be a Collection. Map is the main (and important) exception.
+
+3.	Similar responsibilities. Map stores groups of objects (key → value),
+so conceptually it belongs to the same family of data-structure APIs (add/remove/iterate/etc.),
+which reinforces the mistaken belief it extends Collection.
+
+4.	Documentation phrasing. Many guides say “part of the Collection Framework” (correct)
+but do not immediately point out “but note: Map ≠ Collection” (missing nuance).
+
+⸻
+
+Clear explanation
+•	The Collections Framework = the overall library in java.util that provides data-structure interfaces and
+	implementations (lists, sets, maps, queues, etc.).
+•	The Collection interface is one interface inside that framework.
+It is the root of the collection hierarchy (List, Set, Queue).
+•	The Map interface is a separate, parallel interface in the same framework.
+It models associative containers (key → value). Because its API and semantics differ
+(keys and values rather than single elements), it was not made to extend Collection.
+
+So:
+Map belongs to the Collection Framework, but Map is not a subtype of Collection. It sits beside it.
+
+⸻
+
+Map interface hierarchy (detailed)
+
+Map (interface)
+│
+├── AbstractMap (abstract class)                 // convenience partial implementation
+│   ├── HashMap
+│   │   └── LinkedHashMap
+│   ├── WeakHashMap
+│   ├── IdentityHashMap (special purpose)
+│   ├── Hashtable (legacy, synchronized)
+│   │   └── Properties                           // subclass of Hashtable for string properties
+│   └── SortedMap (interface)                    // note: SortedMap is an interface, see below
+│
+├── SortedMap (interface)                        // maintains keys in natural or provided order
+│   └── NavigableMap (interface)                 // richer navigation API (floor, ceiling, lower, higher)
+│       ├── TreeMap                              // red-black tree ordered map
+│       └── ConcurrentSkipListMap                // concurrent, ordered map
+│
+└── ConcurrentMap (interface)                    // concurrency-friendly map operations
+    ├── ConcurrentHashMap                        // high-performance concurrent hash-based map
+    └── ConcurrentSkipListMap                    // already listed under NavigableMap as well (implements both)
+
+Notes on the hierarchy
+•	AbstractMap is a helpful base class that implements many Map methods; concrete implementations like HashMap extend it.
+•	SortedMap and NavigableMap are interfaces that add ordering semantics (TreeMap is the usual implementation).
+•	ConcurrentMap is an interface for maps designed for concurrent access; ConcurrentHashMap is the primary implementation.
+•	Some classes appear in multiple conceptual places because they implement multiple interfaces
+(for example, ConcurrentSkipListMap implements ConcurrentMap, NavigableMap, and SortedMap characteristics).
+
+⸻
+
+Practical takeaways
+•	When you need simple collection semantics (single-element containers, iteration over items): use Collection and
+its subtypes (List, Set, Queue).
+•	When you need key→value associations: use Map and its implementations (HashMap, TreeMap, ConcurrentHashMap, etc.).
+•	Treat Map as a parallel but equally important branch of the Collections Framework — it’s part of the family,
+just not a child of the Collection interface.
+
+⸻

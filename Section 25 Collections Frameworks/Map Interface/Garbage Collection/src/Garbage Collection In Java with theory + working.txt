@@ -1,0 +1,123 @@
+Garbage Collection (GC) in Java
+
+1. Introduction:
+- Garbage Collection (GC) in Java is an **automatic memory management process**.
+- It identifies and removes **unused objects** from the heap memory to free up space.
+- This helps prevent **memory leaks** and ensures efficient use of memory.
+- Unlike C/C++, where the programmer manually frees memory, Java’s GC runs automatically.
+
+---
+
+2. What is Garbage?:
+
+- Any object in memory that is **no longer reachable** by any live thread or reference.
+- Example:
+
+   Person p = new Person("Alice");
+   p = new Person("Bob");
+
+   - First `Person("Alice")` object is now unreachable (no reference points to it).
+   - GC will clean it up.
+
+---
+
+3. How Does GC Work?:
+
+GC works in three main steps:
+
+a) **Mark Phase**
+- GC identifies all objects that are still reachable (marked as alive).
+- Starting from **GC Roots** (local variables, active threads, static fields, etc.),
+     it traverses the reference graph.
+
+b) **Sweep Phase**
+- All unmarked objects (unreachable ones) are considered garbage.
+- Memory occupied by these objects is marked as free.
+
+c) **Compact Phase (Optional)**
+- To reduce fragmentation, live objects are moved together in memory.
+- This creates a contiguous free space, improving allocation efficiency.
+
+---
+
+4. ASCII Diagram of GC Process:
+
+Before GC (Heap Memory):
+
+[Obj1: Alive] [Obj2: Unreachable] [Obj3: Alive] [Obj4: Unreachable]
+
+Mark Phase:
+
+Obj1 (reachable)
+Obj3 (reachable)
+Obj2, Obj4 (not reachable → garbage)
+
+Sweep Phase:
+
+[Obj1: Alive] [Free] [Obj3: Alive] [Free]
+
+Compact Phase:
+
+[Obj1: Alive] [Obj3: Alive] [Free] [Free]
+
+---
+
+5. Types of Garbage Collectors:
+
+Java provides multiple GC implementations:
+
+1. **Serial GC**
+- Single-threaded, simple, best for small applications.
+
+2. **Parallel GC**
+- Uses multiple threads for faster GC, suitable for medium-scale apps.
+
+3. **CMS (Concurrent Mark-Sweep)**
+- Reduces GC pause times by running concurrently with the application.
+
+4. **G1 (Garbage First) GC**
+- Default in modern Java (since Java 9).
+- Splits heap into regions and collects garbage in parallel, focusing on regions with the most garbage first.
+
+---
+
+6. Finalization and GC
+----------------------
+- Before an object is destroyed, `finalize()` method (if overridden) may be called once.
+- But using `finalize()` is discouraged due to unpredictability.
+
+---
+
+7. Important Points
+-------------------
+- GC runs **automatically**, but you can suggest it using `System.gc()`.
+  (Not guaranteed, JVM decides when to run.)
+- GC focuses only on **heap memory** (not stack memory).
+- GC prevents **memory leaks** by cleaning unused objects.
+- Programmers still need to avoid creating unnecessary references.
+
+---
+
+8. Real-Life Analogy
+---------------------
+Think of GC as a **housekeeper**:
+- Mark: Identify which items in the room are still useful.
+- Sweep: Throw away items that nobody uses anymore.
+- Compact: Rearrange the remaining items neatly to make space.
+
+---
+
+✔ Summary
+---------
+- Garbage Collection = Automatic memory cleanup of unreachable objects.
+- Works in **Mark → Sweep → Compact** phases.
+- Multiple GC algorithms exist (Serial, Parallel, CMS, G1).
+- Helps prevent memory leaks and improves memory efficiency.
+
+⸻
+
+✔ Strong reference: object tab tak alive rahega jab tak koi strong reference use point kare.
+✔ WeakReference: object weakly reachable hai; GC kabhi bhi clear kar sakta hai jab koi strong reference na ho.
+✔ ReferenceQueue: jab weak/phantom references clear hoti hain,
+JVM unko is queue me dal deta hai — isse app ko pata chal sakta hai ki object reclaim hua.
+✔ System.gc() sirf hint hai — JVM decide karta hai kab GC chalana hai.

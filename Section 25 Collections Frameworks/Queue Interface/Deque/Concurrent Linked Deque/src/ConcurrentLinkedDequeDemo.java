@@ -1,5 +1,3 @@
-package QueueDemo.ConcurrentLinkedDequeDemo;
-
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class ConcurrentLinkedDequeDemo {

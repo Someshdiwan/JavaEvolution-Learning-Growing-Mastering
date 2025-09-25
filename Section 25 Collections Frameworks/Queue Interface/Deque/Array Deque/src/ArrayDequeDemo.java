@@ -1,5 +1,3 @@
-package QueueDemo.ArrayDeque;
-
 import java.util.ArrayDeque;
 
 public class ArrayDequeDemo {

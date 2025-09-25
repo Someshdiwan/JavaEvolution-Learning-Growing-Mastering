@@ -1,5 +1,3 @@
-package QueueDemo.ConcurrentLinkedDequeDemo;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CASDemo {

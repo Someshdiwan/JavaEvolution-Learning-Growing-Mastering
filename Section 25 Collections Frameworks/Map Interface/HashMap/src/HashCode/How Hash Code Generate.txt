@@ -1,0 +1,105 @@
+1. Object Class (Default hashCode):
+   - Agar override nahi karte to Object class ka default hashCode use hota hai.
+   - Ye mostly object ka **memory address** ko ek integer me convert karke deta hai (JVM dependent).
+
+   Native code hai (C/C++ level pe), Java me directly visible nahi hota:
+   ```java
+   public native int hashCode();
+
+⸻
+
+2.	String Class:
+•	String ne apna hashCode() override kiya hai.
+•	Formula: har character ko leke ek polynomial rolling hash banata hai (base = 31).
+
+public int hashCode() {
+    int h = 0;
+    for (int i = 0; i < value.length; i++) {
+        h = 31 * h + value[i];
+    }
+    return h;
+}
+
+Example: "ABC"
+•	h = 0
+•	h = 31*0 + ‘A’(65) = 65
+•	h = 31*65 + ‘B’(66) = 2081
+•	h = 31*2081 + ‘C’(67) = 64478
+
+⸻
+
+3.	Integer Class:
+•	Bahut simple → value khud hi hashCode hoti hai.
+
+public int hashCode() {
+    return this.value;
+}
+
+Example:
+•	new Integer(100).hashCode() = 100
+
+⸻
+
+4.	Double Class:
+•	Double me binary bits ka hash banta hai.
+
+public int hashCode() {
+    long bits = Double.doubleToLongBits(value);
+    return (int)(bits ^ (bits >>> 32));
+}
+
+Matlab: double ko 64-bit binary me badal ke 32-bit int me compress karta hai.
+
+⸻
+
+5.	Custom Class Example:
+•	Jab tum apni class banate ho, aise override karte ho:
+
+class Student {
+    String name;
+    int age;
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + age;
+        result = 31 * result + (name == null ? 0 : name.hashCode());
+        return result;
+    }
+}
+
+Logic:
+•	17 ek prime seed hai.
+•	31 multiplier use karke fields combine karte hain.
+•	String ka khud ka hashCode call hota hai.
+
+---
+
+Quick Demo Code:
+
+public class HashCodeInternalDemo {
+    public static void main(String[] args) {
+        String str = "ABC";
+        System.out.println("String hashCode: " + str.hashCode());
+
+        Integer num = 100;
+        System.out.println("Integer hashCode: " + num.hashCode());
+
+        Double d = 12.34;
+        System.out.println("Double hashCode: " + d.hashCode());
+
+        Object obj = new Object();
+        System.out.println("Default Object hashCode: " + obj.hashCode());
+    }
+}
+
+⸻
+
+Recap:
+•	Default hashCode() (Object class) → native, memory-based.
+•	String → polynomial with base 31.
+•	Integer → direct value.
+•	Double → bit manipulation.
+•	Custom class → override with fields + 31 multiplier.
+
+⸻

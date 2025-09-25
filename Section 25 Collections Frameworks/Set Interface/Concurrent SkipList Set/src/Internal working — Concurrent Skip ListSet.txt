@@ -1,0 +1,60 @@
+Internal working — java.util.concurrent.ConcurrentSkipListSet
+
+Overview
+--------
+ConcurrentSkipListSet is a concurrent, sorted implementation of the `NavigableSet`
+interface. It is backed by a `ConcurrentSkipListMap`, using keys as elements and
+dummy values internally.
+
+Key properties:
+- Sorted set, thread-safe.
+- Backed by ConcurrentSkipListMap<E, Boolean>.
+- All operations are lock-free for reads and CAS-based for updates.
+- Iterators are weakly consistent.
+- Null elements are not permitted.
+
+Core ideas
+----------
+- Same skip-list data structure as ConcurrentSkipListMap.
+- Each element acts as a key with a dummy Boolean value.
+- Provides NavigableSet operations like headSet, tailSet, subSet, ceiling, floor.
+
+ASCII structure (as a set)
+--------------------------
+(Only keys shown, since values are dummy)
+
+Level 2: HEAD ---------> [20] -> [50] -> [90] -> null
+Level 1: HEAD -> [10] -> [20] -> [30] -> [50] -> null
+Level 0: HEAD -> [5] -> [10] -> [15] -> [20] -> [25] -> [30] -> [40] -> [50] -> null
+
+Operations
+----------
+ADD (put):
+ - Insert key into skip list if not already present.
+ - Uses CAS to link new node.
+
+REMOVE:
+ - Mark and unlink node.
+
+CONTAINS:
+ - Search path as in map, check presence.
+
+Iteration:
+ - Weakly consistent, sorted by key order.
+
+Use cases
+---------
+- Concurrent sorted sets (unique values).
+- Implementing concurrent leaderboards, ranges, or unique item registries.
+- Multi-threaded scenarios needing sorted uniqueness guarantees.
+
+Comparison with ConcurrentSkipListMap
+-------------------------------------
+- SkipListSet = SkipListMap without values.
+- Use Set when you only need elements; use Map when you need key-value pairs.
+
+Complexity
+----------
+- add/remove/contains: O(log n).
+- iteration: O(n).
+- Memory: slightly less than map, since values are dummy.

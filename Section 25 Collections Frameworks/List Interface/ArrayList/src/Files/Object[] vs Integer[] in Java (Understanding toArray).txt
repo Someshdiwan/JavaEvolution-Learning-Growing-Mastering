@@ -1,0 +1,85 @@
+Object[] vs Integer[] in Java (Understanding toArray)
+
+## 1. Background
+- In Java, **every class implicitly extends `Object`**.
+- Therefore, every array type is ultimately compatible with `Object[]`.
+- But there’s a big difference between using a **generic Object[]** and a **specific typed array** like `Integer[]`.
+
+---
+
+## 2. Object Array (Object[])
+- Declared as: `Object[] arr = new Object[5];`
+- Can store **any type of object** (`Integer`, `String`, `Double`, etc.).
+- Not type-safe → you lose type information.
+- Requires **casting** when retrieving elements.
+
+**Example:**
+```java
+Object[] arr = new Object[3];
+arr[0] = 10;         // Autoboxed to Integer
+arr[1] = "Hello";    // String
+arr[2] = 3.14;       // Double
+
+// Need casting for type-specific operations
+int x = (Integer) arr[0];
+
+
+⸻
+
+3. Integer Array (Integer[])
+	•	Declared as: Integer[] arr = new Integer[5];
+	•	Specifically designed to store only Integer objects.
+	•	Type-safe → No casting needed when accessing elements.
+	•	When converting a List<Integer> to an array, you typically want Integer[] to retain type information.
+
+Example:
+
+Integer[] arr = new Integer[3];
+arr[0] = 10;       // OK
+// arr[1] = "Hi";  //  Compile-time error (type safety)
+
+
+⸻
+
+4. Why does toArray() return Object[]?
+
+•	By default:
+
+List<Integer> list = Arrays.asList(1, 2, 3);
+Object[] objArray = list.toArray(); // Returns Object[]
+
+•	Reason: Method signature is defined as Object[] toArray().
+•	Java’s type erasure removes generic type information at runtime, so the method cannot know it should return Integer[].
+
+⸻
+
+5. How to Get an Integer Array
+•	Use the overloaded toArray(T[] a) method and pass an empty array of the desired type:
+
+List<Integer> list = Arrays.asList(1, 2, 3);
+Integer[] intArray = list.toArray(new Integer[0]);
+
+
+•	Internally:
+•	The runtime checks the type of the provided array (Integer[]).
+•	It creates and returns an array of that specific type.
+
+⸻
+
+6. Summary
+
+Expression	Returns	Notes
+Object[] array = list.toArray();	Object[]	Generic array, loses type information, casting needed
+Integer[] array = list.toArray(new Integer[0]);	Integer[]	Type-safe, keeps element type, no casting required
+
+•	Use Object[] if you don’t care about element type.
+•	Use Integer[] (or equivalent) when you need type safety and want to avoid unnecessary casting.
+
+⸻
+
+7. Key Takeaway
+
+Always prefer the typed version of toArray() (list.toArray(new Type[0])) when working with generics.
+It ensures type safety, cleaner code, and fewer runtime errors.
+
+---

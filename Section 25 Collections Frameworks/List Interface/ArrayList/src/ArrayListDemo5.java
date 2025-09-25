@@ -1,9 +1,8 @@
-package ListDemo.ArrayListLinkedListStack;
-
 import java.util.ArrayList;
 
-public class UseArrayListAsStack {
+public class ArrayListDemo5 {
     public static void main(String[] args) {
+        // Use Arraylist as a Stack.
         ArrayList<Integer> ArrayLists = new ArrayList<>();
         ArrayLists.add(1);
         ArrayLists.add(2);
@@ -13,7 +12,5 @@ public class UseArrayListAsStack {
         ArrayLists.remove(ArrayLists.size()-1); //Pop
     }
 }
-/*
-arraylist as stack?
-Not good practice...In built methods are not available.
-*/
+
+// arraylist as stack? Not good practice...In built methods they are not available.

@@ -1,0 +1,104 @@
+Let’s visualize the rotation step in TreeMap (Red-Black Tree) with ASCII diagrams.
+
+⸻
+
+Insertion Sequence: 10 → 20 → 15
+
+Step Before Fix (Problem State)
+
+After inserting 15, we get:
+
+   (10, BLACK)
+         \
+        (20, RED)
+        /
+    (15, RED)
+
+Issue: Consecutive RED nodes (20 & 15).
+This violates the Red-Black Tree property: No RED node should have a RED child.
+
+⸻
+
+Step: Right Rotation around (20)
+
+We rotate around (20) to bring 15 up.
+
+Rotation flow:
+
+        (20, RED)                  (15, RED)
+        /            →             /       \
+   (15, RED)                  (10, BLACK) (20, RED)
+
+
+⸻
+
+Step After Recoloring (Final Balanced Tree)
+•	(15) becomes BLACK (new root of this subtree).
+•	Its children (10, 20) are RED.
+
+       (15, BLACK)
+      /          \
+ (10, RED)    (20, RED)
+
+Now balanced.
+
+⸻
+
+Full Flow (ASCII Timeline)
+
+Insert 10 → root
+ (10, BLACK)
+
+Insert 20
+ (10, BLACK)
+       \
+       (20, RED)
+
+Insert 15
+ (10, BLACK)
+       \
+       (20, RED)
+       /
+   (15, RED)
+
+Fix (Rotate + Recolor)
+       (15, BLACK)
+      /          \
+ (10, RED)    (20, RED)
+
+⸻
+
+This is exactly how TreeMap internally self-balances using Red-Black Tree rules.
+You always end up with a balanced binary search tree → O(log n) time complexity.
+
+⸻
+
+Step 1: Insert 10
+        (10, BLACK)
+
+Step 2: Insert 20
+        (10, BLACK)
+              \
+             (20, RED)
+
+Step 3: Insert 15
+- 15 > 10 → go right
+- 15 < 20 → go left → insert RED
+
+        (10, BLACK)
+              \
+             (20, RED)
+             /
+          (15, RED)
+
+Problem: Consecutive reds (20 & 15)
+
+----------------------------------------
+Fix: Right Rotation around (20)
+Then recolor.
+
+        (15, BLACK)
+       /        \
+ (10, RED)    (20, RED)
+
+✔ Balanced and valid.

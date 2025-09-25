@@ -1,0 +1,13 @@
+HashMap vs IdentityHashMap — Quick Comparison
+
+Feature                   | HashMap                                   | IdentityHashMap
+--------------------------|-------------------------------------------|-----------------------------------------------------------
+Key Equality Check        | Uses `.equals()` for value equality       | Uses `==` (reference equality)
+Hash Code Used            | `key.hashCode()` (can be overridden)      | `System.identityHashCode(key)` (reference-based)
+Same Content Keys         | Treated as SAME key (overwrites value)    | Treated as DIFFERENT keys (both stored separately)
+Example                   | Two Strings "Akshit" → 1 entry            | Two Strings "Akshit" → 2 separate entries
+Null Keys / Values        | Allows one null key, multiple null values | Allows null keys and values
+Performance               | O(1) average for put/get                  | O(1) average for put/get (slightly higher memory)
+Iteration Order           | Not guaranteed                            | Not guaranteed
+Use Case                  | General-purpose maps (value-based keys)   | Specialized use cases requiring identity tracking
+Typical Application       | Caches, lookups, configs, DB mappings     | Object pools, serialization internals, reference tracking

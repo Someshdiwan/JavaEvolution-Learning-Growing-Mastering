@@ -878,7 +878,7 @@ It also illustrates the concept of singleton classes and demonstrates how this a
 #### 🧠 Related Topic Overview:
 - **Repo Content:**
   - Static.java, StaticBlock.java, StaticByED.java, Static.txt, static keyword.txt: Showcase use-cases for static variables, static blocks, and methods.
-  - FinalKeyWord.java, static and final.txt: Explains immutability using final and how static final is used for constants.
+  - FinalKeyWord.java, static, and final.txt: Explains immutability using final and how static final is used for constants.
   - BankAccountAutomaticStatic.java, BankAccountIMP.java`: Demonstrate shared/static counters and behaviors across instances.
   - SingletoneClass.java: Implements a Singleton pattern using a static instance for controlled object creation.
   - This.java, ThisKeyword.java, ThisVsSuper, SuperKeywrd.java: Explore how this and super help reference instance vs. parent class elements.

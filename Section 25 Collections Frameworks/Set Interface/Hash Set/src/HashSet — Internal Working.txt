@@ -1,0 +1,71 @@
+HashSet — Internal Working:
+
+Overview
+--------
+HashSet is an implementation of the Set interface backed by a HashMap.
+It stores unique elements and provides (on average) constant-time performance
+for add, contains, and remove operations.
+
+⚠ Note: HashSet does not guarantee any order of iteration.
+
+Core Ideas
+----------
+- Backing structure: HashMap (array of buckets).
+- Key → bucket mapping: hashCode(key) → (hash & (n-1)) → index.
+- Collision handling: bucket stores a chain of nodes (linked list, or red-black tree since Java 8).
+- Not synchronized (use Collections.synchronizedSet for thread-safety).
+- Load factor controls when resizing occurs (default: 0.75).
+
+Operation Flow
+--------------
+1. **Add (put)**
+   - Compute hash → bucket index.
+   - If bucket empty → add node.
+   - If key already exists → no change.
+   - Else add to chain/tree.
+   - Resize if size > threshold.
+
+2. **Contains**
+   - Compute hash → index.
+   - Search chain/tree at that index.
+
+3. **Remove**
+   - Find key in bucket chain/tree.
+   - Unlink node → adjust references.
+
+4. **Rehash**
+   - When size exceeds capacity * loadFactor, array size doubles.
+   - All keys re-distributed.
+
+ASCII Diagram (Example)
+-----------------------
+```
+Bucket array (capacity = 8):
+
+index: 0   1    2             3   4 ...
+       ↓   ↓    ↓             ↓   ↓
+table: [] [A] [B] -> [C] -> [D] []
+```
+- Bucket[2] shows collision chain: B → C → D.
+
+Java 8 Treeification:
+If chain too long (≥ 8), bucket becomes a red-black tree for O(log n) lookup.
+
+Complexity
+----------
+- add, remove, contains → O(1) average; O(n) worst (treeified: O(log n)).
+- Iteration → O(n) but cost may depend on capacity.
+
+Use Cases
+---------
+- Fast membership tests.
+- Storing unique elements where order is irrelevant.
+- Examples: unique IDs, caching presence flags.
+
+Concurrency
+-----------
+Not thread-safe. Use:
+```
+Set s = Collections.synchronizedSet(new HashSet<>());
+```
+or use ConcurrentHashMap for concurrent workloads.

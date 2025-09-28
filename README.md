@@ -34,16 +34,3 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
 </p>
 <!-- Divider -->
 <p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="8"/></p>
-<!-- Animations -->
-<style>
-@keyframes pulse {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,179,0,0.6); }
-  50% { transform: scale(1.05); box-shadow: 0 0 14px 4px rgba(255,179,0,0.6); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,179,0,0.6); }
-}
-@keyframes glow {
-  0% { box-shadow: 0 0 6px #4285F4, 0 0 12px #EA4335; }
-  50% { box-shadow: 0 0 10px #FBBC05, 0 0 16px #34A853; }
-  100% { box-shadow: 0 0 6px #4285F4, 0 0 12px #EA4335; }
-}
-</style>

@@ -82,5 +82,3 @@ So: Merge = “historical diary” (records exactly what happened).
 Rebase = “rewrite the story” (makes it look like you developed cleanly on top).
 
 ⸻
-
-Want me to also sketch a real-life example with commit hashes (like abc123, def456) so you can see how git log looks different between merge and rebase?

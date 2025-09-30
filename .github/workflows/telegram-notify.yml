@@ -1,21 +1,21 @@
+# .github/workflows/telegram-notifier.yml
 name: Telegram Notifier
 
 on:
-  push:
-    branches: ["**"]
-    tags: ["*"]
   pull_request:
     types: [opened, reopened, synchronize, closed]
   release:
     types: [published]
+  issues:
+    types: [opened, reopened, closed, edited, labeled, unlabeled]
   workflow_dispatch:
     inputs:
       title:
-        description: "Manual title (e.g. 📢 Announcement)"
+        description: "Manual title (default: 📢 Manual)"
         required: false
         default: "📢 Manual"
       text:
-        description: "Message to send"
+        description: "Message body"
         required: true
       chat_id:
         description: "Override TG_CHAT_ID (e.g. @Channel or numeric id)"
@@ -25,20 +25,14 @@ permissions:
   contents: read
 
 concurrency:
-  group: telegram-${{ github.ref }}-${{ github.event_name }}
+  group: telegram-notify-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: false
 
 jobs:
   notify:
     runs-on: ubuntu-latest
-    environment: SANDBOX  # must contain secrets TG_BOT_TOKEN and TG_CHAT_ID
-
+    environment: SANDBOX
     steps:
-      - name: Checkout (for commit log)
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 50
-
       - name: Build message (plain text)
         id: msg
         shell: bash
@@ -46,88 +40,66 @@ jobs:
           REPO: ${{ github.repository }}
           ACTOR: ${{ github.actor }}
           EVENT: ${{ github.event_name }}
-          REF_NAME: ${{ github.ref_name }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
-
-          GIT_BEFORE: ${{ github.event.before }}
-          GIT_SHA: ${{ github.sha }}
-
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REF: ${{ github.ref_name }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          # PR
+          PR_NUM: ${{ github.event.pull_request.number }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_URL: ${{ github.event.pull_request.html_url }}
           PR_ACTION: ${{ github.event.action }}
           PR_MERGED: ${{ github.event.pull_request.merged }}
-
+          # Release
           REL_TAG: ${{ github.event.release.tag_name }}
           REL_NAME: ${{ github.event.release.name }}
           REL_URL: ${{ github.event.release.html_url }}
-
-          WD_TEXT:  ${{ github.event.inputs.text }}
+          # Issue
+          ISS_NUM: ${{ github.event.issue.number }}
+          ISS_TITLE: ${{ github.event.issue.title }}
+          ISS_URL: ${{ github.event.issue.html_url }}
+          # Manual
           WD_TITLE: ${{ github.event.inputs.title }}
+          WD_TEXT:  ${{ github.event.inputs.text }}
         run: |
           set -euo pipefail
+          header() { printf '%s\nRepo: %s\nBy: %s\nRef: %s\nRun: %s\n' "$1" "$REPO" "$ACTOR" "$REF" "$RUN"; }
 
-          header() {
-            printf '%s\nRepo: %s\nBy: %s\nRef: %s\nRun: %s\n' \
-              "$1" "$REPO" "$ACTOR" "$REF_NAME" "$RUN_URL"
-          }
+          case "$EVENT" in
+            workflow_dispatch)
+              TITLE="${WD_TITLE:-📢 Manual}"
+              MSG="$(header "$TITLE")"
+              [[ -n "${WD_TEXT:-}" ]] && MSG+=$'\n'"${WD_TEXT}"
+              ;;
+            pull_request)
+              if [[ "${PR_ACTION}" == "closed" ]]; then
+                [[ "${PR_MERGED}" == "true" ]] && STATUS="PR merged ✅" || STATUS="PR closed ❌"
+              else
+                STATUS="PR updated ✏️"
+              fi
+              MSG="$(header "$STATUS")"$'\n'"#${PR_NUM}: ${PR_TITLE}"$'\n'"${PR_URL}"
+              ;;
+            release)
+              NAME="${REL_NAME:-$REL_TAG}"
+              MSG="$(header 'Release published 🏷️')"$'\n'"Tag: ${REL_TAG}"$'\n'"Name: ${NAME}"$'\n'"${REL_URL}"
+              ;;
+            issues)
+              case "${{ github.event.action }}" in
+                opened)    STATUS="Issue opened 🐞" ;;
+                reopened)  STATUS="Issue reopened ♻️" ;;
+                closed)    STATUS="Issue closed ✅" ;;
+                edited)    STATUS="Issue edited ✏️" ;;
+                labeled)   STATUS="Issue labeled 🏷️" ;;
+                unlabeled) STATUS="Issue unlabeled 🏷️" ;;
+                *)         STATUS="Issue update 📌" ;;
+              esac
+              MSG="$(header "$STATUS")"$'\n'"#${ISS_NUM}: ${ISS_TITLE}"$'\n'"${ISS_URL}"
+              ;;
+            *)
+              MSG="$(header "Event: $EVENT")"
+              ;;
+          esac
 
-          MESSAGE=""
-
-          if [[ "$EVENT" == "workflow_dispatch" ]]; then
-            TITLE="${WD_TITLE:-📢 Manual}"
-            MESSAGE="$(header "$TITLE")"
-            [[ -n "${WD_TEXT:-}" ]] && MESSAGE+=$'\n'"${WD_TEXT}"
-
-          elif [[ "$EVENT" == "push" ]]; then
-            BEFORE="${GIT_BEFORE:-}"
-            AFTER="$GIT_SHA"
-
-            if [[ -z "$BEFORE" || "$BEFORE" =~ ^0+$ ]]; then
-              mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h' "$AFTER" || true)
-            else
-              mapfile -t LINES < <(git log --pretty=format:'%s%x1f%h' "$BEFORE..$AFTER" | head -n 10 || true)
-            fi
-
-            COMMITS=""
-            if [[ ${#LINES[@]} -eq 0 ]]; then
-              COMMITS="- (no commit messages found)"
-            else
-              ACTOR_URL="https://github.com/${ACTOR}"
-              for row in "${LINES[@]}"; do
-                IFS=$'\x1f' read -r subj short <<<"$row"
-                COMMITS+="- ${subj} (${short}) by ${ACTOR_URL}"$'\n'
-              done
-              COMMITS="${COMMITS%$'\n'}"
-            fi
-
-            MESSAGE="$(header '📣 Last 10 commits')"
-            MESSAGE+=$'\n'"${COMMITS}"$'\n\n'"Repo: ${REPO_URL}"
-
-          elif [[ "$EVENT" == "pull_request" ]]; then
-            if [[ "$PR_ACTION" == "closed" ]]; then
-              [[ "${PR_MERGED}" == "true" ]] && STATUS="PR merged ✅" || STATUS="PR closed ❌"
-            else
-              STATUS="PR updated ✏️"
-            fi
-            MESSAGE="$(header "$STATUS")"
-            MESSAGE+=$'\n'"#${PR_NUMBER}: ${PR_TITLE}"$'\n'"${PR_URL}"
-
-          elif [[ "$EVENT" == "release" ]]; then
-            NAME="${REL_NAME:-$REL_TAG}"
-            MESSAGE="$(header 'Release published 🏷️')"
-            MESSAGE+=$'\n'"Tag: ${REL_TAG}"$'\n'"Name: ${NAME}"$'\n'"${REL_URL}"
-
-          else
-            MESSAGE="$(header "Event: $EVENT")"
-          fi
-
-          # Write multi-line output safely (no EOF pitfalls)
           {
-            printf 'text<<MSGEOF\n'
-            printf '%s\n' "$MESSAGE"
-            printf 'MSGEOF\n'
+            printf 'text<<MSGEOF\n'; printf '%s\n' "$MSG"; printf 'MSGEOF\n'
           } >> "$GITHUB_OUTPUT"
 
       - name: Send to Telegram (plain text)
@@ -142,15 +114,10 @@ jobs:
           CHAT_ID="${OVERRIDE_CHAT_ID:-$TG_CHAT_ID_DEFAULT}"
           [[ -n "${TG_BOT_TOKEN:-}" && -n "${CHAT_ID:-}" ]] || { echo "Missing TG secrets"; exit 1; }
 
-          # Send as plain text (no parse_mode) so spacing/lines stay exactly as built
           RESP="$(curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
             -H 'Content-Type: application/json' \
-            -d "$(jq -n \
-                  --arg chat_id "$CHAT_ID" \
-                  --arg text "$TEXT" \
+            -d "$(jq -n --arg chat_id "$CHAT_ID" --arg text "$TEXT" \
                   '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}')")"
-
           echo "Telegram response: $RESP"
           echo "$RESP" | jq -e '.ok == true' >/dev/null
-
-          echo "✅ Message sent to Telegram."
+          echo "✅ Message sent."

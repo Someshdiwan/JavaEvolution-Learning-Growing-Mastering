@@ -8,6 +8,9 @@ on:
     types: [opened, reopened, synchronize, closed]
   release:
     types: [published]
+  # uncomment if you also want issues events
+  # issues:
+  #   types: [opened, reopened, closed, edited, labeled, unlabeled]
   workflow_dispatch:
     inputs:
       text:
@@ -19,24 +22,27 @@ on:
       parse_mode:
         description: "Telegram parse mode (plain|MarkdownV2|HTML)"
         required: false
-        default: "plain"
+        default: "HTML"
 
 concurrency:
   group: telegram-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 jobs:
   notify:
     runs-on: ubuntu-latest
-    environment: SANDBOX
+    environment: SANDBOX  # uses TG_BOT_TOKEN and TG_CHAT_ID secrets
 
     steps:
       - name: Check out (for commit list)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 50
 
-      - name: Build message
+      - name: Build message (HTML)
         id: msg
         shell: bash
         env:
@@ -60,52 +66,84 @@ jobs:
           REL_NAME: ${{ github.event.release.name }}
           REL_URL: ${{ github.event.release.html_url }}
 
+          ISSUE_NUM: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_ACTION: ${{ github.event.action }}
+
           DISPATCH_TEXT: ${{ github.event.inputs.text }}
         run: |
           set -euo pipefail
 
-          msg_header() {
-            printf '📣 %s\nRepo: %s\nBy: %s\nRef: %s\nRun: %s\n' \
-              "$1" "$REPO" "$ACTOR" "$REF_NAME" "$RUN_URL"
+          # minimal HTML escaper for Telegram
+          esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g'; }
+
+          header() {
+            printf '<b>📣 %s</b>\nRepo: <a href="%s">%s</a>\nBy: %s\nRef: <code>%s</code>\nRun: <a href="%s">view run</a>\n\n' \
+              "$(printf '%s' "$1" | esc)" "$REPO_URL" "$REPO" \
+              "$(printf '%s' "$ACTOR" | esc)" "$(printf '%s' "$REF_NAME" | esc)" "$RUN_URL"
           }
 
+          MESSAGE=""
+
           if [[ "$EVENT" == "workflow_dispatch" ]]; then
-            MESSAGE="$(msg_header "Manual notification")"$'\n\n'"${DISPATCH_TEXT:-}"
+            MESSAGE="$(header "Manual notification")${DISPATCH_TEXT:+$'\n'${DISPATCH_TEXT}}"
 
           elif [[ "$EVENT" == "push" ]]; then
             BEFORE="${GIT_BEFORE:-}"
             AFTER="$GIT_SHA"
-            if [[ -z "$BEFORE" || "$BEFORE" =~ ^0+$ ]]; then
-              COMMITS="$(git log --pretty=format:'- %s (%h) by %an' "$AFTER" -n 10 || true)"
+            mapfile -t LINES < <(
+              if [[ -z "$BEFORE" || "$BEFORE" =~ ^0+$ ]]; then
+                git log -n 10 --pretty=format:'%s%x1f%h%x1f%an%x1f%H' "$AFTER" || true
+              else
+                git log --pretty=format:'%s%x1f%h%x1f%an%x1f%H' "$BEFORE..$AFTER" | head -n 10 || true
+              fi
+            )
+            COMMITS_HTML=""
+            if [[ ${#LINES[@]} -eq 0 ]]; then
+              COMMITS_HTML="- (no commit messages found)"
             else
-              COMMITS="$(git log --pretty=format:'- %s (%h) by %an' "$BEFORE..$AFTER" | head -n 10 || true)"
+              COMMIT_BASE="${REPO_URL}/commit"
+              for row in "${LINES[@]}"; do
+                IFS=$'\x1f' read -r subj short author full <<<"$row"
+                subj_esc="$(printf '%s' "$subj" | esc)"
+                author_esc="$(printf '%s' "$author" | esc)"
+                COMMITS_HTML+="- <a href=\"${COMMIT_BASE}/${full}\">${subj_esc}</a> (<code>${short}</code>) by ${author_esc}\n"
+              done
             fi
-            [[ -z "${COMMITS:-}" ]] && COMMITS="- (no commit messages found)"
-
-            MESSAGE="$(msg_header "New push detected")"$'\n'"Last changes:"$'\n'"$COMMITS"$'\n\n'"Repo: $REPO_URL"
+            MESSAGE="$(header "New push detected")Last changes:\n${COMMITS_HTML}\n\nRepo: <a href=\"${REPO_URL}\">${REPO_URL}</a>"
 
           elif [[ "$EVENT" == "pull_request" ]]; then
             if [[ "$PR_ACTION" == "closed" ]]; then
-              if [[ "${PR_MERGED}" == "true" ]]; then
-                STATUS="PR merged ✅"
-              else
-                STATUS="PR closed ❌"
-              fi
+              [[ "${PR_MERGED}" == "true" ]] && STATUS="PR merged ✅" || STATUS="PR closed ❌"
             else
               STATUS="PR updated ✏️"
             fi
-            MESSAGE="$(msg_header "$STATUS")"$'\n'"#${PR_NUMBER}: ${PR_TITLE}"$'\n'"${PR_URL}"
+            MESSAGE="$(header "$STATUS")#${PR_NUMBER}: $(printf '%s' "$PR_TITLE" | esc)\n${PR_URL}"
 
           elif [[ "$EVENT" == "release" ]]; then
             NAME="${REL_NAME:-$REL_TAG}"
-            MESSAGE="$(msg_header "Release published 🏷️")"$'\n'"Tag: ${REL_TAG}"$'\n'"Name: ${NAME}"$'\n'"${REL_URL}"
+            MESSAGE="$(header "Release published 🏷️")Tag: $(printf '%s' "$REL_TAG" | esc)\nName: $(printf '%s' "$NAME" | esc)\n${REL_URL}"
+
+          elif [[ "$EVENT" == "issues" ]]; then
+            TITLE_ESC="$(printf '%s' "$ISSUE_TITLE" | esc)"
+            case "$ISSUE_ACTION" in
+              opened)   STATUS="Issue opened 🐞" ;;
+              reopened) STATUS="Issue reopened ♻️" ;;
+              closed)   STATUS="Issue closed ✅" ;;
+              edited)   STATUS="Issue edited ✏️" ;;
+              labeled)  STATUS="Issue labeled 🏷️" ;;
+              unlabeled)STATUS="Issue unlabeled 🏷️" ;;
+              *)        STATUS="Issue update 📌" ;;
+            esac
+            MESSAGE="$(header "$STATUS")#${ISSUE_NUM}: ${TITLE_ESC}\n${ISSUE_URL}"
 
           else
-            MESSAGE="$(msg_header "Event: $EVENT")"
+            MESSAGE="$(header "Event: $EVENT")"
           fi
 
           {
-            echo "text<<'EOF'"
+            echo "text<<EOF"
             echo "$MESSAGE"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
@@ -127,7 +165,7 @@ jobs:
             exit 1
           fi
 
-          case "${PARSE_MODE:-plain}" in
+          case "${PARSE_MODE:-HTML}" in
             MarkdownV2|HTML) PMODE="$PARSE_MODE" ;;
             *) PMODE="" ;;
           esac
@@ -142,7 +180,6 @@ jobs:
 
           curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
             -H 'Content-Type: application/json' \
-            -d "$PAYLOAD" \
-            | jq -e '.ok == true' >/dev/null
+            -d "$PAYLOAD" | jq -e '.ok == true' >/dev/null
 
           echo "✅ Message sent to Telegram."

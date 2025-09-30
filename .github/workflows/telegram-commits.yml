@@ -11,7 +11,7 @@ permissions:
 jobs:
   send:
     runs-on: ubuntu-latest
-    environment: SANDBOX   # TG_BOT_TOKEN + TG_CHAT_ID
+    environment: SANDBOX   # TG_BOT_TOKEN + TG_CHAT_ID secrets
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,8 +29,9 @@ jobs:
           REF_NAME="${{ github.ref_name }}"
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           REPO_URL="${{ github.server_url }}/${{ github.repository }}"
-          COMMIT_BASE="${{ github.server_url }}/${{ github.repository }}/commit"
+          COMMIT_BASE="${REPO_URL}/commit"
 
+          # minimal HTML escaper for Telegram
           esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g'; }
 
           mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h%x1f%an%x1f%H' || true)
@@ -41,24 +42,23 @@ jobs:
             COMMITS_HTML=""
             for row in "${LINES[@]}"; do
               IFS=$'\x1f' read -r subj short author full <<<"$row"
-              subj_esc="$(printf '%s' "$subj" | esc)"
+              subj_esc="$(printf '%s' "$subj"   | esc)"
               author_esc="$(printf '%s' "$author" | esc)"
-              # bullet line with HTML breaks
-              COMMITS_HTML+=$'• '
-              COMMITS_HTML+="<a href=\"${COMMIT_BASE}/${full}\">${subj_esc}</a> (<code>${short}</code>) by ${author_esc}<br>"
+              COMMITS_HTML+="- <a href=\"${COMMIT_BASE}/${full}\">${subj_esc}</a> (<code>${short}</code>) by ${author_esc}\n"
             done
           fi
 
-          HEADER="<b>📣 Last 10 commits</b><br>"
-          META="Repo: <a href=\"${REPO_URL}\">${REPO}</a><br>By: ${ACTOR}<br>Ref: <code>${REF_NAME}</code><br>Run: <a href=\"${RUN_URL}\">view run</a><br><br>"
-          FOOTER="<br>Repo: <a href=\"${REPO_URL}\">${REPO_URL}</a>"
+          HEADER="<b>📣 Last 10 commits</b>\n"
+          META="Repo: <a href=\"${REPO_URL}\">${REPO}</a>\nBy: ${ACTOR}\nRef: <code>${REF_NAME}</code>\nRun: <a href=\"${RUN_URL}\">view run</a>\n\n"
+          FOOTER="\nRepo: <a href=\"${REPO_URL}\">${REPO_URL}</a>"
 
           MESSAGE="${HEADER}${META}${COMMITS_HTML}${FOOTER}"
 
+          # write output with a custom, unquoted delimiter and LF-only
           {
-            echo "text<<'EOF'"
-            echo "$MESSAGE"
-            echo "EOF"
+            printf 'text<<MSGEOF\n'
+            printf '%s\n' "$MESSAGE"
+            printf 'MSGEOF\n'
           } >> "$GITHUB_OUTPUT"
 
       - name: Send to Telegram (HTML)

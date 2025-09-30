@@ -11,9 +11,9 @@ permissions:
 jobs:
   send:
     runs-on: ubuntu-latest
-    environment: SANDBOX   # uses TG_BOT_TOKEN and TG_CHAT_ID
+    environment: SANDBOX   # TG_BOT_TOKEN + TG_CHAT_ID
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 50
@@ -31,57 +31,51 @@ jobs:
           REPO_URL="${{ github.server_url }}/${{ github.repository }}"
           COMMIT_BASE="${{ github.server_url }}/${{ github.repository }}/commit"
 
-          # Escape minimal HTML for Telegram parse_mode=HTML
           esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g'; }
 
-          # Last 10 commits: subject, short hash, author, full hash for link
           mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h%x1f%an%x1f%H' || true)
 
           if [[ ${#LINES[@]} -eq 0 ]]; then
-            COMMITS_HTML="- (no commit messages found)"
+            COMMITS_HTML="(no commit messages found)"
           else
             COMMITS_HTML=""
             for row in "${LINES[@]}"; do
               IFS=$'\x1f' read -r subj short author full <<<"$row"
               subj_esc="$(printf '%s' "$subj" | esc)"
               author_esc="$(printf '%s' "$author" | esc)"
-              COMMITS_HTML+=$'- '   # bullet
-              COMMITS_HTML+="<a href=\"${COMMIT_BASE}/${full}\">${subj_esc}</a> "
-              COMMITS_HTML+="(<code>${short}</code>) by ${author_esc}\n"
+              # bullet line with HTML breaks
+              COMMITS_HTML+=$'• '
+              COMMITS_HTML+="<a href=\"${COMMIT_BASE}/${full}\">${subj_esc}</a> (<code>${short}</code>) by ${author_esc}<br>"
             done
           fi
 
-          HEADER="<b>📣 Last 10 commits</b>\n"
-          META="Repo: <a href=\"${REPO_URL}\">${REPO}</a>\nBy: ${ACTOR}\nRef: <code>${REF_NAME}</code>\nRun: <a href=\"${RUN_URL}\">view run</a>\n\n"
-          FOOTER="\nRepo: <a href=\"${REPO_URL}\">${REPO_URL}</a>"
+          HEADER="<b>📣 Last 10 commits</b><br>"
+          META="Repo: <a href=\"${REPO_URL}\">${REPO}</a><br>By: ${ACTOR}<br>Ref: <code>${REF_NAME}</code><br>Run: <a href=\"${RUN_URL}\">view run</a><br><br>"
+          FOOTER="<br>Repo: <a href=\"${REPO_URL}\">${REPO_URL}</a>"
 
           MESSAGE="${HEADER}${META}${COMMITS_HTML}${FOOTER}"
 
           {
-            echo "text<<EOF"
+            echo "text<<'EOF'"
             echo "$MESSAGE"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Send to Telegram
+      - name: Send to Telegram (HTML)
+        shell: bash
         env:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           TEXT: ${{ steps.msg.outputs.text }}
-        shell: bash
         run: |
           set -euo pipefail
-          if [[ -z "${TG_BOT_TOKEN:-}" || -z "${TG_CHAT_ID:-}" ]]; then
-            echo "❌ Telegram secrets missing"; exit 1
-          fi
+          [[ -n "${TG_BOT_TOKEN:-}" && -n "${TG_CHAT_ID:-}" ]] || { echo "Missing TG secrets"; exit 1; }
 
-          # Send as HTML so links and <code> render nicely
           curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
             -H 'Content-Type: application/json' \
             -d "$(jq -n \
-                 --arg chat_id "$TG_CHAT_ID" \
-                 --arg text "$TEXT" \
-                 --arg pm "HTML" \
-                 '{chat_id:$chat_id, text:$text, parse_mode:$pm, disable_web_page_preview:true}')"
+                  --arg chat_id "$TG_CHAT_ID" \
+                  --arg text "$TEXT" \
+                  '{chat_id:$chat_id, text:$text, parse_mode:"HTML", disable_web_page_preview:true}')"
 
-          echo "✅ Posted last 10 commits to Telegram channel."
+          echo "✅ Posted to Telegram."

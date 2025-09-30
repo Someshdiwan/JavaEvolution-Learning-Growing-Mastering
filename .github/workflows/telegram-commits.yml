@@ -88,3 +88,4 @@ jobs:
                   '{chat_id:$chat_id, text:$text, parse_mode:"MarkdownV2", disable_web_page_preview:true}')"
 
           echo "✅ Posted last 10 commits to Telegram."
+

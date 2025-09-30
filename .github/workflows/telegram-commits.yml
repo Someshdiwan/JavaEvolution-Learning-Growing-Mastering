@@ -1,3 +1,4 @@
+# .github/workflows/telegram-last-10.yml
 name: Telegram – Last 10 Commits (Clean Text)
 
 on:
@@ -16,9 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 50
+          fetch-depth: 50  # enough for recent history
 
-      - name: Build message (MarkdownV2, plain look)
+      - name: Build message (plain text)
         id: msg
         shell: bash
         run: |
@@ -29,48 +30,36 @@ jobs:
           REF_NAME="${{ github.ref_name }}"
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           REPO_URL="${{ github.server_url }}/${{ github.repository }}"
-          COMMIT_BASE="${REPO_URL}/commit"
           ACTOR_URL="https://github.com/${ACTOR}"
 
-          # MarkdownV2 escap er (Telegram): _ * [ ] ( ) ~ ` > # + - = | { } . !
-          mde() {
-            sed -e 's/\\/\\\\/g' \
-                -e 's/_/\\_/g'  -e 's/*/\\*/g'  -e 's/$begin:math:display$/\\\\[/g'  -e 's/]/\\$end:math:display$/g' \
-                -e 's/(/\$begin:math:text$/g'  -e 's/)/\\$end:math:text$/g'  -e 's/~/\\~/g'  -e 's/`/\\`/g' \
-                -e 's/>/\\>/g'  -e 's/#/\\#/g'  -e 's/\\+/\\\\+/g' \
-                -e 's/-/\\-/g'  -e 's/=/\\=/g'  -e 's/|/\\|/g'  -e 's/{/\\{/g' -e 's/}/\\}/g' \
-                -e 's/\./\\./g' -e 's/!/\\!/g'
-          }
-
-          # Grab last 10 commits: subject, short, full
-          mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h%x1f%H' || true)
+          # Get last 10 commit subjects + short hashes
+          mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h' || true)
 
           if [[ ${#LINES[@]} -eq 0 ]]; then
-            COMMITS_TXT="- (no commit messages found)"
+            COMMITS="- (no commit messages found)"
           else
-            COMMITS_TXT=""
+            COMMITS=""
             for row in "${LINES[@]}"; do
-              IFS=$'\x1f' read -r subj short full <<<"$row"
-              subj_esc="$(printf '%s' "$subj" | mde)"
-              # Keep raw URLs (no MDV2 link) to match your “plain” style
-              COMMITS_TXT+="- ${subj_esc} (${short}) by ${ACTOR_URL}\n"
+              IFS=$'\x1f' read -r subj short <<<"$row"
+              COMMITS+="- ${subj} (${short}) by ${ACTOR_URL}"$'\n'
             done
+            # trim final newline
+            COMMITS="${COMMITS%$'\n'}"
           fi
-
-          HEADER="📣 Last 10 commits\n"
-          META="Repo: ${REPO}\nBy: ${ACTOR}\nRef: ${REF_NAME}\nRun: ${RUN_URL}\n\n"
-          FOOTER="\nRepo: ${REPO_URL}"
-
-          MESSAGE="${HEADER}${META}${COMMITS_TXT}${FOOTER}"
-          MESSAGE="$(printf '%s' "$MESSAGE" | tr -d '\r')"  # normalize newlines
 
           {
             printf 'text<<MSGEOF\n'
-            printf '%s\n' "$MESSAGE"
+            printf '📣 Last 10 commits\n'
+            printf 'Repo: %s\n' "$REPO"
+            printf 'By: %s\n' "$ACTOR"
+            printf 'Ref: %s\n' "$REF_NAME"
+            printf 'Run: %s\n\n' "$RUN_URL"
+            printf '%s\n\n' "$COMMITS"
+            printf 'Repo: %s\n' "$REPO_URL"
             printf 'MSGEOF\n'
           } >> "$GITHUB_OUTPUT"
 
-      - name: Send to Telegram (MarkdownV2)
+      - name: Send to Telegram (plain text)
         shell: bash
         env:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
@@ -80,12 +69,11 @@ jobs:
           set -euo pipefail
           [[ -n "${TG_BOT_TOKEN:-}" && -n "${TG_CHAT_ID:-}" ]] || { echo "Missing TG secrets"; exit 1; }
 
+          # No parse_mode -> Telegram treats as plain text. Newlines stay intact.
           curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
             -H 'Content-Type: application/json' \
-            -d "$(jq -n \
-                  --arg chat_id "$TG_CHAT_ID" \
-                  --arg text "$TEXT" \
-                  '{chat_id:$chat_id, text:$text, parse_mode:"MarkdownV2", disable_web_page_preview:true}')"
+            -d "$(jq -n --arg chat_id "$TG_CHAT_ID" --arg text "$TEXT" \
+                  '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}')" \
+          | jq -e '.ok == true' >/dev/null
 
           echo "✅ Posted last 10 commits to Telegram."
-

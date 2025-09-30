@@ -1,3 +1,4 @@
+# .github/workflows/telegram-notifier.yml
 name: Telegram Notifier
 
 on:
@@ -8,30 +9,33 @@ on:
     types: [opened, reopened, synchronize, closed]
   release:
     types: [published]
-  # issues:
-  #   types: [opened, reopened, closed, edited, labeled, unlabeled]
   workflow_dispatch:
     inputs:
       text:
-        description: "Message to send to Telegram"
+        description: "Message to send"
         required: true
-      chat_id:
-        description: "Optional: override TG_CHAT_ID (e.g. @Channel or numeric id)"
+      title:
+        description: "Optional manual title (default: 📣 Manual)"
         required: false
+        default: "📣 Manual"
+      chat_id:
+        description: "Override TG_CHAT_ID (e.g. @Channel or numeric id)"
+        required: false
+
+permissions:
+  contents: read
 
 concurrency:
   group: telegram-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: false
 
-permissions:
-  contents: read
-
 jobs:
   notify:
     runs-on: ubuntu-latest
-    environment: SANDBOX  # TG_BOT_TOKEN + TG_CHAT_ID
+    environment: SANDBOX   # must contain secrets TG_BOT_TOKEN and TG_CHAT_ID
+
     steps:
-      - name: Checkout (for commit list)
+      - name: Checkout (for commit log)
         uses: actions/checkout@v4
         with:
           fetch-depth: 50
@@ -60,16 +64,12 @@ jobs:
           REL_NAME: ${{ github.event.release.name }}
           REL_URL: ${{ github.event.release.html_url }}
 
-          ISSUE_NUM: ${{ github.event.issue.number }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_URL: ${{ github.event.issue.html_url }}
-          ISSUE_ACTION: ${{ github.event.action }}
-
-          DISPATCH_TEXT: ${{ github.event.inputs.text }}
+          WD_TEXT:  ${{ github.event.inputs.text }}
+          WD_TITLE: ${{ github.event.inputs.title }}
         run: |
           set -euo pipefail
 
-          # MarkdownV2 escaper for Telegram
+          # Telegram MarkdownV2 escaper
           mde() {
             sed -e 's/\\/\\\\/g' \
                 -e 's/_/\\_/g'  -e 's/*/\\*/g'  -e 's/\[/\\[/g'  -e 's/]/\\]/g' \
@@ -79,46 +79,45 @@ jobs:
                 -e 's/\./\\./g' -e 's/!/\\!/g'
           }
 
-          header_plain() { # shared header for non-manual events
-            printf '📣 %s\nRepo: %s\nBy: %s\nRef: %s\nRun: %s\n' \
-              "$(printf '%s' "$1")" "$REPO" "$ACTOR" "$REF_NAME" "$RUN_URL"
+          header() {
+            printf '%s\nRepo: %s\nBy: %s\nRef: %s\nRun: %s\n' \
+              "$(printf '%s' "$1")" \
+              "$(printf '%s' "$REPO"     | mde)" \
+              "$(printf '%s' "$ACTOR"    | mde)" \
+              "$(printf '%s' "$REF_NAME" | mde)" \
+              "$(printf '%s' "$RUN_URL"  | mde)"
           }
 
           MESSAGE=""
 
           if [[ "$EVENT" == "workflow_dispatch" ]]; then
-            # --- Minimal manual notification (what you asked) ---
-            # 📣 Manual
-            # By: <actor>
-            # Run: <url>
-            # <your message>
-            MSG_ESC="$(printf '%s' "${DISPATCH_TEXT:-}" | mde)"
-            HEADER="📣 Manual\nBy: $(printf '%s' "$ACTOR" | mde)\nRun: $(printf '%s' "$RUN_URL" | mde)\n\n"
-            MESSAGE="${HEADER}${MSG_ESC}"
+            TITLE="${WD_TITLE:-📣 Manual}"
+            # Minimal manual card: Title + By + Run + your text
+            MESSAGE="$(header "$(printf '%s' "$TITLE" | mde)")"
+            MSG_ESC="$(printf '%s' "${WD_TEXT:-}" | mde)"
+            MESSAGE="${MESSAGE}\n${MSG_ESC}"
 
           elif [[ "$EVENT" == "push" ]]; then
             BEFORE="${GIT_BEFORE:-}"
             AFTER="$GIT_SHA"
+
             if [[ -z "$BEFORE" || "$BEFORE" =~ ^0+$ ]]; then
-              mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h%x1f%H' "$AFTER" || true)
+              mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h%x1f%an' "$AFTER" || true)
             else
-              mapfile -t LINES < <(git log --pretty=format:'%s%x1f%h%x1f%H' "$BEFORE..$AFTER" | head -n 10 || true)
+              mapfile -t LINES < <(git log --pretty=format:'%s%x1f%h%x1f%an' "$BEFORE..$AFTER" | head -n 10 || true)
             fi
 
             COMMITS_TXT=""
             if [[ ${#LINES[@]} -eq 0 ]]; then
               COMMITS_TXT="- (no commit messages found)"
             else
-              ACTOR_URL="https://github.com/${ACTOR}"
               for row in "${LINES[@]}"; do
-                IFS=$'\x1f' read -r subj short full <<<"$row"
-                subj_esc="$(printf '%s' "$subj" | mde)"
-                COMMITS_TXT+="- ${subj_esc} (${short}) by $(printf '%s' "$ACTOR_URL" | mde)\n"
+                IFS=$'\x1f' read -r subj short author <<<"$row"
+                COMMITS_TXT+="- $(printf '%s' "$subj"   | mde) ($(printf '%s' "$short" | mde)) by $(printf '%s' "$author" | mde)\n"
               done
             fi
 
-            MESSAGE="$(header_plain 'Last 10 commits')"
-            MESSAGE="${MESSAGE}\n${COMMITS_TXT}\nRepo: ${REPO_URL}"
+            MESSAGE="$(header '📣 Last 10 commits')\n${COMMITS_TXT}\nRepo: $(printf '%s' "$REPO_URL" | mde)"
 
           elif [[ "$EVENT" == "pull_request" ]]; then
             if [[ "$PR_ACTION" == "closed" ]]; then
@@ -126,31 +125,17 @@ jobs:
             else
               STATUS="PR updated ✏️"
             fi
-            TITLE_ESC="$(printf '%s' "$PR_TITLE" | mde)"
-            MESSAGE="$(header_plain "$STATUS")\n#${PR_NUMBER}: ${TITLE_ESC}\n${PR_URL}"
+            MESSAGE="$(header "$(printf '%s' "$STATUS" | mde)")\n#${PR_NUMBER}: $(printf '%s' "$PR_TITLE" | mde)\n$(printf '%s' "$PR_URL" | mde)"
 
           elif [[ "$EVENT" == "release" ]]; then
             NAME="${REL_NAME:-$REL_TAG}"
-            MESSAGE="$(header_plain 'Release published 🏷️')\nTag: $(printf '%s' "$REL_TAG" | mde)\nName: $(printf '%s' "$NAME" | mde)\n${REL_URL}"
-
-          elif [[ "$EVENT" == "issues" ]]; then
-            case "$ISSUE_ACTION" in
-              opened)   STATUS="Issue opened 🐞" ;;
-              reopened) STATUS="Issue reopened ♻️" ;;
-              closed)   STATUS="Issue closed ✅" ;;
-              edited)   STATUS="Issue edited ✏️" ;;
-              labeled)  STATUS="Issue labeled 🏷️" ;;
-              unlabeled)STATUS="Issue unlabeled 🏷️" ;;
-              *)        STATUS="Issue update 📌" ;;
-            esac
-            TITLE_ESC="$(printf '%s' "$ISSUE_TITLE" | mde)"
-            MESSAGE="$(header_plain "$STATUS")\n#${ISSUE_NUM}: ${TITLE_ESC}\n${ISSUE_URL}"
+            MESSAGE="$(header 'Release published 🏷️')\nTag: $(printf '%s' "$REL_TAG" | mde)\nName: $(printf '%s' "$NAME" | mde)\n$(printf '%s' "$REL_URL" | mde)"
 
           else
-            MESSAGE="$(header_plain "Event: $EVENT")"
+            MESSAGE="$(header "Event: $(printf '%s' "$EVENT" | mde)")"
           fi
 
-          # write multi-line output safely
+          # Safe multi-line output (no stray EOF problems)
           {
             printf 'text<<MSGEOF\n'
             printf '%s\n' "$MESSAGE"
@@ -169,7 +154,6 @@ jobs:
           CHAT_ID="${OVERRIDE_CHAT_ID:-$TG_CHAT_ID_DEFAULT}"
           [[ -n "${TG_BOT_TOKEN:-}" && -n "${CHAT_ID:-}" ]] || { echo "Missing TG secrets"; exit 1; }
 
-          # Send as MarkdownV2 (we already escaped)
           curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
             -H 'Content-Type: application/json' \
             -d "$(jq -n \

@@ -14,10 +14,10 @@ on:
         description: "Message to send to Telegram"
         required: true
       chat_id:
-        description: "Optional: override TG_CHAT_ID (e.g. @YourChannel or numeric id)"
+        description: "Override TG_CHAT_ID (optional)"
         required: false
       parse_mode:
-        description: "Telegram parse mode (plain|MarkdownV2|HTML)"
+        description: "plain | MarkdownV2 | HTML"
         required: false
         default: "plain"
 
@@ -31,7 +31,7 @@ jobs:
     environment: SANDBOX
 
     steps:
-      - name: Check out (for commit list)
+      - name: Checkout (for commit list)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -39,7 +39,6 @@ jobs:
       - name: Build message
         id: msg
         env:
-          # Context values (moved to env so the script is pure bash)
           REPO: ${{ github.repository }}
           ACTOR: ${{ github.actor }}
           EVENT: ${{ github.event_name }}
@@ -61,47 +60,47 @@ jobs:
           REL_URL: ${{ github.event.release.html_url }}
 
           DISPATCH_TEXT: ${{ github.event.inputs.text }}
-        shell: bash
         run: |
+          bash <<'BASH'
           set -euo pipefail
 
           msg_header() {
-            echo "📣 $1
+            cat <<TXT
+  📣 $1
 Repo: $REPO
 By: $ACTOR
 Ref: $REF_NAME
-Run: $RUN_URL"
+Run: $RUN_URL
+  TXT
   }
-
-  if [[ "$EVENT" == "workflow_dispatch" ]]; then
+  if [[ "${EVENT}" == "workflow_dispatch" ]]; then
   MESSAGE="$(msg_header "Manual notification")"$'\n\n'"${DISPATCH_TEXT:-}"
-  elif [[ "$EVENT" == "push" ]]; then
+
+  elif [[ "${EVENT}" == "push" ]]; then
   BEFORE="${GIT_BEFORE:-}"
-  AFTER="$GIT_SHA"
+  AFTER="${GIT_SHA}"
   if [[ -z "$BEFORE" || "$BEFORE" =~ ^0+$ ]]; then
   COMMITS="$(git log --pretty=format:'- %s (%h) by %an' "$AFTER" -n 10 || true)"
   else
   COMMITS="$(git log --pretty=format:'- %s (%h) by %an' "$BEFORE..$AFTER" | head -n 10 || true)"
   fi
   [[ -z "${COMMITS:-}" ]] && COMMITS="- (no commit messages found)"
+MESSAGE="$(msg_header "New push detected")"$'\n'"Last changes:"$'\n'"$COMMITS"$'\n\n'"Repo: $REPO_URL"
 
-  MESSAGE="$(msg_header "New push detected")"$'\n'"Last changes:"$'\n'"$COMMITS"$'\n\n'"Repo: $REPO_URL"
-  elif [[ "$EVENT" == "pull_request" ]]; then
-  if [[ "$PR_ACTION" == "closed" ]]; then
-  if [[ "$PR_MERGED" == "true" ]]; then
-  STATUS="PR merged ✅"
-  else
-  STATUS="PR closed ❌"
-  fi
+  elif [[ "${EVENT}" == "pull_request" ]]; then
+  if [[ "${PR_ACTION}" == "closed" ]]; then
+  if [[ "${PR_MERGED}" == "true" ]]; then STATUS="PR merged ✅"; else STATUS="PR closed ❌"; fi
   else
   STATUS="PR updated ✏️"
   fi
-  MESSAGE="$(msg_header "$STATUS")"$'\n'"#${PR_NUMBER}: ${PR_TITLE}"$'\n'"${PR_URL}"
-  elif [[ "$EVENT" == "release" ]]; then
+MESSAGE="$(msg_header "$STATUS")"$'\n'"#${PR_NUMBER}: ${PR_TITLE}"$'\n'"${PR_URL}"
+
+  elif [[ "${EVENT}" == "release" ]]; then
   NAME="${REL_NAME:-$REL_TAG}"
-  MESSAGE="$(msg_header "Release published 🏷️")"$'\n'"Tag: ${REL_TAG}"$'\n'"Name: ${NAME}"$'\n'"${REL_URL}"
+MESSAGE="$(msg_header "Release published 🏷️")"$'\n'"Tag: ${REL_TAG}"$'\n'"Name: ${NAME}"$'\n'"${REL_URL}"
+
   else
-  MESSAGE="$(msg_header "Event: $EVENT")"
+MESSAGE="$(msg_header "Event: ${EVENT}")"
   fi
 
   {
@@ -109,39 +108,39 @@ Run: $RUN_URL"
     echo "$MESSAGE"
     echo "EOF"
   } >> "$GITHUB_OUTPUT"
+  BASH
 
   - name: Send to Telegram
-    env:
-      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-      TG_CHAT_ID_DEFAULT: ${{ secrets.TG_CHAT_ID }}
-      TEXT: ${{ steps.msg.outputs.text }}
-      OVERRIDE_CHAT_ID: ${{ github.event.inputs.chat_id }}
-      PARSE_MODE: ${{ github.event.inputs.parse_mode }}
-    run: |
-      set -euo pipefail
+  env:
+  TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+  TG_CHAT_ID_DEFAULT: ${{ secrets.TG_CHAT_ID }}
+  TEXT: ${{ steps.msg.outputs.text }}
+  OVERRIDE_CHAT_ID: ${{ github.event.inputs.chat_id }}
+  PARSE_MODE: ${{ github.event.inputs.parse_mode }}
+  run: |
+  set -euo pipefail
+  CHAT_ID="${OVERRIDE_CHAT_ID:-$TG_CHAT_ID_DEFAULT}"
+  if [[ -z "$TG_BOT_TOKEN" || -z "$CHAT_ID" ]]; then
+    echo "Telegram secrets missing (TG_BOT_TOKEN or TG_CHAT_ID)." >&2
+    exit 1
+  fi
 
-      CHAT_ID="${OVERRIDE_CHAT_ID:-$TG_CHAT_ID_DEFAULT}"
-      if [[ -z "$TG_BOT_TOKEN" || -z "$CHAT_ID" ]]; then
-        echo "Telegram secrets missing (TG_BOT_TOKEN or TG_CHAT_ID)." >&2
-        exit 1
-      fi
+  case "${PARSE_MODE:-plain}" in
+    MarkdownV2|HTML) PMODE="$PARSE_MODE" ;;
+    *) PMODE="" ;;
+  esac
 
-      case "${PARSE_MODE:-plain}" in
-        MarkdownV2|HTML) PMODE="$PARSE_MODE" ;;
-        *) PMODE="" ;;
-      esac
+  if [[ -n "$PMODE" ]]; then
+    PAYLOAD="$(jq -n --arg chat_id "$CHAT_ID" --arg text "$TEXT" --arg pm "$PMODE" \
+      '{chat_id:$chat_id, text:$text, parse_mode:$pm, disable_web_page_preview:true}')"
+  else
+    PAYLOAD="$(jq -n --arg chat_id "$CHAT_ID" --arg text "$TEXT" \
+      '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}')"
+  fi
 
-      if [[ -n "$PMODE" ]]; then
-        PAYLOAD="$(jq -n --arg chat_id "$CHAT_ID" --arg text "$TEXT" --arg pm "$PMODE" \
-          '{chat_id:$chat_id, text:$text, parse_mode:$pm, disable_web_page_preview:true}')"
-      else
-        PAYLOAD="$(jq -n --arg chat_id "$CHAT_ID" --arg text "$TEXT" \
-          '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}')"
-      fi
+  curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
+    -H 'Content-Type: application/json' \
+    -d "$PAYLOAD" \
+    | jq -e '.ok == true' >/dev/null
 
-      curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
-        -H 'Content-Type: application/json' \
-        -d "$PAYLOAD" \
-        | jq -e '.ok == true' >/dev/null
-
-      echo "✅ Message sent to Telegram."
+  echo "✅ Message sent to Telegram."

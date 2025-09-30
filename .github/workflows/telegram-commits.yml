@@ -1,0 +1,68 @@
+name: Telegram – Last 10 Commits
+
+on:
+  push:
+    branches: ["**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    environment: SANDBOX   # uses TG_BOT_TOKEN and TG_CHAT_ID secrets from your env
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 50   # fetch enough history for git log
+
+      - name: Build message
+        id: msg
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          REPO="${{ github.repository }}"
+          ACTOR="${{ github.actor }}"
+          REF_NAME="${{ github.ref_name }}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          REPO_URL="${{ github.server_url }}/${{ github.repository }}"
+
+          # Last 10 commits
+          COMMITS="$(git log -n 10 --pretty=format:'- %s (%h) by %an' || true)"
+          [[ -z "$COMMITS" ]] && COMMITS="- (no commit messages found)"
+
+          MESSAGE=$(
+            printf "📣 Last 10 commits\nRepo: %s\nBy: %s\nRef: %s\nRun: %s\n\n%s\n\nRepo: %s\n" \
+              "$REPO" "$ACTOR" "$REF_NAME" "$RUN_URL" "$COMMITS" "$REPO_URL"
+          )
+
+          {
+            echo "text<<EOF"
+            echo "$MESSAGE"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send to Telegram
+        env:
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          TEXT: ${{ steps.msg.outputs.text }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${TG_BOT_TOKEN:-}" || -z "${TG_CHAT_ID:-}" ]]; then
+            echo "❌ Telegram secrets missing"
+            exit 1
+          fi
+
+          # Send message
+          curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
+            -H 'Content-Type: application/json' \
+            -d "$(jq -n --arg chat_id "$TG_CHAT_ID" --arg text "$TEXT" \
+                  '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}')"
+
+          echo "✅ Posted last 10 commits to Telegram channel."

@@ -34,3 +34,20 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
 </p>
 <!-- Divider -->
 <p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="8"/></p>
+
+
+
+<!-- Telegram Updates -->
+<p align="center">
+  <a href="https://t.me/JavaEvolutionUpdates" target="_blank" rel="noopener">
+    <img 
+      src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" 
+      alt="Join Telegram" 
+      width="80" height="80"/>
+  </a>
+</p>
+
+<p align="center" style="font-family: 'Comic Sans MS', cursive, sans-serif; font-size: 18px;">
+  🔔 Stay connected — get <b>real-time updates</b> about this repo on our 
+  <a href="https://t.me/JavaEvolutionUpdates" target="_blank">Telegram channel</a>.
+</p>

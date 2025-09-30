@@ -28,7 +28,6 @@ jobs:
           REPO="${{ github.repository }}"
           ACTOR="${{ github.actor }}"
           REF_NAME="${{ github.ref_name }}"
-          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           REPO_URL="${{ github.server_url }}/${{ github.repository }}"
           ACTOR_URL="https://github.com/${ACTOR}"
 
@@ -53,7 +52,6 @@ jobs:
             printf 'Repo: %s\n' "$REPO"
             printf 'By: %s\n' "$ACTOR"
             printf 'Ref: %s\n' "$REF_NAME"
-            printf 'Run: %s\n\n' "$RUN_URL"
             printf '%s\n\n' "$COMMITS"
             printf 'Repo: %s\n' "$REPO_URL"
             printf 'MSGEOF\n'

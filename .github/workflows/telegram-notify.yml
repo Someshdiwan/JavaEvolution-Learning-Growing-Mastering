@@ -1,4 +1,3 @@
-# .github/workflows/telegram-notifier.yml
 name: Telegram Notifier
 
 on:
@@ -11,13 +10,13 @@ on:
     types: [published]
   workflow_dispatch:
     inputs:
+      title:
+        description: "Manual title (e.g. 📢 Announcement)"
+        required: false
+        default: "📢 Manual"
       text:
         description: "Message to send"
         required: true
-      title:
-        description: "Optional manual title (default: 📣 Manual)"
-        required: false
-        default: "📣 Manual"
       chat_id:
         description: "Override TG_CHAT_ID (e.g. @Channel or numeric id)"
         required: false
@@ -32,7 +31,7 @@ concurrency:
 jobs:
   notify:
     runs-on: ubuntu-latest
-    environment: SANDBOX   # must contain secrets TG_BOT_TOKEN and TG_CHAT_ID
+    environment: SANDBOX  # must contain secrets TG_BOT_TOKEN and TG_CHAT_ID
 
     steps:
       - name: Checkout (for commit log)
@@ -40,7 +39,7 @@ jobs:
         with:
           fetch-depth: 50
 
-      - name: Build message (MarkdownV2)
+      - name: Build message (plain text)
         id: msg
         shell: bash
         env:
@@ -69,55 +68,42 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Telegram MarkdownV2 escaper
-          mde() {
-            sed -e 's/\\/\\\\/g' \
-                -e 's/_/\\_/g'  -e 's/*/\\*/g'  -e 's/\[/\\[/g'  -e 's/]/\\]/g' \
-                -e 's/(/\\(/g'  -e 's/)/\\)/g'  -e 's/~/\\~/g'  -e 's/`/\\`/g' \
-                -e 's/>/\\>/g'  -e 's/#/\\#/g'  -e 's/\\+/\\\\+/g' \
-                -e 's/-/\\-/g'  -e 's/=/\\=/g'  -e 's/|/\\|/g'  -e 's/{/\\{/g' -e 's/}/\\}/g' \
-                -e 's/\./\\./g' -e 's/!/\\!/g'
-          }
-
           header() {
             printf '%s\nRepo: %s\nBy: %s\nRef: %s\nRun: %s\n' \
-              "$(printf '%s' "$1")" \
-              "$(printf '%s' "$REPO"     | mde)" \
-              "$(printf '%s' "$ACTOR"    | mde)" \
-              "$(printf '%s' "$REF_NAME" | mde)" \
-              "$(printf '%s' "$RUN_URL"  | mde)"
+              "$1" "$REPO" "$ACTOR" "$REF_NAME" "$RUN_URL"
           }
 
           MESSAGE=""
 
           if [[ "$EVENT" == "workflow_dispatch" ]]; then
-            TITLE="${WD_TITLE:-📣 Manual}"
-            # Minimal manual card: Title + By + Run + your text
-            MESSAGE="$(header "$(printf '%s' "$TITLE" | mde)")"
-            MSG_ESC="$(printf '%s' "${WD_TEXT:-}" | mde)"
-            MESSAGE="${MESSAGE}\n${MSG_ESC}"
+            TITLE="${WD_TITLE:-📢 Manual}"
+            MESSAGE="$(header "$TITLE")"
+            [[ -n "${WD_TEXT:-}" ]] && MESSAGE+=$'\n'"${WD_TEXT}"
 
           elif [[ "$EVENT" == "push" ]]; then
             BEFORE="${GIT_BEFORE:-}"
             AFTER="$GIT_SHA"
 
             if [[ -z "$BEFORE" || "$BEFORE" =~ ^0+$ ]]; then
-              mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h%x1f%an' "$AFTER" || true)
+              mapfile -t LINES < <(git log -n 10 --pretty=format:'%s%x1f%h' "$AFTER" || true)
             else
-              mapfile -t LINES < <(git log --pretty=format:'%s%x1f%h%x1f%an' "$BEFORE..$AFTER" | head -n 10 || true)
+              mapfile -t LINES < <(git log --pretty=format:'%s%x1f%h' "$BEFORE..$AFTER" | head -n 10 || true)
             fi
 
-            COMMITS_TXT=""
+            COMMITS=""
             if [[ ${#LINES[@]} -eq 0 ]]; then
-              COMMITS_TXT="- (no commit messages found)"
+              COMMITS="- (no commit messages found)"
             else
+              ACTOR_URL="https://github.com/${ACTOR}"
               for row in "${LINES[@]}"; do
-                IFS=$'\x1f' read -r subj short author <<<"$row"
-                COMMITS_TXT+="- $(printf '%s' "$subj"   | mde) ($(printf '%s' "$short" | mde)) by $(printf '%s' "$author" | mde)\n"
+                IFS=$'\x1f' read -r subj short <<<"$row"
+                COMMITS+="- ${subj} (${short}) by ${ACTOR_URL}"$'\n'
               done
+              COMMITS="${COMMITS%$'\n'}"
             fi
 
-            MESSAGE="$(header '📣 Last 10 commits')\n${COMMITS_TXT}\nRepo: $(printf '%s' "$REPO_URL" | mde)"
+            MESSAGE="$(header '📣 Last 10 commits')"
+            MESSAGE+=$'\n'"${COMMITS}"$'\n\n'"Repo: ${REPO_URL}"
 
           elif [[ "$EVENT" == "pull_request" ]]; then
             if [[ "$PR_ACTION" == "closed" ]]; then
@@ -125,24 +111,26 @@ jobs:
             else
               STATUS="PR updated ✏️"
             fi
-            MESSAGE="$(header "$(printf '%s' "$STATUS" | mde)")\n#${PR_NUMBER}: $(printf '%s' "$PR_TITLE" | mde)\n$(printf '%s' "$PR_URL" | mde)"
+            MESSAGE="$(header "$STATUS")"
+            MESSAGE+=$'\n'"#${PR_NUMBER}: ${PR_TITLE}"$'\n'"${PR_URL}"
 
           elif [[ "$EVENT" == "release" ]]; then
             NAME="${REL_NAME:-$REL_TAG}"
-            MESSAGE="$(header 'Release published 🏷️')\nTag: $(printf '%s' "$REL_TAG" | mde)\nName: $(printf '%s' "$NAME" | mde)\n$(printf '%s' "$REL_URL" | mde)"
+            MESSAGE="$(header 'Release published 🏷️')"
+            MESSAGE+=$'\n'"Tag: ${REL_TAG}"$'\n'"Name: ${NAME}"$'\n'"${REL_URL}"
 
           else
-            MESSAGE="$(header "Event: $(printf '%s' "$EVENT" | mde)")"
+            MESSAGE="$(header "Event: $EVENT")"
           fi
 
-          # Safe multi-line output (no stray EOF problems)
+          # Write multi-line output safely (no EOF pitfalls)
           {
             printf 'text<<MSGEOF\n'
             printf '%s\n' "$MESSAGE"
             printf 'MSGEOF\n'
           } >> "$GITHUB_OUTPUT"
 
-      - name: Send to Telegram
+      - name: Send to Telegram (plain text)
         shell: bash
         env:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
@@ -154,12 +142,15 @@ jobs:
           CHAT_ID="${OVERRIDE_CHAT_ID:-$TG_CHAT_ID_DEFAULT}"
           [[ -n "${TG_BOT_TOKEN:-}" && -n "${CHAT_ID:-}" ]] || { echo "Missing TG secrets"; exit 1; }
 
-          curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
+          # Send as plain text (no parse_mode) so spacing/lines stay exactly as built
+          RESP="$(curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
             -H 'Content-Type: application/json' \
             -d "$(jq -n \
                   --arg chat_id "$CHAT_ID" \
                   --arg text "$TEXT" \
-                  '{chat_id:$chat_id, text:$text, parse_mode:"MarkdownV2", disable_web_page_preview:true}')" \
-          | jq -e '.ok == true' >/dev/null
+                  '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}')")"
+
+          echo "Telegram response: $RESP"
+          echo "$RESP" | jq -e '.ok == true' >/dev/null
 
           echo "✅ Message sent to Telegram."

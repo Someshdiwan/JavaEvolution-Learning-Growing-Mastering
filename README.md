@@ -37,7 +37,11 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
 
 
 <!-- Telegram Updates -->
+<!-- Spacer above -->
+<p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="20"/></p>
+
 <p align="center">
+  <!-- Telegram Logo -->
   <a href="https://t.me/JavaEvolutionUpdates" target="_blank" rel="noopener">
     <img 
       src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" 
@@ -45,10 +49,14 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
       width="80" height="80"/>
   </a>
 </p>
-<!-- Centered SVG Banner -->
+
+<!-- Centered Animated Banner -->
 <p align="center">
-  <!-- Option 1: Relative path (works when browsing repo on GitHub) -->
   <img src="site/assets/telegram-updates-text.svg" 
        alt="Telegram Updates Banner" 
        width="800" height="100"/>
 </p>
+
+<!-- Spacer below -->
+<p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="20"/></p>
+

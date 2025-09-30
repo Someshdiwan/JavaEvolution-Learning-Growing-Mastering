@@ -1,0 +1,66 @@
+name: Filename Guard
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-filenames:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for unsafe filenames
+        run: |
+          echo "🔍 Scanning repository filenames for Windows/macOS unsafe characters..."
+
+          FAIL=0
+          # Space before extension
+          if git ls-files | grep -qE '\s+\.[A-Za-z0-9]+$'; then
+            echo "❌ Found files with a space before extension:"
+            git ls-files | grep -E '\s+\.[A-Za-z0-9]+$'
+            FAIL=1
+          fi
+
+          # Leading spaces
+          if git ls-files | grep -qE '(^|/)[[:space:]]'; then
+            echo "❌ Found files with leading spaces in names:"
+            git ls-files | grep -E '(^|/)[[:space:]]'
+            FAIL=1
+          fi
+
+          # Trailing spaces or dots
+          if git ls-files | grep -qE '[[:space:]\.]+$'; then
+            echo "❌ Found files with trailing spaces or dots:"
+            git ls-files | grep -E '[[:space:]\.]+$'
+            FAIL=1
+          fi
+
+          # Backticks
+          if git ls-files | grep -q '\`'; then
+            echo "❌ Found files with backticks in names:"
+            git ls-files | grep '\`'
+            FAIL=1
+          fi
+
+          # Windows reserved names
+          if git ls-files | grep -qE '(^|/)(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\..*)?$'; then
+            echo "❌ Found Windows reserved filenames:"
+            git ls-files | grep -E '(^|/)(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\..*)?$'
+            FAIL=1
+          fi
+
+          # Illegal characters
+          if git ls-files | grep -qE '[<>:"\\|?*]'; then
+            echo "❌ Found files with illegal characters: < > : \" \\ | ? *"
+            git ls-files | grep -E '[<>:"\\|?*]'
+            FAIL=1
+          fi
+
+          # Final status
+          if [ $FAIL -eq 1 ]; then
+            echo "❌ Filename guard check failed. Please sanitize filenames before committing."
+            exit 1
+          else
+            echo "✅ All filenames are safe!"
+          fi

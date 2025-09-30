@@ -50,11 +50,13 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
   </a>
 </p>
 
-<!-- Centered Animated Banner -->
+<!-- Centered SVG Banner (clickable in README) -->
 <p align="center">
-  <img src="site/assets/telegram-updates-text.svg" 
-       alt="Telegram Updates Banner" 
-       width="800" height="100"/>
+  <a href="https://t.me/JavaEvolutionUpdates" target="_blank" rel="noopener">
+    <img src="site/assets/telegram-updates-text.svg" 
+         alt="Telegram Updates Banner" 
+         width="800" height="100"/>
+  </a>
 </p>
 
 <!-- Spacer below -->

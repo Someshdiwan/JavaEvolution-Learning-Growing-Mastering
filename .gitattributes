@@ -115,6 +115,8 @@ pnpm-lock.yaml   -diff
 *.json   linguist-detectable=true
 *.md     linguist-detectable=true
 *.sql    linguist-detectable=true
+*.md     linguist-detectable=true linguist-language=Markdown
+*.txt    linguist-detectable=true
 
 # Force correct language classification
 *.xml    linguist-language=XML
@@ -122,6 +124,8 @@ pnpm-lock.yaml   -diff
 *.yml    linguist-language=YAML
 *.yaml   linguist-language=YAML
 *.sql    linguist-language=SQL
+*.md     linguist-detectable=true linguist-language=Markdown
+*.txt    linguist-detectable=true
 
 # ------------------------------------------------------------------------------
 # Export settings (exclude from `git archive`)

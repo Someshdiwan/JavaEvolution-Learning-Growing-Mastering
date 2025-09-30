@@ -10,14 +10,14 @@ permissions:
 jobs:
   send:
     runs-on: ubuntu-latest
-    environment: SANDBOX  # Must contain TG_BOT_TOKEN and TG_CHAT_ID
+    environment: SANDBOX   # Must contain TG_BOT_TOKEN and TG_CHAT_ID
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 50  # Fetch enough commits for recent history
+          fetch-depth: 50  # enough for recent history
 
-      - name: Build commit message (plain text, IST timestamps)
+      - name: Build message (plain text, IST timestamps)
         id: msg
         shell: bash
         env:
@@ -26,82 +26,62 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
           REPO_URL: ${{ github.server_url }}/${{ github.repository }}
           SITE_URL: https://someshdiwan.github.io/JavaEvolution-Learning-Growing-Mastering/
-          COMMIT_COUNT: 10  # Number of commits to fetch
         run: |
           set -euo pipefail
 
-          # Validate environment variables
-          if [[ -z "${REPO:-}" || -z "${ACTOR:-}" || -z "${REF_NAME:-}" || -z "${REPO_URL:-}" ]]; then
-            echo "Error: Missing required GitHub environment variables"
-            exit 1
-          fi
-
-          # Fetch last N commits with subject | short hash | IST datetime
-          mapfile -t COMMITS < <(
+          # Pull last 10 commits with subject | short hash | IST datetime
+          # Use Git's format-local and force runner TZ to Asia/Kolkata
+          mapfile -t LINES < <(
             TZ=Asia/Kolkata \
-            git log -n "$COMMIT_COUNT" \
+            git log -n 10 \
               --date=format-local:'%d %b %Y, %H:%M IST' \
-              --pretty=format:'%s | %h | %ad' 2>/dev/null || true
+              --pretty=format:'%s%x1f%h%x1f%ad' || true
           )
 
-          # Format commit message
-          if [[ ${#COMMITS[@]} -eq 0 ]]; then
-            COMMIT_MESSAGE="- No recent commits found"
+          if [[ ${#LINES[@]} -eq 0 ]]; then
+            COMMITS="- (no commit messages found)"
           else
-            COMMIT_MESSAGE=""
-            for row in "${COMMITS[@]}"; do
-              IFS='|' read -r subj short when <<<"$row"
-              COMMIT_MESSAGE+="- ${subj//|/} (${short}) — ${when}"$'\n\n'
+            COMMITS=""
+            for row in "${LINES[@]}"; do
+              IFS=$'\x1f' read -r subj short when <<<"$row"
+              # bullet + blank line after each item
+              COMMITS+="- ${subj} (${short}) — ${when}"$'\n\n'
             done
-            COMMIT_MESSAGE="${COMMIT_MESSAGE%$'\n\n'}"  # Trim trailing newlines
+            # trim final blank line
+            COMMITS="${COMMITS%$'\n\n'}"
           fi
 
-          # Construct Telegram message
           {
             printf 'text<<MSGEOF\n'
-            printf '📣 Recent Commits (%s)\n' "$COMMIT_COUNT"
+            printf '📣 Last 10 commits\n'
             printf 'Site: %s\n' "$SITE_URL"
-            printf 'Repository: %s\n' "$REPO"
+            printf 'Repo: %s\n' "$REPO"
             printf 'Branch: %s\n' "$REF_NAME"
-            printf 'Pushed by: %s\n' "$ACTOR"
-            printf '\n%s\n' "$COMMIT_MESSAGE"
-            printf '\n🔗 Repo: %s\n' "$REPO_URL"
+            printf 'By: %s\n' "$ACTOR"
+            printf '\n'
+            printf '%s\n' "$COMMITS"
+            printf '\n'
+            printf '🔗 Repo: %s\n' "$REPO_URL"
             printf 'MSGEOF\n'
           } >> "$GITHUB_OUTPUT"
 
-      - name: Send to Telegram (plain text with retry)
+      - name: Send to Telegram (plain text)
         shell: bash
         env:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
           TEXT: ${{ steps.msg.outputs.text }}
-          MAX_RETRIES: 3
-          RETRY_DELAY: 5
         run: |
           set -euo pipefail
+          [[ -n "${TG_BOT_TOKEN:-}" && -n "${TG_CHAT_ID:-}" ]] || { echo "Missing TG secrets"; exit 1; }
 
-          # Validate Telegram secrets
-          if [[ -z "${TG_BOT_TOKEN:-}" || -z "${TG_CHAT_ID:-}" ]]; then
-            echo "Error: Missing Telegram bot token or chat ID"
-            exit 1
-          fi
+          # Plain text: keeps your newlines and spacing as-is
+          curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
+            -H 'Content-Type: application/json' \
+            -d "$(jq -n \
+                  --arg chat_id "$TG_CHAT_ID" \
+                  --arg text "$TEXT" \
+                  '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}')" \
+          | jq -e '.ok == true' >/dev/null
 
-          # Send message with retry logic
-          for ((i=1; i<=MAX_RETRIES; i++)); do
-            if curl -sS -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
-              -H 'Content-Type: application/json' \
-              -d "$(jq -n \
-                    --arg chat_id "$TG_CHAT_ID" \
-                    --arg text "$TEXT" \
-                    '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}')" \
-              | jq -e '.ok == true' >/dev/null; then
-              echo "✅ Successfully posted to Telegram (attempt $i)"
-              exit 0
-            else
-              echo "⚠️ Telegram API request failed (attempt $i)"
-              [[ $i -lt $MAX_RETRIES ]] && sleep "$RETRY_DELAY"
-            fi
-          done
-
-          echo "❌ Failed to post to Telegram after $MAX_RETRIES attempts"
-          exit 1
+          echo "✅ Posted last 10 commits to Telegram."

@@ -168,5 +168,4 @@ jobs:
             echo "Response: $response" >&2
             exit 1
           fi
-
           echo "✅ Successfully sent message to Telegram"

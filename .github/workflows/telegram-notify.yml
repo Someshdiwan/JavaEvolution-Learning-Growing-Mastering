@@ -1,0 +1,155 @@
+name: Telegram Notifier
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["*"]
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+  release:
+    types: [published]
+
+# Avoid duplicate spam if multiple events fire at once
+concurrency:
+  group: telegram-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    # If you created a GitHub Environment that holds the TG_* secrets, keep this.
+    # Otherwise, remove the next line.
+    environment: SANDBOX
+
+    steps:
+      - name: Check out (for commit list)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build message
+        id: msg
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          REPO="${{ github.repository }}"
+          ACTOR="${{ github.actor }}"
+          EVENT="${{ github.event_name }}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          REPO_URL="${{ github.server_url }}/${{ github.repository }}"
+          REF_NAME="${{ github.ref_name }}"
+
+          msg_header() {
+            echo -e "📣 $1
+Repo: ${REPO}
+By: ${ACTOR}
+Ref: ${REF_NAME}
+Run: ${RUN_URL}"
+  }
+
+  MESSAGE=""
+
+  if [[ "$EVENT" == "push" ]]; then
+  BEFORE="${{ github.event.before }}"
+  AFTER="${{ github.sha }}"
+
+  if [[ "${BEFORE}" =~ ^0+$ ]]; then
+  RANGE="${AFTER} -n 10"
+  else
+  RANGE="${BEFORE}..${AFTER}"
+  fi
+
+  COMMITS="$(git log --pretty=format:'- %s (%h) by %an' ${RANGE} | head -n 10 || true)"
+  [[ -z "${COMMITS}" ]] && COMMITS="- (no commit messages found)"
+
+  MESSAGE="$(msg_header "New push detected")"
+  MESSAGE="${MESSAGE}
+Last changes:
+  ${COMMITS}
+
+Repo: ${REPO_URL}"
+
+  elif [[ "$EVENT" == "pull_request" ]]; then
+  PR_NUM="${{ github.event.pull_request.number }}"
+  PR_TITLE="${{ github.event.pull_request.title }}"
+  PR_URL="${{ github.event.pull_request.html_url }}"
+
+  if [[ "${{ github.event.action }}" == "closed" ]]; then
+  if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
+  STATUS="PR merged ✅"
+  else
+  STATUS="PR closed ❌"
+  fi
+  else
+  STATUS="PR updated ✏️"
+  fi
+
+  MESSAGE="$(msg_header "${STATUS}")"
+  MESSAGE="${MESSAGE}
+#${PR_NUM}: ${PR_TITLE}
+  ${PR_URL}"
+
+  elif [[ "$EVENT" == "release" ]]; then
+  REL_TAG="${{ github.event.release.tag_name }}"
+  REL_NAME="${{ github.event.release.name }}"
+  REL_URL="${{ github.event.release.html_url }}"
+
+  MESSAGE="$(msg_header "Release published 🏷️")"
+  MESSAGE="${MESSAGE}
+Tag: ${REL_TAG}
+Name: ${REL_NAME:-${REL_TAG}}
+  ${REL_URL}"
+
+  else
+MESSAGE="$(msg_header "Event: ${EVENT}")"
+  fi
+
+  # Telegram hard limit ~4096 chars → keep some headroom
+  LIMIT=3800
+  if (( ${#MESSAGE} > LIMIT )); then
+  MESSAGE="${MESSAGE:0:LIMIT}
+  …(truncated)"
+  fi
+
+# Export message to next step
+  {
+    echo "text<<EOF"
+    echo "${MESSAGE}"
+            echo "EOF"
+  } >> "$GITHUB_OUTPUT"
+
+  - name: Send to Telegram
+    env:
+      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+      TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+      TEXT: ${{ steps.msg.outputs.text }}
+    shell: bash
+    run: |
+      set -euo pipefail
+
+      if [[ -z "${TG_BOT_TOKEN:-}" || -z "${TG_CHAT_ID:-}" ]]; then
+        echo "❌ Telegram secrets missing (TG_BOT_TOKEN / TG_CHAT_ID)."
+        exit 1
+      fi
+
+      echo "Payload to Telegram (debug):"
+      jq -n --arg chat_id "$TG_CHAT_ID" --arg text "$TEXT" \
+        '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}'
+
+      jq -n --arg chat_id "$TG_CHAT_ID" --arg text "$TEXT" \
+        '{chat_id:$chat_id, text:$text, disable_web_page_preview:true}' \
+      | curl -sS --retry 3 --retry-connrefused --max-time 20 \
+          -X POST "https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage" \
+          -H "Content-Type: application/json" \
+          -d @- \
+      | tee /tmp/tg_response.json
+
+      # Optional: basic success check
+      if ! jq -e '.ok == true' /tmp/tg_response.json > /dev/null 2>&1; then
+        echo "⚠️ Telegram API did not return ok=true:"
+        cat /tmp/tg_response.json
+        exit 1
+      fi
+
+      echo "✅ Message sent to Telegram."

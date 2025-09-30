@@ -10,11 +10,11 @@ Your branch:     A──B──C──D──E─────────┴─M
                                              ↑
                                              Merge commit (M)
 
-	•	You branched from commit C.
-	•	You added commits D and E.
-	•	Upstream added commits after C.
-	•	When you git merge upstream/main, Git creates a merge commit (M) joining both histories.
-	•	History shows branching + merging — good for context but can look messy.
+• You branched from commit C.
+• You added commits D and E.
+• Upstream added commits after C.
+• When you git merge upstream/main, Git creates a merge commit (M) joining both histories.
+• History shows branching + merging — good for context but can look messy.
 
 ⸻
 
@@ -47,14 +47,14 @@ A──B──C──F──G──H──D'──E'
 ⸻
 
 D) When to use what
-	•	Merge →
-	•	If you want to preserve the “real” history (showing when branches diverged).
-	•	Safer for beginners (no rewriting commits).
-	•	Good for long-lived feature branches.
-	•	Rebase →
-	•	If you want a clean, straight line history.
-	•	Preferred in open-source PR workflows.
-	•	Requires confidence resolving conflicts & force-pushing.
+• Merge →
+• If you want to preserve the “real” history (showing when branches diverged).
+• Safer for beginners (no rewriting commits).
+• Good for long-lived feature branches.
+• Rebase →
+• If you want a clean, straight line history.
+• Preferred in open-source PR workflows.
+• Requires confidence resolving conflicts & force-pushing.
 
 ⸻
 
@@ -75,12 +75,9 @@ git rebase upstream/main
 # fix conflicts if needed
 git push origin feature-branch --force-with-lease
 
-
 ⸻
 
 So: Merge = “historical diary” (records exactly what happened).
 Rebase = “rewrite the story” (makes it look like you developed cleanly on top).
 
 ⸻
-
-Want me to also sketch a real-life example with commit hashes (like abc123, def456) so you can see how git log looks different between merge and rebase?

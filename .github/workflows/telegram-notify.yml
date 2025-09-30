@@ -1,5 +1,9 @@
 name: Telegram Notifier
 
+permissions:
+  contents: read
+  pull-requests: read   # optional but harmless for PR events
+
 on:
   push:
     branches: ["**"]
@@ -73,6 +77,7 @@ Ref: $REF_NAME
 Run: $RUN_URL
   TXT
   }
+
   if [[ "${EVENT}" == "workflow_dispatch" ]]; then
   MESSAGE="$(msg_header "Manual notification")"$'\n\n'"${DISPATCH_TEXT:-}"
 

@@ -1,0 +1,124 @@
+# ------------------------------------------------------------------------------
+# Core: normalize text files and keep LF in the repo (Windows can still check out
+# CRLF locally depending on user config like core.autocrlf)
+# ------------------------------------------------------------------------------
+* text=auto eol=lf
+
+# ------------------------------------------------------------------------------
+# Text files (force LF in repo)
+# ------------------------------------------------------------------------------
+*.java       text eol=lf
+*.kt         text eol=lf
+*.py         text eol=lf
+*.js         text eol=lf
+*.jsx        text eol=lf
+*.ts         text eol=lf
+*.tsx        text eol=lf
+*.html       text eol=lf
+*.css        text eol=lf
+*.scss       text eol=lf
+*.md         text eol=lf
+*.txt        text eol=lf
+*.xml        text eol=lf
+*.json       text eol=lf
+*.yml        text eol=lf
+*.yaml       text eol=lf
+*.sh         text eol=lf
+*.bash       text eol=lf
+*.gradle     text eol=lf
+*.properties text eol=lf
+*.cmd        text eol=lf
+*.bat        text eol=lf
+*.ps1        text eol=lf
+
+# ------------------------------------------------------------------------------
+# Binary files (never touch line endings or attempt merges)
+# ------------------------------------------------------------------------------
+# Images & media
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.svg   binary
+*.webp  binary
+
+# Documents
+*.pdf   binary
+
+# Java / native / compiled
+*.jar   binary
+*.war   binary
+*.class binary
+*.dll   binary
+*.exe   binary
+*.so    binary
+*.dylib binary
+
+# Databases & blobs
+*.db    binary
+*.sqlite binary
+
+# Archives & compressed
+*.zip   binary
+*.tar   binary
+*.tar.gz binary
+*.tgz   binary
+*.7z    binary
+*.gz    binary
+*.xz    binary
+*.bz2   binary
+
+# Animated images / misc
+*.gif   binary
+
+# ------------------------------------------------------------------------------
+# Diff & merge hygiene
+# ------------------------------------------------------------------------------
+# Treat these as text for nicer diffs (works even without custom drivers)
+*.md    text
+*.json  text
+*.xml   text
+
+# Noise reducers: lockfiles rarely need diffs
+package-lock.json -diff
+yarn.lock        -diff
+pnpm-lock.yaml   -diff
+*.lock           -diff
+
+# Merging: don't attempt to merge true binaries
+*.jar   merge=binary
+*.class merge=binary
+*.dll   merge=binary
+*.exe   merge=binary
+*.so    merge=binary
+*.dylib merge=binary
+*.db    merge=binary
+*.sqlite merge=binary
+*.pdf   merge=binary
+*.png   merge=binary
+*.jpg   merge=binary
+*.jpeg  merge=binary
+*.gif   merge=binary
+*.ico   merge=binary
+*.svg   merge=binary
+*.webp  merge=binary
+*.zip   merge=binary
+*.tar   merge=binary
+*.tar.gz merge=binary
+*.tgz   merge=binary
+*.7z    merge=binary
+*.gz    merge=binary
+*.xz    merge=binary
+*.bz2   merge=binary
+
+# Lock files: prefer ours to avoid churn
+*.lock  merge=ours
+
+# ------------------------------------------------------------------------------
+# Export settings (exclude dev/meta files from `git archive`)
+# ------------------------------------------------------------------------------
+.gitattributes export-ignore
+.gitignore     export-ignore
+.github/       export-ignore
+tools/         export-ignore

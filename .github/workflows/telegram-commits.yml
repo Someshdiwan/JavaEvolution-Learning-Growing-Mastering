@@ -9,8 +9,11 @@ permissions:
 
 jobs:
   send:
+    if: github.repository == 'Someshdiwan/JavaEvolution-Learning-Growing-Mastering'
     runs-on: ubuntu-latest
-    environment: SANDBOX   # Must contain TG_BOT_TOKEN and TG_CHAT_ID
+    environment: SANDBOX
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4

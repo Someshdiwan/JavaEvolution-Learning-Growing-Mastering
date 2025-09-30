@@ -1,0 +1,5 @@
+# Require Someshdiwan to approve any changes to workflow files
+
+/.github/workflows/ @Someshdiwan
+/.github/workflows/** @Someshdiwan
+docs/**               @Someshdiwan

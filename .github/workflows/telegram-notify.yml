@@ -30,8 +30,13 @@ concurrency:
 
 jobs:
   notify:
+    if: >
+      github.repository == 'Someshdiwan/JavaEvolution-Learning-Growing-Mastering' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false)
     runs-on: ubuntu-latest
-    environment: SANDBOX  # Must contain TG_BOT_TOKEN and TG_CHAT_ID secrets
+    environment: SANDBOX
+    permissions:
+      contents: read
     steps:
       - name: Checkout repository (for commit history)
         if: github.event_name == 'push'  # Only needed for push events

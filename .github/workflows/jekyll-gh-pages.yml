@@ -1,106 +1,97 @@
-name: "Deploy Jekyll with GitHub Pages (robust)"
+# .github/workflows/jekyll-pages.yml
+name: Deploy Jekyll with GitHub Pages (robust)
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [ main, master ]
   workflow_dispatch: {}
   schedule:
-    # Run daily at 3:00 AM IST (21:30 UTC previous day)
-    - cron: '30 21 * * *'
+    # Daily at 3:00 AM IST (21:30 UTC previous day)
+    - cron: "30 21 * * *"
 
+# Least privilege for Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Prevent overlapping deploys per ref
 concurrency:
-  group: "pages-${{ github.ref }}"
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   build:
+    # 🚫 Never run from forks / external PRs
+    if: >
+      github.repository == 'Someshdiwan/JavaEvolution-Learning-Growing-Mastering' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false)
     name: Build site (Jekyll)
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0
 
-      - name: Setup Pages (configure Pages environment)
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Detect Gemfile location
-        id: detect_gemfile
+        id: detect
+        shell: bash
         run: |
           if [ -f "site/Gemfile" ]; then
-            echo "gem_dir=site" >> $GITHUB_OUTPUT
+            echo "gem_dir=site" >> "$GITHUB_OUTPUT"
             echo "Found Gemfile in site/"
           elif [ -f "Gemfile" ]; then
-            echo "gem_dir=." >> $GITHUB_OUTPUT
+            echo "gem_dir=." >> "$GITHUB_OUTPUT"
             echo "Found Gemfile in repo root"
           else
-            echo "gem_dir=NONE" >> $GITHUB_OUTPUT
-            echo "No Gemfile found in site/ or repo root — will use Jekyll builder action fallback."
+            echo "gem_dir=NONE" >> "$GITHUB_OUTPUT"
+            echo "No Gemfile found; will use jekyll-build-pages fallback."
           fi
 
-      # If Gemfile exists, set up Ruby + Bundler and build with bundle exec
-      - name: Set up Ruby (only when Gemfile present)
-        if: ${{ steps.detect_gemfile.outputs.gem_dir != 'NONE' }}
+      # Fast path: use the repo's Gemfile (caches automatically)
+      - name: Setup Ruby (bundler cache)
+        if: ${{ steps.detect.outputs.gem_dir != 'NONE' }}
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
-          bundler-cache: false
+          bundler-cache: true
+          # cache & install are scoped to where the Gemfile lives
+          working-directory: ${{ steps.detect.outputs.gem_dir }}
 
-      - name: Cache bundler gems (only when Gemfile present)
-        if: ${{ steps.detect_gemfile.outputs.gem_dir != 'NONE' }}
-        uses: actions/cache@v4
-        id: cache-bundler
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ steps.detect_gemfile.outputs.gem_dir }}-${{ hashFiles(format('{0}/Gemfile.lock', steps.detect_gemfile.outputs.gem_dir)) }}
-          restore-keys: |
-            ${{ runner.os }}-gems-${{ steps.detect_gemfile.outputs.gem_dir }}-
-
-      - name: Install Ruby gems with Bundler (only when Gemfile present)
-        if: ${{ steps.detect_gemfile.outputs.gem_dir != 'NONE' }}
-        run: |
-          echo "Using Gemfile from: ${{ steps.detect_gemfile.outputs.gem_dir }}"
-          cd ${{ steps.detect_gemfile.outputs.gem_dir }}
-          bundle config set --local path 'vendor/bundle'
-          # retry logic to cope with transient network errors
-          bundle install --jobs 4 --retry 3
-        shell: bash
-
-      - name: Build site with Bundler (only when Gemfile present)
-        if: ${{ steps.detect_gemfile.outputs.gem_dir != 'NONE' }}
-        run: |
-          cd ${{ steps.detect_gemfile.outputs.gem_dir }}
-          echo "Building Jekyll with bundle exec..."
-          bundle exec jekyll build --source . --destination ../_site
+      - name: Build with bundle exec
+        if: ${{ steps.detect.outputs.gem_dir != 'NONE' }}
+        working-directory: ${{ steps.detect.outputs.gem_dir }}
         env:
           JEKYLL_ENV: production
         shell: bash
+        run: |
+          echo "Building Jekyll from $(pwd)…"
+          bundle exec jekyll build --source . --destination "${GITHUB_WORKSPACE}/_site"
 
-      # Fallback: if there's no Gemfile, use the jekyll-build-pages action (best-effort)
+      # Fallback: no Gemfile; use the official builder (looks in ./site by default)
       - name: Build with actions/jekyll-build-pages (fallback)
-        if: ${{ steps.detect_gemfile.outputs.gem_dir == 'NONE' }}
+        if: ${{ steps.detect.outputs.gem_dir == 'NONE' }}
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./site
           destination: ./_site
 
       - name: Validate _site exists
+        shell: bash
         run: |
           if [ ! -d "_site" ]; then
-            echo "_site wasn't generated — failing the job."
+            echo "::error::_site was not generated."
             ls -la
             exit 1
           fi
+          echo "✅ _site generated."
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -109,17 +100,21 @@ jobs:
           name: java-evolution-pages
 
   deploy:
+    # 🚫 Never run from forks / external PRs
+    if: >
+      github.repository == 'Someshdiwan/JavaEvolution-Learning-Growing-Mastering' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false)
     name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
         with:
           artifact_name: java-evolution-pages
 
-      - name: Output deploy URL
+      - name: Show URL
         run: echo "Deployed to ${{ steps.deployment.outputs.page_url }}"

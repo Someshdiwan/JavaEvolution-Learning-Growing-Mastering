@@ -1,4 +1,4 @@
-Nice — here’s the commit graph diagram you asked for. This shows how your history looks depending on whether you merge or rebase.
+This shows how your history looks depending on whether you merge or rebase.
 
 ⸻
 

@@ -6,17 +6,17 @@ metadata into a single file.
 A JAR makes it easy to distribute Java libraries, applications, and resources as one portable unit.
 
 Key characteristics:
-	•	ZIP-based archive (.jar).
-	•	Contains compiled .class files, resource files (properties, images), and an optional META-INF/MANIFEST.MF.
-	•	Can be executed (if it contains a Main-Class entry in the manifest) or used as a library on the classpath.
+•	ZIP-based archive (.jar).
+•	Contains compiled .class files, resource files (properties, images), and an optional META-INF/MANIFEST.MF.
+•	Can be executed (if it contains a Main-Class entry in the manifest) or used as a library on the classpath.
 
 Why JAR files are important
-	•	Distribution — package everything needed (classes + resources) into one file for easy sharing and deployment.
-	•	Reproducibility — stable artifact that can be versioned and archived.
-	•	Classpath management — simplifies dependency handling (one file instead of many loose class files).
-	•	Security & Integrity — supports signing (JAR signing) and manifest metadata.
-	•	Performance — fewer filesystem entries and easier I/O handling; commonly used by class loaders.
-	•	Tooling compatibility — all build tools (Maven, Gradle, Ant), application servers, and the JVM understand JARs.
+•	Distribution — package everything needed (classes + resources) into one file for easy sharing and deployment.
+•	Reproducibility — stable artifact that can be versioned and archived.
+•	Classpath management — simplifies dependency handling (one file instead of many loose class files).
+•	Security & Integrity — supports signing (JAR signing) and manifest metadata.
+•	Performance — fewer filesystem entries and easier I/O handling; commonly used by class loaders.
+•	Tooling compatibility — all build tools (Maven, Gradle, Ant), application servers, and the JVM understand JARs.
 
 Basic JAR layout
 

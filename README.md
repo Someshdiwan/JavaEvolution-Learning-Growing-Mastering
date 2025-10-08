@@ -38,7 +38,7 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
 
 <!-- Telegram Updates -->
 <!-- Spacer above -->
-<p align="center" style="display: flex; justify-content: center; align-items: center; gap: 40px; margin: 20px 0;">
+<p align="center" style="margin: 20px 0;">
   <!-- Telegram Logo -->
   <a href="https://t.me/JavaEvolutionUpdates" target="_blank" rel="noopener" title="Join Telegram">
     <img 
@@ -55,7 +55,7 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
 <img
     src="./site/assets/youtube-svgrepo-com.svg"
     alt="Watch on YouTube"
-    width="100" height="100"
+    width="80" height="80"
     style="vertical-align: middle;" />
 </a>
 </p>

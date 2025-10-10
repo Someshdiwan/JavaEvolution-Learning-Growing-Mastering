@@ -1,21 +1,71 @@
-MIT License
+                                 Apache License
+                           Version 2.0, January 2004
+                        https://www.apache.org/licenses/
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+---------------------------------------------------------------------
+
+1. Definitions
+   "License" means this agreement defining permissions for use, reproduction,
+   and distribution.
+   "Licensor" means the copyright owner granting the License.
+   "Work" refers to the software or materials provided under this License.
+   "Derivative Works" are modified or adapted versions of the Work.
+   "Contributor" means any party who submits a Contribution to the Work.
+
+2. Grant of Copyright License
+   Subject to these terms, each Contributor grants you a perpetual, worldwide,
+   non-exclusive, royalty-free license to use, reproduce, prepare derivative works,
+   display, perform, sublicense, and distribute the Work and its derivatives.
+
+3. Grant of Patent License
+   Each Contributor grants you a perpetual, worldwide, non-exclusive,
+   royalty-free, irrevocable patent license to make, use, sell, or distribute
+   the Work under the same terms.
+
+4. Redistribution
+   You may distribute copies of the Work or its derivatives in any medium, with or
+   without modification, provided that you:
+     (a) Include a copy of this License;
+     (b) Retain all relevant notices and attribution;
+     (c) Include the NOTICE file (if present) with clear attribution; and
+     (d) Clearly state any modifications you made.
+
+5. Submission of Contributions
+   Contributions intentionally submitted for inclusion in the Work are covered
+   by this License, unless explicitly stated otherwise.
+
+6. Trademarks
+   This License does not grant permission to use the trade names, logos, or marks
+   of the Licensor, except for descriptive references to the origin of the Work.
+
+7. Disclaimer of Warranty
+   The Work is provided "AS IS", without warranty of any kind, express or implied,
+   including but not limited to merchantability, fitness for a particular purpose,
+   and non-infringement.
+
+8. Limitation of Liability
+   In no event shall any Contributor be liable for damages of any kind resulting
+   from the use or inability to use the Work, even if advised of the possibility
+   of such damages.
+
+9. Accepting Warranty or Additional Liability
+   You may offer additional warranties or liabilities at your own risk, but not on
+   behalf of any Contributor.
+
+---------------------------------------------------------------------
+END OF TERMS AND CONDITIONS
+---------------------------------------------------------------------
 
 Copyright (c) 2025 Somesh Diwan
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+    https://www.apache.org/licenses/LICENSE-2.0
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.

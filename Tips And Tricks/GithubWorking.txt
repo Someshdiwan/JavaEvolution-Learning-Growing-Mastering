@@ -1,13 +1,3 @@
-Yes, we can definitely turn this into a clean anonymous one-page GitHub/Git workflow cheat sheet — no JetBrains, no school references, just the structure + universal commands.
-
-Here’s a refined version:
-
-⸻
-
-GitHub/Git Pro Workflow Cheat Sheet
-
-⸻
-
 1) GitHub Hierarchy
 
 GitHub (service)
@@ -125,7 +115,3 @@ Fork repo → Clone → Create branch → Commit → Push → Open PR
 
 
 ⸻
-
-This way, you’ve got the hierarchy, commands, and etiquette in one page.
-
-Would you like me to make a visual ASCII diagram of remotes/branches (origin vs upstream, main vs feature branch) so you can instantly see where push/pull/rebase happen?

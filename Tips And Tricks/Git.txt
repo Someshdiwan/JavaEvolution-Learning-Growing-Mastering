@@ -1,7 +1,3 @@
-Nice — here’s the commit graph diagram you asked for. This shows how your history looks depending on whether you merge or rebase.
-
-⸻
-
 A) Merge workflow (preserves full branch graph)
 
 Upstream main:   A──B──C───────────────┐
@@ -82,5 +78,3 @@ So: Merge = “historical diary” (records exactly what happened).
 Rebase = “rewrite the story” (makes it look like you developed cleanly on top).
 
 ⸻
-
-Want me to also sketch a real-life example with commit hashes (like abc123, def456) so you can see how git log looks different between merge and rebase?

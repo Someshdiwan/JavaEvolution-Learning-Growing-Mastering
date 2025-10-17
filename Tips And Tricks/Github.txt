@@ -1,7 +1,3 @@
-Perfect — here’s a visual ASCII diagram showing how forks, remotes, branches, and PRs fit together. This is the “map in your head” for push/pull/rebase.
-
-⸻
-
 GitHub Fork Workflow — Visual Map
 
                  ┌─────────────────────────────────────────┐
@@ -79,9 +75,3 @@ git push origin feature-branch --force-with-lease
 
 
 ⸻
-
-👉 This diagram shows the two “worlds”: your fork (origin) and the official repo (upstream). Your feature-branch is only in your fork until you open a PR. After merge, the changes live in upstream’s main.
-
-⸻
-
-Would you like me to also show a commit graph diagram (with merge vs rebase paths) so you can see how history looks in both cases?

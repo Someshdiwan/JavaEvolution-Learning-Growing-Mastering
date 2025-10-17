@@ -1,0 +1,11 @@
+Name, Age, City
+John Doe, 25, New York
+Jane Smith, 30, Los Angeles
+Alex Johnson, 22, Chicago
+Maria Garcia, 27, Miami
+David Lee, 35, San Francisco
+Emily Davis, 28, Dallas
+Michael Brown, 33, Seattle
+Sophia Wilson, 24, Boston
+James Taylor, 29, Austin
+Olivia Martin, 31, Portland

@@ -1,20 +1,9 @@
 import java.util.LinkedList;
 
-/* This class demonstrates how a LinkedList in Java can be used as a Queue.
- * - LinkedList implements the Queue and Deque interfaces.
- * - Queue follows FIFO (First In, First Out) order.
-
- * Key Operations:
- * - Enqueue (addLast): Add an element at the rear (end).
- * - Dequeue (removeFirst): Remove an element from the front (head).
- * - Peek: View the head element without removing it.
- */
-
 public class QueueDemo {
     public static void main(String[] args) {
-        // LinkedList can be used as both List and Queue.
+        // LinkedList can be used as both List and Queue and also Stack.
         LinkedList<Integer> list = new LinkedList<>();
-
         // Adding elements (acts like a normal list here).
         list.add(3);
         list.add(2);
@@ -48,9 +37,12 @@ public class QueueDemo {
 }
 
 /*
-==========================
+Key Operations:
+- Enqueue (addLast): Add an element at the rear (end).
+- Dequeue (removeFirst): Remove an element from the front (head).
+- Peek: View the head element without removing it.
+
 Queue Theory with LinkedList
-==========================
 
 1. Why LinkedList as Queue?
    - LinkedList implements Queue and Deque interfaces.
@@ -80,4 +72,8 @@ Queue Theory with LinkedList
 6. Difference from Stack:
    - Queue → FIFO (first in, first out).
    - Stack → LIFO (last in, first out).
+
+This class demonstrates how a LinkedList in Java can be used as a Queue.
+- LinkedList implements the Queue and Deque interfaces.
+- Queue follows FIFO (First In, First Out) order.
 */

@@ -1,0 +1,86 @@
+Overview:
+
+•	LinkedList in Java (java.util.LinkedList) is a doubly-linked list implementation of the List and Deque interfaces.
+•	It stores elements as nodes where each node holds references to its prev and next nodes and the stored element.
+•	Good for frequent insertions/removals at arbitrary positions; not as good for random access (get by index),
+    which is O(n).
+
+Internal Structure (conceptual)
+
+Each node is roughly:
+
+class Node<E> {
+    E item;
+    Node<E> next;
+    Node<E> prev;
+}
+
+The LinkedList maintains:
+•	Node<E> first  — reference to the head node (eldest)
+•	Node<E> last   — reference to the tail node (youngest)
+•	int size       — number of elements
+
+How basic operations work
+•	addFirst(e) / addLast(e) — create a new node, link it into the head or tail, update first / last. O(1).
+•	add(index, e) — find node at index (walk from head or tail depending on index), insert new node by adjusting
+    neighbor pointers. O(n) in worst case.
+•	removeFirst() / removeLast() — unlink head/tail node and return element. O(1).
+•	remove(index) — find node then unlink it by adjusting neighbor pointers. O(n).
+•	get(index) — walk from head or tail to reach index, return element. O(n).
+•	iterator / listIterator — provide sequential access; ListIterator supports bi-directional movement.
+
+Advantages
+•	Fast insertions and deletions when you already have node reference or at ends (O(1)).
+•	Implements Deque so it supports stack/queue/deque operations naturally.
+
+Disadvantages
+•	Random access (get by index) is O(n).
+•	Extra memory per element (two pointers per node).
+•	Poor cache locality compared to ArrayList because nodes are scattered in heap.
+
+
+
+first -> [null | A | *] <-> [* | B | *] <-> [* | C | null] <- last
+             idx0           idx1           idx2
+
+Each node: [prev | item | next]
+
+Example code (LinkedList usage)
+
+import java.util.LinkedList;
+import java.util.ListIterator;
+
+public class LinkedListExample {
+    public static void main(String[] args) {
+        LinkedList<String> list = new LinkedList<>();
+        list.add("A");           // addLast
+        list.addFirst("start");  // addFirst
+        list.add(1, "B");        // insert at index 1
+
+        System.out.println("List: " + list);           // [start, B, A]
+        System.out.println("Removed: " + list.remove(1)); // removes "B"
+        System.out.println("After removal: " + list);  // [start, A]
+
+        // iterate forward
+        ListIterator<String> it = list.listIterator();
+        while (it.hasNext()) {
+            System.out.println("Next: " + it.next());
+        }
+
+        // iterate backward
+        while (it.hasPrevious()) {
+            System.out.println("Prev: " + it.previous());
+        }
+    }
+}
+
+When to use LinkedList
+•	When your workload has many insertions/deletions at head/tail or near known nodes.
+•	When you need a Deque implementation (queue/stack behavior) with frequent adds/removes at ends.
+•	Avoid when you need frequent random access by index — prefer ArrayList instead.
+
+Performance summary
+•	addFirst/addLast: O(1)
+•	removeFirst/removeLast: O(1)
+•	add(index)/remove(index)/get(index): O(n)
+•	memory per element: higher (node overhead)

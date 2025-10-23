@@ -4,9 +4,9 @@ import java.util.LinkedList;
 
 public class DoubleEndedQueue {
     public static void main(String[] args) {
-        //  double-ended queue
-        //  allows insertion and removal of elements from both ends
-        //  versatile than regular queues and stacks because they support all the operations of both
+           //  a double-ended queue
+           //  allows insertion and removal of elements from both ends
+           //  versatile than regular queues and stacks because they support all the operations of both.
 
           /*
            INSERTION METHODS
@@ -19,42 +19,37 @@ public class DoubleEndedQueue {
            */
 
            /*
-
            REMOVAL METHODS
 
             removeFirst(): Retrieves and removes the first element.
             removeLast(): Retrieves and removes the last element.
             pollFirst(): Retrieves and removes the first element, or returns null if empty.
             pollLast(): Retrieves and removes the last element, or returns null if empty.
-
            */
 
            /*
-
            EXAMINATION METHODS
 
            getFirst(): Retrieves, but does not remove, the first element.
            getLast(): Retrieves, but does not remove, the last element.
            peekFirst(): Retrieves, but does not remove, the first element, or returns null if empty.
            peekLast(): Retrieves, but does not remove, the last element, or returns null if empty.
-
            */
 
            /*
-
            STACK METHODS
 
-            push(E e): Adds an element at the front (equivalent to addFirst(E e)).
-            pop(): Removes and returns the first element (equivalent to removeFirst())..
-
+           push(E e): Adds an element at the front (equivalent to addFirst(E e)).
+           pop(): Removes and returns the first element (equivalent to removeFirst())..
            */
 
-           Deque<Integer> deque1 = new ArrayDeque<>(); // faster iteration, low memory, no null allowed Reason why we write ArrayDeque<>().
+           Deque<Integer> deque1 = new ArrayDeque<>();
+           // faster iteration, low memory, no null allowed Reason why we write ArrayDeque<>().
 
-           //Deque<Integer> deque1 = new LinkedList<>(); ask chatgpt which is better ArrayDeque and LinkedList. insertion, deletion somewhere in middle we use.
+           // Deque<Integer> deque1 = new LinkedList<>();
 
            // circular, head and tail
-           // no need to shift elements, just shift head and tail
+           // no need to shift elements, just shift head and tail.
            deque1.addFirst(10); // head--
            deque1.addLast(20);
            deque1.offerFirst(5);
@@ -68,10 +63,10 @@ public class DoubleEndedQueue {
            deque1.pollLast();    // Removes 25
 
            // Current Deque: [10, 20]
-           for (int num : deque1)
-           {
+           for (int num : deque1) {
                System.out.println(num);
            }
-           Deque<Integer> deque2 = new LinkedList<>(); // insertion, deletion somewhere in middle we use.
+           Deque<Integer> deque2 = new LinkedList<>();
+           // insertion, deletion somewhere in a middle we use.
     }
 }

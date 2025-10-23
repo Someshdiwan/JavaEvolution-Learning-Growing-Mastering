@@ -1,0 +1,165 @@
+How Java Virtual Threads (from Project Loom, standardized in Java 21+)
+revolutionize the threading model by decoupling Java threads from OS threads.
+
+This is one of the biggest structural evolutions since the JVM was created.
+
+⸻
+
+1. Quick Idea Before the Diagram
+
+Traditional threads (what your C pthreads and Thread objects use) are 1:1 mapped:
+one Java thread → one OS thread (pthread_create())
+
+Virtual threads introduce an M:N model: many Java virtual threads → multiplexed over fewer carrier (OS) threads
+
+The JVM acts like a mini operating system, scheduling virtual threads in user space —
+no kernel involvement during blocking operations.
+
+That means you can have millions of concurrent tasks without melting your system.
+
+⸻
+
+2. ASCII Diagram — Virtual Threads in the JVM (Project Loom)
+
+                ┌────────────────────────────────────────────┐
+                │          Your Java Application             │
+                │--------------------------------------------│
+                │ Creates many Virtual Threads               │
+                │ e.g., 1 million concurrent tasks           │
+                └────────────────────────────────────────────┘
+                                  │
+                                  ▼
+        ┌───────────────────────────────────────────────────────────┐
+        │                 JVM Scheduler (User-Mode)                 │
+        │-----------------------------------------------------------│
+        │  Manages VThreads (lightweight fibers)                    │
+        │  Handles blocking, resuming, parking threads internally   │
+        │  M:N scheduling — maps many virtual threads onto few OS   │
+        │  carrier threads                                          │
+        └──────────────┬──────────────┬──────────────┬──────────────┘
+                       │              │              │
+                       ▼              ▼              ▼
+           ┌────────────────┐ ┌────────────────┐ ┌────────────────┐
+           │ Carrier Thread │ │ Carrier Thread │ │ Carrier Thread │
+           │  (Real OS      │ │  (pthread)     │ │  (pthread)     │
+           │   Thread)      │ │                │ │                │
+           └────────────────┘ └────────────────┘ └────────────────┘
+                   │                │                │
+                   ▼                ▼                ▼
+        ┌──────────────────────────────────────────────────────────┐
+        │             Operating System (Kernel Layer)              │
+        │----------------------------------------------------------│
+        │ CPU Scheduler, Context Switching, Syscalls, etc.         │
+        │ Only sees carrier threads, not virtual threads           │
+        └──────────────────────────────────────────────────────────┘
+
+⸻
+
+3. What’s Happening Here
+
+Step 1: Your code creates virtual threads
+
+Thread.startVirtualThread(() -> {
+    // some blocking IO or computation
+});
+
+Each of these is a virtual thread object managed by the JVM, not the OS.
+Creating one takes microseconds and bytes, compared to milliseconds and megabytes for a native thread.
+
+⸻
+
+Step 2: The JVM runs a small pool of “carrier” OS threads
+•	These are true native threads (pthreads on Linux/macOS).
+•	They act as execution engines for many virtual threads.
+•	When one virtual thread blocks (say, waiting for IO), the JVM parks it and lets another one run — no kernel-level blocking.
+
+This means the JVM is now its own cooperative scheduler.
+
+⸻
+
+Step 3: The OS still only sees a few threads
+
+Even if your app spawns millions of virtual threads, the OS might only see 8 carrier threads, one per CPU core.
+The JVM efficiently multiplexes all those user-level threads across them.
+
+⸻
+
+4. Why This Is a Big Deal
+
+┌────────────────────────────┬──────────────────────────────────────────────┬────────────────────────────────────────┐
+│ Feature                    │ Traditional Threads                          │ Virtual Threads                        │
+├────────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────────┤
+│ Mapping                    │ 1:1                                          │ M:N                                    │
+│ Creation cost              │ High (~1MB stack each)                       │ Very low (heap-allocated stack, tiny)  │
+│ Blocking IO                │ OS-level block                               │ JVM parks thread, frees carrier        │
+│ Scalability                │ Thousands max                                │ Millions feasible                      │
+│ Scheduling                 │ OS kernel                                    │ JVM (user-mode)                        │
+│ Context switch             │ Kernel transition                            │ In-memory, very fast                   │
+└────────────────────────────┴──────────────────────────────────────────────┴────────────────────────────────────────┘
+
+The JVM now acts like a lightweight operating system on top of your real OS —
+it does what pthread does, but for Java, with much less cost.
+
+⸻
+
+5. Visualization of Multiplexing in Motion
+
+Virtual Threads waiting to run:
+┌──────────────────────────────────────────────┐
+│ VThread#1  │ VThread#2  │ VThread#3  │ ...   │
+└──────────────────────────────────────────────┘
+
+       ↓ (Scheduled by JVM user-mode scheduler)
+
+Carrier Threads executing (mapped to CPUs):
+┌──────────────┬──────────────┬──────────────┐
+│ Carrier#1    │ Carrier#2    │ Carrier#3    │
+│ (pthread)    │ (pthread)    │ (pthread)    │
+└──────────────┴──────────────┴──────────────┘
+
+When VThread#1 blocks (e.g., network read), it’s parked.
+Carrier#1 picks up VThread#42 immediately — no kernel wait.
+
+This is similar to goroutines in Go or async tasks in Node, but with real Java Thread APIs, not new syntax.
+
+⸻
+
+6. How to Use It in Java 21+
+
+Example code:
+
+public class VirtualThreadDemo {
+    public static void main(String[] args) throws InterruptedException {
+        try (var executor = java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {
+            for (int i = 0; i < 1_000_000; i++) {
+                executor.submit(() -> {
+                    Thread.sleep(10);
+                    return Thread.currentThread().getName();
+                });
+            }
+        } // Auto-shutdown after all tasks finish
+    }
+}
+
+That code launches a million concurrent tasks, each as a true Java thread —
+but the JVM runs them using just a handful of carrier pthreads.
+
+⸻
+
+7. Recap Summary
+
+┌────────────────────────────┬──────────────────────────────────────────────┬────────────────────────────────────────┐
+│ Layer                      │ Classic Threads                              │ Virtual Threads                        │
+├────────────────────────────┼──────────────────────────────────────────────┼────────────────────────────────────────┤
+│ Thread model               │ 1 Java = 1 OS thread                         │ Many Java = few OS threads             │
+│ Scheduler                  │ OS kernel                                    │ JVM user-mode scheduler                │
+│ Blocking                   │ Expensive                                    │ Cheap (JVM parks)                      │
+│ Creation                   │ Heavy                                        │ Lightweight                            │
+│ Best for                   │ CPU-bound tasks                              │ IO-bound, massively concurrent apps    │
+└────────────────────────────┴──────────────────────────────────────────────┴────────────────────────────────────────┘
+
+⸻
+
+Virtual Threads essentially make Java’s concurrency model as scalable as Go but
+as simple as C’s pthreads, combining both worlds — the low-level precision of native threads and
+the high-level safety and efficiency of managed scheduling.

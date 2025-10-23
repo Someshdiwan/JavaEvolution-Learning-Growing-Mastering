@@ -1,8 +1,8 @@
 Queue Interface in Java
------------------------
 
 Definition:
 The Queue interface is part of the java.util package and is a child interface of the Collection interface.
+
 It represents a **First-In, First-Out (FIFO)** data structure, though some implementations may differ (like PriorityQueue).
 A Queue models the concept of a **waiting line**, where elements are processed in the order they arrive.
 

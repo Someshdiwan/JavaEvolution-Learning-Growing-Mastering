@@ -31,7 +31,7 @@ Key Features of Queue:
    - `ConcurrentLinkedQueue`, `ArrayBlockingQueue`, `PriorityBlockingQueue` provide thread-safe operations.
 
 Queue Interface Hierarchy (Simplified)
---------------------------------------
+
 Queue (interface)
 │
 ├── Deque (interface)  → Double-ended queue, supports insertion/removal from both ends
@@ -47,8 +47,8 @@ Queue (interface)
     ├── PriorityBlockingQueue → Priority-based ordering with blocking
     └── DelayQueue / SynchronousQueue etc. for advanced use-cases
 
+
 ASCII Conceptual View (FIFO Queue)
-----------------------------------
 
 Offer/Enqueue → [10] → [20] → [30] → [40] → [50] → ...
                 ↑head                        ↑tail
@@ -58,27 +58,24 @@ Poll/Dequeue removes from head:
   new head = 20
 
 Special Case (PriorityQueue)
-----------------------------
+
 Internally uses a binary heap:
    [5, 10, 15, 20]
    Root (5) is always the minimum (or maximum, depending on comparator).
    poll() removes the root, heap is restructured.
 
 When to Use Queue
------------------
 - When you need FIFO ordering (task scheduling, buffer management).
 - When you want priority-based processing (PriorityQueue).
 - In concurrent applications (producer-consumer) → use BlockingQueue variants.
 
 Practical Examples
-------------------
 1. Printer spooler: tasks queued in order of arrival.
 2. OS job scheduling: processes waiting in FIFO or priority order.
 3. Producer-consumer design: producers put items in a queue, consumers take items from it.
 4. Real-time systems: DelayQueue, SynchronousQueue, etc. for advanced coordination.
 
 Complexity
-----------
 - offer/add: O(1) in linked or array-backed queues.
 - poll/remove: O(1) in FIFO queues; O(log n) in PriorityQueue (heap-based).
 - peek/element: O(1).

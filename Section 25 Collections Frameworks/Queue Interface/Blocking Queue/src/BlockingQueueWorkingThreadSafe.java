@@ -49,21 +49,9 @@ class Consumer implements Runnable {
 public class BlockingQueueWorkingThreadSafe {
     public static void main(String[] args) {
         BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(5);
-        // thread-safe queue
-        // wait for queue to become non-empty / wait for space
-        // simplify concurrency problems like producer-consumer
-        // standard queue --> immediately
-        // empty --> remove ( no waiting )
-        // full --> add ( no waiting )
-        // Blocking queue
-        // put -->  Blocks if the queue is full until space becomes available
-        // take --> Blocks if the queue is empty until an element becomes available
-        // offer --> Waits for space to become available, up to the specified timeout
+        // BlockingQueue is interfaced so we cannot instantiate, so we wrote here implementation of ArrayBlockingQueue
+        // A bounded, blocking Queue backed by an array.
 
-        // A bounded, blocking queue backed by circular array
-        // low memory overhead
-        // uses a single lock for both enqueue and dequeue operations
-        // more threads --> problem
         Thread producer = new Thread(new Producer(queue));
         Thread consumer = new Thread(new Consumer(queue));
         producer.start();
@@ -89,3 +77,22 @@ public class BlockingQueueWorkingThreadSafe {
         // it cannot store elements, capacity of at most one element
     }
 }
+
+/*
+thread-safe queue
+wait for queue to become non-empty / wait for space
+simplify concurrency problems like producer-consumer
+standard queue --> immediately
+empty --> remove ( no waiting )
+full --> add (no waiting)
+
+Blocking queue
+put   -->  Blocks if the queue is full until space becomes available
+take  -->  Blocks if the queue is empty until an element becomes available
+offer -->  Waits for space to become available, up to the specified timeout
+
+A bounded, blocking queue backed by a circular array low memory overhead uses a single lock
+for both enqueue and dequeue operations
+
+more threads --> problem
+*/

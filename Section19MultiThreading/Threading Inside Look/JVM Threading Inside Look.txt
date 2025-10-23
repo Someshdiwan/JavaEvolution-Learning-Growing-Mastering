@@ -1,0 +1,140 @@
+How the JVM maps your Thread objects to real operating system threads,
+how they communicate with the OS scheduler, and how synchronization works.
+
+Java Threads and OS Threads (pthreads)
+
+                          ┌───────────────────────────────────────┐
+                          │          Your Java Program            │
+                          │     (Running inside the JVM)          │
+                          └───────────────────────────────────────┘
+                                           │
+                                           ▼
+                          ┌────────────────────────────────────────┐
+                          │              JVM Runtime               │
+                          │----------------------------------------│
+                          │  Thread Table / Thread Manager         │
+                          │  ┌─────────────────────────────────┐   │
+                          │  │ Java Thread Objects (Heap)      │   │
+                          │  │  + Thread ID                    │   │
+                          │  │  + Runnable target              │   │
+                          │  │  + Stack reference              │   │
+                          │  │  + State (RUNNABLE, WAITING...) │   │
+                          │  └─────────────────────────────────┘   │
+                          │             │              │           │
+                          └─────────────┼──────────────┼───────────┘
+                                        │              │
+      ┌─────────────────────────────────┘              └──────────────────────────────────┐
+      ▼                                                                                   ▼
+┌────────────────────┐                                                            ┌────────────────────┐
+│ Native Thread (T1) │  <-- created via pthread_create()                          │ Native Thread (T2) │
+│ (C-level pthread)  │  (mapped 1:1 with Java Thread)                             │ (C-level pthread)  │
+│--------------------│                                                            │--------------------│
+│ OS Thread Stack    │                                                            │ OS Thread Stack    │
+│ Thread Registers   │                                                            │ Thread Registers   │
+│ OS Scheduler Entry │                                                            │ OS Scheduler Entry │
+└────────────────────┘                                                            └────────────────────┘
+          │                                                                                  │
+          ▼                                                                                  ▼
+┌───────────────────────────┐                                        ┌───────────────────────────┐
+│         Kernel / OS       │                                        │         Kernel / OS       │
+│---------------------------│                                        │---------------------------│
+│ CPU Scheduler (time-slice)│ ← Schedules native threads on cores →  │ CPU Scheduler (time-slice)│
+│ Context Switching         │                                        │ Context Switching         │
+│ Synchronization Primitives│ ← mutexes, semaphores, futexes         │ Synchronization Primitives│
+└───────────────────────────┘                                        └───────────────────────────┘
+
+
+🧠 Breakdown of the Layers
+
+1️⃣ Java Thread Layer (User Code)
+When you write:
+
+new Thread(runnable).start();
+
+you’re creating a Java object (on the JVM heap) that holds metadata — name, priority, state — and
+a reference to your Runnable code.
+
+⸻
+
+2️⃣ JVM Thread Manager
+The JVM has an internal thread table to manage all live threads.
+
+When you call .start(), the JVM:
+1.	Allocates a native thread (via pthread_create() on Linux/macOS, CreateThread() on Windows).
+2.	Attaches the Java thread object to it.
+3.	Initializes a separate native stack for that thread.
+
+That’s why modern JVMs (HotSpot, OpenJ9, GraalVM) are called 1:1 threading models — every Java thread = one native
+thread.
+
+⸻
+
+3️⃣ Native Thread (OS-level)
+Each thread runs your Java bytecode inside its own call stack.
+The OS scheduler time-slices them across available CPU cores, just like any C pthread.
+
+So when two Java threads run concurrently:
+•	The JVM doesn’t “fake” concurrency.
+•	It truly runs two native threads in parallel (subject to CPU availability).
+
+⸻
+
+4️⃣ Kernel and CPU Scheduler
+At the bottom, everything hits the same real-world machinery:
+•	The CPU scheduler decides which threads run.
+•	The kernel provides synchronization primitives (mutexes, futexes, semaphores) that
+the JVM uses to implement synchronized, wait(), notify(), and Lock mechanisms.
+
+
+Essentially, when you write:
+
+synchronized (obj) { ... }
+
+you’re indirectly triggering an OS-level mutex or futex lock.
+
+⸻
+
+🧩 Java Virtual Threads (Project Loom) — The New Layer
+
+In modern Java (19+ preview, 21+ stable), virtual threads were introduced —
+a revolutionary abstraction that changes the top layer of this diagram.
+
+
+Here’s a simplified update:
+
+[ Java Virtual Thread ]
+       │
+       ▼
+[ JVM Scheduler (user-mode) ]
+       │
+       ▼
+[ Shared Native Thread (pthread) ]
+
+
+Instead of mapping every Java thread to a real OS thread (which is heavy),
+many virtual threads are multiplexed on a smaller pool of carrier OS threads.
+
+
+That means the JVM handles the scheduling itself, in user space, making millions of threads feasible.
+
+So:
+•	Traditional threads → 1:1 mapping to native pthreads.
+•	Virtual threads → M:N mapping (many Java threads on fewer native threads).
+
+⸻
+
+Summary
+
+| Concept         | C (pthread)              | Java Classic Threads        | Java Virtual Threads                   |
+|-----------------|--------------------------|-----------------------------|----------------------------------------|
+| Thread Creation | pthread_create()         | new Thread().start()        | Thread.ofVirtual().start()             |
+| OS Mapping      | 1:1                      | 1:1                         | M:N                                    |
+| Scheduler       | OS kernel                | OS kernel                   | JVM user-space                         |
+| Stack           | Fixed native stack       | Native stack                | Lightweight heap stack                 |
+| Context Switch  | Kernel mode              | Kernel mode                 | User mode (cheap) inside JVM container |
+
+⸻
+
+This architectural stack is the same skeleton under every Java concurrency construct
+— Thread, ExecutorService, ForkJoinPool, CompletableFuture, and now Virtual Threads
+— all ride atop those native pthreads or their virtualized successors.

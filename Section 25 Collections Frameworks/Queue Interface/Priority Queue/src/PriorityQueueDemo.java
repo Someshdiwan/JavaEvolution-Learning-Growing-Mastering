@@ -15,7 +15,6 @@ public class PriorityQueueDemo {
 
         PriorityQueue<Integer> PQ = new PriorityQueue<>(new MyComp());
 
-
         PQ.add(20);
         PQ.add(10);
         PQ.add(30);

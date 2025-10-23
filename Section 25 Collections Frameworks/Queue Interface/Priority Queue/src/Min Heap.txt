@@ -1,0 +1,20 @@
+Time & Space complexities for Min Heap:
+
+- Peek (get minimum): O(1) — The smallest element is always at the root of the heap.
+- Insert: O(log n) — The new element is added at the end and then bubbled up to maintain the heap property.
+
+- Remove smallest (extract-min): O(log n) — The root (minimum element) is removed, the last element
+is moved to the root, and then bubbled down to restore order.
+
+- BuildHeap (Floyd’s algorithm): O(n) — Converts an unsorted array into a valid min heap efficiently using bottom-up
+heapify.
+
+- Clear heap: O(1) — Resetting or reinitializing the heap reference (or O(n) if you explicitly clear memory).
+- Decrease-key / increase-key (if supported): O(log n) — Adjusts the position of a modified key to maintain heap order.
+- Space complexity: O(n) — The heap is typically stored in an array with one slot per element.
+
+
+Quick intuition:
+A min heap is a complete binary tree where every parent node is smaller than its children.
+The height of the heap is Θ(log n), so any operation that travels up or down the tree costs O(log n).
+Building the heap from scratch is linear because nodes near the bottom require less work to heapify.

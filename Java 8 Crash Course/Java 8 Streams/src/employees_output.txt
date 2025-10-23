@@ -1,0 +1,71 @@
+===== EMPLOYEE DATA =====
+
+Employee[id=1, name=Jhansi, age=32, gender=Female, department=HR, yearOfJoining=2011, salary=25000.0]
+Employee[id=2, name=Smith, age=25, gender=Male, department=Sales, yearOfJoining=2015, salary=13500.0]
+Employee[id=3, name=David, age=29, gender=Male, department=Infrastructure, yearOfJoining=2012, salary=18000.0]
+Employee[id=4, name=Orlen, age=28, gender=Male, department=Development, yearOfJoining=2014, salary=32500.0]
+Employee[id=5, name=Charles, age=27, gender=Male, department=HR, yearOfJoining=2013, salary=22700.0]
+Employee[id=6, name=Cathy, age=43, gender=Male, department=Security, yearOfJoining=2016, salary=10500.0]
+Employee[id=7, name=Ramesh, age=35, gender=Male, department=Finance, yearOfJoining=2010, salary=27000.0]
+Employee[id=8, name=Suresh, age=31, gender=Male, department=Development, yearOfJoining=2015, salary=34500.0]
+Employee[id=9, name=Gita, age=24, gender=Female, department=Sales, yearOfJoining=2016, salary=11500.0]
+Employee[id=10, name=Mahesh, age=38, gender=Male, department=Security, yearOfJoining=2015, salary=11000.5]
+Employee[id=11, name=Gouri, age=27, gender=Female, department=Infrastructure, yearOfJoining=2014, salary=15700.0]
+Employee[id=12, name=Nithin, age=25, gender=Male, department=Development, yearOfJoining=2016, salary=28200.0]
+Employee[id=13, name=Swathi, age=27, gender=Female, department=Finance, yearOfJoining=2013, salary=21300.0]
+Employee[id=14, name=Buttler, age=24, gender=Male, department=Sales, yearOfJoining=2017, salary=10700.5]
+Employee[id=15, name=Ashok, age=23, gender=Male, department=Infrastructure, yearOfJoining=2018, salary=12700.0]
+Employee[id=16, name=Sanvi, age=26, gender=Female, department=Development, yearOfJoining=2015, salary=28900.0]
+
+===== QUERY RESULTS =====
+
+1. Male and Female Employee Count:
+{Male=11, Female=5}
+
+2. All Departments:
+HR
+Sales
+Infrastructure
+Development
+Security
+Finance
+
+3. Average Age by Gender:
+{Male=29.818181818181817, Female=27.2}
+
+4. Highest Paid Employee:
+Employee[id=8, name=Suresh, age=31, gender=Male, department=Development, yearOfJoining=2015, salary=34500.0]
+
+5. Employees Joined After 2015:
+Cathy
+Gita
+Nithin
+Buttler
+Ashok
+
+6. Employee Count Per Department:
+{Sales=3, Finance=2, Development=4, Infrastructure=3, HR=2, Security=2}
+
+7. Average Salary Per Department:
+{Sales=11900.166666666666, Finance=24150.0, Development=31025.0, Infrastructure=15466.666666666666, HR=23850.0, Security=10750.25}
+
+8. Youngest Male in Development Department:
+Employee[id=12, name=Nithin, age=25, gender=Male, department=Development, yearOfJoining=2016, salary=28200.0]
+
+9. Most Experienced Employee:
+Employee[id=7, name=Ramesh, age=35, gender=Male, department=Finance, yearOfJoining=2010, salary=27000.0]
+
+10. Male and Female in Sales Team:
+{Female=1, Male=2}
+
+11. Average and Total Salary of Organization:
+Average: 20231.3125, Total: 323701.0
+
+12. Employees <= 25 years:
+[Employee[id=2, name=Smith, age=25, gender=Male, department=Sales, yearOfJoining=2015, salary=13500.0], Employee[id=9, name=Gita, age=24, gender=Female, department=Sales, yearOfJoining=2016, salary=11500.0], Employee[id=12, name=Nithin, age=25, gender=Male, department=Development, yearOfJoining=2016, salary=28200.0], Employee[id=14, name=Buttler, age=24, gender=Male, department=Sales, yearOfJoining=2017, salary=10700.5], Employee[id=15, name=Ashok, age=23, gender=Male, department=Infrastructure, yearOfJoining=2018, salary=12700.0]]
+
+12b. Employees > 25 years:
+[Employee[id=1, name=Jhansi, age=32, gender=Female, department=HR, yearOfJoining=2011, salary=25000.0], Employee[id=3, name=David, age=29, gender=Male, department=Infrastructure, yearOfJoining=2012, salary=18000.0], Employee[id=4, name=Orlen, age=28, gender=Male, department=Development, yearOfJoining=2014, salary=32500.0], Employee[id=5, name=Charles, age=27, gender=Male, department=HR, yearOfJoining=2013, salary=22700.0], Employee[id=6, name=Cathy, age=43, gender=Male, department=Security, yearOfJoining=2016, salary=10500.0], Employee[id=7, name=Ramesh, age=35, gender=Male, department=Finance, yearOfJoining=2010, salary=27000.0], Employee[id=8, name=Suresh, age=31, gender=Male, department=Development, yearOfJoining=2015, salary=34500.0], Employee[id=10, name=Mahesh, age=38, gender=Male, department=Security, yearOfJoining=2015, salary=11000.5], Employee[id=11, name=Gouri, age=27, gender=Female, department=Infrastructure, yearOfJoining=2014, salary=15700.0], Employee[id=13, name=Swathi, age=27, gender=Female, department=Finance, yearOfJoining=2013, salary=21300.0], Employee[id=16, name=Sanvi, age=26, gender=Female, department=Development, yearOfJoining=2015, salary=28900.0]]
+
+13. Oldest Employee:
+Employee[id=6, name=Cathy, age=43, gender=Male, department=Security, yearOfJoining=2016, salary=10500.0]

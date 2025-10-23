@@ -2,25 +2,16 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-/* QueueInterface
- * This class demonstrates how the Queue interface works in Java
- * using two implementations:
- *   1. LinkedList (unbounded queue).
- *   2. ArrayBlockingQueue (bounded queue with fixed capacity).
-
- * Queue follows FIFO (First In, First Out).
- * Key methods: add(), offer(), remove(), poll(), element(), peek().
- */
-
 public class QueueInterfaceDemo {
     public static void main(String[] args) {
-        // ---------------- Queue with LinkedList ----------------
+        // Queue with LinkedList
         Queue<Integer> queue1 = new LinkedList<>();
 
         // Add elements (FIFO order).
         queue1.add(1);
         queue1.add(3);
         queue1.add(2);
+        queue1.add(4);
 
         System.out.println("Queue1 (LinkedList) contents: " + queue1);
         System.out.println("Queue1 size: " + queue1.size());
@@ -38,7 +29,7 @@ public class QueueInterfaceDemo {
         System.out.println("Peeking head element: " + queue1.peek());
 
 
-        // ---------------- Queue with ArrayBlockingQueue ----------------
+        // Queue with ArrayBlockingQueue
         // ArrayBlockingQueue is a bounded blocking queue with fixed capacity.
         Queue<Integer> queue2 = new ArrayBlockingQueue<>(2);
 
@@ -56,6 +47,16 @@ public class QueueInterfaceDemo {
 }
 
 /*
+QueueInterface
+This class demonstrates how the Queue interface works in Java
+
+using two implementations:
+1. LinkedList (unbounded queue).
+2. ArrayBlockingQueue (bounded queue with fixed capacity).
+
+Queue follows FIFO (First In, First Out).
+Key methods: add(), offer(), remove(), poll(), element(), peek().
+
 1. Queue Interface:
    - Part of java.util package.
    - Represents a collection designed for holding elements prior to processing (FIFO).
@@ -111,5 +112,4 @@ ArrayBlockingQueue(capacity=2)
 Enqueue 1: [1]
 Enqueue 2: [1,2]
 Offer 3: fails (capacity full) → [1,2]
-
 */

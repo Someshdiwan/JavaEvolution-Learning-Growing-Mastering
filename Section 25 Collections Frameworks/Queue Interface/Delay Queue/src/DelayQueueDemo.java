@@ -9,6 +9,7 @@ public class DelayQueueDemo {
         // Elements can only be taken from the queue when their delay has expired
         // Useful for scheduling tasks to be executed after a certain delay
         // internally priority queue
+
         BlockingQueue<DelayedTask> delayQueue = new DelayQueue<>();
         delayQueue.put(new DelayedTask("Task1", 5, TimeUnit.SECONDS));
         delayQueue.put(new DelayedTask("Task2", 3, TimeUnit.SECONDS));
@@ -22,7 +23,6 @@ public class DelayQueueDemo {
 }
 
 class DelayedTask implements Delayed {
-
     private final String taskName;
     private final long startTime;
 

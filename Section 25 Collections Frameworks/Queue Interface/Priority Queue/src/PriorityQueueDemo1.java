@@ -1,7 +1,7 @@
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-class MyComp implements Comparator<Integer>
+class MyComp2 implements Comparator<Integer>
 {
     public int compare(Integer o1,Integer o2){
         if(o1<o2)return 1;
@@ -14,7 +14,6 @@ public class PriorityQueueDemo1 {
         //PriorityQueue<Integer> PQ = new PriorityQueue<>();
 
         PriorityQueue<Integer> PQ = new PriorityQueue<>(new MyComp());
-
 
         PQ.add(20);
         PQ.add(10);

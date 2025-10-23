@@ -1,8 +1,8 @@
-Key Points of BlockingQueue<E> (java.util.concurrent)
 Definition & Purpose
 
 A thread-safe queue that allows operations to wait when inserting into a full queue or retrieving from an empty queue.
 Primarily used in producer-consumer scenarios.
+
 Operations & Handling
 
 Provides four types of methods to handle operations that cannot be immediately satisfied:
@@ -10,18 +10,18 @@ Throws exception: add(e), remove(), element()
 Returns special value: offer(e), poll(), peek()
 Blocks indefinitely: put(e), take()
 Blocks for a limited time: offer(e, time, unit), poll(time, unit)
-Thread Safety & Concurrency
 
+Thread Safety & Concurrency
 Thread-safe implementation using internal locks or concurrency controls.
 Supports multiple producers and consumers.
 Follows memory consistency rules (happens-before relationship ensures synchronization).
-Capacity & Constraints
 
+Capacity & Constraints
 May be capacity-bounded (restricting elements beyond a limit).
 Always reports Integer.MAX_VALUE capacity if unbounded.
 Does not accept null elements (throws NullPointerException).
-Bulk Operations
 
+Bulk Operations
 Supports addAll(), containsAll(), retainAll(), and removeAll(), but these may not be atomic.
 Shutdown & Termination
 
@@ -31,7 +31,7 @@ Usage Example (Producer-Consumer Model)
 
 Producers add elements using put(e), and consumers retrieve using take().
 Works safely with multiple producers and consumers.
-Since & Author
 
+Since & Author
 Introduced in Java 1.5 as part of the Java Collections Framework.
 Designed by Doug Lea.

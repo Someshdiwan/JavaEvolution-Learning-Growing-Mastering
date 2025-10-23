@@ -30,6 +30,7 @@
 *.c          text eol=lf
 *.cpp        text eol=lf
 *.h          text eol=lf
+*.hpp        text eol=lf
 
 # ------------------------------------------------------------------------------
 # Binary files (never touch line endings / no diffs)
@@ -71,7 +72,7 @@
 *.yaml   text
 *.sql    text
 
-# Lockfiles rarely need diffs
+# Lockfile rarely need diffs
 package-lock.json -diff
 yarn.lock        -diff
 pnpm-lock.yaml   -diff
@@ -117,6 +118,12 @@ pnpm-lock.yaml   -diff
 *.sql    linguist-detectable=true
 *.md     linguist-detectable=true linguist-language=Markdown
 *.txt    linguist-detectable=true
+
+# C / C++ visibility and language classification
+*.c      linguist-detectable=true linguist-language=C
+*.h      linguist-detectable=true linguist-language=C
+*.cpp    linguist-detectable=true linguist-language=C++
+*.hpp    linguist-detectable=true linguist-language=C++
 
 # Force correct language classification
 *.xml    linguist-language=XML

@@ -1,0 +1,73 @@
+An unbounded queue has no fixed capacity limit — it can grow dynamically
+until available system memory is exhausted.
+
+Producers adding elements never block, as the queue always accepts new items.
+
+In Java:
+- `LinkedBlockingQueue` → optionally bounded, but unbounded by default (capacity = Integer.MAX_VALUE).
+- `PriorityBlockingQueue` → always unbounded, ordered by priority or natural order.
+- `DelayQueue` → always unbounded, elements become available only after their delay expires.
+
+This design is useful when the number of elements is unpredictable and memory
+resources are sufficient.
+
+Unbounded Queue (e.g., `LinkedBlockingQueue`, `DelayQueue`)
+
+          ┌────────────────────────────────────────────┐
+          │             Unbounded BlockingQueue        │
+          │────────────────────────────────────────────│
+Producer →│ [Task1] → [Task2] → [Task3] → [Task4] → …  │→ Consumer
+          │────────────────────────────────────────────│
+          │  • No fixed capacity limit                 │
+          │  • Grows dynamically (until memory limit)  │
+          │  • put() never blocks                      │
+          │  • take() blocks if queue is empty         │
+          └────────────────────────────────────────────┘
+
+
+Producer threads:
+┌───────────┐     ┌───────────┐     ┌───────────┐
+│ Producer1 │ →→→ │ Producer2 │ →→→ │ Producer3 │
+└───────────┘     └───────────┘     └───────────┘
+        │                │                │
+        ▼                ▼                ▼
+┌──────────────────────────────────────────────────┐
+│ Queue: [Task1][Task2][Task3][Task4][Task5]…∞     │
+└──────────────────────────────────────────────────┘
+        │
+        ▼
+        🚀 Keeps accepting new tasks (until memory full)
+
+Consumer thread:
+┌───────────┐
+│ Consumer1 │ → takes → processes → repeats
+└───────────┘
+
+
+Summary of Behavior
+
+| Queue Type               | Capacity Type | put() when Full  | take() when Empty| Example Use Case                    |
+|--------------------------|---------------|------------------|------------------|-------------------------------------|
+| `LinkedBlockingQueue`    | Unbounded     | Never blocks     | Blocks           | Generic producer-consumer model     |
+| `PriorityBlockingQueue`  | Unbounded     | Never blocks     | Blocks           | Priority-based task scheduling      |
+| `DelayQueue`             | Unbounded     | Never blocks     | Blocks (until delay expires) | Delayed job execution   |
+
+In short:
+An unbounded queue favors flexibility and throughput by eliminating
+capacity restrictions.
+
+It is ideal for applications where queue size is expected to remain reasonable,
+but it can be risky if producers outpace consumers — potentially causing
+OutOfMemoryError due to uncontrolled growth.
+
+
+          ┌────────────────────────────────────────────┐
+          │             Unbounded BlockingQueue        │
+          │────────────────────────────────────────────│
+Producer →│  [Task1] → [Task2] → [Task3] → [Task4] → … │→ Consumer
+          │────────────────────────────────────────────│
+          │  • No fixed capacity limit                 │
+          │  • Grows dynamically (until memory limit)  │
+          │  • put() never blocks                      │
+          │  • take() blocks if queue is empty         │
+          └────────────────────────────────────────────┘

@@ -1,0 +1,69 @@
+A bounded queue** has a fixed maximum capacity — it cannot grow beyond its limit.
+
+When the queue is full, producers attempting to insert elements block until space
+becomes available or until a timeout occurs (depending on the method used).
+
+In Java:
+- `ArrayBlockingQueue` → always bounded**, capacity fixed at creation.
+- `LinkedBlockingQueue` → can be explicitly bounded via constructor.
+- `SynchronousQueue` → zero-capacity, special case where capacity = 0.
+
+This design helps prevent memory exhaustion by throttling producers when consumers
+cannot keep up.
+
+Bounded Queue (e.g., `ArrayBlockingQueue`)
+
+          ┌────────────────────────────┐
+          │     Bounded BlockingQueue  │
+          │────────────────────────────│
+Producer →│ [Slot1] [Slot2] [Slot3]    │→ Consumer
+          │────────────────────────────│
+          │  • Fixed capacity (e.g., 3)│
+          │  • put() blocks if full    │
+          │  • take() blocks if empty  │
+          │  • Ensures backpressure    │
+          └────────────────────────────┘
+
+ASCII Flow Example
+
+Producer threads:
+┌───────────┐     ┌───────────┐     ┌───────────┐
+│ Producer1 │ →→→ │ Producer2 │ →→→ │ Producer3 │
+└───────────┘     └───────────┘     └───────────┘
+        │                │                │
+        ▼                ▼                ▼
+┌───────────────────────────────────────────────┐
+│ Queue: [Task1][Task2][Task3] (FULL)           │
+└───────────────────────────────────────────────┘
+                 │
+                 ▼
+        💤 Producers block until Consumer takes()
+
+Consumer thread:
+┌───────────┐
+│ Consumer1 │ → consumes → frees space → producers resume
+└───────────┘
+
+Summary of Behavior
+
+| Queue Type               | Capacity Type     | put() when Full            | take() when Empty          | Example Use Case                 |
+|--------------------------|-------------------|----------------------------|----------------------------|----------------------------------|
+| `ArrayBlockingQueue`     | Bounded           | Blocks                     | Blocks                     | Thread throttling, load control  |
+| `LinkedBlockingQueue`    | Bounded/Unbounded | Blocks if bounded & full   | Blocks                     | Mixed use, configurable          |
+| `SynchronousQueue`       | Zero-capacity     | Always blocks until paired | Always blocks until paired | Direct thread handoff            |
+
+In short:
+A bounded queue enforces capacity limits and provides natural backpressure,
+ensuring that producers slow down when the queue is full. It’s ideal for systems
+where throughput must be controlled to prevent overloading memory or downstream
+consumers.
+
+          ┌────────────────────────────┐
+          │     Bounded BlockingQueue  │
+          │────────────────────────────│
+Producer →│ [Slot1] [Slot2] [Slot3]    │→ Consumer
+          │────────────────────────────│
+          │  • Fixed capacity (e.g., 3)│
+          │  • put() blocks if full    │
+          │  • take() blocks if empty  │
+          └────────────────────────────┘

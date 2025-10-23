@@ -1,16 +1,9 @@
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- * MAP --> THREAD SAFE --> ConcurrentHashMap
- *
- * @see ConcurrentMap.ConcurrentHashMapDemo.ConcurrentHashMapDemo
- */
-
 public class TaskSubmissionSystem {
     private static ConcurrentLinkedQueue<String> taskQueue = new ConcurrentLinkedQueue<>();
 
     public static void main(String[] args) {
-
         Thread producer = new Thread(() -> {
             while (true) {
                 try {
@@ -31,8 +24,13 @@ public class TaskSubmissionSystem {
                 }
             }
         });
-
         producer.start();
         consumer.start();
     }
 }
+
+/*
+We use the Same Technique used here.
+
+MAP --> THREAD SAFE --> ConcurrentHashMap
+*/

@@ -1,0 +1,50 @@
+Both ArrayDeque and LinkedList implement the Deque (double-ended queue) interface — meaning you can add or
+remove elements from both ends. But they behave quite differently internally.
+
+⸻
+
+Internal structure
+• ArrayDeque: Backed by a resizable circular array.
+• LinkedList: Backed by a doubly linked list (each node has pointers to next and previous).
+
+⸻
+
+Performance comparison
+
+Operation Type                    ArrayDeque          LinkedList                   Reason
+Add/remove at head or tail        O(1) amortized       O(1)              Both are efficient for queue/deque behavior
+Add/remove at middle              ❌ O(n)              ✅ O(n)           Both need traversal — LinkedList can move by pointers, but still linear
+Random access (like get(index))   ❌ O(n)              ❌ O(n)           Neither is good for index-based access
+Iteration                         ✅ Faster            ⚪ Slower         ArrayDeque’s array-based iteration is cache-friendly
+Memory overhead                   ✅ Lower             ❌ Higher         LinkedList stores two extra node pointers per element
+Allows null?                      ❌ No                ✅ Yes            ArrayDeque forbids nulls for sentinel logic reasons
+
+⸻
+
+When to use which
+• Use ArrayDeque for:
+- Queue, stack, or general double-ended operations.
+- High-performance iteration.
+- Lower memory footprint.
+- You don’t need null elements.
+
+• Use LinkedList for:
+- Frequent insertions/deletions in the middle (though still O(n)).
+- When List behavior (like get(int index)) is also needed.
+- When you specifically need null elements.
+
+⸻
+
+Verdict:
+
+For queues, stacks, or deques,
+→ ArrayDeque is almost always the better choice.
+
+For list-like access where you occasionally modify middle elements,
+→ LinkedList might be acceptable, but rarely optimal compared to ArrayList.
+
+⸻
+
+In short:
+Use ArrayDeque unless you have a specific reason not to — it’s faster, leaner,
+and better aligned with how modern CPUs like to cache memory.

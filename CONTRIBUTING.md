@@ -4,20 +4,6 @@ Thank you for wanting to contribute! This project exists to help learners unders
 
 ---
 
-## ⚖️ License & Attribution
-
-This repository and all its contents are **Copyright (c) 2025 Somesh Diwan. All rights reserved.**
-
-If you fork, adapt, or redistribute any part of this repository, **you must include this exact attribution line** in your fork’s `README.md`, documentation files, or code comments:
-
-```
-Original Author: Somesh Diwan
-```
-
-Failure to provide this attribution is a violation of the license terms.
-
----
-
 ## 📖 Table of Contents
 - [What to Contribute](#what-to-contribute)
 - [Getting Started (Local Setup)](#getting-started-local-setup)

@@ -1,0 +1,68 @@
+In Java, ? appears only as part of the ternary conditional operator.
+
+General form
+
+condition ? value_if_true : value_if_false
+
+It is a compact if–else expression that returns a value.
+
+⸻
+
+Simple example
+
+int a = 5;
+int b = 10;
+
+int max = (a > b) ? a : b;
+
+Equivalent to:
+
+int max;
+if (a > b) {
+    max = a;
+} else {
+    max = b;
+}
+
+
+⸻
+
+In the context of the earlier discussion
+
+There was no ternary operator used in the last Java code.
+
+This line:
+
+cost += (sDigit - tDigit + 10) % 10;
+
+does not contain ?.
+It uses modulo arithmetic, not a conditional operator.
+
+⸻
+
+When ? is typically used
+	•	Assigning values based on a condition
+	•	Returning one of two expressions
+	•	Compact logic where readability is preserved
+
+Example:
+
+String result = (x >= 0) ? "Positive" : "Negative";
+
+
+⸻
+
+When NOT to use ?
+	•	Complex nested logic
+	•	Multiple statements
+	•	Situations where clarity suffers
+
+⸻
+
+Summary
+	•	? is not a wildcard
+	•	? is not optional
+	•	? always pairs with :
+	•	Meaning: “if condition then this else that”
+
+End.

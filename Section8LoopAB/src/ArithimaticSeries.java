@@ -9,7 +9,7 @@ public class ArithimaticSeries {
         System.out.println("Enter a, d and n");
 
         int a = sc.nextInt();
-        int d= sc.nextInt();
+        int d = sc.nextInt();
         int n = sc.nextInt();
 
         int term = a;

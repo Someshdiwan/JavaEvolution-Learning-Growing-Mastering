@@ -23,13 +23,13 @@ public class CountingError {
         return count;
     }
 
-        public static void main (String[]args) {
-            String[][] items = {
-                    {"apple", "banana", "cherry"},
-                    {"dog", "cat", "rat"},
-                    {"hat", "bat", "mat"}
-            };
-            int result = count(items);
-            System.out.println("Count of strings containing 'a': " + result);
-        }
+    public static void main (String[]args) {
+        String[][] items = {
+            {"apple", "banana", "cherry"},
+            {"dog", "cat", "rat"},
+            {"hat", "bat", "mat"}
+        };
+        int result = count(items);
+        System.out.println("Count of strings containing 'a': " + result);
+    }
 }

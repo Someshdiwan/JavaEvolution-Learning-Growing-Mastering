@@ -1,6 +1,9 @@
 # Contributing to JavaEvolution — Learning, Growing, Mastering
 
-Thank you for wanting to contribute! This project exists to help learners understand Java through **clear examples, practical explanations, and polished documentation**. Whether you’re fixing a typo, adding an example, improving site content, or contributing tooling — your work matters. 🌱
+Thank you for wanting to contribute! This project exists to help learners understand Java through 
+**clear examples, practical explanations, and polished documentation**. 
+
+Whether you’re fixing a typo, adding an example, improving site content, or contributing tooling, your work matters.
 
 ---
 
@@ -223,6 +226,7 @@ If you have questions before contributing, open an issue with the `question` lab
 ---
 
 ## 🙏 Thank You!
-Your contributions make JavaEvolution better for learners worldwide. Keep examples **clear, well-documented, and focused on teaching.** 🚀
+Your contributions make JavaEvolution better for learners worldwide. Keep examples 
+**clear, well-documented, and focused on teaching.** 🚀
 
 ---

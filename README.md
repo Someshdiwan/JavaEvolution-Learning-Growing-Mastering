@@ -8,7 +8,6 @@
   </a>
 </p>
 <p align="center">
-  <!-- Tagline -->
   <img
     src="https://readme-typing-svg.demolab.com?font=Comic+Sans+MS&weight=700&size=22&pause=1800&duration=4200&center=true&vCenter=true&width=860&height=44&background=00000000&color=00BFA6&lines=Great+Code+Starts+with+Java.+Master+It%2C+Shape+the+Future."
     alt="Great Code Starts with Java. Master It, Shape the Future."
@@ -22,9 +21,7 @@
     <img src="https://img.shields.io/badge/Contribute-FFB300?style=for-the-badge&logo=github&logoColor=ffffff&labelColor=6B4E16&cacheSeconds=60"
          alt="Contribute" style="animation: pulse 2s infinite; border-radius: 8px;"/>
   </a>
-  <!-- Gap -->
 <span style="display:inline-block;width:16px;"></span>
-  <!-- Open Live Guide (Google, glowing gradient) -->
 <a href="https://someshdiwan.github.io/JavaEvolution-Learning-Growing-Mastering/"
 target="_blank" rel="noopener" style="text-decoration:none;">
 <img src="https://img.shields.io/badge/Open%20Live%20Guide-4285F4?style=for-the-badge&logo=google&logoColor=ffffff&cacheSeconds=60"
@@ -33,8 +30,6 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
 </p>
 <p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="8"/></p>
 
-
-<!-- Telegram Updates -->
 <p align="center" style="margin: 20px 0;">
   <!-- Telegram Logo -->
   <a href="https://t.me/JavaEvolutionUpdates" target="_blank" rel="noopener" title="Join Telegram">
@@ -46,7 +41,6 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
   </a>
 </p>
 
-<!-- Centered SVG Banner (clickable in README) -->
 <p align="center">
   <a href="https://t.me/JavaEvolutionUpdates" target="_blank" rel="noopener">
     <img src="site/assets/telegram-updates-text.svg" 
@@ -55,5 +49,4 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
   </a>
 </p>
 
-<!-- Spacer below -->
 <p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="20"/></p>

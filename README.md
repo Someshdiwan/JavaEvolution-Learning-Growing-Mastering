@@ -31,7 +31,6 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
 <p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="8"/></p>
 
 <p align="center" style="margin: 20px 0;">
-  <!-- Telegram Logo -->
   <a href="https://t.me/JavaEvolutionUpdates" target="_blank" rel="noopener" title="Join Telegram">
     <img 
       src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" 

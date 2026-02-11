@@ -14,7 +14,6 @@
     alt="Great Code Starts with Java. Master It, Shape the Future."
   />
 </p>
-<!-- Subtle vertical rhythm -->
 <div style="height: 12px;"></div>
 <p align="center" style="font-family: 'Comic Sans MS', cursive, sans-serif;">
   <!-- Contribute (pulse animation) -->
@@ -32,12 +31,10 @@ target="_blank" rel="noopener" style="text-decoration:none;">
 alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; border-radius: 8px;"/>
 </a>
 </p>
-<!-- Divider -->
 <p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="8"/></p>
 
 
 <!-- Telegram Updates -->
-<!-- Spacer above -->
 <p align="center" style="margin: 20px 0;">
   <!-- Telegram Logo -->
   <a href="https://t.me/JavaEvolutionUpdates" target="_blank" rel="noopener" title="Join Telegram">
@@ -47,17 +44,6 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
       width="80" height="80"
       style="vertical-align: middle;"/>
   </a>
-<a href="https://www.youtube.com/watch?v=w-GR5y96P70&t=21s"
-   target="_blank"
-   rel="noopener"
-   title="Watch on YouTube"
-   style="display: inline-flex; align-items: center;">
-<img
-    src="./site/assets/youtube-svgrepo-com.svg"
-    alt="Watch on YouTube"
-    width="80" height="80"
-    style="vertical-align: middle;" />
-</a>
 </p>
 
 <!-- Centered SVG Banner (clickable in README) -->
@@ -71,4 +57,3 @@ alt="Open Live Guide (Google)" style="animation: glow 3s infinite alternate; bor
 
 <!-- Spacer below -->
 <p align="center"><img src="https://img.shields.io/badge/--00000000.svg" alt="" width="1" height="20"/></p>
-

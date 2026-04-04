@@ -32,8 +32,6 @@ Java 26 note:
 StructuredTaskScope API changed from older ShutdownOnFailure style
 to the new open(...) + Joiner style.
 
-
-
 Previous Java style:
 - Usually we used ExecutorService + Future
 - We manually submitted tasks

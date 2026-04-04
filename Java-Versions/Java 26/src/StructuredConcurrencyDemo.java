@@ -1,6 +1,6 @@
 import java.util.concurrent.StructuredTaskScope;
 
-public class Test1 {
+public class StructuredConcurrencyDemo {
     public static void main(String[] args) {
 
         try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
@@ -27,6 +27,12 @@ public class Test1 {
 
 /*
 What changed: Previous vs New
+
+Java 26 note:
+StructuredTaskScope API changed from older ShutdownOnFailure style
+to the new open(...) + Joiner style.
+
+
 
 Previous Java style:
 - Usually we used ExecutorService + Future

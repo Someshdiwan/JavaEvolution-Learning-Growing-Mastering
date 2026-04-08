@@ -1,12 +1,10 @@
 import java.lang.reflect.Field;
 
 public class FinalFieldDemo {
-
     public static void main(String[] args) {
-
         try {
             User user = new User("Somesh");
-            
+
             System.out.println("Before reflection: " + user.name);
 
             Field field = User.class.getDeclaredField("name");
